@@ -63,7 +63,7 @@ export default function Page() {
       <Suspense>
         <Await resolve={gids}>
           {/* Page hero */}
-          <PageHero fallbackTitle={page.title} hero={page.hero} />
+          {/* <PageHero fallbackTitle={page.title} hero={page.hero} /> */}
           {/* Body */}
           {page.body && (
             <PortableText
@@ -72,6 +72,7 @@ export default function Page() {
               className={clsx(
                 'mx-auto max-w-[660px] px-4 pb-24 pt-8', //
                 'md:px-8',
+                'font-serif'
               )}
             />
           )}

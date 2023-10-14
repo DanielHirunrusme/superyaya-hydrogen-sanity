@@ -6,7 +6,7 @@ import {twMerge} from 'tailwind-merge';
 import {defaultButtonStyles} from '~/components/elements/Button';
 import SpinnerIcon from '~/components/icons/Spinner';
 
-type FormMode = 'default' | 'inline';
+type FormMode = 'default' | 'inline' | 'outline';
 
 export default function AddToCartButton({
   children = 'Add to cart',
@@ -42,7 +42,7 @@ export default function AddToCartButton({
             />
             <button
               className={
-                mode == 'default'
+                mode == 'outline'
                   ? twMerge(defaultButtonStyles(), buttonClassName)
                   : buttonClassName
               }

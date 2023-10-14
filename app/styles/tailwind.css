@@ -3,63 +3,72 @@
 @tailwind utilities;
 
 @layer base {
+  @font-face {
+    font-family: 'EngraversEF';
+    src: url('/fonts/EngraversEF-Roman.woff2') format('woff2'),
+      url('/fonts/EngraversEF-Roman.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Snell';
+    src: url('/fonts/SnellBT-Regular.woff2') format('woff2'),
+      url('/fonts/SnellBT-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'EngraversGothic';
+    src: url('/fonts/EngraversGothicBT-Regular.woff2') format('woff2'),
+      url('/fonts/EngraversGothicBT-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'EurostileMonoEF';
+    src: url('/fonts/EurostileMonoEF-Regular.woff2') format('woff2'),
+      url('/fonts/EurostileMonoEF-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
   button {
     letter-spacing: inherit;
   }
   html {
-    @apply font-medium;
-    @apply text-offBlack;
-    @apply text-md;
+    @apply font-medium text-black;
   }
+  
   body {
-    @apply bg-white font-sans;
+    @apply bg-white font-sans uppercase;
   }
 
-  html, body {
+  html,
+  body {
     overscroll-behavior: none;
   }
 
-  @font-face {
-    font-family: 'EngraversEF';
-    src: url('/fonts/EngraversEF-Roman.woff2') format('woff2'),
-        url('/fonts/EngraversEF-Roman.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
+  * {
+    @apply !uppercase;
+  }
 
-@font-face {
-    font-family: 'Snell';
-    src: url('/fonts/SnellBT-Regular.woff2') format('woff2'),
-        url('/fonts/SnellBT-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: italic;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'EngraversGothic';
-    src: url('/fonts/EngraversGothicBT-Regular.woff2') format('woff2'),
-        url('/fonts/EngraversGothicBT-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'EurostileMonoEF';
-    src: url('/fonts/EurostileMonoEF-Regular.woff2') format('woff2'),
-        url('/fonts/EurostileMonoEF-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
+  .skew {
+    @apply inline-block;
+    transform: scale(.85,1);
+    letter-spacing: .15em;
+  }
 }
 
 @layer components {
   .linkTextNavigation {
-    @apply decoration-[0.1em] underline-offset-[0.1em] hover:underline;
+    @apply uppercase hover:underline underline-offset-2 decoration-1;
   }
 
   .portableText {

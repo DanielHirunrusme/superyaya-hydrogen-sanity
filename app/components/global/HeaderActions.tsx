@@ -1,17 +1,17 @@
-import {useMatches} from '@remix-run/react';
-import {CartForm} from '@shopify/hydrogen';
+import { useMatches } from '@remix-run/react';
+import { CartForm } from '@shopify/hydrogen';
 import clsx from 'clsx';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 
-import {CartDrawer, useDrawer} from '~/components/cart/CartDrawer';
+import { CartDrawer, useDrawer } from '~/components/cart/CartDrawer';
 import CartToggle from '~/components/cart/CartToggle';
-import {CountrySelector} from '~/components/global/CountrySelector';
-import {UserIcon} from '~/components/icons/User';
-import {Link} from '~/components/Link';
-import {useCartFetchers} from '~/hooks/useCartFetchers';
+import { CountrySelector } from '~/components/global/CountrySelector';
+import { UserIcon } from '~/components/icons/User';
+import { Link } from '~/components/Link';
+import { useCartFetchers } from '~/hooks/useCartFetchers';
 
 export default function HeaderActions() {
-  const {isOpen, openDrawer, closeDrawer} = useDrawer();
+  const { isOpen, openDrawer, closeDrawer } = useDrawer();
   const [root] = useMatches();
   const cart = root.data?.cart;
 
@@ -32,10 +32,7 @@ export default function HeaderActions() {
   return (
     <>
       <div
-        className={clsx(
-          'absolute right-0 flex h-full items-center', //
-          'md:mr-4',
-        )}
+        className="absolute right-0 top-0 m-4 flex gap-6"
       >
         {/* Country select */}
         {/* <div
@@ -58,9 +55,13 @@ export default function HeaderActions() {
           <UserIcon />
         </Link> */}
         {/* Cart */}
-        <div className="ml-2 mr-4 flex h-full items-center justify-center py-4">
+        <Link to="/" className="linkTextNavigation">Assistance</Link>
+
+        <div className="">
           <CartToggle cart={cart} isOpen openDrawer={openDrawer} />
         </div>
+        <Link to="/pages/studio" className="linkTextNavigation">Studio</Link>
+
       </div>
 
       <CartDrawer cart={cart} open={isOpen} onClose={closeDrawer} />

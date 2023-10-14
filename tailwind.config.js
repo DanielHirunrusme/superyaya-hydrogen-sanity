@@ -15,7 +15,8 @@ module.exports = {
       DEFAULT: '0px 0px 4px rgba(0, 0, 0, 0.1)',
     },
     fontFamily: {
-      sans: 'EurostileMonoEF, "Helvetica Neue", Arial, sans-serif',
+      sans: 'EngraversGothic, "Helvetica Neue", Arial, sans-serif',
+      serif: 'Times New Roman, serif',
     },
     fontSize: {
       // 12px

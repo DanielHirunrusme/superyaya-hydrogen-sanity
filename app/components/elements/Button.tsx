@@ -32,19 +32,19 @@ export const defaultButtonStyles = (options?: ButtonStyleOptions) => {
   const tone: ButtonTone = options?.tone || 'default';
 
   return clsx([
-    'flex h-[2.5rem] items-center justify-center overflow-hidden rounded-full p-4 text-sm font-bold duration-200 ease-out',
+    'flex h-[2.5rem] items-center justify-center overflow-hidden p-4',
     'disabled:opacity-20 disabled:bg-opacity-100',
     mode === 'default' &&
       clsx([
         tone === 'critical' && 'bg-red',
-        tone === 'default' && 'bg-offBlack',
+        tone === 'default' && 'bg-black',
         tone === 'shopPay' && 'bg-shopPay',
         'hover:opacity-80 text-white',
       ]),
     mode === 'outline' &&
       clsx([
         tone === 'critical' && 'border-color-red text-red',
-        tone === 'default' && 'border-color-offBlack text-offBlack',
+        tone === 'default' && 'border-color-black',
         tone === 'shopPay' && 'border-color-shopPay text-shopPay',
         'bg-transparent border hover:opacity-50',
       ]),

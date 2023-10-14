@@ -8,6 +8,7 @@ import {
   useLoaderData,
   useMatches,
   useRouteError,
+  LiveReload,
 } from '@remix-run/react';
 import {
   Seo,
@@ -144,6 +145,7 @@ export default function App() {
         </PreviewProvider>
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
+        <LiveReload />
       </body>
     </html>
   );

@@ -22,6 +22,7 @@ module.exports = {
     v2_normalizeFormMethod: true,
     v2_routeConvention: true,
     v2_headers: true,
+    v2_dev: true,
   },
   postcss: true,
   tailwind: true,

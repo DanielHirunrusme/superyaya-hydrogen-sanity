@@ -25,7 +25,7 @@ function ProductPrices({
   }
 
   return (
-    <div className="mt-2 flex text-md font-bold">
+    <div>
       {selectedVariant.compareAtPrice && (
         <span className="mr-3 text-darkGray line-through decoration-red">
           <Money data={selectedVariant.compareAtPrice} />
@@ -49,12 +49,11 @@ export default function ProductWidget({
     return null;
   }
 
+  console.log('storefrontProduct', storefrontProduct)
+
   return (
     <div
-      className={clsx(
-        'pointer-events-auto z-10 ml-auto rounded bg-white px-4 py-6 shadow',
-        'md:px-6',
-      )}
+
     >
       {/* Sold out */}
       {!availableForSale && (
@@ -70,16 +69,9 @@ export default function ProductWidget({
 
       {/* Title */}
       {storefrontProduct?.title && (
-        <h1 className="text-md font-bold uppercase">
+        <h1 className="">
           {storefrontProduct.title}
         </h1>
-      )}
-
-      {/* Vendor */}
-      {storefrontProduct?.vendor && (
-        <div className="mt-1 text-md text-darkGray">
-          {storefrontProduct.vendor}
-        </div>
       )}
 
       {/* Prices */}
@@ -88,8 +80,16 @@ export default function ProductWidget({
         selectedVariant={selectedVariant}
       />
 
-      {/* Divider */}
-      <div className="my-4 w-full border-b border-gray" />
+<br />
+      {/* Description */}
+      {storefrontProduct?.descriptionHtml && <div dangerouslySetInnerHTML={{__html: storefrontProduct.descriptionHtml }} />}
+
+      {/* Vendor */}
+      {/* {storefrontProduct?.vendor && (
+        <div className="mt-1 text-md text-darkGray">
+          {storefrontProduct.vendor}
+        </div>
+      )} */}
 
       {/* Product options */}
       <ProductForm

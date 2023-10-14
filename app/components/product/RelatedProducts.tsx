@@ -14,19 +14,13 @@ export default function RelatedProducts({relatedProducts}: Props) {
 
   return (
     <div
-      className={clsx(
-        'rounded-t-xl px-4 py-8', //
-        'md:px-8',
-      )}
+
       style={{background: colorTheme?.background || 'white'}}
     >
       <h3
-        className={clsx(
-          'mb-6 text-lg font-bold', //
-          'md:text-xl',
-        )}
+        
       >
-        Related products
+        Related
       </h3>
       <div
         className={clsx(

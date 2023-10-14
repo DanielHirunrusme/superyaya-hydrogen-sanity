@@ -1,0 +1,1 @@
+export const GRID_GAP = 'gap-4'

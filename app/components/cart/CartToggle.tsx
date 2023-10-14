@@ -18,15 +18,16 @@ export default function CartToggle({cart, isOpen, openDrawer}: Props) {
     <Suspense fallback={<CircleOutlineButton>0</CircleOutlineButton>}>
       <Await resolve={cart}>
         {(data) => (
-          <CircleOutlineButton
+          <button
             aria-expanded={isOpen}
             aria-controls="cart"
             onClick={() => {
               openDrawer();
             }}
+            className="linkTextNavigation"
           >
-            {data?.totalQuantity || 0}
-          </CircleOutlineButton>
+            Cart ({data?.totalQuantity || 0})
+          </button>
         )}
       </Await>
     </Suspense>

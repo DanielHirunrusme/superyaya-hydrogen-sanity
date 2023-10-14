@@ -1,4 +1,4 @@
-import {ShopifyAnalyticsPayload} from '@shopify/hydrogen';
+import { ShopifyAnalyticsPayload } from '@shopify/hydrogen';
 import type {
   Product,
   ProductVariant,
@@ -7,7 +7,8 @@ import clsx from 'clsx';
 
 import ProductGallery from '~/components/product/Gallery';
 import ProductWidget from '~/components/product/Widget';
-import type {SanityProductPage} from '~/lib/sanity';
+import { GRID_GAP } from '~/lib/constants';
+import type { SanityProductPage } from '~/lib/sanity';
 
 type Props = {
   sanityProduct: SanityProductPage;
@@ -25,33 +26,11 @@ export default function ProductDetails({
   analytics,
 }: Props) {
   return (
-    <>
-      {/* Gallery */}
-      <ProductGallery
-        storefrontProduct={storefrontProduct}
-        selectedVariant={selectedVariant}
-      />
+    <div className={clsx('grid grid-cols-8', GRID_GAP)}>
 
-      {/* Widget (mobile) */}
-      <div className="mb-8 lg:hidden">
-        <ProductWidget
-          sanityProduct={sanityProduct}
-          storefrontProduct={storefrontProduct}
-          storefrontVariants={storefrontVariants}
-          selectedVariant={selectedVariant}
-          analytics={analytics}
-        />
-      </div>
-
-      {/* Widget (desktop) */}
-      <div
-        className={clsx(
-          'pointer-events-none absolute right-0 top-0 z-10 hidden h-full w-[315px]',
-          'lg:block',
-        )}
-      >
-        <div className="sticky top-0 h-screen">
-          <div className="absolute bottom-0 w-full p-4">
+       {/* Widget (desktop) */}
+       <div className='col-span-2'>
+          <div>
             <ProductWidget
               sanityProduct={sanityProduct}
               storefrontProduct={storefrontProduct}
@@ -60,8 +39,28 @@ export default function ProductDetails({
               analytics={analytics}
             />
           </div>
-        </div>
       </div>
-    </>
+
+      {/* Gallery */}
+      <div className='col-span-6'>
+      <ProductGallery
+        storefrontProduct={storefrontProduct}
+        selectedVariant={selectedVariant}
+      />
+      </div>
+
+      {/* Widget (mobile) */}
+      {/* <div className="mb-8 lg:hidden">
+        <ProductWidget
+          sanityProduct={sanityProduct}
+          storefrontProduct={storefrontProduct}
+          storefrontVariants={storefrontVariants}
+          selectedVariant={selectedVariant}
+          analytics={analytics}
+        />
+      </div> */}
+
+     
+    </div>
   );
 }
