@@ -145,7 +145,7 @@ function Account({customer, orders, heading, addresses}: Account) {
   return (
     <div className="divide-y divide-gray pb-24 pt-28">
       <AccountSection>
-        <div className="mb-4 text-sm font-bold">Account</div>
+        <div className="mb-4  ">Account</div>
         <h1
           className={clsx([
             'mb-4 text-2xl', //

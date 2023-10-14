@@ -18,7 +18,7 @@ export function AccountAddressBook({
   return (
     <>
       <div className="grid w-full">
-        <h3 className="text-xl font-bold">Address Book</h3>
+        <h3 className="text-xl ">Address Book</h3>
         <div>
           {!addresses?.length && (
             <p>You haven&apos;t saved any addresses yet.</p>
@@ -56,7 +56,7 @@ function Address({
   defaultAddress?: boolean;
 }) {
   return (
-    <div className="flex flex-col rounded border border-darkGray/50 p-4">
+    <div className="flex flex-colborder border-darkGray/50 p-4">
       {defaultAddress && (
         <div className="mb-3 inline-flex">
           <Badge mode="outline" label="Default" small />
@@ -64,7 +64,7 @@ function Address({
       )}
       <ul className="flex-1 flex-row space-y-1">
         {(address.firstName || address.lastName) && (
-          <li className="font-bold">
+          <li className="">
             {'' +
               (address.firstName && address.firstName + ' ') +
               address?.lastName}
@@ -74,10 +74,10 @@ function Address({
           address.formatted.map((line: string) => <li key={line}>{line}</li>)}
       </ul>
 
-      <div className="mt-10 flex flex-row text-sm font-medium text-darkGray">
+      <div className="mt-10 flex flex-row  font-medium text-darkGray">
         <Link
           to={`/account/address/${encodeURIComponent(address.id)}`}
-          className="text-left text-sm"
+          className="text-left "
           prefetch="intent"
           preventScrollReset
         >
@@ -85,7 +85,7 @@ function Address({
         </Link>
         <Form action="/account/address/delete" method="delete">
           <input type="hidden" name="addressId" value={address.id} />
-          <button className="ml-6 text-left text-sm text-red">
+          <button className="ml-6 text-left  text-red">
             Remove address
           </button>
         </Form>

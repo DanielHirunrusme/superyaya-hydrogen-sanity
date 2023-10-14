@@ -1,14 +1,16 @@
-import {MediaFile} from '@shopify/hydrogen';
+import { MediaFile } from '@shopify/hydrogen';
 import {
   MediaImage,
   ProductVariant,
 } from '@shopify/hydrogen/storefront-api-types';
 import useEmblaCarousel from 'embla-carousel-react';
-import {useEffect} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import CircleButton from '~/components/elements/CircleButton';
-import {ArrowRightIcon} from '~/components/icons/ArrowRight';
-import type {ProductWithNodes} from '~/types/shopify';
+import { ArrowRightIcon } from '~/components/icons/ArrowRight';
+import { GRID_GAP } from '~/lib/constants';
+import type { ProductWithNodes } from '~/types/shopify';
+import clsx from 'clsx';
 
 /**
  * A client component that defines a media gallery for hosting images, 3D models, and videos of products
@@ -31,6 +33,7 @@ export default function ProductGallery({
   };
 
   const media = storefrontProduct?.media?.nodes;
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: 'start',
     draggable: media && media.length > 1,
@@ -38,6 +41,19 @@ export default function ProductGallery({
     skipSnaps: true,
     speed: 7,
   });
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi, setSelectedIndex]);
+
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on('select', onSelect);
+  }, [emblaApi, onSelect]);
+
 
   const handleNext = () => {
     if (emblaApi) {
@@ -50,6 +66,7 @@ export default function ProductGallery({
       emblaApi.scrollPrev();
     }
   };
+
 
   useEffect(() => {
     if (!selectedVariant) {
@@ -78,62 +95,109 @@ export default function ProductGallery({
   }
 
   return (
-    <div className="relative h-screen bg-lightGray" tabIndex={-1}>
-      <div className="h-full overflow-hidden" ref={emblaRef}>
-        <div className="flex h-full">
-          {/* Slides */}
-          {media.map((med) => {
-            let extraProps: Record<string, any> = {};
+    <>
+      {/* Mobile slideshow */}
+      <div className="md:hidden relative " tabIndex={-1}>
+        <div className="h-full overflow-hidden" ref={emblaRef}>
+          <div className="flex h-full">
+            {/* Slides */}
+            {media.map((med) => {
+              let extraProps: Record<string, any> = {};
 
-            if (med.mediaContentType === 'MODEL_3D') {
-              extraProps = {
-                interactionPromptThreshold: '0',
-                ar: true,
-                loading: 'eager',
-                disableZoom: true,
-                style: {height: '100%', margin: '0 auto'},
-              };
-            }
+              if (med.mediaContentType === 'MODEL_3D') {
+                extraProps = {
+                  interactionPromptThreshold: '0',
+                  ar: true,
+                  loading: 'eager',
+                  disableZoom: true,
+                  style: { height: '100%', margin: '0 auto' },
+                };
+              }
 
-            const data = {
-              ...med,
-              __typename:
-                typeNameMap[med.mediaContentType] || typeNameMap['IMAGE'],
-              image: {
-                // @ts-ignore
-                ...med.image,
-                altText: med.alt || 'Product image',
-              },
-            } as MediaImage;
+              const data = {
+                ...med,
+                __typename:
+                  typeNameMap[med.mediaContentType] || typeNameMap['IMAGE'],
+                image: {
+                  // @ts-ignore
+                  ...med.image,
+                  altText: med.alt || 'Product image',
+                },
+              } as MediaImage;
 
-            return (
-              <MediaFile
-                className="relative flex w-full shrink-0 grow-0 select-none object-cover"
-                data={data}
-                draggable={false}
-                key={med.id}
-                tabIndex={0}
-                mediaOptions={{
-                  image: {crop: 'center', sizes: '100vw', loading: 'eager'},
-                }}
-                {...extraProps}
-              />
-            );
-          })}
+              return (
+                <MediaFile
+                  className="relative flex w-full shrink-0 grow-0 select-none object-cover"
+                  data={data}
+                  draggable={false}
+                  key={med.id}
+                  tabIndex={0}
+                  mediaOptions={{
+                    image: { crop: 'center', sizes: '100vw', loading: 'eager' },
+                  }}
+                  {...extraProps}
+                />
+              );
+            })}
+          </div>
         </div>
+
+        {/* Navigation */}
+        {/* {media.length > 1 && (
+          <div className="absolute bottom-8 left-8 flex gap-3">
+            <CircleButton onClick={handlePrevious}>
+              <ArrowRightIcon className="rotate-180" />
+            </CircleButton>
+            <CircleButton onClick={handleNext}>
+              <ArrowRightIcon />
+            </CircleButton>
+          </div>
+        )} */}
+        <div className='pt-4 text-center'>{selectedIndex + 1}/{media!.length}</div>
       </div>
 
-      {/* Navigation */}
-      {media.length > 1 && (
-        <div className="absolute bottom-8 left-8 flex gap-3">
-          <CircleButton onClick={handlePrevious}>
-            <ArrowRightIcon className="rotate-180" />
-          </CircleButton>
-          <CircleButton onClick={handleNext}>
-            <ArrowRightIcon />
-          </CircleButton>
-        </div>
-      )}
-    </div>
+      {/* Desktop Gallery */}
+      <div className={clsx('hidden md:grid grid-cols-4 xl:grid-cols-6', GRID_GAP)}>
+        {/* Slides */}
+        {media.map((med) => {
+          let extraProps: Record<string, any> = {};
+
+          if (med.mediaContentType === 'MODEL_3D') {
+            extraProps = {
+              interactionPromptThreshold: '0',
+              ar: true,
+              loading: 'eager',
+              disableZoom: true,
+              style: { height: '100%', margin: '0 auto' },
+            };
+          }
+
+          const data = {
+            ...med,
+            __typename:
+              typeNameMap[med.mediaContentType] || typeNameMap['IMAGE'],
+            image: {
+              // @ts-ignore
+              ...med.image,
+              altText: med.alt || 'Product image',
+            },
+          } as MediaImage;
+
+          return (
+            <MediaFile
+              className="relative flex w-full shrink-0 grow-0 select-none object-cover"
+              data={data}
+              draggable={false}
+              key={med.id}
+              tabIndex={0}
+              mediaOptions={{
+                image: { crop: 'center', sizes: '100vw', loading: 'eager' },
+              }}
+              {...extraProps}
+            />
+          );
+        })}
+      </div>
+    </>
   );
 }

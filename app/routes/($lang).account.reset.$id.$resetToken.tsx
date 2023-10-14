@@ -147,11 +147,11 @@ export default function Reset() {
     >
       <div className="flex justify-center">
         <FormCardWrapper title="Reset password">
-          <p className="my-4 text-sm">Enter a new password for your account.</p>
+          <p className="my-4 ">Enter a new password for your account.</p>
           <Form method="post" noValidate>
             {/* Form error */}
             {actionData?.formError && (
-              <div className="mb-6 flex items-center justify-center rounded-sm border border-red p-4 text-sm text-red">
+              <div className="mb-6 flex items-center justify-center rounded-sm border border-red p-4  text-red">
                 <p>{actionData.formError}</p>
               </div>
             )}

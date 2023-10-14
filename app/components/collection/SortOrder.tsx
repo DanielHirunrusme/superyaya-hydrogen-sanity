@@ -102,7 +102,7 @@ export default function SortOrder({initialSortOrder}: Props) {
               </Menu.Button>
               <Menu.Items
                 className={clsx(
-                  'absolute left-0 right-auto top-full z-10 mt-3 min-w-[150px] overflow-hidden rounded shadow',
+                  'absolute left-0 right-auto top-full z-10 mt-3 min-w-[150px] overflow-hiddenshadow',
                   'md:left-auto md:right-0',
                 )}
               >
@@ -116,7 +116,7 @@ export default function SortOrder({initialSortOrder}: Props) {
                             <Link
                               to={getSortLink(item.key, params, location)}
                               className={clsx([
-                                'flex cursor-pointer items-center justify-between whitespace-nowrap p-3 text-left text-sm font-bold',
+                                'flex cursor-pointer items-center justify-between whitespace-nowrap p-3 text-left  ',
                                 isSelected ? 'bg-lightGray' : null,
                               ])}
                               preventScrollReset

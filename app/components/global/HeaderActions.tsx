@@ -9,8 +9,9 @@ import { CountrySelector } from '~/components/global/CountrySelector';
 import { UserIcon } from '~/components/icons/User';
 import { Link } from '~/components/Link';
 import { useCartFetchers } from '~/hooks/useCartFetchers';
+import MobileNavigation from './MobileNavigation';
 
-export default function HeaderActions() {
+export default function HeaderActions({menuLinks}) {
   const { isOpen, openDrawer, closeDrawer } = useDrawer();
   const [root] = useMatches();
   const cart = root.data?.cart;
@@ -55,12 +56,14 @@ export default function HeaderActions() {
           <UserIcon />
         </Link> */}
         {/* Cart */}
-        <Link to="/" className="linkTextNavigation">Assistance</Link>
+        <Link to="/" className="linkTextNavigation hidden md:inline">Assistance</Link>
 
         <div className="">
           <CartToggle cart={cart} isOpen openDrawer={openDrawer} />
         </div>
-        <Link to="/pages/studio" className="linkTextNavigation">Studio</Link>
+        <Link to="/pages/studio" className="linkTextNavigation hidden md:inline">Studio</Link>
+
+        {menuLinks && <MobileNavigation menuLinks={menuLinks} />}
 
       </div>
 

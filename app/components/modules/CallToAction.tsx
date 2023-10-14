@@ -36,7 +36,7 @@ export default function CallToActionModule({module}: Props) {
         {/* Title */}
         <div
           className={clsx(
-            'text-xl font-bold', //
+            'text-xl ', //
             'md:text-2xl',
           )}
         >
@@ -52,7 +52,7 @@ export default function CallToActionModule({module}: Props) {
         {module.link && (
           <div className="mt-4">
             <Link
-              className="font-bold underline hover:no-underline"
+              className=" underline hover:no-underline"
               link={module.link}
             >
               {module.link.title}

@@ -9,7 +9,7 @@ export default function CircleOutlineButton(props: Props) {
   return (
     <button
       className={clsx(
-        'aspect-square w-[2.375rem] place-content-center rounded-full border border-offBlack fill-offBlack text-sm font-bold duration-200',
+        'aspect-square w-[2.375rem] place-content-center rounded-full border border-offBlack fill-offBlack   duration-200',
         'hover:border-opacity-50',
         className,
       )}

@@ -46,40 +46,40 @@ export default function ProductTile({storefrontProduct, variantGid}: Props) {
         <div className="overflow-hidden">
           {/* Sold out */}
           {!availableForSale && (
-            <div className="mb-2 text-xs font-bold uppercase text-darkGray">
+            <div className="mb-2 text-darkGray">
               Sold out
             </div>
           )}
 
           {/* Sale */}
           {availableForSale && compareAtPrice && (
-            <div className="mb-2 text-xs font-bold uppercase text-red">
+            <div className="mb-2 text-red">
               Sale
             </div>
           )}
 
           {/* Title */}
-          <div className="truncate text-lg font-bold group-hover:underline">
+          <div className="truncate group-hover:underline">
             {storefrontProduct.title}
           </div>
 
           {/* Vendor */}
           {storefrontProduct.vendor && (
-            <div className="mt-1 truncate text-sm text-darkGray">
+            <div className="mt-1 truncate  text-darkGray">
               {storefrontProduct.vendor}
             </div>
           )}
 
           {/* Product options */}
           {multipleProductOptions && (
-            <div className="mt-1 truncate text-sm text-darkGray">
+            <div className="mt-1 truncate  text-darkGray">
               {productOptions}
             </div>
           )}
         </div>
 
         {/* Price / sold out */}
-        <div className="mt-2 flex text-sm font-bold">
+        <div className="flex  ">
           {compareAtPrice && (
             <span className="text-darkGray">
               <Money

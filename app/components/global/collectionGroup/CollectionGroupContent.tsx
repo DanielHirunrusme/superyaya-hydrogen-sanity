@@ -73,7 +73,7 @@ export default function CollectionGroupContent({
           'lg:h-header-lg',
         )}
       >
-        <div className="text-xl font-bold leading-none">
+        <div className="text-xl  leading-none">
           {collectionGroup?.title}
         </div>
         <button type="button" onClick={onClose}>
@@ -83,7 +83,7 @@ export default function CollectionGroupContent({
 
       {/* Collections */}
       <div className="px-8">
-        <div className="text-lg font-bold">Collections</div>
+        <div className="text-lg ">Collections</div>
         <div className="relative mt-3 grid grid-cols-2 gap-2">
           {renderCollections()}
         </div>
@@ -94,7 +94,7 @@ export default function CollectionGroupContent({
         <div className="mt-8 px-8" ref={ref}>
           {products ? (
             <>
-              <div className="text-lg font-bold">{collection.title}</div>
+              <div className="text-lg ">{collection.title}</div>
               <ul className="mt-3 grid grid-cols-1 gap-2">
                 {renderCollectionProducts()}
               </ul>

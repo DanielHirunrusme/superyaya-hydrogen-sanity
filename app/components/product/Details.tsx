@@ -26,11 +26,11 @@ export default function ProductDetails({
   analytics,
 }: Props) {
   return (
-    <div className={clsx('grid grid-cols-8', GRID_GAP)}>
+    <div className={clsx('flex flex-col-reverse md:grid grid-cols-8', GRID_GAP)}>
 
        {/* Widget (desktop) */}
        <div className='col-span-2'>
-          <div>
+ 
             <ProductWidget
               sanityProduct={sanityProduct}
               storefrontProduct={storefrontProduct}
@@ -38,7 +38,7 @@ export default function ProductDetails({
               selectedVariant={selectedVariant}
               analytics={analytics}
             />
-          </div>
+      
       </div>
 
       {/* Gallery */}
@@ -48,6 +48,8 @@ export default function ProductDetails({
         selectedVariant={selectedVariant}
       />
       </div>
+
+
 
       {/* Widget (mobile) */}
       {/* <div className="mb-8 lg:hidden">

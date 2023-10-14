@@ -2,8 +2,6 @@ import {Await} from '@remix-run/react';
 import {Cart} from '@shopify/hydrogen/storefront-api-types';
 import {Suspense} from 'react';
 
-import CircleOutlineButton from '~/components/elements/CircleOutlineButton';
-
 type Props = {
   cart: Cart;
   isOpen: boolean;
@@ -15,7 +13,7 @@ type Props = {
  */
 export default function CartToggle({cart, isOpen, openDrawer}: Props) {
   return (
-    <Suspense fallback={<CircleOutlineButton>0</CircleOutlineButton>}>
+    <Suspense fallback={<button>Cart (0)</button>}>
       <Await resolve={cart}>
         {(data) => (
           <button

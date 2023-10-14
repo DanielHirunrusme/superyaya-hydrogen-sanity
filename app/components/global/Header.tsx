@@ -20,10 +20,10 @@ export default function Header() {
       
       role="banner"
     >
-      {menuLinks && <MobileNavigation menuLinks={menuLinks} />}
+     
       {menuLinks && <Navigation menuLinks={menuLinks} />}
       {/* Accounts, country selector + cart toggle */}
-      <HeaderActions />
+      <HeaderActions menuLinks={menuLinks} />
     </header>
   );
 }

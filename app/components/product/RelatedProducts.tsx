@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 
 import ProductCard from '~/components/product/Card';
+import { GRID_GAP } from '~/lib/constants';
 import {useColorTheme} from '~/lib/theme';
 import type {ProductWithNodes} from '~/types/shopify';
 
@@ -14,19 +15,17 @@ export default function RelatedProducts({relatedProducts}: Props) {
 
   return (
     <div
-
+    className={clsx('grid grid-cols-8', GRID_GAP)}
       style={{background: colorTheme?.background || 'white'}}
     >
-      <h3
+      <div className='col-span-2'><h3
         
-      >
-        Related
-      </h3>
+        >
+          Related
+        </h3></div>
+      
       <div
-        className={clsx(
-          'grid grid-cols-2 gap-3 pb-6', //
-          'md:grid-cols-4',
-        )}
+        className={clsx('col-span-6 grid grid-cols-6', GRID_GAP)}
       >
         {products.map((product) => (
           <ProductCard key={product.id} storefrontProduct={product} />

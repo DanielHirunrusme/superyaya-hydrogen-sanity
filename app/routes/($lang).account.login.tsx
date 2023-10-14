@@ -111,7 +111,7 @@ export default function Login() {
           <Form method="post" noValidate>
             {/* Form error */}
             {actionData?.formError && (
-              <div className="mb-6 flex items-center justify-center rounded-sm border border-red p-4 text-sm text-red">
+              <div className="mb-6 flex items-center justify-center rounded-sm border border-red p-4  text-red">
                 <p>{actionData.formError}</p>
               </div>
             )}
@@ -180,16 +180,16 @@ export default function Login() {
                 {navigation.state !== 'idle' ? 'Signing in...' : 'Sign In'}
               </Button>
               <div className="flex justify-between">
-                <p className="text-sm">
+                <p className="">
                   New user?&nbsp;
                   <Link className="inline underline" to="/account/register">
                     Create an account
                   </Link>
                 </p>
 
-                <p className="text-sm">
+                <p className="">
                   <Link
-                    className="text-primary/50 inline-block align-baseline text-sm"
+                    className="text-primary/50 inline-block align-baseline "
                     to="/account/recover"
                   >
                     Forgot password?

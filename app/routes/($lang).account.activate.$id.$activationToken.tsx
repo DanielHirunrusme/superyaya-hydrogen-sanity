@@ -147,14 +147,14 @@ export default function Activate() {
     >
       <div className="flex justify-center">
         <FormCardWrapper title="Activate account">
-          <p className="my-4 text-sm">
+          <p className="my-4 ">
             Create your password to activate your account.
           </p>
           {/* TODO: Add onSubmit to validate _before_ submission with native? */}
           <Form method="post" noValidate>
             {/* Form error */}
             {actionData?.formError && (
-              <div className="mb-6 flex items-center justify-center rounded-sm border border-red p-4 text-sm text-red">
+              <div className="mb-6 flex items-center justify-center rounded-sm border border-red p-4  text-red">
                 <p>{actionData.formError}</p>
               </div>
             )}

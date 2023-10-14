@@ -52,7 +52,6 @@ export default function ProductForm({
             selectedVariant={selectedVariant}
             customProductOptions={customProductOptions}
           />
-          <div className="my-4 w-full border-b border-gray" />
         </>
       )}
 

@@ -23,7 +23,7 @@ export function PreviewBanner() {
       <button
         disabled={fetcher.state === 'submitting'}
         className={clsx(
-          'flex h-[2.5rem] shrink-0 items-center justify-center rounded-full border border-white border-opacity-20 bg-offBlack p-4 text-sm font-bold duration-200 ease-out',
+          'flex h-[2.5rem] shrink-0 items-center justify-center rounded-full border border-white border-opacity-20 bg-offBlack p-4   duration-200 ease-out',
           'hover:bg-black',
           'disabled:bg-opacity-100 disabled:opacity-20',
         )}

@@ -26,7 +26,7 @@ export default function ProductOptions({
   customProductOptions?: SanityCustomProductOption[];
 }) {
   return (
-    <div className="grid gap-4">
+    <div className="py-8 grid gap-4">
       {/* Each option will show a label and option value <Links> */}
       <VariantSelector
         handle={product.handle}
@@ -150,7 +150,7 @@ const OptionButton = forwardRef<
       replace
       prefetch="intent"
       className={clsx([
-        'cursor-pointer rounded-[6px] border px-3 py-2 text-sm leading-none',
+        'cursor-pointer rounded-[6px] border px-3 py-2  leading-none',
         isSelected
           ? 'border-black text-black'
           : 'border-lightGray text-darkGray',

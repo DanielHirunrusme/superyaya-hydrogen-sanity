@@ -79,7 +79,7 @@ export default function Recover() {
         <FormCardWrapper title="Recover password">
           {isSubmitted ? (
             <>
-              <div className="text-sm">
+              <div className="">
                 <p>
                   If that email address is in our system, you&rsquo;ll receive
                   an email with instructions on how to reset your password in a
@@ -95,13 +95,13 @@ export default function Recover() {
             </>
           ) : (
             <>
-              <p className="my-4 text-sm">
+              <p className="my-4 ">
                 Enter your email address to receive a password reset link.
               </p>
               <Form method="post" noValidate>
                 {/* Form error */}
                 {actionData?.formError && (
-                  <div className="mb-6 flex items-center justify-center rounded-sm border border-red p-4 text-sm text-red">
+                  <div className="mb-6 flex items-center justify-center rounded-sm border border-red p-4  text-red">
                     <p>{actionData.formError}</p>
                   </div>
                 )}

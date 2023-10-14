@@ -15,7 +15,7 @@ export function OrderCard({order}: Props) {
   const lineItems = flattenConnection(order?.lineItems);
 
   return (
-    <li className="flex flex-col rounded border border-darkGray/50 p-4">
+    <li className="flex flex-colborder border-darkGray/50 p-4">
       {/* Fulfillment status */}
       <div className="mb-1 inline-flex">
         <Badge
@@ -40,7 +40,7 @@ export function OrderCard({order}: Props) {
       )}
 
       <ul className="mt-2 flex-1 flex-row space-y-1">
-        <li className="font-bold">
+        <li className="">
           {new Date(order.processedAt).toDateString()}
         </li>
         <li>#{order.orderNumber}</li>
@@ -52,7 +52,7 @@ export function OrderCard({order}: Props) {
       </ul>
 
       {/* Footer */}
-      <div className="mt-10 flex flex-row text-sm font-medium text-darkGray">
+      <div className="mt-10 flex flex-row  font-medium text-darkGray">
         <Link
           className="linkTextNavigation"
           to={`/account/orders/${legacyOrderId}?${key}`}

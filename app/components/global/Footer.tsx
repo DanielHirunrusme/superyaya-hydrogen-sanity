@@ -68,7 +68,7 @@ export default function Footer() {
             blocks={footer.text}
             className={clsx(
               'text-xs', //
-              'text-sm text-darkGray',
+              ' text-darkGray',
             )}
           />
         )} */}

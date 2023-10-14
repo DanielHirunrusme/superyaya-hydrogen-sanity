@@ -10,10 +10,10 @@ export function AccountDetails({customer}: {customer: Customer}) {
     <>
       <div>
         <div className="flex items-baseline gap-3">
-          <h3 className="align-baseline text-xl font-bold">Profile</h3>
+          <h3 className="align-baseline text-xl ">Profile</h3>
           <Link
             prefetch="intent"
-            className="text-sm text-darkGray"
+            className=" text-darkGray"
             to="/account/edit"
             preventScrollReset
           >
@@ -23,7 +23,7 @@ export function AccountDetails({customer}: {customer: Customer}) {
 
         <div className="mt-4 space-y-4">
           <div className="space-y-1">
-            <div className="text-sm text-darkGray">Name</div>
+            <div className=" text-darkGray">Name</div>
             <p
               className={clsx(
                 !firstName && !lastName && 'italic text-darkGray',
@@ -35,17 +35,17 @@ export function AccountDetails({customer}: {customer: Customer}) {
             </p>
           </div>
           <div className="space-y-1">
-            <div className="text-sm text-darkGray">Phone</div>
+            <div className=" text-darkGray">Phone</div>
             <p className={clsx(!phone && 'italic text-darkGray')}>
               {phone ?? 'Not added'}
             </p>
           </div>
           <div className="space-y-1">
-            <div className="text-sm text-darkGray">Email address</div>
+            <div className=" text-darkGray">Email address</div>
             <p>{email}</p>
           </div>
           <div className="space-y-1">
-            <div className="text-sm text-darkGray">Password</div>
+            <div className=" text-darkGray">Password</div>
             <p>**************</p>
           </div>
         </div>

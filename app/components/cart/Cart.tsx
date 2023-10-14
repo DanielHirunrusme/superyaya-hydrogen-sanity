@@ -1,5 +1,5 @@
-import {useMatches} from '@remix-run/react';
-import {CartForm} from '@shopify/hydrogen';
+import { useMatches } from '@remix-run/react';
+import { CartForm } from '@shopify/hydrogen';
 import type {
   Cart,
   CartCost,
@@ -15,13 +15,14 @@ import {
 } from '@shopify/hydrogen-react';
 import clsx from 'clsx';
 
-import Button, {defaultButtonStyles} from '~/components/elements/Button';
+import Button, { defaultButtonStyles } from '~/components/elements/Button';
 import MinusCircleIcon from '~/components/icons/MinusCircle';
 import PlusCircleIcon from '~/components/icons/PlusCircle';
 import RemoveIcon from '~/components/icons/Remove';
 import SpinnerIcon from '~/components/icons/Spinner';
-import {Link} from '~/components/Link';
-import {useCartFetchers} from '~/hooks/useCartFetchers';
+import { Link } from '~/components/Link';
+import { useCartFetchers } from '~/hooks/useCartFetchers';
+import { GRID_GAP, PRODUCT_IMAGE_RATIO } from '~/lib/constants';
 
 export function CartLineItems({
   linesObj,
@@ -30,7 +31,7 @@ export function CartLineItems({
 }) {
   const lines = flattenConnection(linesObj);
   return (
-    <div className="flex-grow px-8" role="table" aria-label="Shopping cart">
+    <div className="px-4" role="table" aria-label="Shopping cart">
       <div role="row" className="sr-only">
         <div role="columnheader">Product image</div>
         <div role="columnheader">Product details</div>
@@ -43,8 +44,8 @@ export function CartLineItems({
   );
 }
 
-function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
-  const {merchandise} = lineItem;
+function LineItem({ lineItem }: { lineItem: CartLine | ComponentizableCartLine }) {
+  const { merchandise } = lineItem;
 
   const updatingItems = useCartFetchers(CartForm.ACTIONS.LinesUpdate);
   const removingItems = useCartFetchers(CartForm.ACTIONS.LinesRemove);
@@ -89,63 +90,66 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
     <div
       role="row"
       className={clsx(
-        'flex items-center border-b border-lightGray py-3 last:border-b-0',
+        'flex border-b border-lightGray py-3 last:border-b-0',
         deleting && 'opacity-50',
       )}
     >
       {/* Image */}
-      <div role="cell" className="mr-3 aspect-square w-[66px] flex-shrink-0">
+      <div role="cell" className={clsx("mr-3 w-[66px] flex-shrink-0", PRODUCT_IMAGE_RATIO)}>
         {merchandise.image && (
           <Link to={`/products/${merchandise.product.handle}`}>
             <Image
-              className="rounded"
               data={merchandise.image}
-              width={110}
-              height={110}
+              width={866}
+              height={1300}
               alt={merchandise.title}
             />
           </Link>
         )}
       </div>
 
-      {/* Title */}
-      <div
-        role="cell"
-        className="flex-grow-1 mr-4 flex w-full flex-col items-start"
-      >
-        <Link
-          to={`/products/${merchandise.product.handle}`}
-          className="text-sm font-bold hover:underline"
+      <div className='flex flex-col flex-1'>
+        {/* Title */}
+        <div
+          role="cell"
+          className="flex-grow-1 mr-4 flex w-full flex-col items-start"
         >
-          {merchandise.product.title}
-        </Link>
+          <Link
+            to={`/products/${merchandise.product.handle}`}
+            className="hover:underline leading-none"
+          >
+            {merchandise.product.title}
+          </Link>
 
-        {/* Options */}
-        {!hasDefaultVariantOnly && (
-          <ul className="mt-1 space-y-1 text-xs text-darkGray">
-            {merchandise.selectedOptions.map(({name, value}) => (
-              <li key={name}>
-                {name}: {value}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+          {/* Options */}
+          {!hasDefaultVariantOnly && (
+            <ul className="">
+              {merchandise.selectedOptions.map(({ name, value }) => (
+                <li className='leading-none' key={name}>
+                  {name}: {value}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
 
-      {/* Quantity */}
-      <CartItemQuantity line={lineItem} submissionQuantity={updating} />
+        {/* Quantity */}
+        <CartItemQuantity line={lineItem} submissionQuantity={updating} />
 
-      {/* Price */}
-      <div className="ml-4 mr-6 flex min-w-[4rem] justify-end text-sm font-bold leading-none">
-        {updating ? (
-          <SpinnerIcon width={24} height={24} />
-        ) : (
-          <Money data={lineItem.cost.totalAmount} />
-        )}
-      </div>
+        <div role="cell" className="">
+          <ItemRemoveButton lineIds={[lineItem.id]} />
+        </div>
 
-      <div role="cell" className="flex flex-col items-end justify-between">
-        <ItemRemoveButton lineIds={[lineItem.id]} />
+        {/* Price */}
+        <div className="text-right justify-end leading-none">
+          {updating ? (
+            <SpinnerIcon width={24} height={24} />
+          ) : (
+            <Money data={lineItem.cost.totalAmount} />
+          )}
+        </div>
+
+       
       </div>
     </div>
   );
@@ -159,7 +163,7 @@ function CartItemQuantity({
   submissionQuantity: number | undefined;
 }) {
   if (!line || typeof line?.quantity === 'undefined') return null;
-  const {id: lineId, quantity} = line;
+  const { id: lineId, quantity } = line;
 
   // // The below handles optimistic updates for the quantity
   const lineQuantity = submissionQuantity ? submissionQuantity : quantity;
@@ -168,8 +172,8 @@ function CartItemQuantity({
   const nextQuantity = Number((lineQuantity + 1).toFixed(0));
 
   return (
-    <div className="flex items-center gap-2">
-      <UpdateCartButton lines={[{id: lineId, quantity: prevQuantity}]}>
+    <div className="flex gap-2">
+      <UpdateCartButton lines={[{ id: lineId, quantity: prevQuantity }]}>
         <button
           aria-label="Decrease quantity"
           value={prevQuantity}
@@ -179,11 +183,11 @@ function CartItemQuantity({
         </button>
       </UpdateCartButton>
 
-      <div className="min-w-[1rem] text-center text-sm font-bold leading-none text-black">
+      <div className="min-w-[1rem] text-center text-black">
         {lineQuantity}
       </div>
 
-      <UpdateCartButton lines={[{id: lineId, quantity: nextQuantity}]}>
+      <UpdateCartButton lines={[{ id: lineId, quantity: nextQuantity }]}>
         <button aria-label="Increase quantity" value={prevQuantity}>
           <PlusCircleIcon />
         </button>
@@ -203,42 +207,42 @@ function UpdateCartButton({
     <CartForm
       route="/cart"
       action={CartForm.ACTIONS.LinesUpdate}
-      inputs={{lines}}
+      inputs={{ lines }}
     >
       {children}
     </CartForm>
   );
 }
 
-function ItemRemoveButton({lineIds}: {lineIds: CartLine['id'][]}) {
+function ItemRemoveButton({ lineIds }: { lineIds: CartLine['id'][] }) {
   return (
     <CartForm
       route="/cart"
       action={CartForm.ACTIONS.LinesRemove}
-      inputs={{lineIds}}
+      inputs={{ lineIds }}
     >
       <button
         className="disabled:pointer-events-all disabled:cursor-wait"
         type="submit"
       >
-        <RemoveIcon />
+        Remove
       </button>
     </CartForm>
   );
 }
 
-export function CartSummary({cost}: {cost: CartCost}) {
+export function CartSummary({ cost }: { cost: CartCost }) {
   return (
     <>
-      <div role="table" aria-label="Cost summary" className="text-sm">
+      <div role="table" aria-label="Cost summary" >
         <div
-          className="flex justify-between border-t border-gray p-4"
+          className="flex justify-between py-4"
           role="row"
         >
-          <span className="text-darkGray" role="rowheader">
+          <span role="rowheader">
             Subtotal
           </span>
-          <span role="cell" className="text-right font-bold">
+          <span role="cell" className="text-right">
             {cost?.subtotalAmount?.amount ? (
               <Money data={cost?.subtotalAmount} />
             ) : (
@@ -247,23 +251,23 @@ export function CartSummary({cost}: {cost: CartCost}) {
           </span>
         </div>
 
-        <div
+        {/* <div
           role="row"
           className="flex justify-between border-t border-gray p-4"
         >
-          <span className="text-darkGray" role="rowheader">
+          <span role="rowheader">
             Shipping
           </span>
-          <span role="cell" className="font-bold uppercase">
+          <span role="cell">
             Calculated at checkout
           </span>
-        </div>
+        </div> */}
       </div>
     </>
   );
 }
 
-export function CartActions({cart}: {cart: Cart}) {
+export function CartActions({ cart }: { cart: Cart }) {
   const [root] = useMatches();
 
   if (!cart || !cart.checkoutUrl) return null;
@@ -278,7 +282,7 @@ export function CartActions({cart}: {cart: Cart}) {
   return (
     <div className="flex w-full gap-3">
       <ShopPayButton
-        className={clsx([defaultButtonStyles({tone: 'shopPay'}), 'w-1/2'])}
+        className={clsx([defaultButtonStyles({ tone: 'shopPay' }), 'w-1/2'])}
         variantIdsAndQuantities={shopPayLineItems}
         storeDomain={storeDomain}
       />

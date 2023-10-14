@@ -118,7 +118,7 @@ export default function Register() {
           <Form method="post" noValidate>
             {/* Form error */}
             {actionData?.formError && (
-              <div className="mb-6 flex items-center justify-center rounded-sm border border-red p-4 text-sm text-red">
+              <div className="mb-6 flex items-center justify-center rounded-sm border border-red p-4  text-red">
                 <p>{actionData.formError}</p>
               </div>
             )}
@@ -181,7 +181,7 @@ export default function Register() {
                 Create account
               </Button>
               <div className="flex justify-between">
-                <p className="text-sm">
+                <p className="">
                   Already have an account? &nbsp;
                   <Link className="inline underline" to="/account/login">
                     Sign in

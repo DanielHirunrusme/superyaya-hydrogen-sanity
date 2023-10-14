@@ -29,7 +29,7 @@ export default function ImageModule({module}: Props) {
 
       {/* Caption */}
       {module.variant === 'caption' && module.caption && (
-        <div className="mt-2 max-w-[35rem] text-sm leading-caption text-darkGray">
+        <div className="mt-2 max-w-[35rem]  leading-caption text-darkGray">
           {module.caption}
         </div>
       )}
@@ -55,7 +55,7 @@ export default function ImageModule({module}: Props) {
       )}
       {/* Product tags */}
       {module.variant === 'productTags' && (
-        <div className="mt-2 flex flex-wrap gap-x-1 gap-y-2">
+        <div className=" flex flex-wrap gap-x-1 gap-y-2">
           {module.productTags?.map((tag) => {
             if (!tag?.gid) {
               return null;
@@ -83,7 +83,7 @@ const ImageContent = ({module}: Props) => {
   return (
     <div
       className={clsx(
-        'relative overflow-hidden rounded transition-[border-radius] duration-500 ease-out',
+        'relative overflow-hiddentransition-[border-radius] duration-500 ease-out',
         'group-hover:rounded-xl',
       )}
     >

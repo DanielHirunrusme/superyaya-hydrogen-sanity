@@ -1,9 +1,9 @@
-import {Money, ShopifyAnalyticsPayload} from '@shopify/hydrogen';
-import {Product, ProductVariant} from '@shopify/hydrogen/storefront-api-types';
+import { Money, ShopifyAnalyticsPayload } from '@shopify/hydrogen';
+import { Product, ProductVariant } from '@shopify/hydrogen/storefront-api-types';
 import clsx from 'clsx';
 
 import ProductForm from '~/components/product/Form';
-import type {SanityProductPage} from '~/lib/sanity';
+import type { SanityProductPage } from '~/lib/sanity';
 
 type Props = {
   sanityProduct: SanityProductPage;
@@ -49,22 +49,20 @@ export default function ProductWidget({
     return null;
   }
 
-  console.log('storefrontProduct', storefrontProduct)
-
   return (
     <div
 
     >
       {/* Sold out */}
       {!availableForSale && (
-        <div className="mb-3 text-xs font-bold uppercase text-darkGray">
+        <div className="mb-3 text-xs  uppercase text-darkGray">
           Sold out
         </div>
       )}
 
       {/* Sale */}
       {availableForSale && selectedVariant?.compareAtPrice && (
-        <div className="mb-3 text-xs font-bold uppercase text-red">Sale</div>
+        <div className="mb-3 text-xs  uppercase text-red">Sale</div>
       )}
 
       {/* Title */}
@@ -80,9 +78,9 @@ export default function ProductWidget({
         selectedVariant={selectedVariant}
       />
 
-<br />
+      <br />
       {/* Description */}
-      {storefrontProduct?.descriptionHtml && <div dangerouslySetInnerHTML={{__html: storefrontProduct.descriptionHtml }} />}
+      {storefrontProduct?.descriptionHtml && <div dangerouslySetInnerHTML={{ __html: storefrontProduct.descriptionHtml }} />}
 
       {/* Vendor */}
       {/* {storefrontProduct?.vendor && (
@@ -99,6 +97,12 @@ export default function ProductWidget({
         analytics={analytics}
         customProductOptions={sanityProduct.customProductOptions}
       />
+
+      {/* Details */}
+      <div className='my-8'>
+      <div>Product Details</div>
+      <div>Size-Guide</div>
+      </div>
     </div>
   );
 }

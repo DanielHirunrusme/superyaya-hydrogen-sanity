@@ -15,18 +15,18 @@ const FormFieldText = (props: Props) => {
     <div className="w-full space-y-1">
       {/* Label */}
       {label && (
-        <label className="text-sm text-darkGray" htmlFor={props.name}>
+        <label className=" text-darkGray" htmlFor={props.name}>
           {label}
         </label>
       )}
       {/* Description */}
       {description && (
-        <div className="text-sm text-darkGray/75">{description}</div>
+        <div className=" text-darkGray/75">{description}</div>
       )}
       <input
         aria-label={label}
         className={clsx([
-          'w-full appearance-none rounded-xs border px-3 py-2 text-sm leading-field',
+          'w-full appearance-none rounded-xs border px-3 py-2  leading-field',
           'disabled:bg-gray/50 disabled:opacity-50',
           'focus:outline-1',
           error ? 'border-red' : 'border-darkGray/50',
@@ -34,7 +34,7 @@ const FormFieldText = (props: Props) => {
         {...rest}
       />
       {/* Field error */}
-      {error && <div className="text-sm text-red">{error}</div>}
+      {error && <div className=" text-red">{error}</div>}
     </div>
   );
 };

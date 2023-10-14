@@ -141,7 +141,7 @@ export default function AccountDetailsEdit() {
       <Form method="post">
         {/* Form error */}
         {actionData?.formError && (
-          <div className="mb-6 flex items-center justify-center rounded-sm border border-red p-4 text-sm text-red">
+          <div className="mb-6 flex items-center justify-center rounded-sm border border-red p-4  text-red">
             <p>{actionData?.formError}</p>
           </div>
         )}

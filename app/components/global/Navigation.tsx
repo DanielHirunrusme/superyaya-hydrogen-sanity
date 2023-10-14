@@ -54,7 +54,7 @@ export default function Navigation({ menuLinks }: Props) {
   return (
     <nav className="flex flex-col items-center py-4 gap-3 justify-center">
       <Link className="linkTextNavigation" to="/">SUPERYAYA</Link>
-      <nav className='flex gap-6'>
+      <nav className='hidden md:flex gap-6'>
       {renderLinks()}
       </nav>
     </nav>

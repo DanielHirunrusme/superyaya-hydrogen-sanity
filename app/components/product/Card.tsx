@@ -19,7 +19,7 @@ type Props = {
 };
 
 export default function ProductCard({
-  imageAspectClassName = 'aspect-square',
+  imageAspectClassName = 'aspect-[866/1300]',
   storefrontProduct,
   variantGid,
 }: Props) {
@@ -54,8 +54,7 @@ export default function ProductCard({
       <div
         className={clsx([
           imageAspectClassName,
-          'relative flex items-center justify-center overflow-hidden rounded bg-lightGray object-cover transition-[border-radius] duration-500 ease-out',
-          'hover:rounded-xl',
+          'relative flex items-center justify-center overflow-hidden bg-lightGray object-cover  duration-500 ease-out',
         ])}
       >
         <Link
@@ -114,7 +113,7 @@ export default function ProductCard({
           {/* Title */}
           <Link
             className={clsx(
-              'font-bold', //
+              '', //
               'hover:underline',
             )}
             to={`/products/${storefrontProduct.handle}`}
@@ -134,7 +133,7 @@ export default function ProductCard({
         </div>
 
         {/* Price / compare at price */}
-        <div className="mt-2 flex font-bold">
+        <div className="flex ">
           {firstVariant.compareAtPrice && (
             <span className="text-darkGray">
               <Money

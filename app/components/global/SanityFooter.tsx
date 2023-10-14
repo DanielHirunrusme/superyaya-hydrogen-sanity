@@ -17,7 +17,7 @@ export default function SanityFooter() {
         {/* Links */}
         <div
           className={clsx(
-            'mt-8 grid grid-cols-1 gap-3 text-left text-sm leading-caption',
+            'mt-8 grid grid-cols-1 gap-3 text-left  leading-caption',
             'md:grid-cols-3',
           )}
         >

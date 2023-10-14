@@ -73,7 +73,7 @@ export function CountrySelector({align = 'center'}: Props) {
             <div className="relative inline-flex">
               <Listbox.Button
                 className={clsx(
-                  'flex h-[2.4rem] items-center rounded-sm bg-darkGray bg-opacity-0 px-3 py-2 text-sm font-bold duration-150',
+                  'flex h-[2.4rem] items-center rounded-sm bg-darkGray bg-opacity-0 px-3 py-2   duration-150',
                   'hover:bg-opacity-10',
                 )}
               >
@@ -85,7 +85,7 @@ export function CountrySelector({align = 'center'}: Props) {
 
               <Listbox.Options
                 className={clsx(
-                  'absolute top-full z-10 mt-3 min-w-[150px] overflow-hidden rounded shadow',
+                  'absolute top-full z-10 mt-3 min-w-[150px] overflow-hiddenshadow',
                   align === 'center' && 'left-1/2 -translate-x-1/2',
                   align === 'left' && 'left-0',
                   align === 'right' && 'right-0',
@@ -97,7 +97,7 @@ export function CountrySelector({align = 'center'}: Props) {
                       selectedLocalePrefix={selectedLocalePrefix}
                       getClassName={(active: boolean) => {
                         return clsx([
-                          'p-3 flex justify-between items-center text-left font-bold text-sm cursor-pointer whitespace-nowrap',
+                          'p-3 flex justify-between items-center text-left   cursor-pointer whitespace-nowrap',
                           active ? 'bg-darkGray bg-opacity-5' : null,
                         ]);
                       }}

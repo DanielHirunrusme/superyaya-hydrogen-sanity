@@ -48,7 +48,7 @@ export default function ProductPill({
     <Link onClick={onClick} to={`/products/${storefrontProduct.handle}`}>
       <div
         className={clsx(
-          'group flex h-[108px] gap-4 rounded-md border border-lightGray bg-white p-3 text-sm duration-500 ease-out',
+          'group flex h-[108px] gap-4 rounded-md border border-lightGray bg-white p-3  duration-500 ease-out',
           'hover:rounded-lg hover:border-darkGray',
         )}
         role="row"
@@ -88,7 +88,7 @@ export default function ProductPill({
         <div className="overflow-hidden">
           <div className="mr-3 space-y-1">
             {/* Title */}
-            <div className="truncate font-bold group-hover:underline">
+            <div className="truncate  group-hover:underline">
               {storefrontProduct.title}
             </div>
 
@@ -106,7 +106,7 @@ export default function ProductPill({
           </div>
 
           {/* Price */}
-          <div className="mt-3 flex font-bold ">
+          <div className="mt-3 flex  ">
             {compareAtPrice && (
               <span className="text-darkGray">
                 <Money
@@ -127,7 +127,7 @@ export function PillSkeleton() {
   return (
     <Skeleton
       className={clsx(
-        'group flex h-[108px] gap-4 rounded-md border border-lightGray bg-white p-3 text-sm duration-500 ease-out',
+        'group flex h-[108px] gap-4 rounded-md border border-lightGray bg-white p-3  duration-500 ease-out',
       )}
       role="row"
     >

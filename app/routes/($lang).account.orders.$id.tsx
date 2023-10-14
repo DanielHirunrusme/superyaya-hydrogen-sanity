@@ -87,12 +87,12 @@ export default function OrderRoute() {
     <>
       <div className="divide-y divide-gray pb-24 pt-28">
         <OrderSection>
-          <div className="mb-4 text-sm">
+          <div className="mb-4 ">
             <Link className="linkTextNavigation text-darkGray" to="/account">
               Account
             </Link>{' '}
             /{' '}
-            <span className="font-bold text-offBlack">Order {order.name}</span>
+            <span className=" text-offBlack">Order {order.name}</span>
           </div>
           <h1
             className={clsx([
@@ -114,23 +114,23 @@ export default function OrderRoute() {
                   <tr className="align-baseline ">
                     <th
                       scope="col"
-                      className="pb-4 pl-0 pr-3 text-left font-bold"
+                      className="pb-4 pl-0 pr-3 text-left "
                     >
                       Product
                     </th>
                     <th
                       scope="col"
-                      className="hidden px-4 pb-4 text-right font-bold sm:table-cell md:table-cell"
+                      className="hidden px-4 pb-4 text-right  sm:table-cell md:table-cell"
                     >
                       Price
                     </th>
                     <th
                       scope="col"
-                      className="hidden px-4 pb-4 text-right font-bold sm:table-cell md:table-cell"
+                      className="hidden px-4 pb-4 text-right  sm:table-cell md:table-cell"
                     >
                       Quantity
                     </th>
-                    <th scope="col" className="px-4 pb-4 text-right font-bold">
+                    <th scope="col" className="px-4 pb-4 text-right ">
                       Total
                     </th>
                   </tr>
@@ -216,7 +216,7 @@ export default function OrderRoute() {
                       </th>
                       <td className="pl-3 pr-4 pt-6 text-right font-medium text-green-700 md:pr-3">
                         {discountPercentage ? (
-                          <span className="text-sm">
+                          <span className="">
                             -{discountPercentage}% off
                           </span>
                         ) : (
@@ -265,24 +265,24 @@ export default function OrderRoute() {
                     <th
                       scope="row"
                       colSpan={3}
-                      className="hidden pl-6 pr-3 pt-4 text-right font-bold sm:table-cell md:pl-0"
+                      className="hidden pl-6 pr-3 pt-4 text-right  sm:table-cell md:pl-0"
                     >
                       Total
                     </th>
                     <th
                       scope="row"
-                      className="pr-3 pt-4 text-left font-bold sm:hidden"
+                      className="pr-3 pt-4 text-left  sm:hidden"
                     >
                       <p>Total</p>
                     </th>
-                    <td className="pl-3 pr-4 pt-4 text-right font-bold md:pr-3">
+                    <td className="pl-3 pr-4 pt-4 text-right  md:pr-3">
                       <Money data={order.totalPrice!} />
                     </td>
                   </tr>
                 </tfoot>
               </table>
               <div className="top-nav sticky border-none md:my-8">
-                <h3 className="font-bold">Shipping Address</h3>
+                <h3 className="">Shipping Address</h3>
                 {order?.shippingAddress ? (
                   <ul className="mt-6">
                     <li>
@@ -305,7 +305,7 @@ export default function OrderRoute() {
                 ) : (
                   <p className="mt-3">No shipping address defined</p>
                 )}
-                <h3 className="mt-8 font-bold">Status</h3>
+                <h3 className="mt-8 ">Status</h3>
                 <div className="mt-3 inline-block w-auto rounded-full font-medium">
                   <p>{statusMessage(order.fulfillmentStatus!)}</p>
                 </div>

@@ -43,8 +43,8 @@ export default function GridBlock({value}: Props) {
             )}
           </div>
           <div className="space-y-1">
-            <div className="text-md font-bold">{item.title}</div>
-            <PortableText className="text-sm" blocks={item.body} />
+            <div className="text-md ">{item.title}</div>
+            <PortableText className="" blocks={item.body} />
           </div>
         </div>
       ))}
