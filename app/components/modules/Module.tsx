@@ -5,6 +5,7 @@ import ImageModule from '~/components/modules/Image';
 import InstagramModule from '~/components/modules/Instagram';
 import ProductModule from '~/components/modules/Product';
 import type {SanityModule} from '~/lib/sanity';
+import GalleryModule from './Gallery';
 
 type Props = {
   imageAspectClassName?: string;
@@ -12,6 +13,7 @@ type Props = {
 };
 
 export default function Module({imageAspectClassName, module}: Props) {
+  console.log(module._type)
   switch (module._type) {
     case 'module.callout':
       return <CalloutModule module={module} />;
@@ -21,6 +23,8 @@ export default function Module({imageAspectClassName, module}: Props) {
       return <CollectionModule module={module} />;
     case 'module.image':
       return <ImageModule module={module} />;
+    case 'module.gallery':
+      return <GalleryModule module={module} />;
     case 'module.instagram':
       return <InstagramModule module={module} />;
     case 'module.product':

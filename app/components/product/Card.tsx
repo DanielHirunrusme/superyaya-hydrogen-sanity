@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import Badge from '~/components/elements/Badge';
 import {Link} from '~/components/Link';
 import AddToCartButton from '~/components/product/buttons/AddToCartButton';
+import { PRODUCT_IMAGE_RATIO } from '~/lib/constants';
 import {
   getProductOptionString,
   hasMultipleProductOptions,
@@ -52,10 +53,9 @@ export default function ProductCard({
   return (
     <div className="group relative">
       <div
-        className={clsx([
-          imageAspectClassName,
+        className={clsx(PRODUCT_IMAGE_RATIO,
           'relative flex items-center justify-center overflow-hidden bg-lightGray object-cover  duration-500 ease-out',
-        ])}
+        )}
       >
         <Link
           className="absolute left-0 top-0 h-full w-full"
@@ -123,19 +123,19 @@ export default function ProductCard({
 
           {/* Vendor */}
           {/* {storefrontProduct.vendor && (
-            <div className="text-darkGray">{storefrontProduct.vendor}</div>
+            <div className="">{storefrontProduct.vendor}</div>
           )} */}
 
           {/* Product options */}
           {/* {multipleProductOptions && (
-            <div className="text-darkGray">{productOptions}</div>
+            <div className="">{productOptions}</div>
           )} */}
         </div>
 
         {/* Price / compare at price */}
         <div className="flex ">
           {firstVariant.compareAtPrice && (
-            <span className="text-darkGray">
+            <span className="">
               <Money
                 data={firstVariant.compareAtPrice}
                 className="mr-2.5 line-through decoration-red"

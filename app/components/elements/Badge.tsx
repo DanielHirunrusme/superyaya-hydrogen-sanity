@@ -20,7 +20,7 @@ export default function Badge({
         small ? 'text-xs' : '',
         mode === 'outline' && 'border',
         tone === 'critical' && 'border-red text-red',
-        tone === 'default' && 'border-darkGray text-darkGray',
+        tone === 'default' && 'border-darkGray ',
       )}
     >
       {label}

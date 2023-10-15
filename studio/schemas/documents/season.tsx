@@ -4,8 +4,8 @@ import {defineField} from 'sanity'
 import {validateSlug} from '../../utils/validateSlug'
 
 export default defineField({
-  name: 'page',
-  title: 'Page',
+  name: 'season',
+  title: 'Collection',
   type: 'document',
   icon: DocumentIcon,
   groups: [
@@ -39,37 +39,6 @@ export default defineField({
       // @ts-ignore - TODO - fix this TS error
       validation: validateSlug,
     }),
-    // Color theme
-    defineField({
-      name: 'colorTheme',
-      title: 'Color theme',
-      type: 'reference',
-      to: [{type: 'colorTheme'}],
-      group: 'theme',
-    }),
-    defineField({
-      name: 'displayAssistanceMenu',
-      title: 'Display assistance menu? Menu can be managed on superyaya.studio/desk/settings',
-      type: 'boolean',
-      initialValue: false,
-    }),
-    // Show hero
-    defineField({
-      name: 'showHero',
-      title: 'Show hero',
-      type: 'boolean',
-      description: 'If disabled, page title will be displayed instead',
-      initialValue: false,
-      group: 'editorial',
-    }),
-    // Hero
-    defineField({
-      name: 'hero',
-      title: 'Hero',
-      type: 'hero.page',
-      hidden: ({document}) => !document?.showHero,
-      group: 'editorial',
-    }),
     // Body
     defineField({
       name: 'body',
@@ -77,6 +46,16 @@ export default defineField({
       type: 'body',
       group: 'editorial',
     }),
+     // Modules
+     defineField({
+        name: 'modules',
+        title: 'Modules',
+        type: 'array',
+        of: [
+          {type: 'module.image'},
+        ],
+        group: 'editorial',
+      }),
     // SEO
     defineField({
       name: 'seo',

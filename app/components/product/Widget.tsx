@@ -27,7 +27,7 @@ function ProductPrices({
   return (
     <div>
       {selectedVariant.compareAtPrice && (
-        <span className="mr-3 text-darkGray line-through decoration-red">
+        <span className="mr-3  line-through decoration-red">
           <Money data={selectedVariant.compareAtPrice} />
         </span>
       )}
@@ -55,7 +55,7 @@ export default function ProductWidget({
     >
       {/* Sold out */}
       {!availableForSale && (
-        <div className="mb-3 text-xs  uppercase text-darkGray">
+        <div className="mb-3 text-xs  uppercase ">
           Sold out
         </div>
       )}
@@ -84,7 +84,7 @@ export default function ProductWidget({
 
       {/* Vendor */}
       {/* {storefrontProduct?.vendor && (
-        <div className="mt-1 text-md text-darkGray">
+        <div className="mt-1 text-md ">
           {storefrontProduct.vendor}
         </div>
       )} */}

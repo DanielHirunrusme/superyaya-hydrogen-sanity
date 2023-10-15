@@ -119,6 +119,7 @@ export type SanityLinkInternal = {
   documentType: string;
   slug?: string;
   title: string;
+  links?: SanityLinkInternal[];
 };
 
 export type SanityMenuLink =
@@ -133,6 +134,7 @@ export type SanityModule =
   | SanityModuleCollection
   | SanityModuleGrid
   | SanityModuleImage
+  | SanityModuleGallery
   | SanityModuleInstagram
   | SanityModuleProduct;
 
@@ -176,6 +178,12 @@ export type SanityModuleImage =
   | SanityModuleImageCaption
   | SanityModuleImageProductHotspots
   | SanityModuleImageProductTags;
+
+export type SanityModuleGallery = {
+  _key?: string;
+  _type: 'module.gallery';
+  images: SanityModuleImage[];
+};
 
 export type SanityModuleGrid = {
   _key?: string;

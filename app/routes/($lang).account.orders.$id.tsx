@@ -88,7 +88,7 @@ export default function OrderRoute() {
       <div className="divide-y divide-gray pb-24 pt-28">
         <OrderSection>
           <div className="mb-4 ">
-            <Link className="linkTextNavigation text-darkGray" to="/account">
+            <Link className="linkTextNavigation " to="/account">
               Account
             </Link>{' '}
             /{' '}
@@ -105,7 +105,7 @@ export default function OrderRoute() {
         </OrderSection>
         <OrderSection>
           <div className="mx-auto w-full max-w-[1400px]">
-            <p className="mt-2 text-darkGray">
+            <p className="mt-2 ">
               Placed on {new Date(order.processedAt!).toDateString()}
             </p>
             <div className="grid items-start gap-12 sm:grid-cols-1 md:grid-cols-4 md:gap-16">

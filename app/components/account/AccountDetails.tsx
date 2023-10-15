@@ -13,7 +13,7 @@ export function AccountDetails({customer}: {customer: Customer}) {
           <h3 className="align-baseline text-xl ">Profile</h3>
           <Link
             prefetch="intent"
-            className=" text-darkGray"
+            className=" "
             to="/account/edit"
             preventScrollReset
           >
@@ -23,10 +23,10 @@ export function AccountDetails({customer}: {customer: Customer}) {
 
         <div className="mt-4 space-y-4">
           <div className="space-y-1">
-            <div className=" text-darkGray">Name</div>
+            <div className=" ">Name</div>
             <p
               className={clsx(
-                !firstName && !lastName && 'italic text-darkGray',
+                !firstName && !lastName && 'italic ',
               )}
             >
               {firstName || lastName
@@ -35,17 +35,17 @@ export function AccountDetails({customer}: {customer: Customer}) {
             </p>
           </div>
           <div className="space-y-1">
-            <div className=" text-darkGray">Phone</div>
-            <p className={clsx(!phone && 'italic text-darkGray')}>
+            <div className=" ">Phone</div>
+            <p className={clsx(!phone && 'italic ')}>
               {phone ?? 'Not added'}
             </p>
           </div>
           <div className="space-y-1">
-            <div className=" text-darkGray">Email address</div>
+            <div className=" ">Email address</div>
             <p>{email}</p>
           </div>
           <div className="space-y-1">
-            <div className=" text-darkGray">Password</div>
+            <div className=" ">Password</div>
             <p>**************</p>
           </div>
         </div>

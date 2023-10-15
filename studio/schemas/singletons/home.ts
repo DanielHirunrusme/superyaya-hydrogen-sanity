@@ -26,6 +26,7 @@ export default defineField({
       title: 'Hero',
       type: 'hero.home',
       group: 'editorial',
+      hidden: true,
     }),
     // Modules
     defineField({
@@ -37,6 +38,7 @@ export default defineField({
         {type: 'module.callToAction'},
         {type: 'module.collection'},
         {type: 'module.image'},
+        {type: 'module.gallery'},
         {type: 'module.instagram'},
         {type: 'module.product'},
       ],

@@ -31,7 +31,7 @@ export function CartLineItems({
 }) {
   const lines = flattenConnection(linesObj);
   return (
-    <div className="px-4" role="table" aria-label="Shopping cart">
+    <div role="table" aria-label="Shopping cart">
       <div role="row" className="sr-only">
         <div role="columnheader">Product image</div>
         <div role="columnheader">Product details</div>
@@ -95,7 +95,7 @@ function LineItem({ lineItem }: { lineItem: CartLine | ComponentizableCartLine }
       )}
     >
       {/* Image */}
-      <div role="cell" className={clsx("mr-3 w-[66px] flex-shrink-0", PRODUCT_IMAGE_RATIO)}>
+      <div role="cell" className={clsx("mr-3 w-[60px] flex-shrink-0", PRODUCT_IMAGE_RATIO)}>
         {merchandise.image && (
           <Link to={`/products/${merchandise.product.handle}`}>
             <Image
@@ -236,7 +236,7 @@ export function CartSummary({ cost }: { cost: CartCost }) {
     <>
       <div role="table" aria-label="Cost summary" >
         <div
-          className="flex justify-between py-4"
+          className="flex justify-between pt-1 pb-4"
           role="row"
         >
           <span role="rowheader">
@@ -280,15 +280,15 @@ export function CartActions({ cart }: { cart: Cart }) {
   }));
 
   return (
-    <div className="flex w-full gap-3">
+    <div className="flex flex-col w-full gap-3">
       <ShopPayButton
-        className={clsx([defaultButtonStyles({ tone: 'shopPay' }), 'w-1/2'])}
+        className={clsx([defaultButtonStyles({ tone: 'shopPay' })])}
         variantIdsAndQuantities={shopPayLineItems}
         storeDomain={storeDomain}
       />
       <Button
         to={cart.checkoutUrl}
-        className={clsx([defaultButtonStyles(), 'w-1/2'])}
+        className={clsx([defaultButtonStyles()])}
       >
         Checkout
       </Button>

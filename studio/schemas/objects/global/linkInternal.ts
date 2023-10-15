@@ -24,7 +24,7 @@ export default defineField({
       weak: true,
       validation: (Rule) => Rule.required(),
       to: PAGE_REFERENCES,
-    },
+    }, 
     {
       name: 'hasChildLinks',
       title: 'Has child links',

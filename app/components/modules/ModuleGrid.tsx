@@ -2,6 +2,7 @@ import clsx from 'clsx';
 
 import Module from '~/components/modules/Module';
 import ProductCard from '~/components/product/Card';
+import { GRID_GAP } from '~/lib/constants';
 import type {SanityModule} from '~/lib/sanity';
 import type {ProductWithNodes} from '~/types/shopify';
 
@@ -94,7 +95,7 @@ type Props = {
 
 export default function ModuleGrid({items}: Props) {
   return (
-    <ul className="grid grid-cols-1 gap-x-[7.5vw] gap-y-[7.5vw] md:grid-cols-2">
+    <ul className={clsx("grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5", GRID_GAP)}>
       {items.map((item, index) => {
         const productLayout = PRODUCT_LAYOUT[index % PRODUCT_LAYOUT.length];
         const productImageAspect = CLASSES.imageAspect[productLayout.aspect];
@@ -111,18 +112,9 @@ export default function ModuleGrid({items}: Props) {
           // Render modules
           return (
             <li
-              className={clsx([
-                'flex overflow-hidden',
-                isProductModule
-                  ? productLayoutClasses
-                  : 'items-center justify-center',
-                FULL_WIDTH_MODULE_TYPES.includes(item._type)
-                  ? 'md:col-span-2'
-                  : 'md:col-span-1',
-              ])}
               key={item._key}
             >
-              <div className={clsx(isProductModule ? productWidth : 'w-full')}>
+              <div>
                 <Module
                   imageAspectClassName={productImageAspect}
                   module={item}
@@ -133,8 +125,8 @@ export default function ModuleGrid({items}: Props) {
         } else {
           // Render product cards
           return (
-            <li className={productLayoutClasses} key={item.id}>
-              <div className={productWidth}>
+            <li key={item.id}>
+              <div>
                 <ProductCard
                   imageAspectClassName={productImageAspect}
                   storefrontProduct={item}

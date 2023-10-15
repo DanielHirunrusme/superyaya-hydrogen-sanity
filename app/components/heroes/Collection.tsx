@@ -16,8 +16,8 @@ export default function CollectionHero({fallbackTitle, hero}: Props) {
     return (
       <h1
         className={clsx(
-          'max-w-[60rem] px-4 pt-24 text-3xl', //
-          'md:px-8 md:pt-34 md:text-5xl',
+          'max-w-[60rem]  pt-24 text-3xl', //
+          ' md:pt-34 md:text-5xl',
         )}
       >
         {fallbackTitle}
@@ -29,7 +29,7 @@ export default function CollectionHero({fallbackTitle, hero}: Props) {
     <div
       className={clsx(
         'rounded-b-xl px-4 pb-4 pt-24', //
-        'md:px-8 md:pb-8 md:pt-34',
+        'md:pb-8  ',
       )}
       style={{background: colorTheme?.background || 'white'}}
     >

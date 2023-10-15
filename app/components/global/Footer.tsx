@@ -48,6 +48,13 @@ export default function Footer() {
   });
 
   return (
+    <>
+      <Link to="/" className="linkTextNavigation fixed bottom-0 left-0 m-4">Abijan</Link>
+      <Link to="/" className="linkTextNavigation fixed bottom-0 right-0 m-4">Beirut</Link>
+    </>
+  )
+
+  return (
     <footer className="-mt-overlap" role="contentinfo">
       {/* AVKA Footer */}
       <div
@@ -68,7 +75,7 @@ export default function Footer() {
             blocks={footer.text}
             className={clsx(
               'text-xs', //
-              ' text-darkGray',
+              ' ',
             )}
           />
         )} */}

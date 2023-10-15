@@ -52,7 +52,7 @@ export function OrderCard({order}: Props) {
       </ul>
 
       {/* Footer */}
-      <div className="mt-10 flex flex-row  font-medium text-darkGray">
+      <div className="mt-10 flex flex-row  font-medium ">
         <Link
           className="linkTextNavigation"
           to={`/account/orders/${legacyOrderId}?${key}`}

@@ -10,6 +10,11 @@ export const LAYOUT_QUERY = groq`
     "menuLinks": menu.links[] {
       ${LINKS}
     },
+    assistance {
+      links[] {
+        ${LINKS}
+      },
+    },
     footer {
       links[] {
         ${LINKS}

@@ -25,6 +25,22 @@ export const LINKS = groq`
     ${LINK_EXTERNAL}
   },
   (_type == 'linkInternal') => {
-    ${LINK_INTERNAL}
+    ${LINK_INTERNAL},
+    links[] {
+      (_type == 'linkExternal') => {
+        ${LINK_EXTERNAL}
+      },
+      (_type == 'linkInternal') => {
+        ${LINK_INTERNAL},
+        links[] {
+          (_type == 'linkExternal') => {
+            ${LINK_EXTERNAL}
+          },
+          (_type == 'linkInternal') => {
+            ${LINK_INTERNAL}
+          },
+        },
+      },
+    },
   },
 `;

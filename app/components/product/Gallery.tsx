@@ -6,8 +6,8 @@ import {
 import useEmblaCarousel from 'embla-carousel-react';
 import { useCallback, useEffect, useState } from 'react';
 
-import CircleButton from '~/components/elements/CircleButton';
-import { ArrowRightIcon } from '~/components/icons/ArrowRight';
+// import CircleButton from '~/components/elements/CircleButton';
+// import { ArrowRightIcon } from '~/components/icons/ArrowRight';
 import { GRID_GAP } from '~/lib/constants';
 import type { ProductWithNodes } from '~/types/shopify';
 import clsx from 'clsx';
@@ -157,7 +157,7 @@ export default function ProductGallery({
       </div>
 
       {/* Desktop Gallery */}
-      <div className={clsx('hidden md:grid grid-cols-4 xl:grid-cols-6', GRID_GAP)}>
+      <div className={clsx('hidden md:grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6', GRID_GAP)}>
         {/* Slides */}
         {media.map((med) => {
           let extraProps: Record<string, any> = {};

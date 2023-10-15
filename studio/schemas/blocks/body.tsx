@@ -66,5 +66,8 @@ export default defineField({
     {
       type: 'module.products',
     },
+    {
+      type: 'module.newsletter',
+    }
   ],
 })

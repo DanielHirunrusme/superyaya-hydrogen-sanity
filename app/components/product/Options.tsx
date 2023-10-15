@@ -42,7 +42,7 @@ export default function ProductOptions({
 
           return (
             <div>
-              <legend className="mb-2 text-xs text-darkGray">
+              <legend className="mb-2 text-xs ">
                 {option.name}
               </legend>
               <div className="flex flex-wrap items-center gap-1">
@@ -153,7 +153,7 @@ const OptionButton = forwardRef<
         'cursor-pointer rounded-[6px] border px-3 py-2  leading-none',
         isSelected
           ? 'border-black text-black'
-          : 'border-lightGray text-darkGray',
+          : 'border-lightGray ',
         !isAvailable && 'opacity-80',
       ])}
     >

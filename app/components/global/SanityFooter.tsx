@@ -6,7 +6,7 @@ export default function SanityFooter() {
       <div
         className={clsx(
           'mx-auto max-w-[47rem] px-4 py-12 text-center text-xl leading-caption', //
-          'md:px-8',
+          '',
         )}
       >
         {/* Intro */}

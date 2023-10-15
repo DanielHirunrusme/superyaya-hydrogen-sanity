@@ -4,9 +4,14 @@ import {defineField} from 'sanity'
 const VARIANTS = [
   {title: 'Simple', value: undefined},
   {title: 'Caption', value: 'caption'},
-  {title: 'Call to action', value: 'callToAction'},
+  // {title: 'Call to action', value: 'callToAction'},
   {title: 'Product hotspots', value: 'productHotspots'},
-  {title: 'Product tags', value: 'productTags'},
+  // {title: 'Product tags', value: 'productTags'},
+]
+
+const IMAGE_SIZES = [
+  {title: 'Default', value: undefined},
+  {title: 'Full', value: 'full'},
 ]
 
 export default defineField({
@@ -35,13 +40,25 @@ export default defineField({
       },
       initialValue: undefined,
     }),
+     // Variant
+     defineField({
+      name: 'layout',
+      title: 'Layout',
+      type: 'string',
+      options: {
+        direction: 'horizontal',
+        layout: 'radio',
+        list: IMAGE_SIZES,
+      },
+      initialValue: undefined,
+    }),
     // Caption
     defineField({
       name: 'caption',
       title: 'Caption',
       type: 'text',
       rows: 2,
-      hidden: ({parent}) => parent.variant !== 'caption',
+      // hidden: ({parent}) => parent.variant !== 'caption',
     }),
     // Call to action
     defineField({

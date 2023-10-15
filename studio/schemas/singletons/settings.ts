@@ -1,5 +1,5 @@
-import {CogIcon} from '@sanity/icons'
-import {defineType, defineField} from 'sanity'
+import { CogIcon } from '@sanity/icons'
+import { defineType, defineField } from 'sanity'
 
 const TITLE = 'Settings'
 interface ProductOptions {
@@ -35,6 +35,13 @@ export default defineType({
     defineField({
       name: 'menu',
       title: 'Menu',
+      type: 'menuSettings',
+      group: 'navigation',
+    }),
+    // Menu
+    defineField({
+      name: 'assistance',
+      title: 'Assistance',
       type: 'menuSettings',
       group: 'navigation',
     }),

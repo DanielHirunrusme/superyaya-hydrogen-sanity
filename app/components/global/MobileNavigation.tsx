@@ -22,6 +22,7 @@ export default function MobileNavigation({ menuLinks }: Props) {
     <>
       <button
         onClick={handleOpen}
+        className='md:hidden'
       >
         Menu
       </button>

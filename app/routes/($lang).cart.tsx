@@ -101,8 +101,8 @@ export default function Cart() {
   return (
     <section
       className={clsx(
-        'rounded-b-xl px-4 pb-4 pt-24', //
-        'md:px-8 md:pb-8 md:pt-34',
+        '', //
+        '',
       )}
     >
       <Suspense
@@ -115,13 +115,21 @@ export default function Cart() {
         <Await resolve={root.data?.cart}>
           {(cart) => (
             <>
-              <div className="mx-auto grid w-full max-w-6xl gap-8 pb-12 md:grid-cols-2 md:items-start md:gap-8 lg:gap-12">
+              <div className="mx-auto max-w-4xl">
+                <div className='border-b border-black grid grid-cols-8 gap-6'>
+                  <span className='col-span-4'>Item</span>
+                  <span className='col-span-3'>Quantity</span>
+                  <span className='col-span-1 text-right'>Price</span>
+                  </div>
                 <div className="flex-grow md:translate-y-4">
                   <CartLineItems linesObj={cart.lines} />
                 </div>
-                <div className="fixed bottom-0 left-0 right-0 grid w-full gap-6 p-4 md:sticky md:top-[65px] md:translate-y-4 md:px-6">
+                <div className="grid grid-cols-8 gap-6 border-t border-black">
+                  <div className='col-span-6' />
+                  <div className='col-span-2'>
                   <CartSummary cost={cart.cost} />
                   <CartActions cart={cart} />
+                  </div>
                 </div>
               </div>
             </>

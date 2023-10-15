@@ -74,7 +74,7 @@ function Address({
           address.formatted.map((line: string) => <li key={line}>{line}</li>)}
       </ul>
 
-      <div className="mt-10 flex flex-row  font-medium text-darkGray">
+      <div className="mt-10 flex flex-row  font-medium ">
         <Link
           to={`/account/address/${encodeURIComponent(address.id)}`}
           className="text-left "

@@ -5,6 +5,7 @@ import {MODULE_CALLOUT} from './modules/callout';
 import {MODULE_CALL_TO_ACTION} from './modules/callToAction';
 import {MODULE_COLLECTION} from './modules/collection';
 import {MODULE_IMAGE} from './modules/image';
+import {MODULE_GALLERY} from './modules/gallery';
 import {MODULE_INSTAGRAM} from './modules/instagram';
 import {MODULE_PRODUCT} from './modules/product';
 
@@ -25,6 +26,9 @@ export const MODULES = groq`
   },
   (_type == "module.image") => {
     ${MODULE_IMAGE}
+  },
+  (_type == "module.gallery") => {
+    ${MODULE_GALLERY}
   },
   (_type == "module.instagram") => {
     ${MODULE_INSTAGRAM}

@@ -76,7 +76,7 @@ function ProductInlineLinkContent({
   if (!selectedVariant.availableForSale && linkAction !== 'link') {
     return (
       <>
-        <span className="text-darkGray line-through">{children}</span>
+        <span className=" line-through">{children}</span>
         <span className="color-white ml-[0.25em] rounded-xs bg-lightGray px-1 py-0.5 text-xs  text-red">
           Sold out
         </span>

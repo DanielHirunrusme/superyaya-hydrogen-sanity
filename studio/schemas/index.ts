@@ -21,8 +21,11 @@ import radio from './documents/radio'
 import category from './documents/category'
 import collaboration from './documents/collaboration'
 import project from './documents/project'
+import season from './documents/season'
+import archive from './documents/archive'
+import route from './documents/route'
 
-const documents = [collection, colorTheme, page, product, productVariant, radio, category, collaboration, project]
+const documents = [collection, colorTheme, page, product, productVariant, radio, season, archive, category, collaboration, project, route]
 
 // Singleton document types
 import home from './singletons/home'
@@ -60,11 +63,13 @@ import moduleGrid from './objects/module/grid'
 import gridItems from './objects/module/gridItem'
 import menu from './objects/global/menu'
 import moduleImage from './objects/module/image'
+import moduleGallery from './objects/module/gallery'
 import moduleImageAction from './objects/module/imageCallToAction'
 import moduleImages from './objects/module/images'
 import moduleInstagram from './objects/module/instagram'
 import moduleProduct from './objects/module/product'
 import moduleProducts from './objects/module/products'
+import moduleNewsletter from './objects/module/newsletter'
 import placeholderString from './objects/shopify/placeholderString'
 import priceRange from './objects/shopify/priceRange'
 import spot from './objects/hotspot/spot'
@@ -111,11 +116,13 @@ const objects = [
   moduleGrid,
   gridItems,
   moduleImage,
+  moduleGallery,
   moduleImageAction,
   moduleImages,
   moduleInstagram,
   moduleProduct,
   moduleProducts,
+  moduleNewsletter,
   placeholderString,
   priceRange,
   spot,

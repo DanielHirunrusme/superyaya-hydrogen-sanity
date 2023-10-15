@@ -1,6 +1,7 @@
 import {Await} from '@remix-run/react';
 import {Cart} from '@shopify/hydrogen/storefront-api-types';
 import {Suspense} from 'react';
+import {Link} from '~/components/Link';
 
 type Props = {
   cart: Cart;
@@ -16,7 +17,16 @@ export default function CartToggle({cart, isOpen, openDrawer}: Props) {
     <Suspense fallback={<button>Cart (0)</button>}>
       <Await resolve={cart}>
         {(data) => (
-          <button
+          <Link to="/cart">Cart ({data?.totalQuantity || 0})</Link>
+        )}
+      </Await>
+    </Suspense>
+  );
+}
+
+
+/*
+<button
             aria-expanded={isOpen}
             aria-controls="cart"
             onClick={() => {
@@ -26,8 +36,4 @@ export default function CartToggle({cart, isOpen, openDrawer}: Props) {
           >
             Cart ({data?.totalQuantity || 0})
           </button>
-        )}
-      </Await>
-    </Suspense>
-  );
-}
+          */

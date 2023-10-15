@@ -12,6 +12,9 @@ export const LINK_INTERNAL = groq`
     (_type == "home") => {
       "slug": "/",
     },
+    (_type == "route") => {
+      "slug": slug.current,
+    },
     (_type == "page") => {
       "slug": "/pages/" + slug.current,
     },

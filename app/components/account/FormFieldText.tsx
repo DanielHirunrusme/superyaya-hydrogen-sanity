@@ -15,13 +15,13 @@ const FormFieldText = (props: Props) => {
     <div className="w-full space-y-1">
       {/* Label */}
       {label && (
-        <label className=" text-darkGray" htmlFor={props.name}>
+        <label className=" " htmlFor={props.name}>
           {label}
         </label>
       )}
       {/* Description */}
       {description && (
-        <div className=" text-darkGray/75">{description}</div>
+        <div className=" /75">{description}</div>
       )}
       <input
         aria-label={label}

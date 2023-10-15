@@ -2,9 +2,9 @@ import {
   PortableText as PortableTextReact,
   PortableTextComponents,
 } from '@portabletext/react';
-import {PortableTextBlock} from '@sanity/types';
+import { PortableTextBlock } from '@sanity/types';
 import clsx from 'clsx';
-import {useMemo} from 'react';
+import { useMemo } from 'react';
 
 import LinkEmailAnnotation from '~/components/portableText/annotations/LinkEmail';
 import LinkExternalAnnotation from '~/components/portableText/annotations/LinkExternal';
@@ -17,6 +17,7 @@ import GridBlock from '~/components/portableText/blocks/Grid';
 import ImagesBlock from '~/components/portableText/blocks/Images';
 import InstagramBlock from '~/components/portableText/blocks/Instagram';
 import ProductsBlock from '~/components/portableText/blocks/Products';
+import NewsletterModule from '../modules/Newsletter';
 
 const SHARED_LIST_CLASSES = clsx(
   'first:mt-0 last:mb-0', //
@@ -29,13 +30,13 @@ type Props = {
   centered?: boolean;
 };
 
-export default function PortableText({blocks, centered, className}: Props) {
+export default function PortableText({ blocks, centered, className }: Props) {
   const components: PortableTextComponents = {
     list: {
-      bullet: ({children}) => (
+      bullet: ({ children }) => (
         <ul className={SHARED_LIST_CLASSES}>{children}</ul>
       ),
-      number: ({children}) => (
+      number: ({ children }) => (
         <ol className={SHARED_LIST_CLASSES}>{children}</ol>
       ),
     },
@@ -57,6 +58,9 @@ export default function PortableText({blocks, centered, className}: Props) {
       ),
       'module.instagram': InstagramBlock,
       'module.products': ProductsBlock,
+      'module.newsletter': (props: any) => (
+        <NewsletterModule {...props} />
+      ),
     },
   };
 

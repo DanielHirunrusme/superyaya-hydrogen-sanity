@@ -94,21 +94,21 @@ export default function ProductPill({
 
             {/* Vendor */}
             {storefrontProduct.vendor && (
-              <div className="truncate text-darkGray">
+              <div className="truncate ">
                 {storefrontProduct.vendor}
               </div>
             )}
 
             {/* Product options */}
             {multipleProductOptions && (
-              <div className="truncate text-darkGray">{productOptions}</div>
+              <div className="truncate ">{productOptions}</div>
             )}
           </div>
 
           {/* Price */}
           <div className="mt-3 flex  ">
             {compareAtPrice && (
-              <span className="text-darkGray">
+              <span className="">
                 <Money
                   data={compareAtPrice}
                   className="mr-2.5 line-through decoration-red"

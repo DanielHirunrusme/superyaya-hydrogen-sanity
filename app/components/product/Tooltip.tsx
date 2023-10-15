@@ -87,18 +87,18 @@ export default function ProductTooltip({
           </Link>
 
           {/* Vendor */}
-          {vendor && <div className="text-darkGray">{vendor}</div>}
+          {vendor && <div className="">{vendor}</div>}
 
           {/* Product options */}
           {multipleProductOptions && (
-            <div className="text-darkGray">{productOptions}</div>
+            <div className="">{productOptions}</div>
           )}
         </div>
 
         {/* Price */}
         <div className="mt-3 flex  ">
           {selectedVariant.compareAtPrice && (
-            <span className="text-darkGray">
+            <span className="">
               <Money
                 data={selectedVariant.compareAtPrice}
                 className="mr-2.5 line-through decoration-red"

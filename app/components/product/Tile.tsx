@@ -46,7 +46,7 @@ export default function ProductTile({storefrontProduct, variantGid}: Props) {
         <div className="overflow-hidden">
           {/* Sold out */}
           {!availableForSale && (
-            <div className="mb-2 text-darkGray">
+            <div className="mb-2 ">
               Sold out
             </div>
           )}
@@ -65,14 +65,14 @@ export default function ProductTile({storefrontProduct, variantGid}: Props) {
 
           {/* Vendor */}
           {storefrontProduct.vendor && (
-            <div className="mt-1 truncate  text-darkGray">
+            <div className="mt-1 truncate  ">
               {storefrontProduct.vendor}
             </div>
           )}
 
           {/* Product options */}
           {multipleProductOptions && (
-            <div className="mt-1 truncate  text-darkGray">
+            <div className="mt-1 truncate  ">
               {productOptions}
             </div>
           )}
@@ -81,7 +81,7 @@ export default function ProductTile({storefrontProduct, variantGid}: Props) {
         {/* Price / sold out */}
         <div className="flex  ">
           {compareAtPrice && (
-            <span className="text-darkGray">
+            <span className="">
               <Money
                 data={compareAtPrice}
                 className="mr-2.5 line-through decoration-red"

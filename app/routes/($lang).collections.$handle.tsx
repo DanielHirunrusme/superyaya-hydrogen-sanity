@@ -107,15 +107,12 @@ export default function Collection() {
       <Suspense>
         <Await resolve={gids}>
           {/* Hero */}
-          <CollectionHero fallbackTitle={page.title} hero={page.hero} />
+          {/* <CollectionHero fallbackTitle={page.title} hero={page.hero} /> */}
 
           <div
-            className={clsx(
-              'mb-32 mt-8 px-4', //
-              'md:px-8',
-            )}
+             
           >
-            {products.length > 0 && (
+            {/* {products.length > 0 && (
               <div
                 className={clsx(
                   'mb-8 flex justify-start', //
@@ -124,11 +121,11 @@ export default function Collection() {
               >
                 <SortOrder key={page._id} initialSortOrder={page.sortOrder} />
               </div>
-            )}
+            )} */}
 
             {/* No results */}
             {products.length === 0 && (
-              <div className="mt-16 text-center text-lg text-darkGray">
+              <div className="mt-16 text-center text-lg ">
                 No products.
               </div>
             )}

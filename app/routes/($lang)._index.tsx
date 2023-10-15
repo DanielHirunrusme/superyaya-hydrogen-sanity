@@ -7,6 +7,7 @@ import {Suspense} from 'react';
 
 import HomeHero from '~/components/heroes/Home';
 import ModuleGrid from '~/components/modules/ModuleGrid';
+import ModuleSlideshow from '~/components/modules/ModuleSlideshow';
 import type {SanityHomePage} from '~/lib/sanity';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
 import {HOME_PAGE_QUERY} from '~/queries/sanity/home';
@@ -66,9 +67,7 @@ export default function Index() {
             {/* {page?.hero && <HomeHero hero={page.hero} />} */}
 
             {page?.modules && (
-              <div className={clsx('mb-32 mt-24 px-4', 'md:px-8')}>
-                <ModuleGrid items={page.modules} />
-              </div>
+              <ModuleSlideshow modules={page.modules} />
             )}
           </Await>
         </Suspense>

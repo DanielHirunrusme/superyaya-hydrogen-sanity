@@ -40,7 +40,7 @@ export default function CollectionCard({collection, onClick}: Props) {
         <div
           className={clsx(
             'relative text-center text-lg  group-hover:underline',
-            collection.vector ? 'text-white' : 'text-darkGray',
+            collection.vector ? 'text-white' : '',
           )}
         >
           {collection.title}
