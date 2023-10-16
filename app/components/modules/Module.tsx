@@ -13,7 +13,6 @@ type Props = {
 };
 
 export default function Module({imageAspectClassName, module}: Props) {
-  console.log(module._type)
   switch (module._type) {
     case 'module.callout':
       return <CalloutModule module={module} />;

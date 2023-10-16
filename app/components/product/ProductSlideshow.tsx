@@ -7,6 +7,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { useCallback, useEffect } from 'react';
 import type { ProductWithNodes } from '~/types/shopify';
 import clsx from 'clsx';
+import Button from '../elements/Button';
 
 type Props = {
     storefrontProduct: ProductWithNodes;
@@ -38,7 +39,7 @@ export default function ProductSlideshow({
         draggable: media && media.length > 1,
         loop: true,
         skipSnaps: true,
-        speed: 7,
+        speed: 100,
     });
 
     const onSelect = useCallback(() => {
@@ -106,7 +107,7 @@ export default function ProductSlideshow({
 
     return (
         <div className="fixed top-0 left-0 right-0 bottom-0 z-50 bg-white">
-            <button className="fixed top-0 right-0 z-10 p-4" onClick={onClose}>Close</button>
+            <Button mode="text" type="button" className="fixed top-0 right-0 z-10 p-4" onClick={onClose}>Close</Button>
             <div onClick={onEmblaClick} className="h-full overflow-hidden" ref={emblaRef}>
                 <div className="flex h-full">
                     {/* Slides */}

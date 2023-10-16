@@ -112,7 +112,6 @@ export default function ProductGallery({
   }
 
   const onMediaClick = (index: number) => {
-    // console.log(index)
     setZoom(true);
     setSelectedIndex(index);
   };

@@ -58,9 +58,9 @@ export default function HeaderActions({menuLinks}) {
         {/* Cart */}
         <Link to="/pages/faq" className="linkTextNavigation hidden md:inline">Assistance</Link>
 
-        <div className="">
+     
           <CartToggle cart={cart} isOpen openDrawer={openDrawer} />
-        </div>
+  
         <Link to="/pages/studio" className="linkTextNavigation hidden md:inline">Studio</Link>
 
         {menuLinks && <MobileNavigation menuLinks={menuLinks} />}

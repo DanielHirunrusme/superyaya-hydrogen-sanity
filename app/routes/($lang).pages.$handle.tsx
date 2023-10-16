@@ -47,7 +47,6 @@ export async function loader({ params, context }: LoaderArgs) {
     cache,
   });
 
-  console.log('page', page);
 
   if (!page) {
     throw notFound();

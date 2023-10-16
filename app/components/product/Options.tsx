@@ -37,8 +37,6 @@ export default function ProductOptions({
   ]);
 
   useEffect(() => {
-    // console.log('selectedVariant', selectedVariant, 'options', options)
-    // console.log(selectedVariant.selectedOptions[0].value)
     if (
       selectedVariant.selectedOptions[0].value &&
       selectedVariant.selectedOptions[1].value
@@ -50,14 +48,8 @@ export default function ProductOptions({
     }
   }, [selectedVariant]);
 
-  useEffect(() => {
-    console.log('optionsSelected', optionsSelected);
-  }, [optionsSelected, selected]);
-
   const onListboxOptionClick = (optionName, value) => {
-    console.log('listbox option click', optionName);
     if (optionName === 'Size') {
-      console.log('set selected size');
       setOptionsSelected([
         {name: 'Size', value: value},
         {name: 'Color', value: optionsSelected[1].value},
@@ -87,7 +79,6 @@ export default function ProductOptions({
           const match = optionsSelected?.filter(
             (selectedOption) => selectedOption.name === option.name,
           );
-          console.log('match', match);
 
           return (
             <div>

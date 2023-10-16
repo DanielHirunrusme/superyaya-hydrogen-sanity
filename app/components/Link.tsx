@@ -6,6 +6,8 @@ import {
   useMatches,
 } from '@remix-run/react';
 import {forwardRef} from 'react';
+import { useLocation } from "@remix-run/react";
+import clsx from 'clsx';
 
 type LinkProps = Omit<RemixLinkProps, 'className'> & {
   className?: RemixNavLinkProps['className'] | RemixLinkProps['className'];
@@ -33,12 +35,15 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
   const [root] = useMatches();
   const selectedLocale = root.data?.selectedLocale;
 
+  const location = useLocation();
+
   let toWithLocale = to;
 
   // If we have a string and not an absolute URL, add the locale prefix
   if (typeof to === 'string' && !ABSOLUTE_URL_REGEX.test(to) && to != '..') {
     toWithLocale = selectedLocale ? `${selectedLocale.pathPrefix}${to}` : to;
   }
+
 
   if (typeof className === 'function') {
     return (
@@ -54,7 +59,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
   return (
     <RemixLink
       to={toWithLocale}
-      className={className}
+      className={clsx(className, location.pathname === to && 'linkTextNavigationActive')}
       {...resOfProps}
       ref={ref}
     />

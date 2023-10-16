@@ -71,6 +71,10 @@
     @apply uppercase hover:underline underline-offset-2 decoration-1;
   }
 
+  .linkTextNavigationActive {
+    @apply uppercase underline underline-offset-2 decoration-1;
+  }
+
   .portableText {
     ol {
       list-style-type: decimal;

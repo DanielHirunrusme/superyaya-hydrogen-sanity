@@ -95,7 +95,7 @@ type Props = {
 
 export default function ModuleGrid({items}: Props) {
   return (
-    <ul className={clsx("grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5", GRID_GAP)}>
+    <ul className={clsx("grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6", GRID_GAP)}>
       {items.map((item, index) => {
         const productLayout = PRODUCT_LAYOUT[index % PRODUCT_LAYOUT.length];
         const productImageAspect = CLASSES.imageAspect[productLayout.aspect];

@@ -109,12 +109,12 @@ export default function ProductCard({
       </div>
 
       <div className="mt-2 text-md">
-        <div className="space-y-1">
+        <div className="space-y-1 truncate">
           {/* Title */}
           <Link
             className={clsx(
               '', //
-              'hover:underline',
+              'group-hover:underline underline-offset-2 decoration-1',
             )}
             to={`/products/${storefrontProduct.handle}`}
           >
