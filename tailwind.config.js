@@ -115,7 +115,7 @@ module.exports = {
         peach: '#FFE1D1',
         red: '#EC5039',
         shopPay: '#5A31F4',
-        yellow: '#FFFF54'
+        yellow: 'yellow',
       },
       height: {
         'header-sm': '4.375rem',

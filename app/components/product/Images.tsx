@@ -41,11 +41,11 @@ export default function ProductImages({
     <div className="group relative">
       <div
         className={clsx(
-          'relative flex gap-2 justify-between',
+          'relative grid grid-cols-4 md:flex gap-2 justify-between',
         )}
       >
         {storefrontProduct?.images?.nodes?.map((image) => (
-            <div className='w-[70px] flex-grow-0'>
+            <div className='md:w-[70px] flex-grow-0'>
           <Image
             key={image.id}
             className={clsx(' flex-grow-0', PRODUCT_IMAGE_RATIO)}

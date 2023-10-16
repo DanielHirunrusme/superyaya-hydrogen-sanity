@@ -25,11 +25,11 @@ export const handle = {
 };
 
 const COLUMN_SIZES = [
-  'w-12 flex-grow-0',
-  'flex-1',
-  'w-48 flex-grow-0',
-  'w-32 flex-grow-0',
-  'w-12 flex-grow-0',
+  'md:w-20 flex-grow-0 text-left pl-2',
+  'flex-1 text-left',
+  'hidden md:block w-48 flex-grow-0 text-left',
+  'hidden md:block w-32 flex-grow-0 text-left',
+  'hidden md:block w-16 flex-grow-0 text-right pr-2',
 ];
 
 export async function loader({context, params}: LoaderArgs) {
@@ -69,7 +69,20 @@ export default function IndexPage() {
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
-            <ul className="mx-auto flex w-full max-w-[1000px] flex-col divide-y-[1px] divide-black">
+            <div className="mx-auto flex flex-col w-full max-w-[1000px] divide-y-[1px] divide-black">
+            <nav
+              className={clsx(
+                'hidden md:flex w-full flex-1 justify-between text-left',
+                GRID_GAP,
+              )}
+            >
+              <button className={COLUMN_SIZES[0]}>NO.</button>
+              <button className={COLUMN_SIZES[1]}>Title</button>
+              <button className={COLUMN_SIZES[2]}>Category</button>
+              <button className={COLUMN_SIZES[3]}>Kind</button>
+              <button className={COLUMN_SIZES[4]}>Year</button>
+            </nav>
+            <ul className="flex flex-col divide-y-[1px] divide-black">
               {page.map((item, index) => (
                 <Disclosure key={item._id}>
                   {({open}) => (
@@ -84,7 +97,15 @@ export default function IndexPage() {
                         <div className={COLUMN_SIZES[0]}>
                           {String(index).padStart(3, '0')}
                         </div>
-                        <div className={COLUMN_SIZES[1]}>{item.title}</div>
+                        <div className={COLUMN_SIZES[1]}>
+                          <div className='truncate'>{item.title}</div>
+                          {/* Mobile information */}
+                          {open && <div className='md:hidden'>
+                            {item.kind && <div>Kind: {item.kind}</div>}
+                            {item.category && <div>Category: {item.category}</div>}
+                            {item.year && <div>Year: {item.year ? format(new Date(item.year), 'yyyy') : ''}</div>}
+                          </div>}
+                        </div>
                         <div className={COLUMN_SIZES[2]}>{item.kind}</div>
                         <div className={COLUMN_SIZES[3]}>
                           {item.category || ''}
@@ -100,9 +121,9 @@ export default function IndexPage() {
                             GRID_GAP,
                           )}
                         >
-                          <div className={COLUMN_SIZES[0]}></div>
+                          <div className={clsx(COLUMN_SIZES[0], 'hidden md:block')}></div>
                           <div className={COLUMN_SIZES[1]}>
-                            {item._type == 'product' ||
+                            {item._type == 'productWithVariant' ||
                             item._type == 'collection' ? (
                               <div>
                                 <div
@@ -119,7 +140,7 @@ export default function IndexPage() {
                           <div className={COLUMN_SIZES[3]}></div>
                           <div className={COLUMN_SIZES[4]}></div>
                         </div>
-                        <div className='ml-16 mt-2 mb-4'>
+                        <div className="mb-4 md:ml-24 mt-2">
                           <IndexImages item={item} />
                         </div>
                       </Disclosure.Panel>
@@ -128,6 +149,7 @@ export default function IndexPage() {
                 </Disclosure>
               ))}
             </ul>
+            </div>
           </Await>
         </Suspense>
       )}
@@ -138,8 +160,11 @@ export default function IndexPage() {
 function IndexImages({item}) {
   switch (item._type) {
     case 'productWithVariant':
-      
-      return <div><ProductModule module={item} layout='images' /></div>;
+      return (
+        <div>
+          <ProductModule module={item} layout="images" />
+        </div>
+      );
     default:
       return <div>default</div>;
   }

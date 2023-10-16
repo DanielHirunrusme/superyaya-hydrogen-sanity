@@ -1,18 +1,18 @@
-import { Dialog, Transition } from '@headlessui/react';
+import {Dialog, Transition} from '@headlessui/react';
 import clsx from 'clsx';
-import { Fragment, useState } from 'react';
+import {Fragment, useState} from 'react';
 
-import { CountrySelector } from '~/components/global/CountrySelector';
+import {CountrySelector} from '~/components/global/CountrySelector';
 import CloseIcon from '~/components/icons/Close';
 import MenuIcon from '~/components/icons/Menu';
-import { Link } from '~/components/Link';
-import type { SanityMenuLink } from '~/lib/sanity';
+import {Link} from '~/components/Link';
+import type {SanityMenuLink} from '~/lib/sanity';
 
 type Props = {
   menuLinks: SanityMenuLink[];
 };
 
-export default function MobileNavigation({ menuLinks }: Props) {
+export default function MobileNavigation({menuLinks}: Props) {
   const [open, setOpen] = useState(false);
 
   const handleClose = () => setOpen(false);
@@ -20,10 +20,7 @@ export default function MobileNavigation({ menuLinks }: Props) {
 
   return (
     <>
-      <button
-        onClick={handleOpen}
-        className='md:hidden'
-      >
+      <button onClick={handleOpen} className="md:hidden">
         Menu
       </button>
 
@@ -32,10 +29,10 @@ export default function MobileNavigation({ menuLinks }: Props) {
           {/* Overlay */}
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-500"
+            enter="ease-out duration-0"
             enterFrom="opacity-0"
             enterTo="opacity-100"
-            leave="ease-in duration-500"
+            leave="ease-in duration-0"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
@@ -48,18 +45,18 @@ export default function MobileNavigation({ menuLinks }: Props) {
           {/* Panel */}
           <Transition.Child
             as={Fragment}
-            enter="ease-in-out duration-500"
+            enter="ease-in-out duration-0"
             enterFrom="translate-x-full"
             enterTo="translate-x-0"
-            leave="ease-in-out duration-500"
+            leave="ease-in-out duration-0"
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
             <Dialog.Panel className="fixed bottom-0 left-0 right-0 top-0 z-50 h-full w-full overflow-y-auto bg-white pb-40">
               {/* Header */}
-              <header className="flex h-header-sm items-center justify-start px-4">
+              <header className="flex h-header-sm items-center justify-end px-4">
                 <button
-                  className="-ml-4 h-header-sm p-4"
+                  className="-mr-4 h-header-sm p-4"
                   type="button"
                   onClick={handleClose}
                 >
@@ -68,10 +65,10 @@ export default function MobileNavigation({ menuLinks }: Props) {
               </header>
 
               {/* Links */}
-              <div className="mt-6 space-y-4 px-4">
+              <div className="mt-6 space-y-4 px-4 text-center">
                 <div className="space-y-1">
                   <Link
-                    className="linkTextNavigation"
+                    className="linkTextNavigation  text-center"
                     onClick={handleClose}
                     to="/"
                   >
@@ -82,7 +79,7 @@ export default function MobileNavigation({ menuLinks }: Props) {
                     if (link._type === 'collectionGroup') {
                       return (
                         <div key={link._key}>
-                          <div className="linkTextNavigation hover:border-b-transparent">
+                          <div className="linkTextNavigation hover:border-b-transparent  text-center">
                             {link.title} –
                           </div>
                           <div className="my-1 ml-8 space-y-1">
@@ -128,9 +125,9 @@ export default function MobileNavigation({ menuLinks }: Props) {
                       }
 
                       return (
-                        <div className="flex items-center" key={link._key}>
+                        <div className="flex items-center  text-center justify-center" key={link._key}>
                           <Link
-                            className="linkTextNavigation relative whitespace-nowrap"
+                            className="linkTextNavigation relative whitespace-nowrap  text-center"
                             onClick={handleClose}
                             to={link.slug}
                           >

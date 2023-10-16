@@ -3,6 +3,7 @@ import {usePreviewContext} from 'hydrogen-sanity';
 import Footer from '~/components/global/Footer';
 import Header from '~/components/global/Header';
 import {PreviewBanner} from '~/components/preview/PreviewBanner';
+import RadioPopup from '../radio/RadioPopup';
 
 type LayoutProps = {
   backgroundColor?: string;
@@ -33,6 +34,8 @@ export function Layout({backgroundColor, children}: LayoutProps) {
           <div className="mx-auto grow">{children}</div>
         </main>
       </div>
+
+      <RadioPopup />
 
       <Footer />
 

@@ -31,8 +31,8 @@ export const INDEX_QUERY = groq`
       "slug": '/collections/' + store.slug.current,
       "title": store.title,
       "category": "collection",
-      "kind": "",
-      "year": "",
+      "kind": store.rules[0].condition,
+      "year": store.createdAt,
       "description": store.descriptionHtml
 
     },
