@@ -24,7 +24,7 @@ export default defineField({
       options: {source: 'title'},
       // @ts-ignore - TODO - fix this TS error
       validation: validateSlug,
-      readOnly: true,
+      // readOnly: true,
     }),
   ],
   preview: {

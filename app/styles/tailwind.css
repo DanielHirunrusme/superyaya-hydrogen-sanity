@@ -135,3 +135,17 @@ html {
   position: relative;
   flex: 0 0 100%;
 }
+
+
+.leaders {
+  @apply relative w-full flex justify-between overflow-hidden hover:opacity-50;
+}
+
+.leaders span {
+  @apply relative z-10 bg-white;
+}
+
+.leaders::before {
+  content:'................................................................................................................................';
+  @apply pointer-events-none absolute bottom-0 select-none;
+}

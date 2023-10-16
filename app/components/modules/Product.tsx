@@ -2,12 +2,13 @@ import type {Product} from '@shopify/hydrogen/storefront-api-types';
 
 import ProductCard from '~/components/product/Card';
 import ProductPill from '~/components/product/Pill';
+import ProductImages from '~/components/product/Images';
 import type {SanityModuleProduct} from '~/lib/sanity';
 import {useGid} from '~/lib/utils';
 
 type Props = {
   imageAspectClassName?: string;
-  layout?: 'card' | 'pill';
+  layout?: 'card' | 'pill' | 'images';
   module?: SanityModuleProduct;
 };
 
@@ -19,6 +20,8 @@ export default function ProductModule({
   const productGid = module?.productWithVariant?.gid;
   const productVariantGid = module?.productWithVariant?.variantGid;
   const storefrontProduct = useGid<Product>(productGid);
+
+  console.log('storefront product', storefrontProduct)
 
   if (!storefrontProduct) {
     return null;
@@ -41,6 +44,10 @@ export default function ProductModule({
         variantGid={productVariantGid}
       />
     );
+  }
+
+  if (layout == 'images') {
+    return <ProductImages storefrontProduct={storefrontProduct} />;
   }
 
   return null;

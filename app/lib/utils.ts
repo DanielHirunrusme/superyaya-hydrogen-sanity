@@ -189,7 +189,7 @@ export async function fetchGids({
 }) {
   const productGids = extract(`..[_type == "productWithVariant"].gid`, page);
   const collectionGids = extract(`..[_type == "collection"].gid`, page);
-
+  
   const {productsAndCollections} =
     await context.storefront.query<StorefrontPayload>(
       PRODUCTS_AND_COLLECTIONS,
