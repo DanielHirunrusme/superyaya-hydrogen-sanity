@@ -53,7 +53,7 @@ export default function Navigation({menuLinks}: Props) {
               childLink.links.forEach((childChildLink) => {
                 if (
                   childChildLink.slug &&
-                  location.pathname.includes(childLink.slug)
+                  location.pathname.includes(childChildLink.slug)
                 ) {
                   hasChildChildActive = true;
                 }
