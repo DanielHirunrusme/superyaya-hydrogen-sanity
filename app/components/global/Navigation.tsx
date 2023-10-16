@@ -41,8 +41,8 @@ export default function Navigation({menuLinks}: Props) {
           return null;
         }
 
-        var hasChildActive = false;
-        var hasChildChildActive = false;
+        let hasChildActive = false;
+        let hasChildChildActive = false;
 
         if (link.links?.length) {
           link.links.forEach((childLink) => {
