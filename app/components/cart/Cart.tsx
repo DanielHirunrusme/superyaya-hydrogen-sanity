@@ -1,5 +1,5 @@
-import { useMatches } from '@remix-run/react';
-import { CartForm } from '@shopify/hydrogen';
+import {useMatches} from '@remix-run/react';
+import {CartForm} from '@shopify/hydrogen';
 import type {
   Cart,
   CartCost,
@@ -15,14 +15,17 @@ import {
 } from '@shopify/hydrogen-react';
 import clsx from 'clsx';
 
-import Button, { defaultButtonStyles } from '~/components/elements/Button';
+import Button, {defaultButtonStyles} from '~/components/elements/Button';
 import MinusCircleIcon from '~/components/icons/MinusCircle';
 import PlusCircleIcon from '~/components/icons/PlusCircle';
 import RemoveIcon from '~/components/icons/Remove';
 import SpinnerIcon from '~/components/icons/Spinner';
-import { Link } from '~/components/Link';
-import { useCartFetchers } from '~/hooks/useCartFetchers';
-import { GRID_GAP, PRODUCT_IMAGE_RATIO } from '~/lib/constants';
+import {Link} from '~/components/Link';
+import {useCartFetchers} from '~/hooks/useCartFetchers';
+import {GRID_GAP, PRODUCT_IMAGE_RATIO} from '~/lib/constants';
+import PlusIcon from '../icons/Plus';
+import MinusIcon from '../icons/Minus';
+import React from 'react';
 
 export function CartLineItems({
   linesObj,
@@ -44,8 +47,8 @@ export function CartLineItems({
   );
 }
 
-function LineItem({ lineItem }: { lineItem: CartLine | ComponentizableCartLine }) {
-  const { merchandise } = lineItem;
+function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
+  const {merchandise} = lineItem;
 
   const updatingItems = useCartFetchers(CartForm.ACTIONS.LinesUpdate);
   const removingItems = useCartFetchers(CartForm.ACTIONS.LinesRemove);
@@ -90,66 +93,81 @@ function LineItem({ lineItem }: { lineItem: CartLine | ComponentizableCartLine }
     <div
       role="row"
       className={clsx(
-        'flex border-b border-lightGray py-3 last:border-b-0',
+        'relative grid grid-cols-8',
+        GRID_GAP,
+        'flex border-b border-black py-2 last:border-b-0',
         deleting && 'opacity-50',
       )}
     >
-      {/* Image */}
-      <div role="cell" className={clsx("mr-3 w-[60px] flex-shrink-0", PRODUCT_IMAGE_RATIO)}>
-        {merchandise.image && (
-          <Link to={`/products/${merchandise.product.handle}`}>
-            <Image
-              data={merchandise.image}
-              width={866}
-              height={1300}
-              alt={merchandise.title}
-            />
-          </Link>
-        )}
-      </div>
-
-      <div className='flex flex-col flex-1'>
-        {/* Title */}
+      {/* Image & Title */}
+      <div className="col-span-8 flex md:col-span-4">
         <div
           role="cell"
-          className="flex-grow-1 mr-4 flex w-full flex-col items-start"
+          className={clsx(
+            'mr-3 w-[70px] flex-shrink-0 md:ml-2',
+            PRODUCT_IMAGE_RATIO,
+          )}
         >
-          <Link
-            to={`/products/${merchandise.product.handle}`}
-            className="hover:underline leading-none"
+          {merchandise.image && (
+            <Link to={`/products/${merchandise.product.handle}`}>
+              <Image
+                data={merchandise.image}
+                width={866}
+                height={1300}
+                alt={merchandise.title}
+              />
+            </Link>
+          )}
+        </div>
+        {/* Title */}
+        <div className="flex flex-1 flex-col">
+          <div
+            role="cell"
+            className="flex-grow-1 mr-4 flex w-full flex-col items-start"
           >
-            {merchandise.product.title}
-          </Link>
+            <Link
+              to={`/products/${merchandise.product.handle}`}
+              className="leading-none hover:underline"
+            >
+              {merchandise.product.title}
+            </Link>
 
-          {/* Options */}
-          {!hasDefaultVariantOnly && (
-            <ul className="">
-              {merchandise.selectedOptions.map(({ name, value }) => (
-                <li className='leading-none' key={name}>
-                  {name}: {value}
-                </li>
-              ))}
-            </ul>
-          )}
+            {/* Options */}
+            {!hasDefaultVariantOnly && (
+              <span className="">
+                {merchandise.selectedOptions
+                  .slice(0).reverse()
+                  .map(({name, value}, index) => (
+                    <span key={name}>
+                      {name !== 'Color' && name} {value}
+                      {index < merchandise.selectedOptions.length - 1 && ', '}
+                    </span>
+                  ))}
+              </span>
+            )}
+          </div>
+
+          <div className='md:hidden'>
+          <CartItemQuantity line={lineItem} submissionQuantity={updating} />
+          </div>
+
+          <div role="cell" className="mt-3">
+            <ItemRemoveButton lineIds={[lineItem.id]} />
+          </div>
         </div>
+      </div>
 
-        {/* Quantity */}
+      {/* Quantity */}
+      <div className="hidden md:block col-span-3">
         <CartItemQuantity line={lineItem} submissionQuantity={updating} />
-
-        <div role="cell" className="">
-          <ItemRemoveButton lineIds={[lineItem.id]} />
-        </div>
-
-        {/* Price */}
-        <div className="text-right justify-end leading-none">
-          {updating ? (
-            <SpinnerIcon width={24} height={24} />
-          ) : (
-            <Money data={lineItem.cost.totalAmount} />
-          )}
-        </div>
-
-       
+      </div>
+      {/* Price */}
+      <div className="absolute bottom-2 right-0 col-span-1 flex justify-end pr-2 text-right leading-none md:relative">
+        {updating ? (
+          <SpinnerIcon width={24} height={24} />
+        ) : (
+          <Money data={lineItem.cost.totalAmount} />
+        )}
       </div>
     </div>
   );
@@ -163,7 +181,7 @@ function CartItemQuantity({
   submissionQuantity: number | undefined;
 }) {
   if (!line || typeof line?.quantity === 'undefined') return null;
-  const { id: lineId, quantity } = line;
+  const {id: lineId, quantity} = line;
 
   // // The below handles optimistic updates for the quantity
   const lineQuantity = submissionQuantity ? submissionQuantity : quantity;
@@ -172,24 +190,22 @@ function CartItemQuantity({
   const nextQuantity = Number((lineQuantity + 1).toFixed(0));
 
   return (
-    <div className="flex gap-2">
-      <UpdateCartButton lines={[{ id: lineId, quantity: prevQuantity }]}>
+    <div className="flex items-center gap-2">
+      <UpdateCartButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button
           aria-label="Decrease quantity"
           value={prevQuantity}
           disabled={quantity <= 1}
         >
-          <MinusCircleIcon />
+          <MinusIcon />
         </button>
       </UpdateCartButton>
 
-      <div className="min-w-[1rem] text-center text-black">
-        {lineQuantity}
-      </div>
+      <div className="min-w-[1rem] text-center text-black">{lineQuantity}</div>
 
-      <UpdateCartButton lines={[{ id: lineId, quantity: nextQuantity }]}>
+      <UpdateCartButton lines={[{id: lineId, quantity: nextQuantity}]}>
         <button aria-label="Increase quantity" value={prevQuantity}>
-          <PlusCircleIcon />
+          <PlusIcon />
         </button>
       </UpdateCartButton>
     </div>
@@ -207,19 +223,19 @@ function UpdateCartButton({
     <CartForm
       route="/cart"
       action={CartForm.ACTIONS.LinesUpdate}
-      inputs={{ lines }}
+      inputs={{lines}}
     >
       {children}
     </CartForm>
   );
 }
 
-function ItemRemoveButton({ lineIds }: { lineIds: CartLine['id'][] }) {
+function ItemRemoveButton({lineIds}: {lineIds: CartLine['id'][]}) {
   return (
     <CartForm
       route="/cart"
       action={CartForm.ACTIONS.LinesRemove}
-      inputs={{ lineIds }}
+      inputs={{lineIds}}
     >
       <button
         className="disabled:pointer-events-all disabled:cursor-wait"
@@ -231,17 +247,12 @@ function ItemRemoveButton({ lineIds }: { lineIds: CartLine['id'][] }) {
   );
 }
 
-export function CartSummary({ cost }: { cost: CartCost }) {
+export function CartSummary({cost}: {cost: CartCost}) {
   return (
     <>
-      <div role="table" aria-label="Cost summary" >
-        <div
-          className="flex justify-between pt-1 pb-4"
-          role="row"
-        >
-          <span role="rowheader">
-            Subtotal
-          </span>
+      <div role="table" className="pr-2" aria-label="Cost summary">
+        <div className="flex justify-between pb-4 pt-1" role="row">
+          <span role="rowheader">Subtotal</span>
           <span role="cell" className="text-right">
             {cost?.subtotalAmount?.amount ? (
               <Money data={cost?.subtotalAmount} />
@@ -267,7 +278,7 @@ export function CartSummary({ cost }: { cost: CartCost }) {
   );
 }
 
-export function CartActions({ cart }: { cart: Cart }) {
+export function CartActions({cart}: {cart: Cart}) {
   const [root] = useMatches();
 
   if (!cart || !cart.checkoutUrl) return null;
@@ -280,16 +291,13 @@ export function CartActions({ cart }: { cart: Cart }) {
   }));
 
   return (
-    <div className="flex flex-col w-full gap-3">
+    <div className="flex w-full flex-col gap-3">
       <ShopPayButton
-        className={clsx([defaultButtonStyles({ tone: 'shopPay' })])}
+        className={clsx([defaultButtonStyles({tone: 'shopPay'})])}
         variantIdsAndQuantities={shopPayLineItems}
         storeDomain={storeDomain}
       />
-      <Button
-        to={cart.checkoutUrl}
-        className={clsx([defaultButtonStyles()])}
-      >
+      <Button to={cart.checkoutUrl} className={clsx([defaultButtonStyles()])}>
         Checkout
       </Button>
     </div>

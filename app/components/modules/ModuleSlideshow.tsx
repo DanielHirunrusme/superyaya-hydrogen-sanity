@@ -10,7 +10,7 @@ export default function ModuleSlideshow(props) {
         draggable: modules && modules.length > 1,
         loop: true,
         skipSnaps: true,
-        speed: 7,
+        speed: 1,
     });
 
     const onSelect = useCallback(() => {

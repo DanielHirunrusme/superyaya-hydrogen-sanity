@@ -15,7 +15,7 @@ export default function RelatedProducts({relatedProducts}: Props) {
 
   return (
     <div
-    className={clsx('mt-4 grid grid-cols-8', GRID_GAP)}
+    className={clsx('mt-28 flex flex-col md:grid grid-cols-8', GRID_GAP)}
       style={{background: colorTheme?.background || 'white'}}
     >
       <div className='col-span-2'><h3
@@ -25,7 +25,7 @@ export default function RelatedProducts({relatedProducts}: Props) {
         </h3></div>
       
       <div
-        className={clsx('col-span-6 grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6', GRID_GAP)}
+        className={clsx('col-span-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6', GRID_GAP)}
       >
         {products.map((product) => (
           <ProductCard key={product.id} storefrontProduct={product} />

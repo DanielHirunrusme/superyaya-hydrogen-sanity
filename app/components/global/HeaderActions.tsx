@@ -17,18 +17,18 @@ export default function HeaderActions({menuLinks}) {
   const cart = root.data?.cart;
 
   // Grab all the fetchers that are adding to cart
-  const addToCartFetchers = useCartFetchers(CartForm.ACTIONS.LinesAdd);
+  // const addToCartFetchers = useCartFetchers(CartForm.ACTIONS.LinesAdd);
 
   // When the fetchers array changes, open the drawer if there is an add to cart action
-  useEffect(() => {
-    if (
-      isOpen ||
-      addToCartFetchers.length === 0 ||
-      addToCartFetchers[0].state === 'submitting'
-    )
-      return;
-    openDrawer();
-  }, [addToCartFetchers, isOpen, openDrawer]);
+  // useEffect(() => {
+  //   if (
+  //     isOpen ||
+  //     addToCartFetchers.length === 0 ||
+  //     addToCartFetchers[0].state === 'submitting'
+  //   )
+  //     return;
+  //   openDrawer();
+  // }, [addToCartFetchers, isOpen, openDrawer]);
 
   return (
     <>

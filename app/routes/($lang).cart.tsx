@@ -116,19 +116,23 @@ export default function Cart() {
           {(cart) => (
             <>
               <div className="mx-auto max-w-4xl">
-                <div className='border-b border-black grid grid-cols-8 gap-6'>
-                  <span className='col-span-4'>Item</span>
-                  <span className='col-span-3'>Quantity</span>
-                  <span className='col-span-1 text-right'>Price</span>
-                  </div>
-                <div className="flex-grow md:translate-y-4">
+                <div className="hidden md:grid grid-cols-8 gap-6 border-b border-black">
+                  <span className="col-span-4">
+                    <span className="block px-2">Item</span>
+                  </span>
+                  <span className="col-span-3">Quantity</span>
+                  <span className="col-span-1 text-right">
+                    <span className="block px-2">Price</span>
+                  </span>
+                </div>
+                <div className="flex-grow">
                   <CartLineItems linesObj={cart.lines} />
                 </div>
                 <div className="grid grid-cols-8 gap-6 border-t border-black">
-                  <div className='col-span-6' />
-                  <div className='col-span-2'>
-                  <CartSummary cost={cart.cost} />
-                  <CartActions cart={cart} />
+                  <div className="col-span-4 md:col-span-6" />
+                  <div className="col-span-4 md:col-span-2">
+                    <CartSummary cost={cart.cost} />
+                    <CartActions cart={cart} />
                   </div>
                 </div>
               </div>

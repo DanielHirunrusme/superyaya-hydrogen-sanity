@@ -31,6 +31,15 @@ export default defineField({
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
+    // defineField({
+    //   name: 'titleSvg',
+    //   title: 'Title SVG',
+    //   type: 'file',
+    //   options: {
+    //     accept: 'image/svg+xml',
+    //   },
+    //   validation: (Rule) => Rule.required(),
+    // }),
     // Slug
     defineField({
       name: 'slug',

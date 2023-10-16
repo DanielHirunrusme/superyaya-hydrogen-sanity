@@ -30,6 +30,8 @@ import {
   RECOMMENDED_PRODUCTS_QUERY,
   VARIANTS_QUERY,
 } from '~/queries/shopify/product';
+import ProductSlideshow from '~/components/product/ProductSlideshow';
+import {useState} from 'react';
 
 const seo: SeoHandleFunction = ({data}) => {
   const media = flattenConnection<MediaConnection>(data.product?.media).find(
@@ -176,71 +178,96 @@ export default function ProductHandle() {
     recommended,
     gids,
   } = useLoaderData();
+  const [zoom, setZoom] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   return (
-    <ColorTheme value={page.colorTheme}>
-      <div className="relative w-full">
-        <Suspense
-          fallback={
-            <ProductDetails
-              selectedVariant={selectedVariant}
-              sanityProduct={page}
-              storefrontProduct={product}
-              storefrontVariants={[]}
-              analytics={analytics}
-            />
-          }
-        >
-          <Await
-            errorElement="There was a problem loading related products"
-            resolve={variants}
-          >
-            {(resp) => (
+    <>
+      <ColorTheme value={page.colorTheme}>
+        <div className="relative w-full">
+          <Suspense
+            fallback={
               <ProductDetails
                 selectedVariant={selectedVariant}
                 sanityProduct={page}
                 storefrontProduct={product}
-                storefrontVariants={resp.product?.variants.nodes || []}
+                storefrontVariants={[]}
                 analytics={analytics}
+                selectedIndex={selectedIndex}
+                setSelectedIndex={setSelectedIndex}
+                zoom={zoom}
+                setZoom={setZoom}
+              />
+            }
+          >
+            <Await
+              errorElement="There was a problem loading related products"
+              resolve={variants}
+            >
+              {(resp) => (
+                <ProductDetails
+                  selectedVariant={selectedVariant}
+                  sanityProduct={page}
+                  storefrontProduct={product}
+                  storefrontVariants={resp.product?.variants.nodes || []}
+                  analytics={analytics}
+                  selectedIndex={selectedIndex}
+                  setSelectedIndex={setSelectedIndex}
+                  zoom={zoom}
+                  setZoom={setZoom}
+                />
+              )}
+            </Await>
+          </Suspense>
+
+          <div
+            className={clsx(
+              'w-full', //
+              'lg:w-[calc(100%-315px)]',
+            )}
+          >
+            {/* Body */}
+            {page?.body && (
+              <Suspense>
+                <Await resolve={gids}>
+                  <PortableText
+                    blocks={page.body}
+                    className={clsx(
+                      'max-w-[660px] px-4 pb-24 pt-8', //
+                      'md:px-8',
+                    )}
+                  />
+                </Await>
+              </Suspense>
+            )}
+          </div>
+        </div>
+
+        <Suspense>
+          <Await
+            errorElement="There was a problem loading related products"
+            resolve={recommended}
+          >
+            {(products) => (
+              <RelatedProducts
+                relatedProducts={products.productRecommendations}
               />
             )}
           </Await>
         </Suspense>
-
-        <div
-          className={clsx(
-            'w-full', //
-            'lg:w-[calc(100%-315px)]',
-          )}
-        >
-          {/* Body */}
-          {page?.body && (
-            <Suspense>
-              <Await resolve={gids}>
-                <PortableText
-                  blocks={page.body}
-                  className={clsx(
-                    'max-w-[660px] px-4 pb-24 pt-8', //
-                    'md:px-8',
-                  )}
-                />
-              </Await>
-            </Suspense>
-          )}
-        </div>
-      </div>
-
-      <Suspense>
-        <Await
-          errorElement="There was a problem loading related products"
-          resolve={recommended}
-        >
-          {(products) => (
-            <RelatedProducts
-              relatedProducts={products.productRecommendations}
+      </ColorTheme>
+      <Suspense fallback={<></>}>
+          {zoom && (
+            <ProductSlideshow
+              storefrontProduct={product}
+              selectedVariant={selectedVariant}
+              zoom={zoom}
+              setZoom={setZoom}
+              selectedIndex={selectedIndex}
+              setSelectedIndex={setSelectedIndex}
             />
           )}
-        </Await>
+     
       </Suspense>
-    </ColorTheme>
+    </>
   );
 }

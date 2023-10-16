@@ -42,7 +42,7 @@ export default function ProductForm({
   };
 
   return (
-    <>
+    <div className='max-w-sm'>
       {multipleProductOptions && (
         <>
           <ProductOptions
@@ -69,7 +69,7 @@ export default function ProductForm({
             products: [productAnalytics],
             totalValue: parseFloat(productAnalytics.price),
           }}
-          buttonClassName="w-full"
+          buttonClassName="w-full hover:opacity-50"
         />
         {/* <BuyNowButton
           lines={[{merchandiseId: selectedVariant.id, quantity: 1}]}
@@ -77,6 +77,6 @@ export default function ProductForm({
           mode='outline'
         /> */}
       </div>
-    </>
+    </div>
   );
 }

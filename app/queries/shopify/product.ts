@@ -45,6 +45,10 @@ export const PRODUCT_FIELDS = `
     title
     vendor
     descriptionHtml
+    details: metafield(key: "details", namespace: "descriptors") {
+      id
+      value
+    }
   }
 `;
 
