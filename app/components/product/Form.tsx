@@ -13,6 +13,8 @@ import BuyNowButton from '~/components/product/buttons/BuyNowButton';
 import ProductOptions from '~/components/product/Options';
 import type { SanityCustomProductOption } from '~/lib/sanity';
 import { hasMultipleProductOptions } from '~/lib/utils';
+import Button from '../elements/Button';
+import ContactFormModal from '../contact/ContactFormModal';
 
 export default function ProductForm({
   product,
@@ -30,6 +32,8 @@ export default function ProductForm({
   const isOutOfStock = !selectedVariant?.availableForSale;
 
   const multipleProductOptions = hasMultipleProductOptions(product.options);
+  // @ts-expect-error this is not typed out
+  const isCustomPricing = product.inquire;
 
   invariant(
     analytics?.products?.[0],
@@ -41,6 +45,7 @@ export default function ProductForm({
     quantity: 1,
   };
 
+  if(!isCustomPricing){
   return (
     <div className='max-w-sm'>
       {multipleProductOptions && (
@@ -78,5 +83,8 @@ export default function ProductForm({
         /> */}
       </div>
     </div>
-  );
+  )
+      } else {
+        return <div className='max-w-sm my-8'><ContactFormModal label="Custom Requests" /></div>
+      }
 }

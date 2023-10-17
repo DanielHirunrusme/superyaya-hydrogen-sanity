@@ -58,6 +58,10 @@ export const PRODUCT_FIELDS = `
       id
       value
     }
+    inquire: metafield(key: "inquire", namespace: "descriptors") {
+      id
+      value
+    }
   }
 `;
 

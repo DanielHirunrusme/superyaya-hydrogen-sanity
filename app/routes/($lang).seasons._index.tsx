@@ -69,7 +69,7 @@ export default function Index() {
                     to={season.slug}
                     title={season.title}
                     key={season.slug}
-                    className="font-cursive text-2xl self-start mx-auto !normal-case md:text-3xl lg:text-4xl 2xl:text-5xl"
+                    className="font-cursive large-title text-2xl self-start mx-auto !normal-case md:text-3xl lg:text-4xl 2xl:text-5xl"
                   >
                     {season.title}
                   </Link>
