@@ -62,6 +62,10 @@ export const PRODUCT_FIELDS = `
       id
       value
     }
+    pre_order: metafield(key: "pre_order", namespace: "descriptors") {
+      id
+      value
+    }
   }
 `;
 

@@ -1,6 +1,6 @@
 import groq from 'groq';
 export const INDEX_QUERY = groq`
-  *[_type == "product" || _type == "collection" || _type == "season" || _type == "page" || _type == "season" || _type == "archive"] | order(_type asc){
+  *[(_type == "product" && !store.isDeleted) || _type == "collection" || _type == "season" || _type == "page" || _type == "season" || _type == "archive"] | order(_type asc){
     _type,
     _id,
     // Page

@@ -59,6 +59,7 @@ export async function loader({params, context}: LoaderArgs) {
 export default function Page() {
   const {page, gids} = useLoaderData<typeof loader>();
 
+  console.log(page)
   return (
     <ColorTheme value={page.colorTheme}>
       <Suspense>
@@ -69,15 +70,15 @@ export default function Page() {
               <PortableText blocks={page.body} />
             </div>
           </div>
-          {page.modules && <ModuleGrid items={page.modules} />}
+          {page.modules && <ModuleGrid items={page.modules} showCount />}/images/wswdnh4k/production/bb9f17c9e633b26a26852a8efc47654c9ea490b4-1296x1728.jpg
           <div className="flex min-h-screen w-full items-center justify-center text-center">
-            <div className="my-24 text-center mx-auto w-[500px]">
+            <div className="my-24 text-center mx-auto w-full md:max-w-[500px]">
               <div className="text-center">{page.title}</div>
               {/* Table */}
               <ul className='w-full max-w-2xl  mx-auto'>
                 {page.modules?.map((module, index) => (
                   <li className='leaders' key={`table-${module._key}`}>
-                    <span>title</span>
+                    <span>{module.caption || ""}</span>
                     <span>{String(index + 1).padStart(2, '0')}</span></li>
                 ))}
               </ul>

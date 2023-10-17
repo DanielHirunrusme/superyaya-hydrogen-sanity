@@ -11,6 +11,7 @@ export default function RadioPopup() {
           width="200"
           height="200"
           alt="Superyaya Radio"
+          style={{ mixBlendMode: 'multiply'}}
         />
       </button>
       <Radio open={open} setOpen={setOpen} />

@@ -34,16 +34,16 @@ export function CartLineItems({
 }) {
   const lines = flattenConnection(linesObj);
   return (
-    <div role="table" aria-label="Shopping cart">
-      <div role="row" className="sr-only">
+    <ul role="table" aria-label="Shopping cart">
+      <li role="row" className="sr-only opacity-0">
         <div role="columnheader">Product image</div>
         <div role="columnheader">Product details</div>
         <div role="columnheader">Price</div>
-      </div>
+      </li>
       {lines.map((line) => {
         return <LineItem key={line.id} lineItem={line} />;
       })}
-    </div>
+    </ul>
   );
 }
 
@@ -90,10 +90,10 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
     firstVariant.name === 'Title' && firstVariant.value === 'Default Title';
 
   return (
-    <div
+    <li
       role="row"
       className={clsx(
-        'relative grid grid-cols-8',
+        'relative grid grid-cols-8 opacity-0',
         GRID_GAP,
         'flex border-b border-black py-2 last:border-b-0',
         deleting && 'opacity-50',
@@ -169,7 +169,7 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
           <Money data={lineItem.cost.totalAmount} />
         )}
       </div>
-    </div>
+    </li>
   );
 }
 

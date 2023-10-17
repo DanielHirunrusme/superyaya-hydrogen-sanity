@@ -7,6 +7,7 @@ import { PRODUCT_HOTSPOT } from '../productHotspot';
 import { PRODUCT_WITH_VARIANT } from '../productWithVariant';
 
 export const MODULE_GALLERY = groq`
+caption,
   images[] {
     _key,
     image {
@@ -24,9 +25,6 @@ export const MODULE_GALLERY = groq`
         },
         title,
         }
-    },
-    (variant == 'caption') => {
-        caption,
     },
     (variant == 'productHotspots') => {
         productHotspots[] {

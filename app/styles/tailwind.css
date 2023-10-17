@@ -47,7 +47,7 @@
   }
   
   body {
-    @apply bg-white font-sans uppercase;
+    @apply bg-white font-sans uppercase text-md;
   }
 
   html,
@@ -146,7 +146,7 @@ html {
 }
 
 .leaders::before {
-  content:'................................................................................................................................';
+  content:'................................................................................................................................................................................................................................................................';
   @apply pointer-events-none absolute bottom-0 select-none;
 }
 
@@ -157,4 +157,28 @@ html {
     -o-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
     -ms-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
     transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
+}
+
+/* Form */
+form {
+  @apply flex flex-col gap-4;
+}
+fieldset {
+  @apply flex flex-col gap-2;
+}
+input {
+  @apply border border-black p-2 hover:opacity-50 focus:opacity-100 outline-none;
+}
+
+textarea {
+  @apply border border-black p-2;
+}
+
+/* Gallery */
+.gallery-module div:first-child img {
+  @apply md:object-right;
+}
+
+.gallery-module div:last-child img {
+  @apply md:object-left;
 }

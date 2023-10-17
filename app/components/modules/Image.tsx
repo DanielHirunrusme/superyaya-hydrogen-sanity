@@ -10,21 +10,22 @@ import type {SanityModuleImage} from '~/lib/sanity';
 
 type Props = {
   module: SanityModuleImage;
+  parentModule?: any;
 };
 
-export default function ImageModule({module}: Props) {
+export default function ImageModule({module, parentModule}: Props) {
   if (!module.image) {
     return null;
   }
 
   return (
-    <div className="relative">
+    <>
       {module.variant === 'callToAction' && module.callToAction?.link ? (
         <Link className="group" link={module.callToAction.link}>
           <ImageContent module={module} />
         </Link>
       ) : (
-        <ImageContent module={module} />
+        <ImageContent parentModule={parentModule} module={module} />
       )}
 
       {/* Caption */}
@@ -71,21 +72,27 @@ export default function ImageModule({module}: Props) {
           })}
         </div>
       )}
-    </div>
+    </>
   );
 }
 
-const ImageContent = ({module}: Props) => {
+const ImageContent = ({module, parentModule}: Props) => {
   const image = module.image;
+  const mobileImage = module.mobileImage;
   const [root] = useMatches();
   const {sanityDataset, sanityProjectID} = root.data;
+  const applyAspectRatio = parentModule?._type === 'module.gallery';
 
   return (
     <div
       className={clsx(
-        'relative overflow-hiddentransition-[border-radius] duration-500 ease-out',
-        'group-hover:rounded-xl',
+        'relative w-full',
+        parentModule?._type === 'module.gallery' && 'h-full md:h-auto',
+        module.layout === 'full' && 'h-full',
       )}
+      style={{
+        aspectRatio: !applyAspectRatio ? image.width / image.height : 'auto',
+      }}
     >
       <SanityImage
         crop={image?.crop}
@@ -95,7 +102,30 @@ const ImageContent = ({module}: Props) => {
         projectId={sanityProjectID}
         sizes={['50vw, 100vw']}
         src={image?.asset?._ref}
+        layout="fill"
+        objectFit={module.layout !== 'full' ? 'contain' : 'cover'}
+        className={clsx(
+          module.layout === 'full' && 'object-center',
+          module.mobileImage && 'hidden md:block',
+        )}
       />
+      {mobileImage && (
+        <SanityImage
+          crop={mobileImage?.crop}
+          dataset={sanityDataset}
+          hotspot={mobileImage?.hotspot}
+          layout="responsive"
+          projectId={sanityProjectID}
+          sizes={['50vw, 100vw']}
+          src={mobileImage?.asset?._ref}
+          layout="fill"
+          objectFit={module.layout !== 'full' ? 'contain' : 'cover'}
+          className={clsx(
+            module.layout === 'full' && 'object-center',
+            'md:hidden',
+          )}
+        />
+      )}
 
       {/* Call to action */}
       {module.variant === 'callToAction' && (

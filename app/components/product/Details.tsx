@@ -38,7 +38,7 @@ export default function ProductDetails({
       className={clsx('flex grid-cols-8 flex-col-reverse md:grid', GRID_GAP)}
     >
       {/* Widget (desktop) */}
-      <div className="md:col-span-2 self-start md:sticky md:top-4">
+      <div className="md:col-span-2 self-start md:sticky md:top-2">
         <ProductWidget
           sanityProduct={sanityProduct}
           storefrontProduct={storefrontProduct}

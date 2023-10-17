@@ -32,6 +32,7 @@
     "clsx": "^1.2.1",
     "date-fns": "^2.30.0",
     "embla-carousel-react": "^7.1.0",
+    "framer-motion": "^10.16.4",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
     "hydrogen-sanity": "^3.0.0",

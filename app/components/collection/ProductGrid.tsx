@@ -8,6 +8,7 @@ import SpinnerIcon from '~/components/icons/Spinner';
 import ModuleGrid from '~/components/modules/ModuleGrid';
 import type {SanityModule} from '~/lib/sanity';
 import {combineProductsAndModules} from '~/lib/utils';
+import StaggerIndexList from '../framer/StaggerIndexList';
 
 export default function ProductGrid({
   collection,
@@ -65,8 +66,8 @@ export default function ProductGrid({
   }, [fetcher.data]);
 
   return (
-    <>
-      <ModuleGrid items={items} />
+    <StaggerIndexList>
+      <ModuleGrid items={items} stagger />
       {nextPage && (
         <div className="flex h-30 items-center justify-center">
           {fetcher.state !== 'idle' ? (
@@ -82,6 +83,6 @@ export default function ProductGrid({
           )}
         </div>
       )}
-    </>
+    </StaggerIndexList>
   );
 }

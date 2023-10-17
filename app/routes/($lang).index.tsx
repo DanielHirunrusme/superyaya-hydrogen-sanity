@@ -12,6 +12,7 @@ import {INDEX_QUERY} from '~/queries/sanity/index';
 import {format} from 'date-fns';
 import {Disclosure} from '@headlessui/react';
 import ProductModule from '~/components/modules/Product';
+import StaggerIndexList from '~/components/framer/StaggerIndexList';
 
 const seo: SeoHandleFunction = ({data}) => ({
   title: data?.page?.seo?.title || 'Superyaya',
@@ -69,87 +70,108 @@ export default function IndexPage() {
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
-            <div className="mx-auto flex flex-col w-full max-w-[1000px] divide-y-[1px] divide-black">
-            <nav
-              className={clsx(
-                'hidden md:flex w-full flex-1 justify-between text-left',
-                GRID_GAP,
-              )}
-            >
-              <button className={COLUMN_SIZES[0]}>NO.</button>
-              <button className={COLUMN_SIZES[1]}>Title</button>
-              <button className={COLUMN_SIZES[2]}>Category</button>
-              <button className={COLUMN_SIZES[3]}>Kind</button>
-              <button className={COLUMN_SIZES[4]}>Year</button>
-            </nav>
-            <ul className="flex flex-col divide-y-[1px] divide-black">
-              {page.map((item, index) => (
-                <Disclosure key={item._id}>
-                  {({open}) => (
-                    <li className="w-full flex-1" tabIndex={index}>
-                      <Disclosure.Button
-                        className={clsx(
-                          'flex w-full flex-1 justify-between text-left',
-                          GRID_GAP,
-                          !open && ' hover:opacity-50',
-                        )}
-                      >
-                        <div className={COLUMN_SIZES[0]}>
-                          {String(index).padStart(3, '0')}
-                        </div>
-                        <div className={COLUMN_SIZES[1]}>
-                          <div className='truncate'>{item.title}</div>
-                          {/* Mobile information */}
-                          {open && <div className='md:hidden'>
-                            {item.kind && <div>Kind: {item.kind}</div>}
-                            {item.category && <div>Category: {item.category}</div>}
-                            {item.year && <div>Year: {item.year ? format(new Date(item.year), 'yyyy') : ''}</div>}
-                          </div>}
-                        </div>
-                        <div className={COLUMN_SIZES[2]}>{item.kind}</div>
-                        <div className={COLUMN_SIZES[3]}>
-                          {item.category || ''}
-                        </div>
-                        <div className={COLUMN_SIZES[4]}>
-                          {item.year ? format(new Date(item.year), 'yyyy') : ''}
-                        </div>
-                      </Disclosure.Button>
-                      <Disclosure.Panel>
-                        <div
+            <StaggerIndexList className="mx-auto flex w-full max-w-[1000px] ">
+              <ul className='w-full divide-y-[1px] divide-black border-b'>
+                <li className='opacity-0'>
+                  <nav
+                    className={clsx(
+                      'hidden w-full flex-1 justify-between text-left md:flex',
+                      GRID_GAP,
+                    )}
+                  >
+                    <button className={COLUMN_SIZES[0]}>NO.</button>
+                    <button className={COLUMN_SIZES[1]}>Title</button>
+                    <button className={COLUMN_SIZES[2]}>Category</button>
+                    <button className={COLUMN_SIZES[3]}>Kind</button>
+                    <button className={COLUMN_SIZES[4]}>Year</button>
+                  </nav>
+                </li>
+
+                {page.map((item, index) => (
+                  <Disclosure key={item._id}>
+                    {({open}) => (
+                      <li className="w-full flex-1 opacity-0" tabIndex={index}>
+                        <Disclosure.Button
                           className={clsx(
                             'flex w-full flex-1 justify-between text-left',
                             GRID_GAP,
+                            !open && ' hover:opacity-50',
                           )}
                         >
-                          <div className={clsx(COLUMN_SIZES[0], 'hidden md:block')}></div>
+                          <div className={COLUMN_SIZES[0]}>
+                            {String(index).padStart(3, '0')}
+                          </div>
                           <div className={COLUMN_SIZES[1]}>
-                            {item._type == 'productWithVariant' ||
-                            item._type == 'collection' ? (
-                              <div>
-                                <div
-                                  dangerouslySetInnerHTML={{
-                                    __html: item.description,
-                                  }}
-                                />
+                            <div className="truncate">{item.title}</div>
+                            {/* Mobile information */}
+                            {open && (
+                              <div className="md:hidden">
+                                {item.kind && <div>Kind: {item.kind}</div>}
+                                {item.category && (
+                                  <div>Category: {item.category}</div>
+                                )}
+                                {item.year && (
+                                  <div>
+                                    Year:{' '}
+                                    {item.year
+                                      ? format(new Date(item.year), 'yyyy')
+                                      : ''}
+                                  </div>
+                                )}
                               </div>
-                            ) : (
-                              <div>text</div>
                             )}
                           </div>
-                          <div className={COLUMN_SIZES[2]}> </div>
-                          <div className={COLUMN_SIZES[3]}></div>
-                          <div className={COLUMN_SIZES[4]}></div>
-                        </div>
-                        <div className="mb-4 md:ml-24 mt-2">
-                          <IndexImages item={item} />
-                        </div>
-                      </Disclosure.Panel>
-                    </li>
-                  )}
-                </Disclosure>
-              ))}
-            </ul>
-            </div>
+                          <div className={COLUMN_SIZES[2]}>{item.kind}</div>
+                          <div className={COLUMN_SIZES[3]}>
+                            {item.category || ''}
+                          </div>
+                          <div className={COLUMN_SIZES[4]}>
+                            {item.year
+                              ? format(new Date(item.year), 'yyyy')
+                              : ''}
+                          </div>
+                        </Disclosure.Button>
+                        <Disclosure.Panel>
+                          <div
+                            className={clsx(
+                              'flex w-full flex-1 justify-between text-left',
+                              GRID_GAP,
+                            )}
+                          >
+                            <div
+                              className={clsx(
+                                COLUMN_SIZES[0],
+                                'hidden md:block',
+                              )}
+                            ></div>
+                            <div className={COLUMN_SIZES[1]}>
+                              {item._type == 'productWithVariant' ||
+                              item._type == 'collection' ? (
+                                <div>
+                                  <div
+                                    dangerouslySetInnerHTML={{
+                                      __html: item.description,
+                                    }}
+                                  />
+                                </div>
+                              ) : (
+                                <div>text</div>
+                              )}
+                            </div>
+                            <div className={COLUMN_SIZES[2]}> </div>
+                            <div className={COLUMN_SIZES[3]}></div>
+                            <div className={COLUMN_SIZES[4]}></div>
+                          </div>
+                          <div className="mb-4 mt-2 md:ml-24">
+                            <IndexImages item={item} />
+                          </div>
+                        </Disclosure.Panel>
+                      </li>
+                    )}
+                  </Disclosure>
+                ))}
+              </ul>
+            </StaggerIndexList>
           </Await>
         </Suspense>
       )}

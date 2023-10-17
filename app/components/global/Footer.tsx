@@ -6,6 +6,7 @@ import LogoIcon from '~/components/icons/Logo';
 import {Link} from '~/components/Link';
 import PortableText from '~/components/portableText/PortableText';
 import type {SanityLink} from '~/lib/sanity';
+ 
 
 /**
  * A component that specifies the content of the footer on the website
@@ -49,8 +50,8 @@ export default function Footer() {
 
   return (
     <>
-      <Link to="/" className="linkTextNavigation fixed bottom-0 left-0 m-4">Abijan</Link>
-      <Link to="/" className="linkTextNavigation fixed bottom-0 right-0 m-4">Beirut</Link>
+      <Link mode="text" to="/" className="fixed bottom-0 left-0 h-header-sm flex items-center px-4">Abijan</Link>
+      <Link mode="text" to="/" className="fixed bottom-0 right-0 h-header-sm flex items-center px-4">Beirut</Link>
     </>
   )
 

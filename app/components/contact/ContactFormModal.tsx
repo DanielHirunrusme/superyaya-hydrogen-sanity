@@ -24,16 +24,17 @@ export default function ContactFormModal(props: Props) {
   const data = fetcher?.data;
   const formSubmitted = data?.form;
   const formError = data?.error;
+  const [open, setOpen] = useState(false);
   return (
     <>
-      <Button className="w-full">{label}</Button>
-      <div>
+      {!open && <Button onClick={()=>setOpen(true)} className="w-full">{label}</Button>}
+      {open && <div className="">
         {formSubmitted ? (
           <div>
             <p>Thank you for your message. We will get back to you shortly.</p>
           </div>
         ) : (
-          <ContactForm Form={Form} />
+          <ContactForm Form={Form} setOpen={setOpen} />
         )}
         {formError && (
           <div>
@@ -41,31 +42,36 @@ export default function ContactFormModal(props: Props) {
             <p>{formError.message}</p>
           </div>
         )}
-      </div>
+      </div>}
     </>
   );
 }
 
-function ContactForm({Form}: {Form: typeof FormType}) {
+function ContactForm({Form, setOpen}: {Form: typeof FormType, setOpen: (boolean)=>void}) {
   const yyyyMmDd = new Date().toISOString().split('T')[0];
   return (
-    <Form action="/api/contact" method="post">
+    <Form action="/api/contact" method="post" className='pt-2 max-w-sm'>
       <fieldset>
         <label htmlFor="name">Name</label>
-        <input type="text" name="name" required />
+        <input placeholder="Name" type="text" name="name" required />
       </fieldset>
       <fieldset>
         <label htmlFor="email">Email</label>
-        <input type="email" name="email" required />
+        <input placeholder="Email" type="email" name="email" required />
       </fieldset>
-      <fieldset>
+      {/* <fieldset>
         <label htmlFor="subject">Subject</label>
         <input type="subject" name="subject" required />
-      </fieldset>
+      </fieldset> */}
       <input type="text" hidden name="date" defaultValue={yyyyMmDd} />
-      <textarea name="message" required />
-      <br />
-      <button type="submit">Send</button>
+      <fieldset>
+      <label htmlFor="message">Special Requirements</label>
+      <textarea name="message" required placeholder="Specify any special requests" />
+      </fieldset>
+      <div className="flex gap-4 mt-4">
+        <Button className='flex-1' onClick={()=>setOpen(false)}>Close</Button>
+        <Button className='flex-1' type="submit">Send</Button>
+      </div>
     </Form>
   );
 }

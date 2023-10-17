@@ -10,6 +10,13 @@ export const MODULE_IMAGE = groq`
   image {
     ${IMAGE}
   },
+  (addMobileImage) => {
+    mobileImage {
+      ${IMAGE}
+    },
+  },
+  caption,
+  layout,
   (variant == 'callToAction') => {
     callToAction {
       "link": links[0] {
@@ -22,9 +29,6 @@ export const MODULE_IMAGE = groq`
       },
       title,
     }
-  },
-  (variant == 'caption') => {
-    caption,
   },
   (variant == 'productHotspots') => {
     productHotspots[] {

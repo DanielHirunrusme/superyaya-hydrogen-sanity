@@ -73,7 +73,7 @@ export default function Page() {
               <ul className='w-full max-w-2xl  mx-auto'>
                 {page.modules?.map((module, index) => (
                   <li className='leaders' key={`table-${module._key}`}>
-                    <span>title</span>
+                    <span>{module.caption || "No caption set"}</span>
                     <span>{String(index + 1).padStart(2, '0')}</span></li>
                 ))}
               </ul>

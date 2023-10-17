@@ -11,7 +11,7 @@ export default function Radio({open, setOpen}) {
       leave="transition-translate-y duration-500"
       leaveFrom="translate-y-0"
       leaveTo="translate-y-full"
-      className="absolute bottom-0 left-0 z-50 h-screen w-full bg-yellow"
+      className="fixed bottom-0 left-0 z-50 h-screen w-full bg-yellow"
     >
         <Button mode='text' className='absolute top-0 right-0 p-4' onClick={()=>setOpen(false)}>Close</Button>
       <div className=" bottom-0 h-screen w-full bg-yellow">

@@ -10,6 +10,7 @@ import {Suspense} from 'react';
 import invariant from 'tiny-invariant';
 
 import {CartActions, CartLineItems, CartSummary} from '~/components/cart/Cart';
+import StaggerIndexList from '~/components/framer/StaggerIndexList';
 import SpinnerIcon from '~/components/icons/Spinner';
 import {isLocalPath} from '~/lib/utils';
 
@@ -114,9 +115,9 @@ export default function Cart() {
       >
         <Await resolve={root.data?.cart}>
           {(cart) => (
-            <>
-              <div className="mx-auto max-w-4xl">
-                <div className="hidden md:grid grid-cols-8 gap-6 border-b border-black">
+            <StaggerIndexList>
+              <ul className="mx-auto max-w-4xl">
+                <li className="hidden opacity-0 grid-cols-8 gap-6 border-b border-black md:grid">
                   <span className="col-span-4">
                     <span className="block px-2">Item</span>
                   </span>
@@ -124,19 +125,19 @@ export default function Cart() {
                   <span className="col-span-1 text-right">
                     <span className="block px-2">Price</span>
                   </span>
-                </div>
-                <div className="flex-grow">
-                  <CartLineItems linesObj={cart.lines} />
-                </div>
-                <div className="grid grid-cols-8 gap-6 border-t border-black">
+                </li>
+                <li>
+                <CartLineItems linesObj={cart.lines} />
+                </li>
+                <li className="opacity-0 grid grid-cols-8 gap-6 border-t border-black">
                   <div className="col-span-4 md:col-span-6" />
                   <div className="col-span-4 md:col-span-2">
                     <CartSummary cost={cart.cost} />
                     <CartActions cart={cart} />
                   </div>
-                </div>
-              </div>
-            </>
+                </li>
+              </ul>
+            </StaggerIndexList>
           )}
         </Await>
       </Suspense>

@@ -34,6 +34,8 @@ export default function ProductForm({
   const multipleProductOptions = hasMultipleProductOptions(product.options);
   // @ts-expect-error this is not typed out
   const isCustomPricing = product.inquire;
+  // @ts-expect-error this is not typed out
+  const isPreorder = product.pre_order;
 
   invariant(
     analytics?.products?.[0],
@@ -75,7 +77,10 @@ export default function ProductForm({
             totalValue: parseFloat(productAnalytics.price),
           }}
           buttonClassName="w-full hover:opacity-50"
-        />
+          
+        >
+          {!isPreorder ? "Add to Cart" : "Pre-order"}
+          </AddToCartButton>
         {/* <BuyNowButton
           lines={[{merchandiseId: selectedVariant.id, quantity: 1}]}
           disabled={isOutOfStock}

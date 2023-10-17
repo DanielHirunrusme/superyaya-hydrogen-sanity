@@ -88,6 +88,20 @@ export default defineField({
         },
       ],
     }),
+    defineField({
+      name: 'addMobileImage',
+      title: 'Add mobile image?',
+      description: 'Toggle this to add a mobile image',
+      type: 'boolean',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'mobileImage',
+      title: 'Mobile image',
+      type: 'image',
+      options: {hotspot: true},
+      hidden: ({parent}) => !parent.addMobileImage,
+    }),
   ],
   preview: {
     select: {

@@ -41,7 +41,7 @@ module.exports = {
         '1rem',
         {
           letterSpacing: '-0.03em',
-          lineHeight: '1.1',
+          lineHeight: '1.4',
         },
       ],
       //18px
@@ -118,7 +118,7 @@ module.exports = {
         yellow: 'yellow',
       },
       height: {
-        'header-sm': '4.375rem',
+        'header-sm': '2.4rem',
         'header-lg': '6.25rem',
       },
       spacing: {

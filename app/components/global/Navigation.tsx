@@ -5,6 +5,7 @@ import CollectionGroup from '~/components/global/collectionGroup/CollectionGroup
 import {Link} from '~/components/Link';
 import type {SanityMenuLink} from '~/lib/sanity';
 import clsx from 'clsx';
+import {useAnimate, stagger, useInView} from 'framer-motion';
 
 /**
  * A component that defines the navigation for a web storefront
@@ -16,6 +17,8 @@ type Props = {
 
 export default function Navigation({menuLinks}: Props) {
   const location = useLocation();
+  const [scope, animate] = useAnimate();
+  const isInView = useInView(scope);
 
   const renderLinks = useCallback(() => {
     return menuLinks?.map((link) => {
@@ -63,7 +66,7 @@ export default function Navigation({menuLinks}: Props) {
         }
 
         return (
-          <div className="flex items-center" key={link._key}>
+          <li className="flex items-center opacity-0" key={link._key}>
             <Link
               className={clsx(
                 'linkTextNavigation',
@@ -74,7 +77,7 @@ export default function Navigation({menuLinks}: Props) {
             >
               {link.title}
             </Link>
-          </div>
+          </li>
         );
       }
 
@@ -108,7 +111,6 @@ export default function Navigation({menuLinks}: Props) {
 
         if (link.links?.length) {
           let hasChildActive = false;
-          
 
           link.links.map((subLink) => {
             if (location.pathname.includes(subLink.slug)) {
@@ -134,7 +136,10 @@ export default function Navigation({menuLinks}: Props) {
                   });
                 }
                 return (
-                  <div className="flex items-center" key={subLink._key}>
+                  <li
+                    className="flex items-center opacity-0"
+                    key={subLink._key}
+                  >
                     <Link
                       className={clsx(
                         'linkTextNavigation',
@@ -144,7 +149,7 @@ export default function Navigation({menuLinks}: Props) {
                     >
                       {subLink.title}
                     </Link>
-                  </div>
+                  </li>
                 );
               })}
             </div>
@@ -194,31 +199,23 @@ export default function Navigation({menuLinks}: Props) {
                 >
                   {subLink.links.map((subSubLink) => {
                     return (
-                      <div className="flex items-center" key={subSubLink._key}>
+                      <li
+                        className="flex items-center opacity-0"
+                        key={subSubLink._key}
+                      >
                         <Link
                           className="linkTextNavigation"
                           to={subSubLink.slug}
                         >
                           {subSubLink.title}
                         </Link>
-                      </div>
+                      </li>
                     );
                   })}
                 </div>
               );
             }
           });
-          // return <div className={location.pathname.includes(link.slug) ? 'flex gap-6' : 'hidden'}>
-          //   {link.links.map((subLink) => {
-          //     return (
-          //       <div className="flex items-center" key={subLink._key}>
-          //         <Link className="linkTextNavigation" to={subLink.slug}>
-          //           {subLink.title}
-          //         </Link>
-          //       </div>
-          //     );
-          //   })}
-          // </div>
         }
       }
 
@@ -226,14 +223,45 @@ export default function Navigation({menuLinks}: Props) {
     });
   }, [menuLinks, location]);
 
+  useEffect(() => {
+    const sequence = [
+      ['nav ul li', {opacity: 1}, {delay: stagger(0.025), duration: 0.01}],
+      ['nav ul+ul li', {opacity: 1}, {delay: stagger(0.025), duration: 0.01}],
+      ['nav ul+ul li', , {opacity: 1}, {delay: stagger(0.025), duration: 0.01}],
+    ];
+    if(!isInView) return;
+    animate(sequence);
+  }, [isInView]);
+
   return (
-    <nav className="sticky top-0 flex flex-col items-center justify-center gap-3 py-4">
-      <Link className="linkTextNavigation !no-underline" to="/">
-        SUPERYAYA
-      </Link>
-      <nav className="hidden gap-6 md:flex">{renderLinks()}</nav>
-      <nav className="hidden gap-6 md:flex">{renderSubLinks()}</nav>
-      <nav className="hidden gap-6 md:flex">{renderSubSubLinks()}</nav>
+    <nav
+      ref={scope}
+      className="z-40 flex flex-col items-center justify-center gap-3 pb-4"
+    >
+      <FramerNav>{renderLinks()}</FramerNav>
+      <FramerNav delay={menuLinks.length * 0.05}>{renderSubLinks()}</FramerNav>
+      <FramerNav>{renderSubSubLinks()}</FramerNav>
     </nav>
+  );
+}
+
+function FramerNav({
+  delay = 0,
+  children,
+}: {
+  delay?: number;
+  children: React.ReactNode;
+}) {
+  const [scope, animate] = useAnimate();
+  const isInView = useInView(scope);
+  // useEffect(() => {
+  //   if (isInView) {
+  //     animate('li', {opacity: 1}, {delay: stagger(0.05), duration: 0});
+  //   }
+  // }, [isInView]);
+  return (
+    <ul className="hidden gap-6 md:flex" ref={scope}>
+      {children}
+    </ul>
   );
 }

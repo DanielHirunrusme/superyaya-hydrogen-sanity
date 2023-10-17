@@ -6,6 +6,7 @@ import {SanityPreview} from 'hydrogen-sanity';
 import {Suspense} from 'react';
 import season from 'studio/schemas/documents/season';
 import {Link} from '~/components/Link';
+import StaggerIndexList from '~/components/framer/StaggerIndexList';
 
 import HomeHero from '~/components/heroes/Home';
 import ModuleGrid from '~/components/modules/ModuleGrid';
@@ -62,20 +63,22 @@ export default function Index() {
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
-            <div className="left-0  top-0 flex h-full w-full flex-col items-center justify-center text-center">
-              <div className="pb-20 flex flex-col items-center justify-center text-center">
+            <StaggerIndexList className="left-0  top-0 flex h-full w-full flex-col items-center justify-center text-center">
+              <ul className="pb-20 flex flex-col items-center justify-center text-center">
                 {page?.map((season) => (
+                  <li className='opacity-0' key={season.slug}>
                   <Link
                     to={season.slug}
                     title={season.title}
-                    key={season.slug}
+                    
                     className="font-cursive large-title text-2xl self-start mx-auto !normal-case md:text-3xl lg:text-4xl 2xl:text-5xl"
                   >
                     {season.title}
                   </Link>
+                  </li>
                 ))}
-              </div>
-            </div>
+              </ul>
+            </StaggerIndexList>
           </Await>
         </Suspense>
       )}

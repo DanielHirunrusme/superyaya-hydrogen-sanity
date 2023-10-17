@@ -91,9 +91,11 @@ const PRODUCT_LAYOUT = [
 
 type Props = {
   items: (SanityModule | ProductWithNodes)[];
+  showCount?: boolean;
+  stagger?: boolean;
 };
 
-export default function ModuleGrid({items}: Props) {
+export default function ModuleGrid({items, showCount, stagger}: Props) {
   return (
     <ul className={clsx("grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6", GRID_GAP)}>
       {items.map((item, index) => {
@@ -113,19 +115,21 @@ export default function ModuleGrid({items}: Props) {
           return (
             <li
               key={item._key}
+              className={clsx(stagger && 'opacity-0')}
             >
               <div>
                 <Module
                   imageAspectClassName={productImageAspect}
                   module={item}
                 />
+                {showCount && (<div className='text-center mt-2'>{String(index + 1).padStart(2, '0')}</div>)}
               </div>
             </li>
           );
         } else {
           // Render product cards
           return (
-            <li key={item.id}>
+            <li key={item.id} className={clsx(stagger && 'opacity-0')}>
               <div>
                 <ProductCard
                   imageAspectClassName={productImageAspect}

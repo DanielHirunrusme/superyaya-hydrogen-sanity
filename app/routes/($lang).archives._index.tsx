@@ -4,6 +4,7 @@ import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
 import {SanityPreview} from 'hydrogen-sanity';
 import {Suspense} from 'react';
 import {Link} from '~/components/Link';
+import StaggerIndexList from '~/components/framer/StaggerIndexList';
 
 import type {SanityHomePage} from '~/lib/sanity';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
@@ -57,36 +58,28 @@ export default function Index() {
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
-            <div className="left-0  top-0 flex h-full w-full flex-col items-center justify-center gap-8 text-center">
+            <StaggerIndexList className="left-0 top-0 flex h-full w-full flex-col items-center justify-center gap-8 text-center">
               {page.map((category) => (
                 <div
                   className="mx-auto flex w-full max-w-[700px] flex-col gap-2"
                   key={category._id}
                 >
-                  <div>{category.title}</div>
                   <ul>
+                    <li className="mb-2 opacity-0">
+                      <h2>{category.title}</h2>
+                    </li>
                     {category.entries?.map((entry, index) => (
-                      <Link as="li" to={entry.slug} className="leaders" key={entry._id}>
-                        <span>{entry.title}</span>
-                        <span>{String(index + 1).padStart(2, '0')}</span>
-                      </Link>
+                      <li className="opacity-0" key={entry._id}>
+                        <Link to={entry.slug} className="leaders">
+                          <span>{entry.title}</span>
+                          <span>{String(index + 1).padStart(2, '0')}</span>
+                        </Link>
+                      </li>
                     ))}
                   </ul>
                 </div>
               ))}
-              {/* <div className="pb-20 flex flex-col items-center justify-center text-center">
-                {page?.map((archive) => (
-                  <Link
-                    to={archive.slug}
-                    title={archive.title}
-                    key={archive.slug}
-                    className="font-cursive text-2xl self-start mx-auto !normal-case md:text-3xl lg:text-4xl 2xl:text-5xl"
-                  >
-                    {archive.title}
-                  </Link>
-                ))}
-              </div> */}
-            </div>
+            </StaggerIndexList>
           </Await>
         </Suspense>
       )}
