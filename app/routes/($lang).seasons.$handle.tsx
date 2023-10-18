@@ -59,13 +59,12 @@ export async function loader({params, context}: LoaderArgs) {
 export default function Page() {
   const {page, gids} = useLoaderData<typeof loader>();
 
-  console.log(page)
   return (
     <ColorTheme value={page.colorTheme}>
       <Suspense>
         <Await resolve={gids}>
           <div className="mb-22 text-center font-serif text-xxs">
-            <div>{page.title}</div>
+            <div>{page.collection}&nbsp;{page.title}</div>
             <br />
             <div className="mx-auto max-w-[19.1875rem] text-left !normal-case">
               <PortableText blocks={page.body} />

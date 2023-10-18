@@ -45,6 +45,21 @@ export const PRODUCT_FIELDS = `
     title
     vendor
     descriptionHtml
+    media(first: 20) {
+      nodes {
+        ... on MediaImage {
+          id
+          mediaContentType
+          image {
+            id
+            url
+            altText
+            width
+            height
+          }
+        }
+      }
+    }
     images(first: 20) {
       nodes {
         altText

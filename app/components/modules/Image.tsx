@@ -34,26 +34,7 @@ export default function ImageModule({module, parentModule}: Props) {
           {module.caption}
         </div>
       )}
-      {/* Product hotspots */}
-      {module.variant === 'productHotspots' && (
-        <>
-          {module.productHotspots?.map((hotspot) => {
-            if (!hotspot?.product?.gid) {
-              return null;
-            }
 
-            return (
-              <ProductHotspot
-                key={hotspot._key}
-                productGid={hotspot?.product?.gid}
-                variantGid={hotspot?.product?.variantGid}
-                x={hotspot.x}
-                y={hotspot.y}
-              />
-            );
-          })}
-        </>
-      )}
       {/* Product tags */}
       {module.variant === 'productTags' && (
         <div className=" flex flex-wrap gap-x-1 gap-y-2">
@@ -125,6 +106,27 @@ const ImageContent = ({module, parentModule}: Props) => {
             'md:hidden',
           )}
         />
+      )}
+
+            {/* Product hotspots */}
+            {module.variant === 'productHotspots' && (
+        <>
+          {module.productHotspots?.map((hotspot) => {
+            if (!hotspot?.product?.gid) {
+              return null;
+            }
+
+            return (
+              <ProductHotspot
+                key={hotspot._key}
+                productGid={hotspot?.product?.gid}
+                variantGid={hotspot?.product?.variantGid}
+                x={hotspot.x}
+                y={hotspot.y}
+              />
+            );
+          })}
+        </>
       )}
 
       {/* Call to action */}

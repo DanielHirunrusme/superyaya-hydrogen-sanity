@@ -31,6 +31,12 @@ export default defineField({
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: 'collection',
+      title: 'Collection',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
     // defineField({
     //   name: 'titleSvg',
     //   title: 'Title SVG',

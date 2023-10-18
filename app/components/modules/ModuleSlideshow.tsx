@@ -33,21 +33,12 @@ export default function ModuleSlideshow(props) {
     }
   };
 
-  //   useEffect(() => {
-
-  //     const galleryIndex = 1
-
-  //     if (emblaApi && galleryIndex >= 0) {
-  //       emblaApi.scrollTo(galleryIndex, true); // instantly scroll
-  //     }
-  //   }, [emblaApi, media, selectedVariant]);
-
-  console.log(modules);
+ 
 
   return (
     <div
       onClick={onClick}
-      className="fixed left-0 top-0 h-screen w-screen"
+      className="fixed left-0 top-0 h-screen w-screen z-40"
       tabIndex={-1}
     >
       <div className="h-full w-screen overflow-hidden" ref={emblaRef}>

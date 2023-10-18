@@ -34,7 +34,7 @@ export default function ProductHotspot({productGid, variantGid, x, y}: Props) {
     >
       <Link
         className={clsx(
-          'absolute left-[50%] top-[50%] flex h-[26px] w-[26px] -translate-x-1/2 -translate-y-1/2 animate-pulse items-center justify-center rounded-full bg-offBlack duration-300 ease-out',
+          'absolute left-[50%] top-[50%] flex h-[26px] w-[26px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full  duration-300 ease-out',
           'hover:scale-125 hover:animate-none',
         )}
         style={{
@@ -43,7 +43,7 @@ export default function ProductHotspot({productGid, variantGid, x, y}: Props) {
         }}
         to={`/products/${storefrontProduct.handle}`}
       >
-        <div className="relative h-[4px] w-[4px] rounded-full bg-white" />
+        <div className="relative h-[8px] w-[8px] rounded-full bg-yellow" />
       </Link>
     </Tippy>
   );

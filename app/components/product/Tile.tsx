@@ -38,7 +38,7 @@ export default function ProductTile({storefrontProduct, variantGid}: Props) {
     <Link to={`/products/${storefrontProduct.handle}`}>
       <div
         className={clsx(
-          'group min-w-[12.5em] rounded-md bg-white p-5 transition-[border-radius] duration-500 ease-out',
+          'group min-w-[12.5em] rounded-md bg-yellow p-4 transition-[border-radius] duration-500 ease-out',
           'hover:rounded-xl',
         )}
         role="row"
@@ -64,18 +64,18 @@ export default function ProductTile({storefrontProduct, variantGid}: Props) {
           </div>
 
           {/* Vendor */}
-          {storefrontProduct.vendor && (
+          {/* {storefrontProduct.vendor && (
             <div className="mt-1 truncate  ">
               {storefrontProduct.vendor}
             </div>
-          )}
+          )} */}
 
           {/* Product options */}
-          {multipleProductOptions && (
+          {/* {multipleProductOptions && (
             <div className="mt-1 truncate  ">
               {productOptions}
             </div>
-          )}
+          )} */}
         </div>
 
         {/* Price / sold out */}

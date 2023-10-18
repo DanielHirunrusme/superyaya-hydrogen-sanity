@@ -1,17 +1,13 @@
-import {Image, Money, type ShopifyAnalyticsProduct} from '@shopify/hydrogen';
+'use client';
+import {Image} from '@shopify/hydrogen';
 import type {ProductVariant} from '@shopify/hydrogen/storefront-api-types';
 import clsx from 'clsx';
 
-import Badge from '~/components/elements/Badge';
-import {Link} from '~/components/Link';
-import AddToCartButton from '~/components/product/buttons/AddToCartButton';
 import {PRODUCT_IMAGE_RATIO} from '~/lib/constants';
-import {
-  getProductOptionString,
-  hasMultipleProductOptions,
-  useGid,
-} from '~/lib/utils';
+import {useGid} from '~/lib/utils';
 import type {ProductWithNodes} from '~/types/shopify';
+import ProductSlideshow from './ProductSlideshow';
+import {useState} from 'react';
 
 type Props = {
   imageAspectClassName?: string;
@@ -24,6 +20,8 @@ export default function ProductImages({
   storefrontProduct,
   variantGid,
 }: Props) {
+  const [zoom, setZoom] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const firstVariant =
     useGid<ProductVariant>(variantGid) ??
     storefrontProduct.variants.nodes.find(
@@ -35,27 +33,41 @@ export default function ProductImages({
     return null;
   }
 
-  console.log(storefrontProduct);
+  const onClick = (index) => {
+    setZoom(true);
+  };
 
   return (
-    <div className="group relative">
-      <div
-        className={clsx(
-          'relative grid grid-cols-4 md:flex gap-2 justify-between',
-        )}
-      >
-        {storefrontProduct?.images?.nodes?.map((image) => (
-            <div className='md:w-[70px] flex-grow-0'>
-          <Image
-            key={image.id}
-            className={clsx(' flex-grow-0', PRODUCT_IMAGE_RATIO)}
-            data={image}
-            crop="center"
-            sizes="100%"
-          />
-          </div>
-        ))}
+    <>
+      <div className="group relative">
+        <div
+          className={clsx(
+            'relative grid grid-cols-4 justify-between gap-2 md:flex',
+          )}
+        >
+          {storefrontProduct?.images?.nodes?.map((image, index) => (
+            <div
+              onClick={() => onClick(index)}
+              className="flex-grow-0 cursor-pointer md:w-[70px]"
+            >
+              <Image
+                key={image.id}
+                className={clsx(' flex-grow-0', PRODUCT_IMAGE_RATIO)}
+                data={image}
+                crop="center"
+                sizes="100%"
+              />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+      <ProductSlideshow
+        storefrontProduct={storefrontProduct}
+        zoom={zoom}
+        setZoom={setZoom}
+        selectedIndex={selectedIndex}
+        setSelectedIndex={setSelectedIndex}
+      />
+    </>
   );
 }

@@ -53,7 +53,7 @@ export const defaultButtonStyles = (options?: ButtonStyleOptions) => {
     ]);
   } else {
     return clsx([
-      "hover:underline underline-offset-4 decoration-1"
+      "hover:underline underline-offset-4 decoration-1 text-md md:text-xxs"
     ])
   }
 

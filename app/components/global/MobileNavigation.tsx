@@ -245,7 +245,6 @@ export default function MobileNavigation({menuLinks}: Props) {
 
   useEffect(() => {
     if (open) {
-      console.log('animate mobile menu sequence');
       const sequence = [
         [
           'nav > div ul li',
