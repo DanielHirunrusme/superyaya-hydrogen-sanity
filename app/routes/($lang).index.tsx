@@ -28,11 +28,11 @@ export const handle = {
 };
 
 const COLUMN_SIZES = [
-  'md:w-20 flex-grow-0 text-left pl-2 py-1',
-  'flex-1 text-left py-1 overflow-hidden',
-  'hidden md:block w-48 flex-grow-0 text-left py-1',
-  'hidden md:block w-32 flex-grow-0 text-left py-1',
-  'hidden md:block w-16 flex-grow-0 text-right pr-2 py-1',
+  'md:w-20 flex-grow-0 text-left pl-2 py-1 uppercase',
+  'flex-1 text-left py-1 overflow-hidden uppercase',
+  'hidden md:block w-48 flex-grow-0 text-left py-1 uppercase',
+  'hidden md:block w-32 flex-grow-0 text-left py-1 uppercase',
+  'hidden md:block w-16 flex-grow-0 text-right pr-2 py-1 uppercase',
 ];
 
 export async function loader({context, params}: LoaderArgs) {
@@ -73,7 +73,7 @@ export default function IndexPage() {
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
-            <StaggerIndexList className="mx-auto flex w-full max-w-[1000px]">
+            <StaggerIndexList className="mx-auto flex w-full max-w-[1160px] 2xl:max-w-[1836px]">
               <ul className="w-full " >
                 <li className="opacity-0  border-b-[.8px] 2xl:border-b">
                   <nav
@@ -134,6 +134,7 @@ export default function IndexPage() {
                               className={clsx(
                                 'flex w-full flex-1 justify-between text-left',
                                 GRID_GAP,
+                                'font-body text-xxs'
                               )}
                             >
                               <div
@@ -146,6 +147,7 @@ export default function IndexPage() {
                                 {item._type == 'productWithVariant' ? (
                                   <div>
                                     <div
+                                    className='rte body'
                                       dangerouslySetInnerHTML={{
                                         __html: item.description,
                                       }}
@@ -153,7 +155,7 @@ export default function IndexPage() {
                                   </div>
                                 ) : (
                                   <div>
-                                    <PortableText blocks={item.description} />
+                                    <PortableText blocks={item.description} className='body' />
                                   </div>
                                 )}
                               </div>
@@ -161,7 +163,7 @@ export default function IndexPage() {
                               <div className={COLUMN_SIZES[3]}></div>
                               <div className={COLUMN_SIZES[4]}></div>
                             </div>
-                            <div className="mb-4 mt-2 md:ml-24">
+                            <div className="mb-4 mt-2 md:ml-22">
                               <IndexImages item={item} />
                             </div>
                           </Disclosure.Panel>

@@ -42,7 +42,7 @@ export default function ProductImages({
       <div className="group relative">
         <div
           className={clsx(
-            'relative grid grid-cols-4 justify-between gap-2 md:flex',
+            'relative grid grid-cols-4 gap-2 md:flex',
           )}
         >
           {storefrontProduct?.images?.nodes?.map((image, index) => (

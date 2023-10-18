@@ -16,6 +16,7 @@ module.exports = {
     },
     fontFamily: {
       sans: 'EngraversGothic, "Helvetica Neue", Arial, sans-serif',
+      body: 'EurostileMonoEF, sans-serif',
       serif: 'Times New Roman, serif',
       cursive: 'Snell, cursive',
     },

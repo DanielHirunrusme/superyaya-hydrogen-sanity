@@ -64,7 +64,7 @@ export default function Page() {
       <Suspense>
         <Await resolve={gids}>
           <div className="mb-22 text-center font-serif text-xxs">
-            <div>{page.collection}&nbsp;{page.title}</div>
+            <div className='!uppercase'>{page.collection}&nbsp;{page.title}</div>
             <br />
             <div className="mx-auto max-w-[19.1875rem] text-left !normal-case">
               <PortableText blocks={page.body} />
