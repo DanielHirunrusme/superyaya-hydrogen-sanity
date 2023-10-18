@@ -261,7 +261,7 @@ function FramerNav({
   //   }
   // }, [isInView]);
   return (
-    <ul className="hidden gap-5 md:flex" ref={scope}>
+    <ul className="hidden gap-5 md:flex 2xl:gap-10" ref={scope}>
       {children}
     </ul>
   );

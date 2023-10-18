@@ -202,7 +202,7 @@ textarea, select {
 }
 
 .font-serif * {
-  letter-spacing: .02em;
+  letter-spacing: .04em;
   @apply normal-case;
 }
 

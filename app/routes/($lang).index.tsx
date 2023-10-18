@@ -28,11 +28,11 @@ export const handle = {
 };
 
 const COLUMN_SIZES = [
-  'md:w-20 flex-grow-0 text-left pl-2 py-1 uppercase',
+  'md:w-20 2xl:w-[8.75rem] flex-grow-0 text-left ml-2 2xl:ml-4 py-1 uppercase',
   'flex-1 text-left py-1 overflow-hidden uppercase',
-  'hidden md:block w-48 flex-grow-0 text-left py-1 uppercase',
-  'hidden md:block w-32 flex-grow-0 text-left py-1 uppercase',
-  'hidden md:block w-16 flex-grow-0 text-right pr-2 py-1 uppercase',
+  'hidden md:block w-48 2xl:w-[19.625rem] flex-grow-0 text-left py-1 uppercase',
+  'hidden md:block w-32 2xl:w-[14rem] flex-grow-0 text-left py-1 uppercase',
+  'hidden md:block w-16 2xl:w-[4.5rem] flex-grow-0 text-left mr-2 2xl:mr-4 py-1 uppercase',
 ];
 
 export async function loader({context, params}: LoaderArgs) {
@@ -75,7 +75,7 @@ export default function IndexPage() {
           <Await resolve={gids}>
             <StaggerIndexList className="mx-auto flex w-full max-w-[1160px] 2xl:max-w-[1836px]">
               <ul className="w-full " >
-                <li className="opacity-0  border-b-[.8px] 2xl:border-b">
+                <li className="opacity-0  border-b-[.8px] 2xl:border-b font-body">
                   <nav
                     className={clsx(
                       'hidden w-full flex-1 justify-between text-left md:flex',
@@ -105,6 +105,7 @@ export default function IndexPage() {
                               'flex w-full flex-1 justify-between text-left overflow-hidden',
                               GRID_GAP,
                               !open && ' hover:opacity-50',
+                              'font-body'
                             )}
                           >
                             <div className={COLUMN_SIZES[0]}>
