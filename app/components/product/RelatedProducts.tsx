@@ -15,7 +15,7 @@ export default function RelatedProducts({relatedProducts}: Props) {
 
   return (
     <div
-    className={clsx('mt-28 flex flex-col md:grid grid-cols-8', GRID_GAP)}
+    className={clsx('mt-18 flex flex-col md:grid grid-cols-8', GRID_GAP)}
       style={{background: colorTheme?.background || 'white'}}
     >
       <div className='hidden md:block md:col-span-2'></div>
