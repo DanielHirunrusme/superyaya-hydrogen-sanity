@@ -14,7 +14,7 @@ const devOnlyPlugins = [visionTool()]
 
 export default defineConfig({
   name: 'default',
-  title: 'Superyaya',
+  title: 'SUPER YAYA',
   projectId: 'wswdnh4k',
   dataset: 'production',
   

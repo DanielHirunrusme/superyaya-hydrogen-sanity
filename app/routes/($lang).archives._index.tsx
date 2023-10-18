@@ -11,7 +11,7 @@ import {fetchGids, notFound, validateLocale} from '~/lib/utils';
 import {ARCHIVE_INDEX_PAGE} from '~/queries/sanity/archive';
 
 const seo: SeoHandleFunction = ({data}) => ({
-  title: data?.page?.seo?.title || 'Superyaya',
+  title: data?.page?.seo?.title || 'SUPER YAYA',
   description:
     data?.page?.seo?.description ||
     'A custom storefront powered by Hydrogen and Sanity',

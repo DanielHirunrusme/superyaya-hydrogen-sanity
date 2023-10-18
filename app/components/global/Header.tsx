@@ -19,7 +19,7 @@ export default function Header() {
     <>
       <header id="Header" className="sticky top-0 z-50 text-center h-header-sm flex items-center justify-center" role="banner">
       <Link className="linkTextNavigation !no-underline " to="/">
-        SUPERYAYA
+        SUPER YAYA
       </Link>
         {/* Accounts, country selector + cart toggle */}
         <HeaderActions menuLinks={menuLinks} />

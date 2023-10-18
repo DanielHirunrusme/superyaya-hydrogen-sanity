@@ -3,6 +3,7 @@ import {Cart} from '@shopify/hydrogen/storefront-api-types';
 import {Suspense} from 'react';
 import {Link} from '~/components/Link';
 import Button from '../elements/Button';
+import CartIcon from '../icons/Cart';
 
 type Props = {
   cart: Cart;
@@ -18,13 +19,20 @@ export default function CartToggle({cart, isOpen, openDrawer}: Props) {
     <Suspense fallback={<button>Cart (0)</button>}>
       <Await resolve={cart}>
         {(data) => (
-          <Link to="/cart"><Button mode="text" as="span">Cart ({data?.totalQuantity || 0})</Button></Link>
+          <Link to="/cart">
+            <Button mode="text" as="span" className='hidden md:block'>
+              Cart ({data?.totalQuantity || 0})
+            </Button>
+            <div className='md:hidden w-4 h-5 relative'>
+              <CartIcon />
+              <span className='absolute w-4 text-xs text-center left-0 bottom-[.125em]'>{data?.totalQuantity || 0}</span>
+            </div>
+          </Link>
         )}
       </Await>
     </Suspense>
   );
 }
-
 
 /*
 <button

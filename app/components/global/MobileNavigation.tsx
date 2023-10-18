@@ -272,8 +272,8 @@ export default function MobileNavigation({menuLinks}: Props) {
 
   return (
     <>
-      <button onClick={handleOpen} className="md:hidden">
-        Menu
+      <button onClick={handleOpen} className="md:hidden w-[18px] h-[14px] -mb-1">
+        <MenuIcon />
       </button>
 
       <div

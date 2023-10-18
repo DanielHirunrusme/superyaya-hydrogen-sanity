@@ -10,7 +10,7 @@ export default function RadioPopup() {
           src="/images/cat-popup.gif"
           width="200"
           height="200"
-          alt="Superyaya Radio"
+          alt="SUPER YAYA Radio"
           style={{ mixBlendMode: 'multiply'}}
         />
       </button>

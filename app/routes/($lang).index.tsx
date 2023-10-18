@@ -15,7 +15,7 @@ import ProductModule from '~/components/modules/Product';
 import StaggerIndexList from '~/components/framer/StaggerIndexList';
 
 const seo: SeoHandleFunction = ({data}) => ({
-  title: data?.page?.seo?.title || 'Superyaya',
+  title: data?.page?.seo?.title || 'SUPER YAYA',
   description:
     data?.page?.seo?.description ||
     'A custom storefront powered by Hydrogen and Sanity',

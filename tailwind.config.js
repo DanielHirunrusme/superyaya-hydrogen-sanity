@@ -36,11 +36,11 @@ module.exports = {
           lineHeight: '1.1',
         },
       ],
-      // 16px
+      // 15px
       md: [
-        '1rem',
+        '.9375rem',
         {
-          letterSpacing: '-0.03em',
+          letterSpacing: '.075em',
           lineHeight: '1.4',
         },
       ],
@@ -118,7 +118,7 @@ module.exports = {
         yellow: 'yellow',
       },
       height: {
-        'header-sm': '2.4rem',
+        'header-sm': '2.8rem',
         'header-lg': '6.25rem',
       },
       spacing: {
