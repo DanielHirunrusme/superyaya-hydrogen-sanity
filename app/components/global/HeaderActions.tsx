@@ -33,7 +33,7 @@ export default function HeaderActions({menuLinks}) {
   return (
     <>
       <div
-        className="absolute right-0 top-0 h-header-sm items-center px-4 flex gap-[14px] md:gap-4"
+        className="fixed right-0 top-0 h-header-sm items-center px-4 flex gap-[14px] md:gap-4"
       >
         {/* Country select */}
         {/* <div
