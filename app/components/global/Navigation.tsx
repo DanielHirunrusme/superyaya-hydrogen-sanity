@@ -6,6 +6,7 @@ import {Link} from '~/components/Link';
 import type {SanityMenuLink} from '~/lib/sanity';
 import clsx from 'clsx';
 import {useAnimate, stagger, useInView} from 'framer-motion';
+import { STAGGER_SPEED } from '~/lib/constants';
 
 /**
  * A component that defines the navigation for a web storefront
@@ -225,9 +226,9 @@ export default function Navigation({menuLinks}: Props) {
 
   useEffect(() => {
     const sequence = [
-      ['nav ul li', {opacity: 1}, {delay: stagger(0.025), duration: 0.01}],
-      ['nav ul+ul li', {opacity: 1}, {delay: stagger(0.025), duration: 0.01}],
-      ['nav ul+ul li', , {opacity: 1}, {delay: stagger(0.025), duration: 0.01}],
+      ['nav ul li', {opacity: 1}, {delay: stagger(STAGGER_SPEED), duration: 0.01}],
+      ['nav ul+ul li', {opacity: 1}, {delay: stagger(STAGGER_SPEED), duration: 0.01}],
+      ['nav ul+ul li', , {opacity: 1}, {delay: stagger(STAGGER_SPEED), duration: 0.01}],
     ];
     if(!isInView) return;
     animate(sequence);

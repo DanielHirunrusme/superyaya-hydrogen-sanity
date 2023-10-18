@@ -10,6 +10,7 @@ import type {SanityMenuLink} from '~/lib/sanity';
 import Button from '../elements/Button';
 import {useLocation, useNavigation} from '@remix-run/react';
 import {useAnimate, stagger, useInView} from 'framer-motion';
+import { STAGGER_SPEED } from '~/lib/constants';
 
 type Props = {
   menuLinks: SanityMenuLink[];
@@ -249,18 +250,18 @@ export default function MobileNavigation({menuLinks}: Props) {
         [
           'nav > div ul li',
           {opacity: 1},
-          {delay: stagger(0.025), duration: 0.01},
+          {delay: stagger(STAGGER_SPEED), duration: 0.01},
         ],
         [
           'nav > div + div > ul li',
           {opacity: 1},
-          {delay: stagger(0.025), duration: 0.01},
+          {delay: stagger(STAGGER_SPEED), duration: 0.01},
         ],
         [
           'nav > div + div + div > ul li',
           ,
           {opacity: 1},
-          {delay: stagger(0.025), duration: 0.01},
+          {delay: stagger(STAGGER_SPEED), duration: 0.01},
         ],
       ];
       animate(sequence);

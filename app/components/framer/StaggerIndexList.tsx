@@ -1,5 +1,6 @@
 import {useAnimate, stagger, useInView} from 'framer-motion';
 import {useEffect} from 'react';
+import { STAGGER_SPEED } from '~/lib/constants';
 
 type Props = {
     children: React.ReactNode;
@@ -12,7 +13,7 @@ export default function StaggerIndexList(props: Props) {
   const isInView = useInView(scope);
   useEffect(() => {
     const sequence = [
-      ['ul li', {opacity: 1}, {delay: stagger(0.025), duration: 0.01}],
+      ['ul li', {opacity: 1}, {delay: stagger(STAGGER_SPEED), duration: 0.01}],
     ];
     if (!isInView) return;
     animate(sequence);
