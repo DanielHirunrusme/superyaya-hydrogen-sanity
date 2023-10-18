@@ -63,7 +63,7 @@ export default function ProductOptions({
   };
 
   return (
-    <div className="my-4 flex flex-col gap-4">
+    <div className="my-4 md:mb-2 flex flex-col gap-2 2xl:gap-4">
       <VariantSelector
         handle={product.handle}
         options={options}

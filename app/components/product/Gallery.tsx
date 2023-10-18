@@ -171,7 +171,7 @@ export default function ProductGallery({
 
 
       {/* Desktop Gallery */}
-      <div className={clsx('hidden md:grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6', GRID_GAP)}>
+      <div className={clsx('hidden md:grid md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6', GRID_GAP)}>
         {/* Slides */}
         {media.map((med, index) => {
           let extraProps: Record<string, any> = {};

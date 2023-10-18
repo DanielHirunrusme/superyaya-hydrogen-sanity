@@ -33,7 +33,7 @@ export default function HeaderActions({menuLinks}) {
   return (
     <>
       <div
-        className="absolute right-0 top-0 h-header-sm items-center px-4 flex gap-[14px] md:gap-6"
+        className="absolute right-0 top-0 h-header-sm items-center px-4 flex gap-[14px] md:gap-4"
       >
         {/* Country select */}
         {/* <div
@@ -56,7 +56,7 @@ export default function HeaderActions({menuLinks}) {
           <UserIcon />
         </Link> */}
         {/* Cart */}
-        <Link to="/pages/faq" className="linkTextNavigation hidden md:inline md:text-lg">Assistance</Link>
+        <Link to="/pages/faq" className="linkTextNavigation hidden md:inline text-xxs 2xl:text-lg">Assistance</Link>
 
      
           <CartToggle cart={cart} isOpen openDrawer={openDrawer} />

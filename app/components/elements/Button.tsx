@@ -33,9 +33,9 @@ export const defaultButtonStyles = (options?: ButtonStyleOptions) => {
 
   if(mode !== "text"){
     return clsx([
-      'flex h-[2.5rem] items-center justify-center overflow-hidden p-4',
+      'flex items-center justify-center overflow-hidden p-4 md:p-2 2xl:p-5 hover:opacity-50',
       'disabled:opacity-20 disabled:bg-opacity-100',
-      'border border-black',
+      'border-black border 2xl:border-[1.5px]',
       // mode === 'default' &&
       //   clsx([
       //     tone === 'critical' && 'bg-red',

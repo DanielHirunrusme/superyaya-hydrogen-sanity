@@ -17,14 +17,15 @@ export default function Header() {
   const {menuLinks} = layout || {};
   return (
     <>
-      <header id="Header" className="sticky top-0 z-50 text-center h-header-sm flex items-center justify-center" role="banner">
-      <Link className="linkTextNavigation !no-underline " to="/">
+      <header id="Header" className="absolute w-full top-0 z-50 text-center  flex flex-col items-center justify-center" role="banner">
+      <Link className="linkTextNavigation mt-4 mb-3 !no-underline " to="/">
         SUPER YAYA
       </Link>
         {/* Accounts, country selector + cart toggle */}
         <HeaderActions menuLinks={menuLinks} />
-      </header>
+     
       {menuLinks && <Navigation menuLinks={menuLinks} />}
+      </header>
     </>
   );
 }

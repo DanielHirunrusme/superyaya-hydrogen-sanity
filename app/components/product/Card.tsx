@@ -108,7 +108,7 @@ export default function ProductCard({
         )} */}
       </div>
 
-      <div className="mt-2 text-md">
+      <div className="mt-1 mb-2">
         <div className="space-y-1 truncate">
           {/* Title */}
           <Link

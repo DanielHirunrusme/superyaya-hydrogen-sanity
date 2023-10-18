@@ -26,11 +26,11 @@ export const handle = {
 };
 
 const COLUMN_SIZES = [
-  'md:w-20 flex-grow-0 text-left pl-2',
-  'flex-1 text-left',
-  'hidden md:block w-48 flex-grow-0 text-left',
-  'hidden md:block w-32 flex-grow-0 text-left',
-  'hidden md:block w-16 flex-grow-0 text-right pr-2',
+  'md:w-20 flex-grow-0 text-left pl-2 py-1',
+  'flex-1 text-left py-1',
+  'hidden md:block w-48 flex-grow-0 text-left py-1',
+  'hidden md:block w-32 flex-grow-0 text-left py-1',
+  'hidden md:block w-16 flex-grow-0 text-right pr-2 py-1',
 ];
 
 export async function loader({context, params}: LoaderArgs) {

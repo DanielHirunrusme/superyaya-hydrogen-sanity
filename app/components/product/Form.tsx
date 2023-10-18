@@ -11,10 +11,10 @@ import invariant from 'tiny-invariant';
 import AddToCartButton from '~/components/product/buttons/AddToCartButton';
 import BuyNowButton from '~/components/product/buttons/BuyNowButton';
 import ProductOptions from '~/components/product/Options';
-import type { SanityCustomProductOption } from '~/lib/sanity';
-import { hasMultipleProductOptions } from '~/lib/utils';
+import type {SanityCustomProductOption} from '~/lib/sanity';
+import {hasMultipleProductOptions} from '~/lib/utils';
 import Button from '../elements/Button';
-import ContactFormModal from '../contact/ContactFormModal';
+import ContactFormModal from '../contact/ContactForm';
 
 export default function ProductForm({
   product,
@@ -47,9 +47,8 @@ export default function ProductForm({
     quantity: 1,
   };
 
-  if(!isCustomPricing){
   return (
-    <div className='max-w-sm'>
+    <div className="max-w-[13.1875rem]">
       {multipleProductOptions && (
         <>
           <ProductOptions
@@ -77,10 +76,9 @@ export default function ProductForm({
             totalValue: parseFloat(productAnalytics.price),
           }}
           buttonClassName="w-full hover:opacity-50"
-          
         >
-          {!isPreorder ? "Add to Cart" : "Pre-order"}
-          </AddToCartButton>
+          {!isPreorder ? 'Add to Cart' : 'Pre-order'}
+        </AddToCartButton>
         {/* <BuyNowButton
           lines={[{merchandiseId: selectedVariant.id, quantity: 1}]}
           disabled={isOutOfStock}
@@ -88,8 +86,5 @@ export default function ProductForm({
         /> */}
       </div>
     </div>
-  )
-      } else {
-        return <div className='max-w-sm my-8'><ContactFormModal label="Custom Requests" /></div>
-      }
+  );
 }

@@ -47,7 +47,7 @@
   }
   
   body {
-    @apply bg-white font-sans uppercase text-md md:text-xl;
+    @apply bg-white font-sans uppercase text-md md:text-xs 2xl:text-xl;
   }
 
   html,
@@ -78,11 +78,11 @@
 
 @layer components {
   .linkTextNavigation {
-    @apply uppercase hover:underline underline-offset-4 decoration-1;
+    @apply uppercase hover:underline underline-offset-4 decoration-[.8px];
   }
 
   .linkTextNavigationActive {
-    @apply uppercase underline underline-offset-4 decoration-1;
+    @apply uppercase underline underline-offset-4 decoration-[.8px];
   }
 
   .portableText {
@@ -171,17 +171,20 @@ html {
 
 /* Form */
 form {
-  @apply flex flex-col gap-4;
+  @apply flex flex-col gap-4 md:gap-6;
 }
 fieldset {
-  @apply flex flex-col gap-2;
+  @apply flex flex-col gap-[1rem];
+  letter-spacing: inherit;
 }
 input {
-  @apply border border-black p-2 hover:opacity-50 focus:opacity-100 outline-none;
+  @apply border border-black border-[1.5px] p-2 md:p-5 hover:opacity-50 focus:opacity-100 outline-none;
+  letter-spacing: inherit;
 }
 
-textarea {
-  @apply border border-black p-2;
+textarea, select {
+  @apply border border-black  border-[1.5px] p-2 md:p-5;
+  letter-spacing: inherit;
 }
 
 /* Gallery */
@@ -191,4 +194,13 @@ textarea {
 
 .gallery-module div:last-child img {
   @apply md:object-left;
+}
+
+/* Portable Text */
+.portableText, .portableText * {
+  @apply !normal-case;
+}
+
+.font-serif .portableText * {
+  letter-spacing: .02em;
 }

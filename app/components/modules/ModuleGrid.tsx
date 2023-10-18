@@ -122,7 +122,7 @@ export default function ModuleGrid({items, showCount, stagger}: Props) {
                   imageAspectClassName={productImageAspect}
                   module={item}
                 />
-                {showCount && (<div className='text-center mt-2'>{String(index + 1).padStart(2, '0')}</div>)}
+                {showCount && (<div className='text-center mt-1 mb-2'>{String(index + 1).padStart(2, '0')}</div>)}
               </div>
             </li>
           );

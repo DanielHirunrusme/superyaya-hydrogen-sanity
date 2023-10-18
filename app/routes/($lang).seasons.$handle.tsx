@@ -64,13 +64,14 @@ export default function Page() {
     <ColorTheme value={page.colorTheme}>
       <Suspense>
         <Await resolve={gids}>
-          <div className="mb-32 mt-24 text-center font-serif">
+          <div className="mb-22 text-center font-serif text-xxs">
             <div>{page.title}</div>
-            <div className="mx-auto max-w-lg text-left">
+            <br />
+            <div className="mx-auto max-w-[19.1875rem] text-left !normal-case">
               <PortableText blocks={page.body} />
             </div>
           </div>
-          {page.modules && <ModuleGrid items={page.modules} showCount />}/images/wswdnh4k/production/bb9f17c9e633b26a26852a8efc47654c9ea490b4-1296x1728.jpg
+          {page.modules && <ModuleGrid items={page.modules} showCount />}
           <div className="flex min-h-screen w-full items-center justify-center text-center">
             <div className="my-24 text-center mx-auto w-full md:max-w-[500px]">
               <div className="text-center">{page.title}</div>

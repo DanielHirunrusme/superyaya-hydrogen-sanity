@@ -58,7 +58,7 @@ export default function ModuleSlideshow(props) {
                 'h-full w-full flex-shrink-0 flex-grow-0',
                 module.layout === 'full'
                   ? 'object-cover'
-                  : 'object-contain pb-14 pt-14 md:pt-20 px-4 flex items-center justify-center flex-col',
+                  : 'object-contain pb-11 pt-14 md:pt-19 px-4 flex items-center justify-center flex-col',
               )}
               key={module._key}
             >

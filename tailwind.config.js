@@ -20,12 +20,20 @@ module.exports = {
       cursive: 'Snell, cursive',
     },
     fontSize: {
+      // 10px
+      xxs: [
+        '0.625rem',
+        {
+          letterSpacing: '.0875em',
+          lineHeight: '1.25',
+        },
+      ],
       // 12px
       xs: [
         '0.75rem',
         {
-          letterSpacing: '-0.03em',
-          lineHeight: '1.1',
+          letterSpacing: '.0875em',
+          lineHeight: '1.25',
         },
       ],
       // 14px
@@ -57,7 +65,7 @@ module.exports = {
         '1.375rem',
         {
           letterSpacing: '.0875em',
-          lineHeight: '1.1',
+          lineHeight: '1.25',
         },
       ],
       // 36px
@@ -104,7 +112,7 @@ module.exports = {
       none: '1',
       field: '1.25',
       caption: '1.25',
-      paragraph: '1.6',
+      paragraph: '1.4',
     },
     extend: {
       colors: {

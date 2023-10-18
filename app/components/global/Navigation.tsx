@@ -122,7 +122,7 @@ export default function Navigation({menuLinks}: Props) {
               key={`link-${link._key}`}
               className={
                 location.pathname.includes(link.slug) || hasChildActive
-                  ? 'flex gap-6'
+                  ? 'flex gap-5'
                   : 'hidden'
               }
             >
@@ -193,7 +193,7 @@ export default function Navigation({menuLinks}: Props) {
                   key={`sub-${subLink._key}`}
                   className={
                     location.pathname.includes(subLink.slug)
-                      ? 'flex gap-6'
+                      ? 'flex gap-5'
                       : 'hidden'
                   }
                 >
@@ -260,7 +260,7 @@ function FramerNav({
   //   }
   // }, [isInView]);
   return (
-    <ul className="hidden gap-6 md:flex" ref={scope}>
+    <ul className="hidden gap-5 md:flex" ref={scope}>
       {children}
     </ul>
   );
