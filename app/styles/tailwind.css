@@ -5,7 +5,7 @@
 @layer base {
   @font-face {
     font-family: 'EngraversEF';
-    src: url('/fonts/EngraversEF-Roman.woff2') format('woff2'),
+    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversEF-Roman.woff2?v=1697635125') format('woff2'),
       url('/fonts/EngraversEF-Roman.woff') format('woff');
     font-weight: normal;
     font-style: normal;
@@ -14,8 +14,8 @@
 
   @font-face {
     font-family: 'Snell';
-    src: url('/fonts/SnellBT-Regular.woff2') format('woff2'),
-      url('/fonts/SnellBT-Regular.woff') format('woff');
+    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellBT-Regular.woff2?v=1697635125') format('woff2'),
+      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellBT-Regular.woff?v=1697635125') format('woff');
     font-weight: normal;
     font-style: italic;
     font-display: swap;
@@ -23,8 +23,8 @@
 
   @font-face {
     font-family: 'EngraversGothic';
-    src: url('/fonts/EngraversGothicBT-Regular.woff2') format('woff2'),
-      url('/fonts/EngraversGothicBT-Regular.woff') format('woff');
+    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff2?v=1697635125') format('woff2'),
+      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff?v=1697635125') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -32,8 +32,8 @@
 
   @font-face {
     font-family: 'EurostileMonoEF';
-    src: url('/fonts/EurostileMonoEF-Regular.woff2') format('woff2'),
-      url('/fonts/EurostileMonoEF-Regular.woff') format('woff');
+    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EurostileMonoEF-Regular.woff2?v=1697635125') format('woff2'),
+      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EurostileMonoEF-Regular.woff?v=1697635125') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
