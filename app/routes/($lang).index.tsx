@@ -75,7 +75,7 @@ export default function IndexPage() {
           <Await resolve={gids}>
             <StaggerIndexList className="mx-auto flex w-full max-w-[1000px]">
               <ul className="w-full " >
-                <li className="opacity-0  border-b-[.8px]">
+                <li className="opacity-0  border-b-[.8px] 2xl:border-b">
                   <nav
                     className={clsx(
                       'hidden w-full flex-1 justify-between text-left md:flex',
@@ -96,7 +96,7 @@ export default function IndexPage() {
                     <Disclosure key={item._id}>
                       {({open}) => (
                         <li
-                          className="flex-1 opacity-0 overflow-hidden border-b-[.8px]"
+                          className="flex-1 opacity-0 overflow-hidden border-b-[.8px] 2xl:border-b"
                           tabIndex={index}
                          
                         >
