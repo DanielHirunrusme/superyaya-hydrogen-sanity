@@ -56,12 +56,12 @@ export default function HeaderActions({menuLinks}) {
           <UserIcon />
         </Link> */}
         {/* Cart */}
-        <Link to="/pages/faq" className="linkTextNavigation hidden md:inline">Assistance</Link>
+        <Link to="/pages/faq" className="linkTextNavigation hidden md:inline md:text-lg">Assistance</Link>
 
      
           <CartToggle cart={cart} isOpen openDrawer={openDrawer} />
   
-        <Link to="/pages/studio" className="linkTextNavigation hidden md:inline">Studio</Link>
+        {/* <Link to="/pages/studio" className="linkTextNavigation hidden md:inline">Studio</Link> */}
 
         {menuLinks && <MobileNavigation menuLinks={menuLinks} />}
 

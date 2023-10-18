@@ -44,19 +44,19 @@ module.exports = {
           lineHeight: '1.4',
         },
       ],
-      //18px
+      //17px
       lg: [
-        '1.125rem',
+        '1.0625rem',
         {
-          letterSpacing: '-0.03em',
-          lineHeight: '1.1',
+          letterSpacing: '.0875em',
+          lineHeight: '1.25',
         },
       ],
-      // 24px
+      // 22px
       xl: [
-        '1.5rem',
+        '1.375rem',
         {
-          letterSpacing: '-0.03em',
+          letterSpacing: '.0875em',
           lineHeight: '1.1',
         },
       ],

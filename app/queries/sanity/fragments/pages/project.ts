@@ -5,7 +5,7 @@ import {SEO} from '../seo';
 
 export const PROJECT_PAGE = groq`
   title,
-    'slug': '/projects/' + slug.current,
+    'slug': '/projets/' + slug.current,
     body,
   modules[] {
     ${MODULES}
