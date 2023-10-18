@@ -12,10 +12,11 @@ type Props = {
   setZoom: (zoom: boolean) => void;
   index: number;
   setIndex: (index: number) => void;
+  detached?: boolean;
 };
 
 export default function ModuleSlideshow(props) {
-  const {modules, children, zoom, setZoom, index} = props;
+  const {modules, children, zoom, setZoom, index, detached} = props;
   const [selectedIndex, setSelectedIndex] = useState(index || 0);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -52,18 +53,25 @@ export default function ModuleSlideshow(props) {
   return (
     <div
       onClick={onClick}
-      className="fixed left-0 top-0 z-50 h-screen w-screen bg-white"
+      className={clsx(
+        "fixed left-0 top-0 h-screen w-screen bg-white",
+        detached ? "z-50" : "z-40",
+      )}
       // tabIndex={-1}
     >
-      <MinimalHeader />
-      <Button
-        mode="text"
-        type="button"
-        className="fixed right-0 top-0 z-10 p-4"
-        onClick={onClose}
-      >
-        Close
-      </Button>
+      {detached && (
+        <>
+          <MinimalHeader />
+          <Button
+            mode="text"
+            type="button"
+            className="fixed right-0 top-0 z-10 p-4"
+            onClick={onClose}
+          >
+            Close
+          </Button>
+        </>
+      )}
       <div className="h-full w-screen overflow-hidden" ref={emblaRef}>
         <div className="flex h-full">
           {modules?.map((module) => (
@@ -72,7 +80,7 @@ export default function ModuleSlideshow(props) {
                 'h-full w-full flex-shrink-0 flex-grow-0',
                 module.layout === 'full'
                   ? 'object-cover'
-                  : 'flex flex-col items-center justify-center object-contain px-4 pb-11 pt-14 md:pt-19',
+                  : `flex flex-col items-center justify-center object-contain px-4 pb-11 ${detached ? 'pt-14 2xl:pt-19' : 'pt-14 md:pt-19'}`,
               )}
               key={module._key}
             >

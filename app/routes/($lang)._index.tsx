@@ -67,7 +67,7 @@ export default function Index() {
             {/* {page?.hero && <HomeHero hero={page.hero} />} */}
 
             {page?.modules && (
-              <ModuleSlideshow modules={page.modules} />
+              <ModuleSlideshow modules={page.modules} detached={false} />
             )}
           </Await>
         </Suspense>

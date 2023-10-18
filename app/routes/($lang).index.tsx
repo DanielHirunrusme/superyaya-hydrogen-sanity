@@ -29,7 +29,7 @@ export const handle = {
 
 const COLUMN_SIZES = [
   'md:w-20 flex-grow-0 text-left pl-2 py-1',
-  'flex-1 text-left py-1',
+  'flex-1 text-left py-1 overflow-hidden',
   'hidden md:block w-48 flex-grow-0 text-left py-1',
   'hidden md:block w-32 flex-grow-0 text-left py-1',
   'hidden md:block w-16 flex-grow-0 text-right pr-2 py-1',
@@ -73,9 +73,9 @@ export default function IndexPage() {
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
-            <StaggerIndexList className="mx-auto flex w-full max-w-[1000px] ">
-              <ul className="w-full divide-y-[1px] divide-black border-b">
-                <li className="opacity-0">
+            <StaggerIndexList className="mx-auto flex w-full max-w-[1000px]">
+              <ul className="w-full " >
+                <li className="opacity-0  border-b-[.8px]">
                   <nav
                     className={clsx(
                       'hidden w-full flex-1 justify-between text-left md:flex',
@@ -96,12 +96,13 @@ export default function IndexPage() {
                     <Disclosure key={item._id}>
                       {({open}) => (
                         <li
-                          className="w-full flex-1 opacity-0"
+                          className="flex-1 opacity-0 overflow-hidden border-b-[.8px]"
                           tabIndex={index}
+                         
                         >
                           <Disclosure.Button
                             className={clsx(
-                              'flex w-full flex-1 justify-between text-left',
+                              'flex w-full flex-1 justify-between text-left overflow-hidden',
                               GRID_GAP,
                               !open && ' hover:opacity-50',
                             )}
@@ -110,7 +111,7 @@ export default function IndexPage() {
                               {String(index).padStart(3, '0')}
                             </div>
                             <div className={COLUMN_SIZES[1]}>
-                              <div className="truncate">{item.title}</div>
+                              <div className=' truncate'>{item.title}</div>
                               {/* Mobile information */}
                               {open && (
                                 <div className="md:hidden">

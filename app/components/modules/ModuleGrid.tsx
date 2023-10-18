@@ -166,6 +166,7 @@ export default function ModuleGrid({
         setZoom={setZoom}
         index={selectedIndex}
         setIndex={setSelectedIndex}
+        detached
       />}
     </>
   );
