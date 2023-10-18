@@ -8,6 +8,7 @@ import {useCallback, useEffect} from 'react';
 import type {ProductWithNodes} from '~/types/shopify';
 import clsx from 'clsx';
 import Button from '../elements/Button';
+import MinimalHeader from '../global/MinimalHeader';
 
 type Props = {
   storefrontProduct: ProductWithNodes;
@@ -112,6 +113,7 @@ export default function ProductSlideshow({
 
   return (
     <div className="fixed bottom-0 left-0 right-0 top-0 z-50 bg-white">
+      <MinimalHeader />
       <Button
         mode="text"
         type="button"

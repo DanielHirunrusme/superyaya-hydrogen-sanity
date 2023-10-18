@@ -53,23 +53,38 @@ export default defineField({
       // @ts-ignore - TODO - fix this TS error
       validation: validateSlug,
     }),
-    // Color theme
+    // Category
     defineField({
-      name: 'colorTheme',
-      title: 'Color theme',
+      name: 'category',
+      title: 'Category',
       type: 'reference',
-      to: [{type: 'colorTheme'}],
-      group: 'theme',
+      to: [{type: 'category'}],
+      validation: (Rule) => Rule.required(),
     }),
+        // Body
+        defineField({
+          name: 'body',
+          title: 'Body',
+          type: 'body',
+          group: 'editorial',
+        }),
+    // Color theme
+    // defineField({
+    //   name: 'colorTheme',
+    //   title: 'Color theme',
+    //   type: 'reference',
+    //   to: [{type: 'colorTheme'}],
+    //   group: 'theme',
+    // }),
     // Show hero
-    defineField({
-      name: 'showHero',
-      title: 'Show hero',
-      type: 'boolean',
-      description: 'If disabled, page title will be displayed instead',
-      initialValue: false,
-      group: 'editorial',
-    }),
+    // defineField({
+    //   name: 'showHero',
+    //   title: 'Show hero',
+    //   type: 'boolean',
+    //   description: 'If disabled, page title will be displayed instead',
+    //   initialValue: false,
+    //   group: 'editorial',
+    // }),
      // Modules
      defineField({
       name: 'modules',

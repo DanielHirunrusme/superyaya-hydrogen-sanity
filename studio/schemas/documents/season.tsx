@@ -37,6 +37,15 @@ export default defineField({
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: 'date',
+      title: 'Date',
+      type: 'datetime',
+      options: {
+        dateFormat: 'YYYY',
+      },
+      validation: (Rule) => Rule.required(),
+    }),
     // defineField({
     //   name: 'titleSvg',
     //   title: 'Title SVG',

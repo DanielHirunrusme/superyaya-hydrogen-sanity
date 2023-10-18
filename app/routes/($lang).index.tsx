@@ -13,6 +13,8 @@ import {format} from 'date-fns';
 import {Disclosure} from '@headlessui/react';
 import ProductModule from '~/components/modules/Product';
 import StaggerIndexList from '~/components/framer/StaggerIndexList';
+import PortableText from '~/components/portableText/PortableText';
+import ModuleGrid from '~/components/modules/ModuleGrid';
 
 const seo: SeoHandleFunction = ({data}) => ({
   title: data?.page?.seo?.title || 'SUPER YAYA',
@@ -65,14 +67,15 @@ export async function loader({context, params}: LoaderArgs) {
 
 export default function IndexPage() {
   const {page, gids} = useLoaderData<typeof loader>();
+  console.log(page);
   return (
     <SanityPreview data={page} query={INDEX_QUERY}>
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
             <StaggerIndexList className="mx-auto flex w-full max-w-[1000px] ">
-              <ul className='w-full divide-y-[1px] divide-black border-b'>
-                <li className='opacity-0'>
+              <ul className="w-full divide-y-[1px] divide-black border-b">
+                <li className="opacity-0">
                   <nav
                     className={clsx(
                       'hidden w-full flex-1 justify-between text-left md:flex',
@@ -87,89 +90,85 @@ export default function IndexPage() {
                   </nav>
                 </li>
 
-                {page.map((item, index) => (
-                  <Disclosure key={item._id}>
-                    {({open}) => (
-                      <li className="w-full flex-1 opacity-0" tabIndex={index}>
-                        <Disclosure.Button
-                          className={clsx(
-                            'flex w-full flex-1 justify-between text-left',
-                            GRID_GAP,
-                            !open && ' hover:opacity-50',
-                          )}
+                {page.map((item, index) => {
+                  const year = item.year.split('-')[0];
+                  return (
+                    <Disclosure key={item._id}>
+                      {({open}) => (
+                        <li
+                          className="w-full flex-1 opacity-0"
+                          tabIndex={index}
                         >
-                          <div className={COLUMN_SIZES[0]}>
-                            {String(index).padStart(3, '0')}
-                          </div>
-                          <div className={COLUMN_SIZES[1]}>
-                            <div className="truncate">{item.title}</div>
-                            {/* Mobile information */}
-                            {open && (
-                              <div className="md:hidden">
-                                {item.kind && <div>Kind: {item.kind}</div>}
-                                {item.category && (
-                                  <div>Category: {item.category}</div>
-                                )}
-                                {item.year && (
-                                  <div>
-                                    Year:{' '}
-                                    {item.year
-                                      ? format(new Date(item.year), 'yyyy')
-                                      : ''}
-                                  </div>
-                                )}
-                              </div>
-                            )}
-                          </div>
-                          <div className={COLUMN_SIZES[2]}>{item.kind}</div>
-                          <div className={COLUMN_SIZES[3]}>
-                            {item.category || ''}
-                          </div>
-                          <div className={COLUMN_SIZES[4]}>
-                            {item.year
-                              ? format(new Date(item.year), 'yyyy')
-                              : ''}
-                          </div>
-                        </Disclosure.Button>
-                        <Disclosure.Panel>
-                          <div
+                          <Disclosure.Button
                             className={clsx(
                               'flex w-full flex-1 justify-between text-left',
                               GRID_GAP,
+                              !open && ' hover:opacity-50',
                             )}
                           >
-                            <div
-                              className={clsx(
-                                COLUMN_SIZES[0],
-                                'hidden md:block',
-                              )}
-                            ></div>
+                            <div className={COLUMN_SIZES[0]}>
+                              {String(index).padStart(3, '0')}
+                            </div>
                             <div className={COLUMN_SIZES[1]}>
-                              {item._type == 'productWithVariant' ||
-                              item._type == 'collection' ? (
-                                <div>
-                                  <div
-                                    dangerouslySetInnerHTML={{
-                                      __html: item.description,
-                                    }}
-                                  />
+                              <div className="truncate">{item.title}</div>
+                              {/* Mobile information */}
+                              {open && (
+                                <div className="md:hidden">
+                                  {item.kind && <div>Kind: {item.kind}</div>}
+                                  {item.category && (
+                                    <div>Category: {item.category}</div>
+                                  )}
+                                  {item.year && <div>Year: {year}</div>}
                                 </div>
-                              ) : (
-                                <div>text</div>
                               )}
                             </div>
-                            <div className={COLUMN_SIZES[2]}> </div>
-                            <div className={COLUMN_SIZES[3]}></div>
-                            <div className={COLUMN_SIZES[4]}></div>
-                          </div>
-                          <div className="mb-4 mt-2 md:ml-24">
-                            <IndexImages item={item} />
-                          </div>
-                        </Disclosure.Panel>
-                      </li>
-                    )}
-                  </Disclosure>
-                ))}
+                            <div className={COLUMN_SIZES[2]}>{item.kind}</div>
+                            <div className={COLUMN_SIZES[3]}>
+                              {item.category || ''}
+                            </div>
+                            <div className={COLUMN_SIZES[4]}>{year}</div>
+                          </Disclosure.Button>
+                          <Disclosure.Panel>
+                            <div
+                              className={clsx(
+                                'flex w-full flex-1 justify-between text-left',
+                                GRID_GAP,
+                              )}
+                            >
+                              <div
+                                className={clsx(
+                                  COLUMN_SIZES[0],
+                                  'hidden md:block',
+                                )}
+                              ></div>
+                              <div className={COLUMN_SIZES[1]}>
+                                {item._type == 'productWithVariant' ? (
+                                  <div>
+                                    <div
+                                      dangerouslySetInnerHTML={{
+                                        __html: item.description,
+                                      }}
+                                    />
+                                  </div>
+                                ) : (
+                                  <div>
+                                    <PortableText blocks={item.description} />
+                                  </div>
+                                )}
+                              </div>
+                              <div className={COLUMN_SIZES[2]}> </div>
+                              <div className={COLUMN_SIZES[3]}></div>
+                              <div className={COLUMN_SIZES[4]}></div>
+                            </div>
+                            <div className="mb-4 mt-2 md:ml-24">
+                              <IndexImages item={item} />
+                            </div>
+                          </Disclosure.Panel>
+                        </li>
+                      )}
+                    </Disclosure>
+                  );
+                })}
               </ul>
             </StaggerIndexList>
           </Await>
@@ -188,6 +187,11 @@ function IndexImages({item}) {
         </div>
       );
     default:
-      return <div>default</div>;
+      return (
+        <ModuleGrid
+          items={item.modules}
+          className="relative grid grid-cols-4 gap-2 md:flex"
+        />
+      );
   }
 }

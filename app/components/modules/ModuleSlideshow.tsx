@@ -2,10 +2,22 @@ import useEmblaCarousel from 'embla-carousel-react';
 import {useCallback, useEffect, useState} from 'react';
 import Module from './Module';
 import clsx from 'clsx';
+import Button from '../elements/Button';
+import MinimalHeader from '../global/MinimalHeader';
+
+type Props = {
+  modules: any[];
+  children?: never;
+  zoom: boolean;
+  setZoom: (zoom: boolean) => void;
+  index: number;
+  setIndex: (index: number) => void;
+};
 
 export default function ModuleSlideshow(props) {
-  const {modules, children} = props;
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const {modules, children, zoom, setZoom, index} = props;
+  const [selectedIndex, setSelectedIndex] = useState(index || 0);
+
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: 'start',
     draggable: modules && modules.length > 1,
@@ -33,14 +45,25 @@ export default function ModuleSlideshow(props) {
     }
   };
 
- 
+  const onClose = () => {
+    setZoom(false);
+  };
 
   return (
     <div
       onClick={onClick}
-      className="fixed left-0 top-0 h-screen w-screen z-40"
-      tabIndex={-1}
+      className="fixed left-0 top-0 z-50 h-screen w-screen bg-white"
+      // tabIndex={-1}
     >
+      <MinimalHeader />
+      <Button
+        mode="text"
+        type="button"
+        className="fixed right-0 top-0 z-10 p-4"
+        onClick={onClose}
+      >
+        Close
+      </Button>
       <div className="h-full w-screen overflow-hidden" ref={emblaRef}>
         <div className="flex h-full">
           {modules?.map((module) => (
@@ -49,12 +72,20 @@ export default function ModuleSlideshow(props) {
                 'h-full w-full flex-shrink-0 flex-grow-0',
                 module.layout === 'full'
                   ? 'object-cover'
-                  : 'object-contain pb-11 pt-14 md:pt-19 px-4 flex items-center justify-center flex-col',
+                  : 'flex flex-col items-center justify-center object-contain px-4 pb-11 pt-14 md:pt-19',
               )}
               key={module._key}
             >
               <Module module={module} />
-              <div className={clsx('text-center md:hidden mt-2', module.layout === "full" && "absolute bottom-14 w-full left-0 text-center")}>{modules[selectedIndex]?.caption || ''}</div>
+              <div
+                className={clsx(
+                  'mt-2 text-center md:hidden',
+                  module.layout === 'full' &&
+                    'absolute bottom-14 left-0 w-full text-center',
+                )}
+              >
+                {modules[selectedIndex]?.caption || ''}
+              </div>
             </div>
           ))}
         </div>
@@ -64,7 +95,9 @@ export default function ModuleSlideshow(props) {
           {String(selectedIndex + 1).padStart(2, '0')}/
           {String(modules!.length).padStart(2, '0')}
         </span>
-        <span className='hidden md:inline'>{modules[selectedIndex]?.caption || ''}</span>
+        <span className="hidden md:inline">
+          {modules[selectedIndex]?.caption || ''}
+        </span>
       </div>
     </div>
   );
