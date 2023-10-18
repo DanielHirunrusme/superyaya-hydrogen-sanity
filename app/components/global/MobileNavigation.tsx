@@ -87,6 +87,7 @@ export default function MobileNavigation({menuLinks}: Props) {
                       'linkTextNavigationActive',
                   )}
                   to={link.slug}
+                  onClick={()=>setOpen(false)}
                 >
                   {link.title}
                 </Link>
@@ -161,6 +162,8 @@ export default function MobileNavigation({menuLinks}: Props) {
                         hasChildChildActive && 'linkTextNavigationActive',
                       )}
                       to={subLink.slug}
+                      onClick={()=>setOpen(false)}
+
                     >
                       {subLink.title}
                     </Link>
@@ -221,6 +224,7 @@ export default function MobileNavigation({menuLinks}: Props) {
                         <Link
                           className="linkTextNavigation"
                           to={subSubLink.slug}
+                          onClick={()=>setOpen(false)}
                         >
                           {subSubLink.title}
                         </Link>
@@ -272,7 +276,10 @@ export default function MobileNavigation({menuLinks}: Props) {
 
   return (
     <>
-      <button onClick={handleOpen} className="md:hidden w-[18px] h-[14px] -mb-1">
+      <button
+        onClick={handleOpen}
+        className="-mb-1 h-[14px] w-[18px] md:hidden"
+      >
         <MenuIcon />
       </button>
 
