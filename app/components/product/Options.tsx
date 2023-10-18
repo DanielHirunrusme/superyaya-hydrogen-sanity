@@ -185,7 +185,7 @@ export default function ProductOptions({
                                     replace
                                     data-isActive={isActive}
                                     prefetch="intent"
-                                    className={`${isActive? 'underline' : 'hover:underline'} py-2 decoration-1 underline-offset-2`}
+                                    className={`${isActive? 'underline' : 'hover:underline'} py-2 decoration-1 underline-offset-4`}
                                     key={id}
                                     onClick={() =>
                                       onListboxOptionClick(option.name, value)

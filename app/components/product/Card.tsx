@@ -114,7 +114,7 @@ export default function ProductCard({
           <Link
             className={clsx(
               '', //
-              'group-hover:underline underline-offset-2 decoration-1',
+              'group-hover:underline underline-offset-4 decoration-1',
             )}
             to={`/products/${storefrontProduct.handle}`}
           >

@@ -286,14 +286,14 @@ export default function MobileNavigation({menuLinks}: Props) {
         {/* Header */}
         <header className="flex h-header-sm items-center justify-center">
           <Link className="linkTextNavigation !no-underline" to="/">
-            SUPERYAYA
+            SUPER YAYA
           </Link>
           <Button
             mode="text"
             className=" absolute right-0 px-4"
             onClick={handleClose}
           >
-            Close
+            <CloseIcon />
           </Button>
         </header>
 

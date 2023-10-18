@@ -40,7 +40,7 @@ module.exports = {
       md: [
         '.9375rem',
         {
-          letterSpacing: '.075em',
+          letterSpacing: '.0875em',
           lineHeight: '1.4',
         },
       ],

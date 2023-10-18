@@ -23,7 +23,7 @@ export default function HeaderBackground() {
       {/* Background */}
       {/* Logo */}
       <Link to="/">
-       SUPERYAYA
+       SUPER YAYA
       </Link>
     </div>
   );

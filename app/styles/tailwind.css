@@ -78,11 +78,11 @@
 
 @layer components {
   .linkTextNavigation {
-    @apply uppercase hover:underline underline-offset-2 decoration-1;
+    @apply uppercase hover:underline underline-offset-4 decoration-1;
   }
 
   .linkTextNavigationActive {
-    @apply uppercase underline underline-offset-2 decoration-1;
+    @apply uppercase underline underline-offset-4 decoration-1;
   }
 
   .portableText {
