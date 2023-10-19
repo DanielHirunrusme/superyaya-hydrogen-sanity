@@ -67,7 +67,6 @@ export async function loader({context, params}: LoaderArgs) {
 
 export default function IndexPage() {
   const {page, gids} = useLoaderData<typeof loader>();
-  console.log(page);
   return (
     <SanityPreview data={page} query={INDEX_QUERY}>
       {(page) => (

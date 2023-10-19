@@ -58,23 +58,26 @@ export async function loader({context, params}: LoaderArgs) {
 
 export default function Index() {
   const {page, gids} = useLoaderData<typeof loader>();
+  console.log(page);
   return (
     <SanityPreview data={page} query={SEASON_INDEX_PAGE}>
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
             <StaggerIndexList className="left-0  top-0 flex h-full w-full flex-col items-center justify-center text-center">
-              <ul className="pb-20 flex flex-col items-center justify-center text-center">
+              <ul className="flex flex-col items-center justify-center pb-20 text-center">
                 {page?.map((season) => (
-                  <li className='opacity-0' key={season.slug}>
-                  <Link
-                    to={season.slug}
-                    title={season.title}
-                    
-                    className="font-cursive large-title text-2xl self-start mx-auto !normal-case md:text-3xl lg:text-4xl 2xl:text-5xl"
-                  >
-                    {season.title}
-                  </Link>
+                  <li className="opacity-0" key={season.slug}>
+                    <Link
+                      to={season.slug}
+                      title={season.title}
+                      className="large-title mx-auto self-start font-cursive text-2xl !normal-case md:text-3xl lg:text-4xl 2xl:text-5xl"
+                    >
+                      <div
+                        className="collection-title"
+                        dangerouslySetInnerHTML={{__html: season.titleSvg}}
+                      ></div>
+                    </Link>
                   </li>
                 ))}
               </ul>

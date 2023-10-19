@@ -5,7 +5,8 @@
 @layer base {
   @font-face {
     font-family: 'EngraversEF';
-    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversEF-Roman.woff2?v=1697635125') format('woff2'),
+    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversEF-Roman.woff2?v=1697635125')
+        format('woff2'),
       url('/fonts/EngraversEF-Roman.woff') format('woff');
     font-weight: normal;
     font-style: normal;
@@ -14,8 +15,10 @@
 
   @font-face {
     font-family: 'Snell';
-    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellBT-Regular.woff2?v=1697635125') format('woff2'),
-      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellBT-Regular.woff?v=1697635125') format('woff');
+    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellBT-Regular.woff2?v=1697635125')
+        format('woff2'),
+      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellBT-Regular.woff?v=1697635125')
+        format('woff');
     font-weight: normal;
     font-style: italic;
     font-display: swap;
@@ -23,8 +26,10 @@
 
   @font-face {
     font-family: 'EngraversGothic';
-    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff2?v=1697635125') format('woff2'),
-      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff?v=1697635125') format('woff');
+    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff2?v=1697635125')
+        format('woff2'),
+      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff?v=1697635125')
+        format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -32,8 +37,10 @@
 
   @font-face {
     font-family: 'EurostileMonoEF';
-    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EurostileMonoEF-Regular.woff2?v=1697635125') format('woff2'),
-      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EurostileMonoEF-Regular.woff?v=1697635125') format('woff');
+    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EurostileMonoEF-Regular.woff2?v=1697635125')
+        format('woff2'),
+      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EurostileMonoEF-Regular.woff?v=1697635125')
+        format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -45,9 +52,9 @@
   html {
     @apply font-medium text-black;
   }
-  
+
   body {
-    @apply bg-white font-sans uppercase text-md md:text-xs 2xl:text-xl;
+    @apply bg-white font-sans text-md uppercase md:text-xs 2xl:text-xl;
   }
 
   html,
@@ -61,8 +68,8 @@
 
   .skew {
     @apply inline-block;
-    transform: scale(.85,1);
-    letter-spacing: .15em;
+    transform: scale(0.85, 1);
+    letter-spacing: 0.15em;
   }
 
   .min-h-screen {
@@ -78,11 +85,11 @@
 
 @layer components {
   .linkTextNavigation {
-    @apply uppercase hover:underline underline-offset-4 decoration-[.8px];
+    @apply uppercase decoration-[.8px] underline-offset-4 hover:underline;
   }
 
   .linkTextNavigationActive {
-    @apply uppercase underline underline-offset-4 decoration-[.8px];
+    @apply uppercase underline decoration-[.8px] underline-offset-4;
   }
 
   .portableText {
@@ -146,9 +153,8 @@ html {
   flex: 0 0 100%;
 }
 
-
 .leaders {
-  @apply relative w-full flex justify-between overflow-hidden hover:opacity-50;
+  @apply relative flex w-full justify-between overflow-hidden hover:opacity-50;
 }
 
 .leaders span {
@@ -156,17 +162,17 @@ html {
 }
 
 .leaders::before {
-  content:'................................................................................................................................................................................................................................................................';
+  content: '................................................................................................................................................................................................................................................................';
   @apply pointer-events-none absolute bottom-0 select-none;
 }
 
 /* Large titles */
 .large-title:hover {
   -moz-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
-    -webkit-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
-    -o-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
-    -ms-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
-    transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
+  -webkit-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
+  -o-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
+  -ms-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
+  transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
 }
 
 /* Form */
@@ -178,12 +184,13 @@ fieldset {
   letter-spacing: inherit;
 }
 input {
-  @apply border border-black border-[1.5px] p-2 md:p-5 hover:opacity-50 focus:opacity-100 outline-none;
+  @apply border border-[1.5px] border-black p-2 outline-none hover:opacity-50 focus:opacity-100 md:p-5;
   letter-spacing: inherit;
 }
 
-textarea, select {
-  @apply border border-black  border-[1.5px] p-2 md:p-5;
+textarea,
+select {
+  @apply border border-[1.5px]  border-black p-2 md:p-5;
   letter-spacing: inherit;
 }
 
@@ -197,16 +204,37 @@ textarea, select {
 }
 
 /* Portable Text */
-.portableText, .portableText * {
+.portableText,
+.portableText * {
   @apply !normal-case;
 }
 
 .font-serif * {
-  letter-spacing: .04em;
+  letter-spacing: 0.04em;
   @apply normal-case;
 }
 
-
-.rte.body, .rte.body * {
+.rte.body,
+.rte.body * {
   @apply !normal-case;
 }
+
+/* Collections */
+.collection-title svg {
+  @apply h-12 w-auto;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+
+.collection-title svg path {
+  stroke-dasharray: 100000000;
+  stroke-dashoffset: 10000000;
+  fill: red;
+  animation: dash 1s linear forwards;
+}
+
