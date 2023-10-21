@@ -136,7 +136,7 @@ const QUERY_SANITY = groq`
   ] {
     _updatedAt,
     "imageUrl": coalesce(seo.image.asset->url, store.imageUrl),
-    "url": $baseUrl + "/collections/" + store.slug.current,
+    "url": $baseUrl + "/boutique/" + store.slug.current,
   },
   "home": *[
     _type == 'home'

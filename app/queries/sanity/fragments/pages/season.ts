@@ -7,7 +7,7 @@ export const SEASON_PAGE = groq`
   title,
   collection,
   titleSvg,
-    'slug': '/seasons/' + slug.current,
+    'slug': '/collections/' + slug.current,
     body,
   modules[] {
     ${MODULES}

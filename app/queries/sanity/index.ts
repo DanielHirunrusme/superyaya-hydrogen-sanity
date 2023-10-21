@@ -20,7 +20,7 @@ export const INDEX_QUERY = groq`
     },
     // Season
     _type == "season" => {
-      "slug": '/seasons/' + slug.current,
+      "slug": '/collections/' + slug.current,
       title,
       "category": collection,
       "kind": "collection",

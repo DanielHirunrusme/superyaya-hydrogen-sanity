@@ -9,7 +9,7 @@ export const COLLECTION = groq`
     ${COLOR_THEME}
   },
   "gid": store.gid,
-  "slug": "/collections/" + store.slug.current,
+  "slug": "/boutique/" + store.slug.current,
   "title": store.title,
   "vector": vector.asset->url,
 `;

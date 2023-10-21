@@ -1,53 +1,36 @@
-import {Await, useLoaderData, useSearchParams} from '@remix-run/react';
-import {AnalyticsPageType, type SeoHandleFunction} from '@shopify/hydrogen';
+import {Await, useLoaderData} from '@remix-run/react';
+import type {SeoHandleFunction} from '@shopify/hydrogen';
 import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
 import clsx from 'clsx';
 import {Suspense} from 'react';
 import invariant from 'tiny-invariant';
 
-import ProductGrid from '~/components/collection/ProductGrid';
-import SortOrder from '~/components/collection/SortOrder';
-import {SORT_OPTIONS} from '~/components/collection/SortOrder';
-import CollectionHero from '~/components/heroes/Collection';
-import type {SanityCollectionPage} from '~/lib/sanity';
+import PortableText from '~/components/portableText/PortableText';
+import type {SanityPage} from '~/lib/sanity';
 import {ColorTheme} from '~/lib/theme';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
-import {COLLECTION_PAGE_QUERY} from '~/queries/sanity/collection';
-import {COLLECTION_QUERY} from '~/queries/shopify/collection';
+import {SEASON_PAGE_QUERY} from '~/queries/sanity/seasons';
+import {SanityLink} from '~/lib/sanity';
+import {Link} from '~/components/Link';
+
+import {useMatches} from '@remix-run/react';
+import ModuleGrid from '~/components/modules/ModuleGrid';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
-  title: data?.page?.seo?.title ?? data?.collection?.title,
-  description: data?.page?.seo?.description ?? data?.collection?.description,
-  media: data?.page?.seo?.image ?? data?.collection?.image,
+  title: data?.page?.seo?.title,
+  description: data?.page?.seo?.description,
+  media: data?.page?.seo?.image,
 });
 
 export const handle = {
   seo,
 };
 
-export type SortParam =
-  | 'price-low-high'
-  | 'price-high-low'
-  | 'best-selling'
-  | 'newest'
-  | 'featured'
-  | 'title-a-z'
-  | 'title-z-a';
-
-const PAGINATION_SIZE = 50;
-
-export async function loader({params, context, request}: LoaderArgs) {
+export async function loader({params, context}: LoaderArgs) {
   validateLocale({context, params});
 
   const {handle} = params;
-  const searchParams = new URL(request.url).searchParams;
-  const {sortKey, reverse} = getSortValuesFromParam(
-    searchParams.get('sort') as SortParam,
-  );
-  const cursor = searchParams.get('cursor');
-  const count = searchParams.get('count');
-
-  invariant(params.handle, 'Missing collection handle');
+  invariant(handle, 'Missing page handle');
 
   const cache = context.storefront.CacheCustom({
     mode: 'public',
@@ -55,101 +38,54 @@ export async function loader({params, context, request}: LoaderArgs) {
     staleWhileRevalidate: 60,
   });
 
-  const [page, {collection}] = await Promise.all([
-    context.sanity.query<SanityCollectionPage>({
-      query: COLLECTION_PAGE_QUERY,
-      params: {
-        slug: params.handle,
-      },
-      cache,
-    }),
-    context.storefront.query<{collection: any}>(COLLECTION_QUERY, {
-      variables: {
-        handle,
-        cursor,
-        sortKey,
-        reverse,
-        count: count ? parseInt(count) : PAGINATION_SIZE,
-      },
-    }),
-  ]);
+  const page = await context.sanity.query<SanityPage>({
+    query: SEASON_PAGE_QUERY,
+    params: {
+      slug: handle,
+    },
+    cache,
+  });
 
-  // Handle 404s
-  if (!page || !collection) {
+  if (!page) {
     throw notFound();
   }
 
   // Resolve any references to products on the Storefront API
   const gids = fetchGids({page, context});
 
-  return defer({
-    page,
-    collection,
-    gids,
-    sortKey,
-    analytics: {
-      pageType: AnalyticsPageType.collection,
-      handle,
-      resourceId: collection.id,
-    },
-  });
+  return defer({page, gids});
 }
 
-export default function Collection() {
-  const {collection, page, gids} = useLoaderData<typeof loader>();
-  const [params] = useSearchParams();
-  const sort = params.get('sort');
-
-  const products = collection.products.nodes;
+export default function Page() {
+  const {page, gids} = useLoaderData<typeof loader>();
 
   return (
     <ColorTheme value={page.colorTheme}>
       <Suspense>
         <Await resolve={gids}>
-          {/* Hero */}
-          {/* <CollectionHero fallbackTitle={page.title} hero={page.hero} /> */}
-
-          <div
-             
-          >
-            {/* {products.length > 0 && (
-              <div
-                className={clsx(
-                  'mb-8 flex justify-start', //
-                  'md:justify-end',
-                )}
-              >
-                <SortOrder key={page._id} initialSortOrder={page.sortOrder} />
-              </div>
-            )} */}
-
-            {/* No results */}
-            {products.length === 0 && (
-              <div className="mt-16 text-center text-lg ">
-                No products.
-              </div>
-            )}
-
-            <ProductGrid
-              collection={collection}
-              modules={page.modules}
-              url={`/collections/${collection.handle}`}
-              key={`${collection.handle}-${sort}`}
-            />
+          <div className="mb-22 text-center font-serif text-xxs">
+            <div className='!uppercase'>{page.collection}&nbsp;{page.title}</div>
+            <br />
+            <div className="mx-auto max-w-[19.1875rem] text-left !normal-case">
+              <PortableText blocks={page.body} />
+            </div>
+          </div>
+          {page.modules && <ModuleGrid items={page.modules} showCount />}
+          <div className="flex min-h-screen w-full items-center justify-center text-center">
+            <div className="my-24 text-center mx-auto w-full md:max-w-[500px]">
+              <div className="text-center">{page.title}</div>
+              {/* Table */}
+              <ul className='w-full max-w-2xl  mx-auto'>
+                {page.modules?.map((module, index) => (
+                  <li className='leaders' key={`table-${module._key}`}>
+                    <span>{module.caption || ""}</span>
+                    <span>{String(index + 1).padStart(2, '0')}</span></li>
+                ))}
+              </ul>
+            </div>
           </div>
         </Await>
       </Suspense>
     </ColorTheme>
-  );
-}
-
-function getSortValuesFromParam(sortParam: SortParam | null) {
-  const productSort = SORT_OPTIONS.find((option) => option.key === sortParam);
-
-  return (
-    productSort || {
-      sortKey: null,
-      reverse: false,
-    }
   );
 }
