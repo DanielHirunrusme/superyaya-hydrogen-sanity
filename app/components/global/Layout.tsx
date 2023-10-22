@@ -4,6 +4,8 @@ import Footer from '~/components/global/Footer';
 import Header from '~/components/global/Header';
 import {PreviewBanner} from '~/components/preview/PreviewBanner';
 import RadioPopup from '../radio/RadioPopup';
+import {useTheme} from '../context/ThemeProvider';
+import { useEffect } from 'react';
 
 type LayoutProps = {
   backgroundColor?: string;
@@ -12,6 +14,12 @@ type LayoutProps = {
 
 export function Layout({backgroundColor, children}: LayoutProps) {
   const isPreview = Boolean(usePreviewContext());
+  const [theme] = useTheme();
+
+
+  useEffect(() => {
+    console.log('theme', theme)
+  }, [theme]);
 
   return (
     <>
@@ -25,13 +33,17 @@ export function Layout({backgroundColor, children}: LayoutProps) {
       </div>
 
       <div
-        className="max-w-screen flex flex-col min-h-screen flex-col"
+        className="max-w-screen flex min-h-screen flex-col flex-col"
         style={{background: backgroundColor}}
       >
         <Header />
 
-        <main className="grow flex flex-col mx-4 pb-24 pt-[3.875rem] md:pt-[7.875rem] 2xl:pt-[14rem]" id="mainContent" role="main">
-          <div className="mx-auto flex-1 w-full flex flex-col">{children}</div>
+        <main
+          className="mx-4 flex grow flex-col pb-24 pt-[3.875rem] md:pt-[7.875rem] 2xl:pt-[14rem]"
+          id="mainContent"
+          role="main"
+        >
+          <div className="mx-auto flex w-full flex-1 flex-col">{children}</div>
         </main>
       </div>
 

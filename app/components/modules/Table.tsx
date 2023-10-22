@@ -1,6 +1,5 @@
 export default function ModuleTable(props) {
   const {value} = props;
-  console.log(value);
   return (
     <div className="mx-auto min-h-full max-w-[400px] overflow-hidden">
         <br />

@@ -34,7 +34,6 @@ export default function HeaderActions(props: Props) {
       );
     };
     if (logoVisible) {
-      console.log('fade in');
       fadeIn();
     }
   }, [logoVisible]);

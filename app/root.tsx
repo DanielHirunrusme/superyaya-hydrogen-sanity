@@ -35,6 +35,9 @@ import {COLLECTION_QUERY_ID} from '~/queries/shopify/collection';
 import stylesheet from '~/styles/tailwind.css';
 import type {I18nLocale} from '~/types/shopify';
 import IntroWrapper from './components/global/IntroWrapper';
+import {ThemeProvider} from './components/context/ThemeProvider';
+
+
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
   title: data?.layout?.seo?.title,
@@ -120,7 +123,7 @@ export async function loader({context}: LoaderArgs) {
   });
 }
 
-export default function App() {
+function App() {
   const {preview, ...data} = useLoaderData<typeof loader>();
   const locale = data.selectedLocale ?? DEFAULT_LOCALE;
   const hasUserConsent = true;
@@ -145,11 +148,20 @@ export default function App() {
             </Layout>
           </IntroWrapper>
         </PreviewProvider>
+
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
         <LiveReload />
       </body>
     </html>
+  );
+}
+
+export default function AppWithProviders() {
+  return (
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
   );
 }
 

@@ -58,7 +58,6 @@ export async function loader({context, params}: LoaderArgs) {
 
 export default function Index() {
   const {page, gids} = useLoaderData<typeof loader>();
-  console.log(page);
   return (
     <SanityPreview data={page} query={SEASON_INDEX_PAGE}>
       {(page) => (

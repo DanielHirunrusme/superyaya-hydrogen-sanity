@@ -7,6 +7,8 @@ import type {SanityMenuLink} from '~/lib/sanity';
 import clsx from 'clsx';
 import {useAnimate, stagger, useInView} from 'framer-motion';
 import {STAGGER_SPEED} from '~/lib/constants';
+import {Theme, useTheme} from '../context/ThemeProvider';
+import {motion} from 'framer-motion';
 
 /**
  * A component that defines the navigation for a web storefront
@@ -17,107 +19,147 @@ type Props = {
   logoVisible: boolean;
 };
 
+const hasSubLinks = (link, location) => {
+  let match = false;
+
+  if (link.links?.length) {
+    link.links.forEach((childLink) => {
+      if (childLink.slug && location.pathname.includes(childLink.slug)) {
+        match = true;
+      }
+      if (childLink.links?.length) {
+        childLink.links.forEach((childChildLink) => {
+          if (
+            childChildLink.slug &&
+            location.pathname.includes(childChildLink.slug)
+          ) {
+            match = true;
+          }
+        });
+      }
+    });
+  }
+
+  return match;
+};
+
+const boxVariant = {
+  hidden: {
+    // x: '-100vw', //move out of the site
+  },
+  visible: {
+    // x: 0, // bring it back to nrmal
+    transition: {
+      delay: 0.1,
+      duration: 0,
+      when: 'beforeChildren', //use this instead of delay
+      staggerChildren: STAGGER_SPEED, //apply stagger on the parent tag
+    },
+  },
+};
+
+const listVariant = {
+  hidden: {
+    // x: -10, //move out of the site
+    // opacity: 0,
+  },
+  visible: {
+    // x: 0, // bring it back to nrmal
+    opacity: 1,
+    duration: 0,
+    transition: {
+      duration: 0,
+    },
+  },
+};
+
 export default function Navigation({menuLinks, logoVisible}: Props) {
   const location = useLocation();
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
+  const [theme, setTheme, navVisible, setNavVisible] = useTheme();
 
   const renderLinks = useCallback(() => {
-    return menuLinks?.map((link) => {
-      if (link._type === 'collectionGroup') {
-        return <CollectionGroup collectionGroup={link} key={link._key} />;
-      }
-      if (link._type === 'linkExternal') {
-        return (
-          <div className="flex items-center" key={link._key}>
-            <a
-              className="linkTextNavigation"
-              href={link.url}
-              rel="noreferrer"
-              target={link.newWindow ? '_blank' : '_self'}
-            >
-              {link.title}
-            </a>
-          </div>
-        );
-      }
-      if (link._type === 'linkInternal') {
-        if (!link.slug) {
-          return null;
-        }
+    if (menuLinks?.length === 0) return null;
 
-        console.log(
-          'location.pathname',
-          location.pathname,
-          'link.slug',
-          link.slug,
-        );
-        const isActive = location.pathname.split('/')[1] == link.slug;
-        let hasChildActive = false;
-        let hasChildChildActive = false;
-
-        if (link.links?.length) {
-          link.links.forEach((childLink) => {
-            if (childLink.slug && location.pathname.includes(childLink.slug)) {
-              hasChildActive = true;
+    return (
+      <ul className="hidden gap-5 md:flex 2xl:gap-10">
+        {menuLinks?.map((link) => {
+          if (link._type === 'collectionGroup') {
+            return <CollectionGroup collectionGroup={link} key={link._key} />;
+          }
+          if (link._type === 'linkExternal') {
+            return (
+              <div className="flex items-center" key={link._key}>
+                <a
+                  className="linkTextNavigation"
+                  href={link.url}
+                  rel="noreferrer"
+                  target={link.newWindow ? '_blank' : '_self'}
+                >
+                  {link.title}
+                </a>
+              </div>
+            );
+          }
+          if (link._type === 'linkInternal') {
+            if (!link.slug) {
+              return null;
             }
-            if (childLink.links?.length) {
-              childLink.links.forEach((childChildLink) => {
-                if (
-                  childChildLink.slug &&
-                  location.pathname.includes(childChildLink.slug)
-                ) {
-                  hasChildChildActive = true;
-                }
-              });
-            }
-          });
-        }
 
-        return (
-          <li className="flex items-center opacity-0" key={link._key}>
-            <Link
-              className={clsx(
-                'linkTextNavigation',
-                (hasChildActive || hasChildChildActive || isActive) &&
-                  'linkTextNavigationActive',
-              )}
-              to={link.slug}
-            >
-              {link.title}
-            </Link>
-          </li>
-        );
-      }
+            const isActive =
+              location.pathname.split('/')[1] == link.slug ||
+              hasSubLinks(link, location);
+            // let hasChildActive = false;
+            // let hasChildChildActive = false;
 
-      return null;
-    });
+            // if (link.links?.length) {
+            //   link.links.forEach((childLink) => {
+            //     if (
+            //       childLink.slug &&
+            //       location.pathname.includes(childLink.slug)
+            //     ) {
+            //       hasChildActive = true;
+            //     }
+            //     if (childLink.links?.length) {
+            //       childLink.links.forEach((childChildLink) => {
+            //         if (
+            //           childChildLink.slug &&
+            //           location.pathname.includes(childChildLink.slug)
+            //         ) {
+            //           hasChildChildActive = true;
+            //         }
+            //       });
+            //     }
+            //   });
+            // }
+
+            return (
+              <li className="flex items-center opacity-0" key={link._key}>
+                <Link
+                  className={clsx(
+                    'linkTextNavigation',
+                    isActive && 'linkTextNavigationActive',
+                  )}
+                  to={link.slug}
+                >
+                  {link.title}
+                </Link>
+              </li>
+            );
+          }
+        })}
+      </ul>
+    );
   }, [menuLinks, location]);
 
   const renderSubLinks = useCallback(() => {
-    return menuLinks?.map((link) => {
-      if (link._type === 'collectionGroup') {
-        return <CollectionGroup collectionGroup={link} key={link._key} />;
-      }
-      if (link._type === 'linkExternal') {
-        return (
-          <div className="flex items-center" key={link._key}>
-            <a
-              className="linkTextNavigation"
-              href={link.url}
-              rel="noreferrer"
-              target={link.newWindow ? '_blank' : '_self'}
-            >
-              {link.title}
-            </a>
-          </div>
-        );
-      }
+    if (!menuLinks?.length) return null;
+    const hasChildren = menuLinks.findIndex((link) => {
       if (link._type === 'linkInternal') {
         if (!link.slug) {
           return null;
         }
-
         if (link.links?.length) {
           let hasChildActive = false;
 
@@ -126,164 +168,265 @@ export default function Navigation({menuLinks, logoVisible}: Props) {
               hasChildActive = true;
             }
           });
-          return (
-            <div
-              key={`link-${link._key}`}
-              className={
-                location.pathname.includes(link.slug) || hasChildActive
-                  ? 'flex gap-5'
-                  : 'hidden'
-              }
-            >
-              {link.links.map((subLink) => {
-                let hasChildChildActive = false;
-                if (subLink.links?.length) {
-                  subLink.links.map((subSubLink) => {
-                    if (location.pathname.includes(subSubLink.slug)) {
-                      hasChildChildActive = true;
-                    }
-                  });
-                }
-                return (
-                  <li
-                    className="flex items-center opacity-0"
-                    key={subLink._key}
-                  >
-                    <Link
-                      className={clsx(
-                        'linkTextNavigation',
-                        hasChildChildActive && 'linkTextNavigationActive',
-                      )}
-                      to={subLink.slug}
-                    >
-                      {subLink.title}
-                    </Link>
-                  </li>
-                );
-              })}
-            </div>
-          );
+          return hasChildActive;
         }
       }
-
       return null;
     });
+
+    if (hasChildren === 1) {
+      return (
+        <>
+          {menuLinks?.map((link) => {
+            if (link._type === 'linkExternal') {
+              return (
+                <div className="flex items-center" key={link._key}>
+                  <a
+                    className="linkTextNavigation"
+                    href={link.url}
+                    rel="noreferrer"
+                    target={link.newWindow ? '_blank' : '_self'}
+                  >
+                    {link.title}
+                  </a>
+                </div>
+              );
+            }
+            if (link._type === 'linkInternal') {
+              if (!link.slug) {
+                return null;
+              }
+
+              if (link.links?.length) {
+                let hasChildActive = false;
+
+                link.links.map((subLink) => {
+                  if (location.pathname.includes(subLink.slug)) {
+                    hasChildActive = true;
+                  }
+                });
+                return (
+                  <motion.ul
+                    key={`link-${link._key}`}
+                    className="hidden gap-5 md:flex 2xl:gap-10"
+                    variants={boxVariant}
+                    animate={navVisible ? 'visible' : 'hidden'}
+                    initial="hidden"
+                  >
+                    {link.links.map((subLink) => {
+                      let hasChildChildActive = false;
+                      if (subLink.links?.length) {
+                        subLink.links.map((subSubLink) => {
+                          if (location.pathname.includes(subSubLink.slug)) {
+                            hasChildChildActive = true;
+                          }
+                        });
+                      }
+                      return (
+                        <motion.li
+                          variants={listVariant}
+                          className="flex items-center opacity-0"
+                          key={subLink._key}
+                        >
+                          <Link
+                            className={clsx(
+                              'linkTextNavigation',
+                              hasChildChildActive && 'linkTextNavigationActive',
+                            )}
+                            to={subLink.slug}
+                          >
+                            {subLink.title}
+                          </Link>
+                        </motion.li>
+                      );
+                    })}
+                  </motion.ul>
+                );
+              }
+            }
+
+            return null;
+          })}
+        </>
+      );
+    } else {
+      return <></>;
+    }
   }, [menuLinks, location]);
 
   const renderSubSubLinks = useCallback(() => {
-    return menuLinks?.map((link) => {
-      if (link._type === 'collectionGroup') {
-        return <CollectionGroup collectionGroup={link} key={link._key} />;
-      }
-      if (link._type === 'linkExternal') {
-        return (
-          <div className="flex items-center" key={link._key}>
-            <a
-              className="linkTextNavigation"
-              href={link.url}
-              rel="noreferrer"
-              target={link.newWindow ? '_blank' : '_self'}
-            >
-              {link.title}
-            </a>
-          </div>
-        );
-      }
+    const hasSubSubLinks = menuLinks.findIndex((link) => {
       if (link._type === 'linkInternal') {
         if (!link.slug) {
           return null;
         }
-
         if (link.links?.length) {
-          return link.links.map((subLink) => {
-            if (subLink.links?.length) {
-              return (
-                <div
-                  key={`sub-${subLink._key}`}
-                  className={
-                    location.pathname.includes(subLink.slug)
-                      ? 'flex gap-5'
-                      : 'hidden'
+          let hasChildActive = false;
+          let hasChildChildActive = false;
+          link.links.map((subLink) => {
+            if (location.pathname.includes(subLink.slug)) {
+              hasChildActive = true;
+
+              if (subLink.links?.length) {
+                subLink.links.map((subSubLink) => {
+                  if (location.pathname.includes(subSubLink.slug)) {
+                    hasChildChildActive = true;
                   }
-                >
-                  {subLink.links.map((subSubLink) => {
-                    return (
-                      <li
-                        className="flex items-center opacity-0"
-                        key={subSubLink._key}
-                      >
-                        <Link
-                          className="linkTextNavigation"
-                          to={subSubLink.slug}
-                        >
-                          {subSubLink.title}
-                        </Link>
-                      </li>
-                    );
-                  })}
+                });
+              }
+            }
+          });
+          return hasChildChildActive;
+        }
+      }
+      return null;
+    });
+
+    if (hasSubSubLinks === 1) {
+      return (
+        <>
+          {menuLinks?.map((link) => {
+            if (link._type === 'collectionGroup') {
+              return <CollectionGroup collectionGroup={link} key={link._key} />;
+            }
+            if (link._type === 'linkExternal') {
+              return (
+                <div className="flex items-center" key={link._key}>
+                  <a
+                    className="linkTextNavigation"
+                    href={link.url}
+                    rel="noreferrer"
+                    target={link.newWindow ? '_blank' : '_self'}
+                  >
+                    {link.title}
+                  </a>
                 </div>
               );
             }
-          });
-        }
-      }
+            if (link._type === 'linkInternal') {
+              if (!link.slug) {
+                return null;
+              }
 
-      return null;
-    });
+              if (link.links?.length) {
+                return link.links.map((subLink) => {
+                  if (
+                    subLink.links?.length &&
+                    location.pathname.includes(subLink.slug)
+                  ) {
+                    return (
+                      <motion.ul
+                        key={`sub-${subLink._key}`}
+                        className="hidden gap-5 md:flex 2xl:gap-10"
+                        variants={boxVariant}
+                        animate={navVisible ? 'visible' : 'hidden'}
+                        initial="hidden"
+                      >
+                        {subLink.links.map((subSubLink) => {
+                          return (
+                            <motion.li
+                              variants={listVariant}
+                              className="flex items-center opacity-0"
+                              key={subSubLink._key}
+                            >
+                              <Link
+                                className="linkTextNavigation"
+                                to={subSubLink.slug}
+                              >
+                                {subSubLink.title}
+                              </Link>
+                            </motion.li>
+                          );
+                        })}
+                      </motion.ul>
+                    );
+                  }
+                });
+              }
+            }
+
+            return null;
+          })}
+        </>
+      );
+    } else {
+      return <></>;
+    }
   }, [menuLinks, location]);
 
   useEffect(() => {
-    const sequence = [
-      [
-        'nav ul li',
-        {opacity: 1},
-        {delay: stagger(STAGGER_SPEED), duration: 0.01},
-      ],
-      [
-        'nav ul+ul li',
-        {opacity: 1},
-        {delay: stagger(STAGGER_SPEED), duration: 0.01},
-      ],
-      [
-        'nav ul+ul li',
-        ,
-        {opacity: 1},
-        {delay: stagger(STAGGER_SPEED), duration: 0.01},
-      ],
-    ];
-    if (!isInView || !logoVisible) return;
-    animate(sequence);
-  }, [isInView, logoVisible]);
+    const showNav = async () => {
+      const sequence = [
+        [
+          'nav ul li',
+          {opacity: 1},
+          {delay: stagger(STAGGER_SPEED), duration: 0.01},
+        ],
+        [
+          'nav ul+ul li',
+          {opacity: 1},
+          {delay: stagger(STAGGER_SPEED), duration: 0.01},
+        ],
+        [
+          'nav ul+ul li',
+          {opacity: 1},
+          {delay: stagger(STAGGER_SPEED), duration: 0.01},
+        ],
+      ];
+      await animate(sequence).then(() => {
+        setNavVisible(true);
+      });
+
+      // setTheme(Theme.DARK);
+      // setNavVisible(true);
+    };
+
+    if (!navVisible) {
+      if (isInView && logoVisible) {
+        showNav();
+      }
+    }
+  }, [isInView, logoVisible, location, navVisible]);
+
+  // useEffect(() => {
+  //   if (navVisible) {
+  //     const showSubNav = async () => {
+  //       const sequence = [
+  //         [
+  //           'nav ul+ul li',
+  //           {opacity: 1},
+  //           {delay: stagger(STAGGER_SPEED), duration: 0.01},
+  //         ],
+  //         [
+  //           'nav ul+ul li',
+  //           {opacity: 1},
+  //           {delay: stagger(STAGGER_SPEED), duration: 0.01},
+  //         ],
+  //       ];
+  //       await animate(sequence);
+  //     };
+  //     showSubNav();
+  //   }
+  // }, [location, navVisible]);
 
   return (
     <nav
       ref={scope}
       className="z-40 flex flex-col items-center justify-center gap-3 pb-4"
     >
-      <FramerNav>{renderLinks()}</FramerNav>
-      <FramerNav delay={menuLinks.length * 0.05}>{renderSubLinks()}</FramerNav>
-      <FramerNav>{renderSubSubLinks()}</FramerNav>
+      <>{renderLinks()}</>
+      <>{renderSubLinks()}</>
+      <>{renderSubSubLinks()}</>
     </nav>
   );
 }
 
-function FramerNav({
-  delay = 0,
-  children,
-}: {
-  delay?: number;
-  children: React.ReactNode;
-}) {
-  const [scope, animate] = useAnimate();
-  const isInView = useInView(scope);
-  // useEffect(() => {
-  //   if (isInView) {
-  //     animate('li', {opacity: 1}, {delay: stagger(0.05), duration: 0});
-  //   }
-  // }, [isInView]);
-  return (
-    <ul className="hidden gap-5 md:flex 2xl:gap-10" ref={scope}>
-      {children}
-    </ul>
-  );
-}
+// function FramerNav({
+//   delay = 0,
+//   children,
+// }: {
+//   delay?: number;
+//   children: React.ReactNode;
+// }) {
+//   return <ul className="hidden gap-5 md:flex 2xl:gap-10">{children}</ul>;
+// }

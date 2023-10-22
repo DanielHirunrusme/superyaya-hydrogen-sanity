@@ -25,7 +25,6 @@ export default function IntroWrapper(props: any) {
       await animate(scope.current, {opacity: 0}, {duration: 1, delay: 0.25});
     };
     const safeToRemove = () => {
-      console.log('done');
       setIntroDone(true);
       exitAnimation();
     };
