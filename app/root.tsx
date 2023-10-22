@@ -35,9 +35,8 @@ import {COLLECTION_QUERY_ID} from '~/queries/shopify/collection';
 import stylesheet from '~/styles/tailwind.css';
 import type {I18nLocale} from '~/types/shopify';
 import IntroWrapper from './components/global/IntroWrapper';
-import {ThemeProvider} from './components/context/ThemeProvider';
-
-
+import {ThemeProvider, useTheme} from './components/context/ThemeProvider';
+import clsx from 'clsx';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
   title: data?.layout?.seo?.title,
@@ -128,11 +127,15 @@ function App() {
   const locale = data.selectedLocale ?? DEFAULT_LOCALE;
   const hasUserConsent = true;
   const nonce = useNonce();
+  const [theme, setTheme, navVisible] = useTheme();
 
   useAnalytics(hasUserConsent, locale);
 
   return (
-    <html lang={locale.language}>
+    <html
+      lang={locale.language}
+      className={clsx(navVisible ? 'nav-visible' : 'nav-invisble')}
+    >
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />

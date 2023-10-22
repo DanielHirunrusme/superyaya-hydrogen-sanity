@@ -48,7 +48,7 @@ export default function ProductForm({
   };
 
   return (
-    <div className="max-w-[13.1875rem]">
+    <div className="max-w-laptopForm">
       {multipleProductOptions && (
         <>
           <ProductOptions

@@ -129,6 +129,8 @@ module.exports = {
       height: {
         'header-sm': '2.8rem',
         'header-lg': '6.25rem',
+        laptopBox: '2rem',
+        desktopBox: '3.875rem',
       },
       spacing: {
         1: '4px',
@@ -172,7 +174,16 @@ module.exports = {
         39: '156px',
         40: '160px',
         overlap: '20px',
+        laptopBox: '2rem',
+        desktopBox: '3.875rem',
       },
+      minHeight: {
+        laptopBox: '2rem',
+        desktopBox: '3.875rem',
+      },
+      maxWidth: {
+        laptopForm: '16rem',
+      }
     },
   },
   plugins: [],

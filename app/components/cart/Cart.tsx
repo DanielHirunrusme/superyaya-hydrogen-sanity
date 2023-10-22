@@ -151,7 +151,7 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
           <CartItemQuantity line={lineItem} submissionQuantity={updating} />
           </div>
 
-          <div role="cell" className="mt-3">
+          <div role="cell" className="mt-3 self-start">
             <ItemRemoveButton lineIds={[lineItem.id]} />
           </div>
         </div>
@@ -162,7 +162,7 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
         <CartItemQuantity line={lineItem} submissionQuantity={updating} />
       </div>
       {/* Price */}
-      <div className="absolute bottom-2 right-0 col-span-1 flex justify-end pr-2 text-right leading-none md:relative">
+      <div className="absolute bottom-2 right-0 col-span-1 flex justify-end p-2 text-right leading-none md:relative">
         {updating ? (
           <SpinnerIcon width={24} height={24} />
         ) : (

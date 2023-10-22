@@ -1,13 +1,11 @@
 import {Link} from '@remix-run/react';
-import {VariantSelector} from '@shopify/hydrogen';
+import {Image, VariantSelector} from '@shopify/hydrogen';
 import {
   Product,
   ProductOption,
   ProductVariant,
 } from '@shopify/hydrogen/storefront-api-types';
-import Tippy from '@tippyjs/react/headless';
-import clsx from 'clsx';
-import {forwardRef, useEffect} from 'react';
+import {useEffect} from 'react';
 
 import Tooltip from '~/components/elements/Tooltip';
 import type {SanityCustomProductOption} from '~/lib/sanity';
@@ -15,6 +13,48 @@ import {Fragment, useState} from 'react';
 import {Listbox, Transition} from '@headlessui/react';
 import MinusIcon from '../icons/Minus';
 import PlusIcon from '../icons/Plus';
+import clsx from 'clsx';
+
+const BOX_STYLES = 'w-laptopBox 2xl:w-desktopBox';
+const SELECT_STYLES = 'min-h-laptopBox 2xl:min-h-desktopBox';
+
+const getSwatch = (variants, selectOption) => {
+  let swatch;
+  variants.forEach((variant) => {
+    variant.selectedOptions?.forEach((option) => {
+      if (option.name === 'Color' && option.value === selectOption) {
+        if (variant.swatch) {
+          swatch = variant.swatch;
+        }
+      }
+    });
+    // variant.selectOptions?.forEach((option) => {
+    //   if (option.name === 'Color' && option.value === selectOption) {
+    //     console.log('match')
+    //     return variant;
+    //   }
+    // });
+  });
+  console.log('variant swatch:', swatch);
+  // if (swatch.reference.image.originalSrc) {
+  //   return <>box</>;
+  // }
+
+  if (swatch?.reference?.image?.originalSrc) {
+    return (
+      <div className={clsx('relative aspect-square', BOX_STYLES)}>
+        <Image
+          className="absolute h-full w-full object-cover"
+          alt="color"
+          src={swatch.reference?.image?.originalSrc}
+          alt=""
+        />
+      </div>
+    );
+  }
+
+  return <div className="h-8 w-8 bg-gray"></div>;
+};
 
 export default function ProductOptions({
   product,
@@ -35,6 +75,8 @@ export default function ProductOptions({
     {name: 'Size', value: ''},
     {name: 'Color', value: ''},
   ]);
+
+  // console.log(variants);
 
   useEffect(() => {
     if (
@@ -63,13 +105,14 @@ export default function ProductOptions({
   };
 
   return (
-    <div className="my-4 md:mb-2 flex flex-col gap-2 2xl:gap-4">
+    <div className="my-4 flex flex-col gap-2 md:mb-2 2xl:gap-4">
       <VariantSelector
         handle={product.handle}
         options={options}
         variants={variants}
       >
         {({option}) => {
+          const optionName = option.name;
           // Check if current product has a valid custom option type.
           // If so, render a custom option component.
           const customProductOption = customProductOptions?.find(
@@ -80,23 +123,46 @@ export default function ProductOptions({
             (selectedOption) => selectedOption.name === option.name,
           );
 
+          console.log('match', match[0]);
+
+          const swatch = match?.[0]?.value ? (
+            getSwatch(variants, match[0].value)
+          ) : (
+            <></>
+          );
+          const label = () => {
+            switch (option.name) {
+              case 'Color':
+                return <>{swatch}</>;
+              case 'Size':
+                return <span className='px-2'>Size: </span>;
+              default:
+                return <></>;
+            }
+          };
+
           return (
             <div>
               <Listbox value={selected} onChange={setSelected}>
                 {({open}) => (
-                  <div className={`${!open && 'hover:opacity-50'} relative border border-black p-2`}>
-                    <Listbox.Button className="group relative block w-full">
+                  <div
+                    className={`${
+                      !open && 'hover:opacity-50'
+                    } relative border border-black`}
+                  >
+                    <Listbox.Button className="group relative block min-h-laptopBox w-full 2xl:min-h-desktopBox">
                       {!open ? (
-                        <span className="block text-left ">
-                          {match?.[0]?.value}
+                        <span className={clsx("block flex items-center text-left", option.name === "Color" && "gap-3")}>
+                          {label()}
+                          <span className="">{match?.[0]?.value}</span>
                         </span>
                       ) : (
-                        <span className="pointer-events-none block text-left">
+                        <span className="pointer-events-none block px-2 text-left ">
                           Select {option.name}
                         </span>
                       )}
-                      <span className="pointer-events-none absolute inset-y-0 right-0 top-0 flex items-center">
-                      {open ? <MinusIcon /> : <PlusIcon />}
+                      <span className="pointer-events-none absolute inset-y-0 right-0 top-0 flex items-center px-2 ">
+                        {open ? <MinusIcon /> : <PlusIcon />}
                       </span>
                     </Listbox.Button>
                     <Transition
@@ -105,7 +171,7 @@ export default function ProductOptions({
                       leaveFrom="opacity-100"
                       leaveTo="opacity-0"
                     >
-                      <Listbox.Options className="flex flex-col">
+                      <Listbox.Options className="flex flex-col divide-y border-t">
                         {/* Default option */}
                         {/* <Listbox.Option
                         className={({active}) =>
@@ -124,57 +190,60 @@ export default function ProductOptions({
                         {option.values.map(
                           ({value, to, isActive, isAvailable}) => {
                             const id = `option-${option.name}-${value}`;
-
+                            const swatch =
+                              optionName === 'Color'
+                                ? getSwatch(variants, value)
+                                : null;
                             switch (customProductOption?._type) {
-                              case 'customProductOption.color': {
-                                const foundCustomOptionValue =
-                                  customProductOption.colors.find(
-                                    (color) => color.title === value,
-                                  );
+                              // case 'customProductOption.color': {
+                              //   const foundCustomOptionValue =
+                              //     customProductOption.colors.find(
+                              //       (color) => color.title === value,
+                              //     );
 
-                                return (
-                                  <Listbox.Option
-                                    as={Link}
-                                    to={to}
-                                    value={value}
-                                    key={id}
-                                  >
-                                    <ColorButton
-                                      to={to}
-                                      isSelected={isActive}
-                                      isAvailable={isAvailable}
-                                      hex={
-                                        foundCustomOptionValue?.hex || '#fff'
-                                      }
-                                    />
-                                  </Listbox.Option>
-                                );
-                              }
-                              case 'customProductOption.size': {
-                                const foundCustomOptionValue =
-                                  customProductOption.sizes.find(
-                                    (size) => size.title === value,
-                                  );
+                              //   return (
+                              //     <Listbox.Option
+                              //       as={Link}
+                              //       to={to}
+                              //       value={value}
+                              //       key={id}
+                              //     >
+                              //       <ColorButton
+                              //         to={to}
+                              //         isSelected={isActive}
+                              //         isAvailable={isAvailable}
+                              //         hex={
+                              //           foundCustomOptionValue?.hex || '#fff'
+                              //         }
+                              //       />
+                              //     </Listbox.Option>
+                              //   );
+                              // }
+                              // case 'customProductOption.size': {
+                              //   const foundCustomOptionValue =
+                              //     customProductOption.sizes.find(
+                              //       (size) => size.title === value,
+                              //     );
 
-                                return (
-                                  <Listbox.Option value={value} key={id}>
-                                    <div
-                                      data-on-click
-                                      onClick={() =>
-                                        onListboxOptionClick(option.name, value)
-                                      }
-                                    >
-                                      <OptionButton
-                                        to={to}
-                                        isSelected={isActive}
-                                        isAvailable={isAvailable}
-                                      >
-                                        {value}
-                                      </OptionButton>
-                                    </div>
-                                  </Listbox.Option>
-                                );
-                              }
+                              //   return (
+                              //     <Listbox.Option value={value} key={id}>
+                              //       <div
+                              //         data-on-click
+                              //         onClick={() =>
+                              //           onListboxOptionClick(option.name, value)
+                              //         }
+                              //       >
+                              //         <OptionButton
+                              //           to={to}
+                              //           isSelected={isActive}
+                              //           isAvailable={isAvailable}
+                              //         >
+                              //           {value}
+                              //         </OptionButton>
+                              //       </div>
+                              //     </Listbox.Option>
+                              //   );
+                              // }
                               default:
                                 return (
                                   <Listbox.Option
@@ -183,15 +252,22 @@ export default function ProductOptions({
                                     value={value}
                                     preventScrollReset
                                     replace
-                                    data-isActive={isActive}
+                                    // data-isactive={isActive}
                                     prefetch="intent"
-                                    className={`${isActive? 'underline' : 'hover:underline'} py-2 decoration-1 underline-offset-4`}
+                                    className={clsx(
+                                      SELECT_STYLES,
+                                      isActive
+                                        ? 'underline'
+                                        : 'hover:underline',
+                                      'flex   items-center decoration-1 underline-offset-4',
+                                    )}
                                     key={id}
                                     onClick={() =>
                                       onListboxOptionClick(option.name, value)
                                     }
                                   >
-                                    {value}
+                                    {swatch}
+                                    <span className="px-2">{value}</span>
                                   </Listbox.Option>
                                 );
                             }
@@ -344,67 +420,67 @@ export default function ProductOptions({
   // );
 }
 
-const OptionButton = forwardRef<
-  HTMLAnchorElement,
-  {
-    to: string;
-    isSelected: boolean;
-    isAvailable: boolean;
-    children: React.ReactNode;
-  }
->((props, ref) => {
-  const {to, isSelected, children, isAvailable} = props;
+// const OptionButton = forwardRef<
+//   HTMLAnchorElement,
+//   {
+//     to: string;
+//     isSelected: boolean;
+//     isAvailable: boolean;
+//     children: React.ReactNode;
+//   }
+// >((props, ref) => {
+//   const {to, isSelected, children, isAvailable} = props;
 
-  const onOptionClick = (event: React.MouseEvent) => {};
+//   const onOptionClick = (event: React.MouseEvent) => {};
 
-  return (
-    <div
-      ref={ref}
-      // to={to}
-      // preventScrollReset
-      // replace
-      onClick={onOptionClick}
-      // prefetch="intent"
-      className={clsx([
-        'block cursor-pointer py-2 leading-none  hover:underline hover:decoration-1 hover:underline-offset-1',
-        isSelected ? 'border-black text-black' : 'border-lightGray ',
-        !isAvailable && 'opacity-80',
-      ])}
-    >
-      {children}
-    </div>
-  );
-});
+//   return (
+//     <div
+//       ref={ref}
+//       // to={to}
+//       // preventScrollReset
+//       // replace
+//       onClick={onOptionClick}
+//       // prefetch="intent"
+//       className={clsx([
+//         'block cursor-pointer py-2 leading-none  hover:underline hover:decoration-1 hover:underline-offset-1',
+//         isSelected ? 'border-black text-black' : 'border-lightGray ',
+//         !isAvailable && 'opacity-80',
+//       ])}
+//     >
+//       {children}
+//     </div>
+//   );
+// });
 
-const ColorButton = forwardRef<
-  HTMLAnchorElement,
-  {to: string; hex: string; isSelected: boolean; isAvailable: boolean}
->((props, ref) => {
-  const {to, hex, isSelected, isAvailable} = props;
+// const ColorButton = forwardRef<
+//   HTMLAnchorElement,
+//   {to: string; hex: string; isSelected: boolean; isAvailable: boolean}
+// >((props, ref) => {
+//   const {to, hex, isSelected, isAvailable} = props;
 
-  return (
-    <Link
-      ref={ref}
-      to={to}
-      preventScrollReset
-      replace
-      prefetch="intent"
-      className={clsx([
-        'flex h-8 w-8 items-center justify-center ',
-        isSelected
-          ? 'border-offBlack'
-          : 'cursor-pointer border-transparent hover:border-black hover:border-opacity-30',
-        !isAvailable && 'opacity-80',
-      ])}
-    >
-      <div
-        className="rounded-full"
-        style={{
-          background: hex,
-          height: 'calc(100% - 4px)',
-          width: 'calc(100% - 4px)',
-        }}
-      ></div>
-    </Link>
-  );
-});
+//   return (
+//     <Link
+//       ref={ref}
+//       to={to}
+//       preventScrollReset
+//       replace
+//       prefetch="intent"
+//       className={clsx([
+//         'flex h-8 w-8 items-center justify-center ',
+//         isSelected
+//           ? 'border-offBlack'
+//           : 'cursor-pointer border-transparent hover:border-black hover:border-opacity-30',
+//         !isAvailable && 'opacity-80',
+//       ])}
+//     >
+//       <div
+//         className="rounded-full"
+//         style={{
+//           background: hex,
+//           height: 'calc(100% - 4px)',
+//           width: 'calc(100% - 4px)',
+//         }}
+//       ></div>
+//     </Link>
+//   );
+// });

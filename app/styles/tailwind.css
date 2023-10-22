@@ -246,3 +246,12 @@ select {
 .rte, .rte * {
   @apply font-body !normal-case;
 }
+
+/* Intro */
+[data-await-intro] { 
+  @apply invisible;
+}
+
+html.nav-visible [data-await-intro] {
+  @apply visible;
+}

@@ -8,7 +8,14 @@ enum Theme {
 
 type ThemeContextType = [Theme | null, Dispatch<SetStateAction<Theme | null>>];
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const defaultContext = {
+  theme: Theme.LIGHT,
+  setTheme: () => {},
+  navVisible: false,
+  setNavVisible: () => {},
+};
+
+const ThemeContext = createContext(defaultContext);
 
 function ThemeProvider({children}: {children: ReactNode}) {
   const [theme, setTheme] = useState<Theme | null>(Theme.LIGHT);

@@ -31,6 +31,18 @@ export const PRODUCT_VARIANT_FIELDS = `
       title
       handle
     }
+    swatch: metafield(key: "swatch", namespace: "descriptors") {
+      id
+      value
+      type
+      reference {
+        ... on MediaImage {
+          image {
+            originalSrc
+          }
+        }
+      }
+    }
   }
 `;
 

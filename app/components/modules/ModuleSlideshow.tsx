@@ -98,7 +98,7 @@ export default function ModuleSlideshow(props) {
           ))}
         </div>
       </div>
-      <div className="absolute bottom-0 z-10 flex h-header-sm w-full items-center justify-center gap-4 text-center">
+      <div data-await-intro className="absolute bottom-0 z-10 flex h-header-sm w-full items-center justify-center gap-4 text-center">
         <span>
           {String(selectedIndex + 1).padStart(2, '0')}/
           {String(modules!.length).padStart(2, '0')}
