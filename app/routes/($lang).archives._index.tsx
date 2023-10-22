@@ -65,9 +65,9 @@ export default function Index() {
                   key={category._id}
                 >
                   <ul>
-                    <li className="mb-2 opacity-0">
+                    {category.entries?.length > 0 && <li className="mb-2 opacity-0">
                       <h2>{category.title}</h2>
-                    </li>
+                    </li>}
                     {category.entries?.map((entry, index) => (
                       <li className="opacity-0" key={entry._id}>
                         <Link to={entry.slug} className="leaders">

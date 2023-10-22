@@ -108,10 +108,7 @@ export default function Collection() {
         <Await resolve={gids}>
           {/* Hero */}
           {/* <CollectionHero fallbackTitle={page.title} hero={page.hero} /> */}
-
-          <div
-             
-          >
+ 
             {/* {products.length > 0 && (
               <div
                 className={clsx(
@@ -125,7 +122,7 @@ export default function Collection() {
 
             {/* No results */}
             {products.length === 0 && (
-              <div className="mt-16 text-center text-lg ">
+              <div className="flex w-full items-center justify-center h-full flex-1 my-auto">
                 No products.
               </div>
             )}
@@ -136,7 +133,7 @@ export default function Collection() {
               url={`/boutique/${collection.handle}`}
               key={`${collection.handle}-${sort}`}
             />
-          </div>
+         
         </Await>
       </Suspense>
     </ColorTheme>

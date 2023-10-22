@@ -28,6 +28,13 @@ export default defineField({
       group: 'editorial',
       hidden: true,
     }),
+    defineField({
+      name: 'introImage',
+      title: 'Intro image',
+      type: 'image',
+      group: 'editorial',
+      validation: (Rule) => Rule.required(),
+    }),
     // Modules
     defineField({
       name: 'modules',

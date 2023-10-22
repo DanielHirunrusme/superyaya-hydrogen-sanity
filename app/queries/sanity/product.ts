@@ -10,3 +10,10 @@ export const PRODUCT_PAGE_QUERY = groq`
     ${PRODUCT_PAGE}
   }
 `;
+
+export const SIZE_GUIDE_QUERY = groq`
+  *[_type == 'sizeChart' && slug.current == "global-desktop"][0]{
+    title,
+    sizeChart,
+  }
+`;

@@ -1,16 +1,18 @@
-import { MediaFile } from '@shopify/hydrogen';
+import {MediaFile} from '@shopify/hydrogen';
 import {
   MediaImage,
   ProductVariant,
 } from '@shopify/hydrogen/storefront-api-types';
 import useEmblaCarousel from 'embla-carousel-react';
-import { useCallback, useEffect, useState } from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 // import CircleButton from '~/components/elements/CircleButton';
 // import { ArrowRightIcon } from '~/components/icons/ArrowRight';
-import { GRID_GAP } from '~/lib/constants';
-import type { ProductWithNodes } from '~/types/shopify';
+import {GRID_GAP, STAGGER_SPEED} from '~/lib/constants';
+import type {ProductWithNodes} from '~/types/shopify';
 import clsx from 'clsx';
+import {stagger, useAnimate} from 'framer-motion';
+import { useLocation } from '@remix-run/react';
 
 /**
  * A client component that defines a media gallery for hosting images, 3D models, and videos of products
@@ -23,6 +25,7 @@ type Props = {
   setZoom: (zoom: boolean) => void;
   selectedIndex: number;
   setSelectedIndex: (index: number) => void;
+  sizeChartVisible: boolean;
 };
 
 export default function ProductGallery({
@@ -32,9 +35,10 @@ export default function ProductGallery({
   setZoom,
   selectedIndex,
   setSelectedIndex,
+  sizeChartVisible,
 }: Props) {
-
- 
+  const [scope, animate] = useAnimate();
+  const location = useLocation();
   const typeNameMap = {
     MODEL_3D: 'Model3d',
     VIDEO: 'Video',
@@ -56,12 +60,19 @@ export default function ProductGallery({
     setSelectedIndex(emblaApi.selectedScrollSnap());
   }, [emblaApi, setSelectedIndex]);
 
-
   useEffect(() => {
     if (!emblaApi) return;
     onSelect();
     emblaApi.on('select', onSelect);
   }, [emblaApi, onSelect]);
+  useEffect(() => {
+    if (!sizeChartVisible)
+      animate(
+        'li',
+        {opacity: 1},
+        {delay: stagger(STAGGER_SPEED), duration: 0.01},
+      );
+  }, [sizeChartVisible, location]);
 
   const onEmblaClick = (e) => {
     if (e.clientX > window.innerWidth / 2) {
@@ -69,8 +80,7 @@ export default function ProductGallery({
     } else {
       handlePrevious();
     }
-  }
-
+  };
 
   const handleNext = () => {
     if (emblaApi) {
@@ -83,7 +93,6 @@ export default function ProductGallery({
       // emblaApi.scrollPrev();
     }
   };
-
 
   useEffect(() => {
     if (!selectedVariant) {
@@ -116,11 +125,8 @@ export default function ProductGallery({
     setSelectedIndex(index);
   };
 
-
-
   return (
     <>
-
       {/* Mobile slideshow */}
       <div className="md:hidden">
         <div className="h-full overflow-hidden" ref={emblaRef}>
@@ -135,7 +141,7 @@ export default function ProductGallery({
                   ar: true,
                   loading: 'eager',
                   disableZoom: true,
-                  style: { height: '100%', margin: '0 auto' },
+                  style: {height: '100%', margin: '0 auto'},
                 };
               }
 
@@ -158,7 +164,7 @@ export default function ProductGallery({
                   key={med.id}
                   tabIndex={0}
                   mediaOptions={{
-                    image: { crop: 'center', sizes: '100vw', loading: 'eager' },
+                    image: {crop: 'center', sizes: '100vw', loading: 'eager'},
                   }}
                   {...extraProps}
                 />
@@ -166,12 +172,20 @@ export default function ProductGallery({
             })}
           </div>
         </div>
-        <div className='pt-4 text-center'>{selectedIndex + 1}/{media!.length}</div>
+        <div className="pt-4 text-center">
+          {selectedIndex + 1}/{media!.length}
+        </div>
       </div>
 
-
       {/* Desktop Gallery */}
-      <div className={clsx('hidden md:grid md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6', GRID_GAP)}>
+      <ul
+        ref={scope}
+        className={clsx(
+          'hidden md:grid md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6',
+          sizeChartVisible && 'opacity-0',
+          GRID_GAP,
+        )}
+      >
         {/* Slides */}
         {media.map((med, index) => {
           let extraProps: Record<string, any> = {};
@@ -182,7 +196,7 @@ export default function ProductGallery({
               ar: true,
               loading: 'eager',
               disableZoom: true,
-              style: { height: '100%', margin: '0 auto' },
+              style: {height: '100%', margin: '0 auto'},
             };
           }
 
@@ -198,21 +212,22 @@ export default function ProductGallery({
           } as MediaImage;
 
           return (
-            <MediaFile
-              className="relative flex w-full shrink-0 grow-0 select-none object-cover cursor-pointer"
-              data={data}
-              draggable={false}
-              key={med.id}
-              tabIndex={0}
-              onClick={() => onMediaClick(index)}
-              mediaOptions={{
-                image: { crop: 'center', sizes: '100vw', loading: 'eager' },
-              }}
-              {...extraProps}
-            />
+            <li key={med.id} className="opacity-0 aspect-[866/1300] bg-gray">
+              <MediaFile
+                className="relative flex w-full shrink-0 grow-0 cursor-pointer select-none object-cover"
+                data={data}
+                draggable={false}
+                tabIndex={0}
+                onClick={() => onMediaClick(index)}
+                mediaOptions={{
+                  image: {crop: 'center', sizes: '100vw', loading: 'eager'},
+                }}
+                {...extraProps}
+              />
+            </li>
           );
         })}
-      </div>
+      </ul>
     </>
   );
 }

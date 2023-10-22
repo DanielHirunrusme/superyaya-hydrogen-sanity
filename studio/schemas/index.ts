@@ -71,6 +71,7 @@ import moduleInstagram from './objects/module/instagram'
 import moduleProduct from './objects/module/product'
 import moduleProducts from './objects/module/products'
 import moduleNewsletter from './objects/module/newsletter'
+import moduleTable from './objects/module/table'
 import placeholderString from './objects/shopify/placeholderString'
 import priceRange from './objects/shopify/priceRange'
 import spot from './objects/hotspot/spot'
@@ -124,6 +125,7 @@ const objects = [
   moduleProduct,
   moduleProducts,
   moduleNewsletter,
+  moduleTable,
   placeholderString,
   priceRange,
   spot,

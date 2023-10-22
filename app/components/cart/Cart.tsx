@@ -292,11 +292,11 @@ export function CartActions({cart}: {cart: Cart}) {
 
   return (
     <div className="flex w-full flex-col gap-3">
-      <ShopPayButton
+      {/* <ShopPayButton
         className={clsx([defaultButtonStyles({tone: 'shopPay'})])}
         variantIdsAndQuantities={shopPayLineItems}
         storeDomain={storeDomain}
-      />
+      /> */}
       <Button to={cart.checkoutUrl} className={clsx([defaultButtonStyles()])}>
         Checkout
       </Button>

@@ -11,6 +11,8 @@ type Props = {
   storefrontVariants: ProductVariant[];
   selectedVariant: ProductVariant;
   analytics: ShopifyAnalyticsPayload;
+  sizeChartVisible: boolean;
+  setSizeChartVisible: (visible: boolean) => void;
 };
 
 function ProductPrices({
@@ -23,7 +25,6 @@ function ProductPrices({
   if (!storefrontProduct || !selectedVariant) {
     return null;
   }
-
 
   return (
     <div>
@@ -43,6 +44,8 @@ export default function ProductWidget({
   storefrontVariants,
   selectedVariant,
   analytics,
+  sizeChartVisible,
+  setSizeChartVisible,
 }: Props) {
   const availableForSale = selectedVariant?.availableForSale;
 
@@ -56,12 +59,10 @@ export default function ProductWidget({
       {!availableForSale && (
         <div className="mb-3 text-xs  uppercase ">Sold out</div>
       )}
-
       {/* Sale */}
       {availableForSale && selectedVariant?.compareAtPrice && (
         <div className="mb-3 text-xs  uppercase text-red">Sale</div>
       )}
-
       {/* Title */}
       {storefrontProduct?.title && (
         <h1 className="">{storefrontProduct.title}</h1>
@@ -72,7 +73,6 @@ export default function ProductWidget({
         storefrontProduct={storefrontProduct}
         selectedVariant={selectedVariant}
       />
-
       <br />
       {/* Description */}
       {storefrontProduct?.descriptionHtml && (
@@ -80,13 +80,6 @@ export default function ProductWidget({
           dangerouslySetInnerHTML={{__html: storefrontProduct.descriptionHtml}}
         />
       )}
-
-      {/* Vendor */}
-      {/* {storefrontProduct?.vendor && (
-        <div className="mt-1 text-md ">
-          {storefrontProduct.vendor}
-        </div>
-      )} */}
 
       {/* Product options */}
       <ProductForm
@@ -97,49 +90,45 @@ export default function ProductWidget({
         customProductOptions={sanityProduct.customProductOptions}
       />
 
-      {/* Details */}
-      {storefrontProduct.details || storefrontProduct.sizeGuide && (
-      <div className="my-8">
+      <div>
+        {/* Details */}
         {storefrontProduct.details && (
-          <Disclosure>
-            {({ open }) => (
-              <>
-            <Disclosure.Button className="flex gap-4">
-              <span className='w-3'>{!open ? '+' : <>&ndash;</>}</span>Product Details
-            </Disclosure.Button>
-            <Disclosure.Panel>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: convertSchemaToHtml(storefrontProduct.details.value),
-                }}
-              />
-            </Disclosure.Panel>
-            </>
+          <div className="mt-4">
+            {storefrontProduct.details && (
+              <Disclosure>
+                {({open}) => (
+                  <>
+                    <Disclosure.Button className="flex gap-4">
+                      <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
+                      Product Details
+                    </Disclosure.Button>
+                    <Disclosure.Panel>
+                      <div className="mb-4">
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: convertSchemaToHtml(
+                              storefrontProduct.details.value,
+                            ),
+                          }}
+                        />
+                      </div>
+                    </Disclosure.Panel>
+                  </>
+                )}
+              </Disclosure>
             )}
-          </Disclosure>
+          </div>
         )}
-        {storefrontProduct.sizeGuide && (
-          <Disclosure>
-            {({ open }) => (
-              <>
-            <Disclosure.Button className="flex gap-4">
-            <span className='w-3'>{!open ? '+' : '&mdash;'}</span>Size-guide
-            </Disclosure.Button>
-            <Disclosure.Panel>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: convertSchemaToHtml(
-                    storefrontProduct.sizeGuide.value,
-                  ),
-                }}
-              />
-            </Disclosure.Panel>
-            </>
-            )}
-          </Disclosure>
-        )}
+
+        {/* Size Guide */}
+        <button
+          onClick={() => setSizeChartVisible(!sizeChartVisible)}
+          className="flex gap-4"
+        >
+          <span className="w-3">{!sizeChartVisible ? '+' : <>&ndash;</>}</span>
+          Size Guide
+        </button>
       </div>
-      )}
     </div>
   );
 }

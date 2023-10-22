@@ -20,4 +20,5 @@ export const PRODUCT_PAGE = groq`
   "gid": store.gid,
   ${SEO_SHOPIFY},
   "slug": store.slug.current,
+  "sizeChart": *[_type == 'sizeChart' && slug.current == "global-desktop"][0].sizeChart
 `;

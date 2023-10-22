@@ -10,6 +10,7 @@ export const LAYOUT_QUERY = groq`
     "menuLinks": menu.links[] {
       ${LINKS}
     },
+    "introImage": *[_type == "home"][0].introImage.asset->{...,},
     assistance {
       links[] {
         ${LINKS}

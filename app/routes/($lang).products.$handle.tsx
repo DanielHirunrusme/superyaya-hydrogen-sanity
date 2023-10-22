@@ -24,7 +24,7 @@ import RelatedProducts from '~/components/product/RelatedProducts';
 import type {SanityProductPage} from '~/lib/sanity';
 import {ColorTheme} from '~/lib/theme';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
-import {PRODUCT_PAGE_QUERY} from '~/queries/sanity/product';
+import {PRODUCT_PAGE_QUERY, SIZE_GUIDE_QUERY} from '~/queries/sanity/product';
 import {
   PRODUCT_QUERY,
   RECOMMENDED_PRODUCTS_QUERY,
@@ -180,6 +180,7 @@ export default function ProductHandle() {
   } = useLoaderData();
   const [zoom, setZoom] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [sizeChartVisible, setSizeChartVisible] = useState(false);
   return (
     <>
       <ColorTheme value={page.colorTheme}>
@@ -196,6 +197,8 @@ export default function ProductHandle() {
                 setSelectedIndex={setSelectedIndex}
                 zoom={zoom}
                 setZoom={setZoom}
+                sizeChartVisible={sizeChartVisible}
+                setSizeChartVisible={setSizeChartVisible}
               />
             }
           >
@@ -214,6 +217,8 @@ export default function ProductHandle() {
                   setSelectedIndex={setSelectedIndex}
                   zoom={zoom}
                   setZoom={setZoom}
+                  sizeChartVisible={sizeChartVisible}
+                  setSizeChartVisible={setSizeChartVisible}
                 />
               )}
             </Await>
@@ -256,17 +261,16 @@ export default function ProductHandle() {
         </Suspense>
       </ColorTheme>
       <Suspense fallback={<></>}>
-          {zoom && (
-            <ProductSlideshow
-              storefrontProduct={product}
-              selectedVariant={selectedVariant}
-              zoom={zoom}
-              setZoom={setZoom}
-              selectedIndex={selectedIndex}
-              setSelectedIndex={setSelectedIndex}
-            />
-          )}
-     
+        {zoom && (
+          <ProductSlideshow
+            storefrontProduct={product}
+            selectedVariant={selectedVariant}
+            zoom={zoom}
+            setZoom={setZoom}
+            selectedIndex={selectedIndex}
+            setSelectedIndex={setSelectedIndex}
+          />
+        )}
       </Suspense>
     </>
   );

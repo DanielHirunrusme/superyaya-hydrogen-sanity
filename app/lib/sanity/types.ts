@@ -298,6 +298,7 @@ export type SanityProductPage = {
   gid: string;
   slug?: string;
   seo: SanitySeo;
+  sizeChart?: any;
 };
 
 export type SanitySeo = {

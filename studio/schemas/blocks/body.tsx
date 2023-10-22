@@ -68,6 +68,9 @@ export default defineField({
     },
     {
       type: 'module.newsletter',
+    },
+    {
+      type: 'module.table',
     }
   ],
 })

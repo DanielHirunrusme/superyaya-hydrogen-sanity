@@ -6,7 +6,7 @@ import {Link} from '~/components/Link';
 import type {SanityMenuLink} from '~/lib/sanity';
 import clsx from 'clsx';
 import {useAnimate, stagger, useInView} from 'framer-motion';
-import { STAGGER_SPEED } from '~/lib/constants';
+import {STAGGER_SPEED} from '~/lib/constants';
 
 /**
  * A component that defines the navigation for a web storefront
@@ -14,9 +14,10 @@ import { STAGGER_SPEED } from '~/lib/constants';
 
 type Props = {
   menuLinks: SanityMenuLink[];
+  logoVisible: boolean;
 };
 
-export default function Navigation({menuLinks}: Props) {
+export default function Navigation({menuLinks, logoVisible}: Props) {
   const location = useLocation();
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
@@ -45,6 +46,13 @@ export default function Navigation({menuLinks}: Props) {
           return null;
         }
 
+        console.log(
+          'location.pathname',
+          location.pathname,
+          'link.slug',
+          link.slug,
+        );
+        const isActive = location.pathname.split('/')[1] == link.slug;
         let hasChildActive = false;
         let hasChildChildActive = false;
 
@@ -71,7 +79,7 @@ export default function Navigation({menuLinks}: Props) {
             <Link
               className={clsx(
                 'linkTextNavigation',
-                (hasChildActive || hasChildChildActive) &&
+                (hasChildActive || hasChildChildActive || isActive) &&
                   'linkTextNavigationActive',
               )}
               to={link.slug}
@@ -84,7 +92,7 @@ export default function Navigation({menuLinks}: Props) {
 
       return null;
     });
-  }, [menuLinks]);
+  }, [menuLinks, location]);
 
   const renderSubLinks = useCallback(() => {
     return menuLinks?.map((link) => {
@@ -226,13 +234,26 @@ export default function Navigation({menuLinks}: Props) {
 
   useEffect(() => {
     const sequence = [
-      ['nav ul li', {opacity: 1}, {delay: stagger(STAGGER_SPEED), duration: 0.01}],
-      ['nav ul+ul li', {opacity: 1}, {delay: stagger(STAGGER_SPEED), duration: 0.01}],
-      ['nav ul+ul li', , {opacity: 1}, {delay: stagger(STAGGER_SPEED), duration: 0.01}],
+      [
+        'nav ul li',
+        {opacity: 1},
+        {delay: stagger(STAGGER_SPEED), duration: 0.01},
+      ],
+      [
+        'nav ul+ul li',
+        {opacity: 1},
+        {delay: stagger(STAGGER_SPEED), duration: 0.01},
+      ],
+      [
+        'nav ul+ul li',
+        ,
+        {opacity: 1},
+        {delay: stagger(STAGGER_SPEED), duration: 0.01},
+      ],
     ];
-    if(!isInView) return;
+    if (!isInView || !logoVisible) return;
     animate(sequence);
-  }, [isInView]);
+  }, [isInView, logoVisible]);
 
   return (
     <nav

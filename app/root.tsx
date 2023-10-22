@@ -34,6 +34,7 @@ import {LAYOUT_QUERY} from '~/queries/sanity/layout';
 import {COLLECTION_QUERY_ID} from '~/queries/shopify/collection';
 import stylesheet from '~/styles/tailwind.css';
 import type {I18nLocale} from '~/types/shopify';
+import IntroWrapper from './components/global/IntroWrapper';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
   title: data?.layout?.seo?.title,
@@ -76,7 +77,6 @@ export const links: LinksFunction = () => {
 };
 
 export async function loader({context}: LoaderArgs) {
- 
   const {cart} = context;
 
   const cache = context.storefront.CacheCustom({
@@ -139,9 +139,11 @@ export default function App() {
       </head>
       <body>
         <PreviewProvider previewConfig={preview} fallback={<PreviewLoading />}>
-          <Layout key={`${locale.language}-${locale.country}`}>
-            <Outlet />
-          </Layout>
+          <IntroWrapper>
+            <Layout key={`${locale.language}-${locale.country}`}>
+              <Outlet />
+            </Layout>
+          </IntroWrapper>
         </PreviewProvider>
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />

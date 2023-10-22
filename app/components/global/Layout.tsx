@@ -30,8 +30,8 @@ export function Layout({backgroundColor, children}: LayoutProps) {
       >
         <Header />
 
-        <main className="grow mx-4 pb-24 pt-[3.875rem] md:pt-[7.875rem] 2xl:pt-[14rem]" id="mainContent" role="main">
-          <div className="mx-auto grow">{children}</div>
+        <main className="grow flex flex-col mx-4 pb-24 pt-[3.875rem] md:pt-[7.875rem] 2xl:pt-[14rem]" id="mainContent" role="main">
+          <div className="mx-auto flex-1 w-full flex flex-col">{children}</div>
         </main>
       </div>
 

@@ -25,7 +25,7 @@ export default function Newsletter(props: Props) {
           event.preventDefault();
           handleSubmit(fields);
         }}
-        className='relative border-b border-black mb-2'
+        className='relative border-b border-black mb-2 pb-[2px] !block'
       >
         <input
           id="EMAIL"
@@ -34,7 +34,7 @@ export default function Newsletter(props: Props) {
           type="email"
           value={fields.EMAIL}
           onChange={handleFieldChange}
-          className='w-full outline-none border-none bg-transparent autofill:bg-white'
+          className='w-full outline-none border-none bg-transparent autofill:bg-white !p-0'
         />
         <button className='absolute right-0'>submit</button>
       </form>

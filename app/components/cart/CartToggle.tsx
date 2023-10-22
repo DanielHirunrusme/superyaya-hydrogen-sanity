@@ -20,12 +20,12 @@ export default function CartToggle({cart, isOpen, openDrawer}: Props) {
       <Await resolve={cart}>
         {(data) => (
           <Link to="/cart">
-            <Button mode="text" as="span" className='hidden md:block text-xxs 2xl:text-lg'>
+            <span className='hidden lead md:inline text-xxs 2xl:text-lg'>
               Cart ({data?.totalQuantity || 0})
-            </Button>
+            </span>
             <div className='md:hidden w-4 h-5 relative'>
               <CartIcon />
-              <span className='absolute w-4 text-xs text-center left-0 bottom-[.125em]'>{data?.totalQuantity || 0}</span>
+              <span className='absolute leading-none w-4 text-xs text-center left-0 bottom-[.125em]'>{data?.totalQuantity || 0}</span>
             </div>
           </Link>
         )}

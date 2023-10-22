@@ -81,6 +81,10 @@
     height: 100vh !important; /* fallback */
     height: 100dvh !important;
   }
+
+  button {
+    @apply uppercase;
+  }
 }
 
 @layer components {
@@ -238,3 +242,7 @@ select {
   animation: dash 1s linear forwards;
 }
 
+/* RTE */
+.rte, .rte * {
+  @apply font-body !normal-case;
+}
