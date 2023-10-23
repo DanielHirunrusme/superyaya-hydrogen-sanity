@@ -108,13 +108,13 @@ export default function ProductCard({
         )} */}
       </div>
 
-      <div className="mt-1 mb-2">
+      <div className="mt-1 mb-2 text-xxs 2xl:text-lg">
         <div className="space-y-1 truncate">
           {/* Title */}
           <Link
             className={clsx(
               '', //
-              'group-hover:underline underline-offset-4 decoration-1',
+              'group-hover:opacity-50',
             )}
             to={`/products/${storefrontProduct.handle}`}
           >
@@ -133,7 +133,7 @@ export default function ProductCard({
         </div>
 
         {/* Price / compare at price */}
-        <div className="flex ">
+        <div className="flex group-hover:opacity-50">
           {firstVariant.compareAtPrice && (
             <span className="">
               <Money

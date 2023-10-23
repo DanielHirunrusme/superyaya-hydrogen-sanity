@@ -234,6 +234,10 @@ select {
   @apply !normal-case;
 }
 
+.font-serif .rte * {
+  font-family: 'Times New Roman', Times, serif
+}
+
 /* Collections */
 .collection-title svg {
   @apply h-12 w-auto;

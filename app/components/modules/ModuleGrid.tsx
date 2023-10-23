@@ -146,7 +146,7 @@ export default function ModuleGrid({
                     module={item}
                   />
                   {showCount && (
-                    <div className="mb-2 mt-1 text-center">
+                    <div className="mb-2 mt-1 text-center text-xxs 2xl:text-lg">
                       {String(index + 1).padStart(2, '0')}
                     </div>
                   )}

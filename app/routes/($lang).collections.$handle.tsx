@@ -73,12 +73,12 @@ export default function Page() {
     <ColorTheme value={page.colorTheme}>
       <Suspense>
         <Await resolve={gids}>
-          <div className="mb-22 text-center font-serif text-xxs">
-            <div className="!uppercase">
+          <div className="mb-22 text-center font-serif">
+            <div className="!uppercase text-xxs 2xl:text-md">
               {page.collection}&nbsp;{page.title}
             </div>
             <br />
-            <div className="mx-auto max-w-[19.1875rem] text-left !normal-case">
+            <div className="mx-auto max-w-[19.1875rem] 2xl:max-w-[21.796875vw] text-left !normal-case">
               <PortableText blocks={page.body} />
             </div>
           </div>
