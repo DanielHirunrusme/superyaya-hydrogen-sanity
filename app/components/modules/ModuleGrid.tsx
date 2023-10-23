@@ -7,6 +7,7 @@ import type {SanityModule} from '~/lib/sanity';
 import type {ProductWithNodes} from '~/types/shopify';
 import ModuleSlideshow from './ModuleSlideshow';
 import {useState} from 'react';
+import { Theme } from '../context/ThemeProvider';
 
 // Sanity modules to render in full width (across all grid columns)
 const FULL_WIDTH_MODULE_TYPES: SanityModule['_type'][] = [
@@ -100,6 +101,7 @@ type Props = {
   title?: string;
   outboundLink?: string;
   outboundLinkText?: string;
+  theme?: Theme.DARK | Theme.LIGHT;
 };
 
 export default function ModuleGrid({
@@ -111,6 +113,7 @@ export default function ModuleGrid({
   title = '',
   outboundLink = '',
   outboundLinkText = '',
+  theme = Theme.LIGHT,
 }: Props) {
   const [zoom, setZoom] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -179,6 +182,7 @@ export default function ModuleGrid({
         title={title}
         outboundLink={outboundLink}
         outboundLinkText={outboundLinkText}
+        mode={theme}
       />}
     </>
   );

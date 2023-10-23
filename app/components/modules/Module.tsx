@@ -6,13 +6,15 @@ import InstagramModule from '~/components/modules/Instagram';
 import ProductModule from '~/components/modules/Product';
 import type {SanityModule} from '~/lib/sanity';
 import GalleryModule from './Gallery';
+import { Theme } from '../context/ThemeProvider';
 
 type Props = {
   imageAspectClassName?: string;
   module: SanityModule;
+  mode?: Theme.DARK | Theme.LIGHT;
 };
 
-export default function Module({imageAspectClassName, module}: Props) {
+export default function Module({imageAspectClassName, module, mode}: Props) {
   switch (module._type) {
     case 'module.callout':
       return <CalloutModule module={module} />;
@@ -21,7 +23,7 @@ export default function Module({imageAspectClassName, module}: Props) {
     case 'module.collection':
       return <CollectionModule module={module} />;
     case 'module.image':
-      return <ImageModule module={module} />;
+      return <ImageModule module={module} mode={mode} />;
     case 'module.gallery':
       return <GalleryModule module={module} />;
     case 'module.instagram':

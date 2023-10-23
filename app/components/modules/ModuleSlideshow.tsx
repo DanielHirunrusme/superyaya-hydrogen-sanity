@@ -6,7 +6,7 @@ import Button from '../elements/Button';
 import MinimalHeader from '../global/MinimalHeader';
 import StaggerIndexList from '../framer/StaggerIndexList';
 import {Link} from '~/components/Link';
-import { useTheme, Theme } from '../context/ThemeProvider';
+import {useTheme, Theme} from '../context/ThemeProvider';
 
 type Props = {
   modules: any[];
@@ -34,10 +34,11 @@ export default function ModuleSlideshow(props) {
     title,
     outboundLink,
     outboundLinkText,
+    mode,
   } = props;
   const [selectedIndex, setSelectedIndex] = useState(index || 0);
   const [indexVisible, setIndexVisible] = useState(false);
-  const [theme, setTheme] = useTheme()
+  const [theme, setTheme] = useTheme();
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: 'start',
@@ -77,22 +78,23 @@ export default function ModuleSlideshow(props) {
   useEffect(() => {
     if (!indexVisible && emblaApi) {
       emblaApi.scrollTo(selectedIndex);
-      // setTheme(Theme.DARK)
+      setTheme(mode);
     } else {
-      // setTheme(Theme.LIGHT)
+      setTheme(mode);
     }
 
-    return ()=> {
-      setTheme(Theme.LIGHT)
-    }
+    return () => {
+      setTheme(Theme.LIGHT);
+    };
   }, [indexVisible, emblaApi]);
 
   return (
     <div
       onClick={onClick}
       className={clsx(
-        'fixed left-0 top-0 h-screen w-screen bg-white',
+        'fixed left-0 top-0 h-screen w-screen',
         detached ? 'z-50' : 'z-40',
+        theme === Theme.DARK ? 'bg-black' : 'bg-white',
       )}
       // tabIndex={-1}
     >
@@ -119,14 +121,16 @@ export default function ModuleSlideshow(props) {
                   module.layout === 'full'
                     ? 'object-cover'
                     : `flex flex-col items-center justify-center object-contain px-4 pb-11 2xl:pb-22 ${
-                        detached ? 'pt-14 2xl:pt-19' : 'pt-14 md:pt-19 2xl:pt-32'
+                        detached
+                          ? 'pt-14 2xl:pt-19'
+                          : 'pt-14 md:pt-19 2xl:pt-32'
                       }`,
                 )}
                 key={module._key}
               >
-                <Module module={module} />
+                <Module module={module} mode={mode} />
                 <div
-                data-await-intro
+                  data-await-intro
                   className={clsx(
                     'mt-2 text-center md:hidden',
                     module.layout === 'full' &&
@@ -145,7 +149,7 @@ export default function ModuleSlideshow(props) {
           <div className="mx-auto my-24 w-full text-center md:max-w-[500px] 2xl:max-w-desktopContainer">
             {/* Table */}
             <StaggerIndexList>
-              <ul className="mx-auto w-full relative top-[-2em]">
+              <ul className="relative top-[-2em] mx-auto w-full">
                 <li className="text-center">
                   {title}
                   <br />
@@ -174,7 +178,7 @@ export default function ModuleSlideshow(props) {
       {!indexVisible && (
         <div
           data-await-intro
-          className="absolute bottom-0 z-10 flex h-header-sm 2xl:h-header-2xl w-full items-center justify-center gap-4 text-center"
+          className="absolute bottom-0 z-10 flex h-header-sm w-full items-center justify-center gap-4 text-center 2xl:h-header-2xl"
         >
           <span>
             {String(selectedIndex + 1).padStart(2, '0')}/
@@ -192,7 +196,7 @@ export default function ModuleSlideshow(props) {
             <Link
               to={outboundLink}
               data-await-intro
-              className="fixed bottom-0 left-0 z-50 flex h-header-sm 2xl:h-header-2xl items-center px-4 2xl:px-8 linkTextNavigation"
+              className="linkTextNavigation fixed bottom-0 left-0 z-50 flex h-header-sm items-center px-4 2xl:h-header-2xl 2xl:px-8"
             >
               {outboundLinkText}
             </Link>
@@ -201,7 +205,7 @@ export default function ModuleSlideshow(props) {
             data-await-intro
             mode="text"
             onClick={toggleIndexVisible}
-            className="fixed bottom-0 right-0 z-50 flex h-header-sm 2xl:h-header-2xl 2xl:text-xl items-center px-4 2xl:px-8"
+            className="fixed bottom-0 right-0 z-50 flex h-header-sm items-center px-4 2xl:h-header-2xl 2xl:px-8 2xl:text-xl"
           >
             {!indexVisible ? 'Index' : 'Slideshow'}
           </Button>

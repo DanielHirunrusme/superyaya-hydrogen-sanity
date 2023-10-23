@@ -58,7 +58,7 @@ export default function Index() {
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
-            <StaggerIndexList className="left-0 top-0 flex h-full w-full flex-col items-center justify-center gap-8 text-center">
+            <StaggerIndexList className="left-0 top-0 flex h-full w-full flex-col items-center justify-center gap-8 text-center -mt-[2em]">
               {page.map((category) => (
                 <div
                   className="mx-auto flex w-full max-w-[700px] 2xl:max-w-desktopContainer flex-col gap-2"

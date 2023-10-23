@@ -7,13 +7,15 @@ import SanityImage from '~/components/media/SanityImage';
 import ProductHotspot from '~/components/product/Hotspot';
 import ProductTag from '~/components/product/Tag';
 import type {SanityModuleImage} from '~/lib/sanity';
+import { Theme } from '../context/ThemeProvider';
 
 type Props = {
   module: SanityModuleImage;
   parentModule?: any;
+  mode?: Theme.DARK | Theme.LIGHT;
 };
 
-export default function ImageModule({module, parentModule}: Props) {
+export default function ImageModule({module, parentModule, mode}: Props) {
   if (!module.image) {
     return null;
   }
@@ -25,7 +27,7 @@ export default function ImageModule({module, parentModule}: Props) {
           <ImageContent module={module} />
         </Link>
       ) : (
-        <ImageContent parentModule={parentModule} module={module} />
+        <ImageContent parentModule={parentModule} module={module} mode={mode} />
       )}
 
       {/* Caption */}
@@ -57,17 +59,20 @@ export default function ImageModule({module, parentModule}: Props) {
   );
 }
 
-const ImageContent = ({module, parentModule}: Props) => {
+const ImageContent = ({module, parentModule, mode}: Props) => {
   const image = module.image;
   const mobileImage = module.mobileImage;
   const [root] = useMatches();
   const {sanityDataset, sanityProjectID} = root.data;
   const applyAspectRatio = parentModule?._type === 'module.gallery';
+  
 
   return (
     <div
+
       className={clsx(
-        'relative w-full',
+        'relative select-none',
+        image.width > image.height ? 'w-full' : 'h-full',
         parentModule?._type === 'module.gallery' && 'h-full md:h-auto',
         module.layout === 'full' && 'h-full',
       )}

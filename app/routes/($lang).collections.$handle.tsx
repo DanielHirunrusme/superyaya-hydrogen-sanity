@@ -18,6 +18,7 @@ import ModuleGrid from '~/components/modules/ModuleGrid';
 import Button from '~/components/elements/Button';
 import ModuleSlideshow from '~/components/modules/ModuleSlideshow';
 import StaggerIndexList from '~/components/framer/StaggerIndexList';
+import { Theme } from '~/components/context/ThemeProvider';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
   title: data?.page?.seo?.title,
@@ -91,6 +92,7 @@ export default function Page() {
                 showIndex
                 outboundLink={page.preOrder?.slug}
                 outboundLinkText={"Pre-Order"}
+                theme={Theme.DARK}
               />
             </StaggerIndexList>
           )}
