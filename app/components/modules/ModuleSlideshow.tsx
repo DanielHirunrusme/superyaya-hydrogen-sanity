@@ -145,7 +145,7 @@ export default function ModuleSlideshow(props) {
           <div className="mx-auto my-24 w-full text-center md:max-w-[500px] 2xl:max-w-desktopContainer">
             {/* Table */}
             <StaggerIndexList>
-              <ul className="mx-auto w-full">
+              <ul className="mx-auto w-full relative top-[-2em]">
                 <li className="text-center">
                   {title}
                   <br />
