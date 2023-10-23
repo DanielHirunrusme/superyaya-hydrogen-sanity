@@ -149,6 +149,10 @@
   @apply bg-black text-white;
 }
 
+.theme-dark form.border-black {
+  @apply border-white;
+}
+
 
 * {
   font-variant-ligatures: none;

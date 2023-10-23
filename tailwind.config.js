@@ -188,8 +188,8 @@ module.exports = {
       },
       maxWidth: {
         laptopForm: '16rem',
-        desktopRte: '51.125rem',
         desktopForm: '26.0625rem',
+        desktopRte: '51.125rem',
         desktopContainer: '68.25rem',
       }
     },

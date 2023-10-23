@@ -29,7 +29,6 @@ export default function Newsletter(props: Props) {
       >
         <input
           id="EMAIL"
-          autoFocus
           placeholder="ENTER E-MAIL ADDRESS"
           type="email"
           value={fields.EMAIL}
