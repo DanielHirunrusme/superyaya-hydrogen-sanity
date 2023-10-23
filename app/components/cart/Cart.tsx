@@ -104,7 +104,7 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
         <div
           role="cell"
           className={clsx(
-            'mr-3 w-[70px] flex-shrink-0 md:ml-2',
+            'mr-3 w-[70px] 2xl:w-[5.07vw] flex-shrink-0 md:ml-2',
             PRODUCT_IMAGE_RATIO,
           )}
         >
@@ -163,12 +163,14 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
         <CartItemQuantity line={lineItem} submissionQuantity={updating} />
       </div>
       {/* Price */}
-      <div className="absolute bottom-2 right-0 col-span-1 flex justify-end p-2 text-right leading-none md:relative">
+      <div className="absolute bottom-2 right-0 col-span-1 flex justify-end p-2 text-right md:text-left leading-none md:relative">
+      <span className='md:w-[5.5em] px-2'>
         {updating ? (
           <SpinnerIcon width={24} height={24} />
         ) : (
           <Money data={lineItem.cost.totalAmount} />
         )}
+      </span>
       </div>
     </li>
   );
@@ -251,10 +253,10 @@ function ItemRemoveButton({lineIds}: {lineIds: CartLine['id'][]}) {
 export function CartSummary({cost}: {cost: CartCost}) {
   return (
     <>
-      <div role="table" className="pr-2" aria-label="Cost summary">
-        <div className="flex justify-between pb-4 pt-1" role="row">
+      <div role="table" className="pr-2 2xl:ml-[7.25vw]" aria-label="Cost summary">
+        <div className="flex justify-between pb-8 pt-1" role="row">
           <span role="rowheader">Subtotal</span>
-          <span role="cell" className="text-right">
+          <span role="cell" className=" md:w-[5.5em] px-2">
             {cost?.subtotalAmount?.amount ? (
               <Money data={cost?.subtotalAmount} />
             ) : (
@@ -298,7 +300,7 @@ export function CartActions({cart}: {cart: Cart}) {
         variantIdsAndQuantities={shopPayLineItems}
         storeDomain={storeDomain}
       /> */}
-      <Button to={cart.checkoutUrl} className={clsx([defaultButtonStyles()])}>
+      <Button to={cart.checkoutUrl} className={clsx([defaultButtonStyles()], '!max-w-none')}>
         Checkout
       </Button>
     </div>

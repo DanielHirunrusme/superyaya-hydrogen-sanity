@@ -63,10 +63,10 @@ module.exports = {
       ],
       // 22px
       xl: [
-        '1.375rem',
+        '.859375vw',
         {
-          letterSpacing: '.0875em',
-          lineHeight: '1.25',
+          letterSpacing: '.1em',
+          lineHeight: '1.2',
         },
       ],
       // 27px

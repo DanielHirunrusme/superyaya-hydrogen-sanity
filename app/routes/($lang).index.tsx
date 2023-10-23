@@ -72,7 +72,7 @@ export default function IndexPage() {
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
-            <StaggerIndexList className="mx-auto flex w-full max-w-[1160px] 2xl:max-w-[1836px]">
+            <StaggerIndexList className="mx-auto flex w-full max-w-[1160px] 2xl:max-w-[72.77vw]">
               <ul className="w-full " >
                 <li className="opacity-0  border-b-[.8px] 2xl:border-b font-body">
                   <nav
