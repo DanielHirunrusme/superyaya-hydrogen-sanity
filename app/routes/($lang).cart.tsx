@@ -8,6 +8,7 @@ import {ActionArgs, json} from '@shopify/remix-oxygen';
 import clsx from 'clsx';
 import {Suspense} from 'react';
 import invariant from 'tiny-invariant';
+import {Link} from '~/components/Link';
 
 import {CartActions, CartLineItems, CartSummary} from '~/components/cart/Cart';
 import StaggerIndexList from '~/components/framer/StaggerIndexList';
@@ -116,27 +117,36 @@ export default function Cart() {
         <Await resolve={root.data?.cart}>
           {(cart) => (
             <StaggerIndexList>
-              <ul className="mx-auto max-w-4xl">
-                <li className="hidden opacity-0 grid-cols-8 gap-6 border-b border-black md:grid">
-                  <span className="col-span-4">
-                    <span className="block px-2">Item</span>
-                  </span>
-                  <span className="col-span-3">Quantity</span>
-                  <span className="col-span-1 text-right">
-                    <span className="block px-2">Price</span>
-                  </span>
-                </li>
-                <li>
-                <CartLineItems linesObj={cart.lines} />
-                </li>
-                <li className="opacity-0 grid grid-cols-8 gap-6 border-t border-black">
-                  <div className="col-span-4 md:col-span-6" />
-                  <div className="col-span-4 md:col-span-2">
-                    <CartSummary cost={cart.cost} />
-                    <CartActions cart={cart} />
-                  </div>
-                </li>
-              </ul>
+              {cart && cart.lines?.edges?.length >0   ? (
+                <ul className="mx-auto max-w-4xl 2xl:max-w-desktopContainer">
+                  <li className="hidden grid-cols-8 gap-6 border-b border-black opacity-0 md:grid">
+                    <span className="col-span-4">
+                      <span className="block px-2">Item</span>
+                    </span>
+                    <span className="col-span-3">Quantity</span>
+                    <span className="col-span-1 text-right">
+                      <span className="block px-2">Price</span>
+                    </span>
+                  </li>
+                  <li>
+                    <CartLineItems linesObj={cart?.lines} />
+                  </li>
+                  <li className="grid grid-cols-8 gap-6 border-t border-black opacity-0">
+                    <div className="col-span-4 md:col-span-6" />
+                    <div className="col-span-4 md:col-span-2">
+                      <CartSummary cost={cart?.cost} />
+                      <CartActions cart={cart} />
+                    </div>
+                  </li>
+                </ul>
+              ) : (
+                <ul>
+                  <li className="text-center">
+                    You cart is empty.{' '}
+                    <Link to="/boutique/all">Continue shopping</Link>
+                  </li>
+                </ul>
+              )}
             </StaggerIndexList>
           )}
         </Await>

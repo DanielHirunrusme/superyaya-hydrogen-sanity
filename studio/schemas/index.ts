@@ -19,8 +19,8 @@ import product from './documents/product'
 import productVariant from './documents/productVariant'
 import radio from './documents/radio'
 import category from './documents/category'
-import collaboration from './documents/collaboration'
-import project from './documents/project'
+// import collaboration from './documents/collaboration'
+// import project from './documents/project'
 import season from './documents/season'
 import archive from './documents/archive'
 import route from './documents/route'
@@ -31,6 +31,8 @@ const documents = [collection, colorTheme, page, product, productVariant, radio,
 // Singleton document types
 import home from './singletons/home'
 import settings from './singletons/settings'
+import project from './singletons/project'
+import collaboration from './singletons/collaboration'
 
 const singletons = [home, settings]
 

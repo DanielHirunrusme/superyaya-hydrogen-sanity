@@ -48,7 +48,7 @@ export default function ProductForm({
   };
 
   return (
-    <div className="max-w-laptopForm">
+    <div className="max-w-laptopForm 2xl:max-w-desktopForm">
       {multipleProductOptions && (
         <>
           <ProductOptions

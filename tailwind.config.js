@@ -69,12 +69,12 @@ module.exports = {
           lineHeight: '1.25',
         },
       ],
-      // 36px
+      // 27px
       '2xl': [
-        '2.25rem',
+        '1.6875rem',
         {
-          letterSpacing: '-0.03em',
-          lineHeight: '1.1',
+          letterSpacing: '.0875em',
+          lineHeight: '1.25',
         },
       ],
       // 54px
@@ -129,6 +129,7 @@ module.exports = {
       height: {
         'header-sm': '2.8rem',
         'header-lg': '6.25rem',
+        'header-2xl': '5.3125rem',
         laptopBox: '2rem',
         desktopBox: '3.875rem',
       },
@@ -183,6 +184,9 @@ module.exports = {
       },
       maxWidth: {
         laptopForm: '16rem',
+        desktopRte: '51.125rem',
+        desktopForm: '26.0625rem',
+        desktopContainer: '68.25rem',
       }
     },
   },

@@ -96,6 +96,10 @@ type Props = {
   showCount?: boolean;
   stagger?: boolean;
   className?: string;
+  showIndex?: boolean;
+  title?: string;
+  outboundLink?: string;
+  outboundLinkText?: string;
 };
 
 export default function ModuleGrid({
@@ -103,6 +107,10 @@ export default function ModuleGrid({
   showCount,
   stagger,
   className = 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6',
+  showIndex = 'false',
+  title = '',
+  outboundLink = '',
+  outboundLinkText = '',
 }: Props) {
   const [zoom, setZoom] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -167,6 +175,10 @@ export default function ModuleGrid({
         index={selectedIndex}
         setIndex={setSelectedIndex}
         detached
+        showIndex={showIndex}
+        title={title}
+        outboundLink={outboundLink}
+        outboundLinkText={outboundLinkText}
       />}
     </>
   );

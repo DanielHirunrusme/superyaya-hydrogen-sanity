@@ -247,7 +247,7 @@ select {
 
 /* RTE */
 .rte, .rte * {
-  @apply font-body !normal-case;
+  @apply font-body !normal-case 2xl:text-md;
 }
 
 /* Intro */

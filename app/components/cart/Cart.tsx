@@ -32,7 +32,7 @@ export function CartLineItems({
 }: {
   linesObj: Cart['lines'] | undefined;
 }) {
-  const lines = flattenConnection(linesObj);
+  const lines = linesObj ? flattenConnection(linesObj) : [];
   return (
     <ul role="table" aria-label="Shopping cart">
       <li role="row" className="sr-only opacity-0">
@@ -136,7 +136,8 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
             {!hasDefaultVariantOnly && (
               <span className="">
                 {merchandise.selectedOptions
-                  .slice(0).reverse()
+                  .slice(0)
+                  .reverse()
                   .map(({name, value}, index) => (
                     <span key={name}>
                       {name !== 'Color' && name} {value}
@@ -147,8 +148,8 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
             )}
           </div>
 
-          <div className='md:hidden'>
-          <CartItemQuantity line={lineItem} submissionQuantity={updating} />
+          <div className="md:hidden">
+            <CartItemQuantity line={lineItem} submissionQuantity={updating} />
           </div>
 
           <div role="cell" className="mt-3 self-start">
@@ -158,7 +159,7 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
       </div>
 
       {/* Quantity */}
-      <div className="hidden md:block col-span-3">
+      <div className="col-span-3 hidden md:block">
         <CartItemQuantity line={lineItem} submissionQuantity={updating} />
       </div>
       {/* Price */}
@@ -283,12 +284,12 @@ export function CartActions({cart}: {cart: Cart}) {
 
   if (!cart || !cart.checkoutUrl) return null;
 
-  const storeDomain = root?.data?.storeDomain;
+  // const storeDomain = root?.data?.storeDomain;
 
-  const shopPayLineItems = flattenConnection(cart.lines).map((line) => ({
-    id: line.merchandise.id,
-    quantity: line.quantity,
-  }));
+  // const shopPayLineItems = flattenConnection(cart.lines).map((line) => ({
+  //   id: line.merchandise.id,
+  //   quantity: line.quantity,
+  // }));
 
   return (
     <div className="flex w-full flex-col gap-3">

@@ -56,7 +56,7 @@ export default function HeaderActions(props: Props) {
     <>
       <ul
         ref={scope}
-        className="fixed right-0 top-0 flex h-header-sm items-center gap-[14px] px-4 md:gap-4"
+        className="fixed right-0 top-0 flex h-header-sm 2xl:h-auto 2xl:mt-7 items-center gap-[14px] px-4 2xl:px-8 md:gap-4 2xl:gap-6"
       >
         {/* Country select */}
         {/* <div

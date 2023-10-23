@@ -102,11 +102,11 @@ export default function Page() {
           {/* <PageHero fallbackTitle={page.title} hero={page.hero} /> */}
           <div
             className={clsx(
-              'mx-auto w-full max-w-[660px] pb-24 font-body text-xxs',
+              'mx-auto w-full max-w-[660px] 2xl:max-w-desktopRte pb-24 font-body text-xxs',
             )}
           >
             {assistance && (
-              <div className="mb-6 flex flex-col md:flex-row md:gap-6">
+              <div className="mb-6 flex flex-col !uppercase rte">
                 {renderLinks}
               </div>
             )}

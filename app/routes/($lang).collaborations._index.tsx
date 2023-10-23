@@ -1,14 +1,12 @@
 import {Await, useLoaderData} from '@remix-run/react';
 import {AnalyticsPageType, type SeoHandleFunction} from '@shopify/hydrogen';
 import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
-
 import {SanityPreview} from 'hydrogen-sanity';
 import {Suspense} from 'react';
-
 import ModuleSlideshow from '~/components/modules/ModuleSlideshow';
 import type {SanityHomePage} from '~/lib/sanity';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
-import {PROJECT_PAGE_QUERY} from '~/queries/sanity/project';
+import {COLLABORATION_PAGE_QUERY} from '~/queries/sanity/collaboration';
 
 const seo: SeoHandleFunction = ({data}) => ({
   title: data?.page?.seo?.title || 'Sanity x Hydrogen',
@@ -31,7 +29,7 @@ export async function loader({context, params}: LoaderArgs) {
   });
 
   const page = await context.sanity.query<SanityHomePage>({
-    query: PROJECT_PAGE_QUERY,
+    query: COLLABORATION_PAGE_QUERY,
     cache,
   });
 
@@ -51,11 +49,11 @@ export async function loader({context, params}: LoaderArgs) {
   });
 }
 
-export default function Project() {
+export default function Index() {
   const {page, gids} = useLoaderData<typeof loader>();
 
   return (
-    <SanityPreview data={page} query={PROJECT_PAGE_QUERY}>
+    <SanityPreview data={page} query={COLLABORATION_PAGE_QUERY}>
       {(page) => (
         <Suspense>
           <Await resolve={gids}>

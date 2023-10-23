@@ -61,7 +61,7 @@ export default function Index() {
             <StaggerIndexList className="left-0 top-0 flex h-full w-full flex-col items-center justify-center gap-8 text-center">
               {page.map((category) => (
                 <div
-                  className="mx-auto flex w-full max-w-[700px] flex-col gap-2"
+                  className="mx-auto flex w-full max-w-[700px] 2xl:max-w-desktopContainer flex-col gap-2"
                   key={category._id}
                 >
                   <ul>

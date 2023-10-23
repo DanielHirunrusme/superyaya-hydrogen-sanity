@@ -2,7 +2,7 @@ import {Await, useLoaderData} from '@remix-run/react';
 import type {SeoHandleFunction} from '@shopify/hydrogen';
 import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
 import clsx from 'clsx';
-import {Suspense} from 'react';
+import {Suspense, useState} from 'react';
 import invariant from 'tiny-invariant';
 
 import PortableText from '~/components/portableText/PortableText';
@@ -15,6 +15,9 @@ import {Link} from '~/components/Link';
 
 import {useMatches} from '@remix-run/react';
 import ModuleGrid from '~/components/modules/ModuleGrid';
+import Button from '~/components/elements/Button';
+import ModuleSlideshow from '~/components/modules/ModuleSlideshow';
+import StaggerIndexList from '~/components/framer/StaggerIndexList';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
   title: data?.page?.seo?.title,
@@ -58,34 +61,39 @@ export async function loader({params, context}: LoaderArgs) {
 
 export default function Page() {
   const {page, gids} = useLoaderData<typeof loader>();
+  const [showIndex, setShowIndex] = useState(false);
+  const [zoom, setZoom] = useState(false);
+  const [index, setIndex] = useState(0);
 
-
+  const toggleIndex = () => {
+    setShowIndex(!showIndex);
+  };
 
   return (
     <ColorTheme value={page.colorTheme}>
       <Suspense>
         <Await resolve={gids}>
           <div className="mb-22 text-center font-serif text-xxs">
-            <div className='!uppercase'>{page.collection}&nbsp;{page.title}</div>
+            <div className="!uppercase">
+              {page.collection}&nbsp;{page.title}
+            </div>
             <br />
             <div className="mx-auto max-w-[19.1875rem] text-left !normal-case">
               <PortableText blocks={page.body} />
             </div>
           </div>
-          {page.modules && <ModuleGrid items={page.modules} showCount />}
-          <div className="flex min-h-screen w-full items-center justify-center text-center">
-            <div className="my-24 text-center mx-auto w-full md:max-w-[500px]">
-              <div className="text-center">{page.title}</div>
-              {/* Table */}
-              <ul className='w-full max-w-2xl  mx-auto'>
-                {page.modules?.map((module, index) => (
-                  <li className='leaders' key={`table-${module._key}`}>
-                    <span>{module.caption || ""}</span>
-                    <span>{String(index + 1).padStart(2, '0')}</span></li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          {page.modules && (
+            <StaggerIndexList>
+              <ModuleGrid
+                items={page.modules}
+                title={`${page.collection} ${page.title}`}
+                showCount
+                showIndex
+                outboundLink={page.preOrder?.slug}
+                outboundLinkText={"Pre-Order"}
+              />
+            </StaggerIndexList>
+          )}
         </Await>
       </Suspense>
     </ColorTheme>

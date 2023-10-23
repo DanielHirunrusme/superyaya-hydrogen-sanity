@@ -6,6 +6,8 @@ import collections from './collectionStructure'
 import colorThemes from './colorThemeStructure'
 import home from './homeStructure'
 import pages from './pageStructure'
+import project from './projectStructure'
+import collaboration from './collaborationStructure'
 import products from './productStructure'
 import settings from './settingStructure'
 
@@ -34,6 +36,8 @@ const hiddenDocTypes = (listItem: ListItemBuilder) => {
     'collection',
     'colorTheme',
     'home',
+    'project',
+    'collaboration',
     'media.tag',
     'page',
     'product',
@@ -47,14 +51,16 @@ export const structure: StructureResolver = (S, context) =>
     .title('Content')
     .items([
       home(S, context),
-      pages(S, context),
       S.divider(),
       collections(S, context),
       products(S, context),
       S.divider(),
-      colorThemes(S, context),
+      pages(S, context),
+      project(S, context),
+      collaboration(S, context),
+      ...S.documentTypeListItems().filter(hiddenDocTypes),
       S.divider(),
       settings(S, context),
       S.divider(),
-      ...S.documentTypeListItems().filter(hiddenDocTypes),
+      colorThemes(S, context),
     ])

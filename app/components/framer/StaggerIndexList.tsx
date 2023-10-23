@@ -1,14 +1,14 @@
 import {useAnimate, stagger, useInView} from 'framer-motion';
 import {useEffect} from 'react';
-import { STAGGER_SPEED } from '~/lib/constants';
+import {STAGGER_SPEED} from '~/lib/constants';
 
 type Props = {
-    children: React.ReactNode;
-    className?: string;
+  children: React.ReactNode;
+  className?: string;
 };
 
 export default function StaggerIndexList(props: Props) {
-    const {children, className} = props;
+  const {children, className} = props;
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
   useEffect(() => {
@@ -19,5 +19,9 @@ export default function StaggerIndexList(props: Props) {
     animate(sequence);
   }, [isInView]);
 
-  return <div className={className} ref={scope}>{children}</div>;
+  return (
+    <div className={className} ref={scope}>
+      {children}
+    </div>
+  );
 }

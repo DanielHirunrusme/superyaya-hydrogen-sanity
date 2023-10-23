@@ -90,7 +90,7 @@ export default function IndexPage() {
                 </li>
 
                 {page.map((item, index) => {
-                  const year = item.year.split('-')[0];
+                  const year = item.year?.split('-')[0];
                   return (
                     <Disclosure key={item._id}>
                       {({open}) => (
@@ -182,6 +182,7 @@ export default function IndexPage() {
 }
 
 function IndexImages({item}) {
+  return <></>
   switch (item._type) {
     case 'productWithVariant':
       return (

@@ -31,12 +31,12 @@ export default function Header() {
     <>
       <header
         id="Header"
-        className="absolute top-0 z-50 flex w-full  flex-col items-center justify-center text-center"
+        className="absolute top-0 z-50 flex w-full  flex-col items-center justify-center text-center 2xl:text-xl"
         role="banner"
       >
         <Link
           ref={scope}
-          className="linkTextNavigation mb-3 mt-4 !no-underline opacity-0"
+          className="linkTextNavigation mb-3 mt-4 2xl:mt-7 !no-underline opacity-0"
           to="/"
         >
           SUPER YAYA

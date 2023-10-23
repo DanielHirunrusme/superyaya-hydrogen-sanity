@@ -1,4 +1,4 @@
-import {useMatches} from '@remix-run/react';
+import {useLocation, useMatches} from '@remix-run/react';
 import clsx from 'clsx';
 
 import SanityFooter from '~/components/global/SanityFooter';
@@ -6,13 +6,13 @@ import LogoIcon from '~/components/icons/Logo';
 import {Link} from '~/components/Link';
 import PortableText from '~/components/portableText/PortableText';
 import type {SanityLink} from '~/lib/sanity';
- 
 
 /**
  * A component that specifies the content of the footer on the website
  */
 export default function Footer() {
   const [root] = useMatches();
+  const location = useLocation();
 
   const layout = root.data?.layout;
   const {footer} = layout || {};
@@ -48,28 +48,37 @@ export default function Footer() {
     return null;
   });
 
-  return (
-    <>
-      <Link mode="text" to="/" className="fixed bottom-0 left-0 h-header-sm flex items-center px-4">Abijan</Link>
-      <Link mode="text" to="/" className="fixed bottom-0 right-0 h-header-sm flex items-center px-4">Beirut</Link>
-    </>
-  )
+  if (!location.pathname.includes('/collections') && !location.pathname.includes('/archives')) {
+    return (
+      <>
+        <Link
+          data-await-intro
+          mode="text"
+          to="#"
+          className="fixed bottom-0 left-0 z-50 flex h-header-sm 2xl:h-header-2xl items-center px-4 2xl:px-8"
+        >
+          Abijan
+        </Link>
+        <Link
+          data-await-intro
+          mode="text"
+          to="#"
+          className="fixed bottom-0 right-0 z-50 flex h-header-sm 2xl:h-header-2xl  items-center px-4 2xl:px-8"
+        >
+          Beirut
+        </Link>
+      </>
+    );
+  } else {
+    return <></>;
+  }
 
   return (
     <footer className="-mt-overlap" role="contentinfo">
       {/* AVKA Footer */}
-      <div
-        
-      >
-        <div
-       
-        >
-          
-          <div
-           
-          >
-            {renderLinks}
-          </div>
+      <div>
+        <div>
+          <div>{renderLinks}</div>
         </div>
         {/* {footer?.text && (
           <PortableText

@@ -38,6 +38,13 @@ export default defineField({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'preOrder',
+      title: 'Pre-Order Collection',
+      type: 'reference',
+      to: [{type: 'collection'}],
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'date',
       title: 'Date',
       type: 'datetime',
