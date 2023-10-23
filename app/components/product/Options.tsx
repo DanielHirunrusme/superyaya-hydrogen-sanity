@@ -43,7 +43,7 @@ const getSwatch = (variants, selectOption) => {
     );
   }
 
-  return <div className="h-8 w-8 bg-gray"></div>;
+  return <div className="h-8 w-8 2xl:h-desktopBox 2xl:w-desktopBox bg-gray"></div>;
 };
 
 export default function ProductOptions({
@@ -125,7 +125,7 @@ export default function ProductOptions({
               case 'Color':
                 return <>{swatch}</>;
               case 'Size':
-                return <span className="px-2">Size: </span>;
+                return <span className="px-2 2xl:px-6">Size: </span>;
               default:
                 return <></>;
             }
@@ -145,18 +145,18 @@ export default function ProductOptions({
                         <span
                           className={clsx(
                             'block flex items-center text-left',
-                            option.name === 'Color' && 'gap-3',
+                            option.name === 'Color' && 'gap-3 2xl:gap-6',
                           )}
                         >
                           {label()}
                           <span className="">{match?.[0]?.value}</span>
                         </span>
                       ) : (
-                        <span className="pointer-events-none block px-2 text-left ">
+                        <span className="pointer-events-none block px-2 2xl:px-6 text-left ">
                           Select {option.name}
                         </span>
                       )}
-                      <span className="pointer-events-none absolute inset-y-0 right-0 top-0 flex items-center px-2 ">
+                      <span className="pointer-events-none absolute inset-y-0 right-0 top-0 flex items-center px-2 2xl:px-6 ">
                         {open ? <MinusIcon /> : <PlusIcon />}
                       </span>
                     </Listbox.Button>
@@ -262,7 +262,7 @@ export default function ProductOptions({
                                     }
                                   >
                                     {swatch}
-                                    <span className="px-2">{value}</span>
+                                    <span className="px-2 2xl:px-6">{value}</span>
                                   </Listbox.Option>
                                 );
                             }
