@@ -126,6 +126,7 @@ export default function ModuleSlideshow(props) {
               >
                 <Module module={module} />
                 <div
+                data-await-intro
                   className={clsx(
                     'mt-2 text-center md:hidden',
                     module.layout === 'full' &&

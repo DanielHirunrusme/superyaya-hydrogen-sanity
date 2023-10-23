@@ -32,11 +32,7 @@ export default function IntroWrapper(props: any) {
     setTargetWidth(getTargetWidth());
     if (targetWidth > 0) {
       const introAnimation = async () => {
-        await animate(
-          "div",
-          {opacity: 1, width: "50vw"},
-          {duration: 3, delay: 0.5},
-        );
+        await animate('div', {opacity: 1}, {duration: 3, delay: 0.5});
         safeToRemove();
       };
       introAnimation();
@@ -45,15 +41,16 @@ export default function IntroWrapper(props: any) {
 
   return (
     <>
-      <div ref={scope} className="fixed z-50 h-screen w-full bg-black pointer-events-none">
+      <div
+        ref={scope}
+        className="pointer-events-none fixed z-50 h-screen w-full bg-black"
+      >
         <div
-          
           style={{
             opacity: 0,
-            width: '45vw',
             aspectRatio: data.layout.introImage.metadata.dimensions.aspectRatio,
           }}
-          className="absolute left-1/2 top-1/2  -translate-x-1/2 -translate-y-1/2 transform"
+          className="absolute w-[103.5vw] md:w-[27.26vw] left-1/2 top-1/2  -translate-x-1/2 -translate-y-1/2 transform rotate-90 md:rotate-0"
         >
           <SanityImage
             alt={'SUPER YAYA'}

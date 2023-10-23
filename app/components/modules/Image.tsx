@@ -95,21 +95,21 @@ const ImageContent = ({module, parentModule}: Props) => {
           crop={mobileImage?.crop}
           dataset={sanityDataset}
           hotspot={mobileImage?.hotspot}
-          layout="responsive"
+          // layout="responsive"
           projectId={sanityProjectID}
           sizes={['50vw, 100vw']}
           src={mobileImage?.asset?._ref}
           layout="fill"
           objectFit={module.layout !== 'full' ? 'contain' : 'cover'}
           className={clsx(
-            module.layout === 'full' && 'object-center',
+            module.layout === 'full' && 'object-center object-cover',
             'md:hidden',
           )}
         />
       )}
 
-            {/* Product hotspots */}
-            {module.variant === 'productHotspots' && (
+      {/* Product hotspots */}
+      {module.variant === 'productHotspots' && (
         <>
           {module.productHotspots?.map((hotspot) => {
             if (!hotspot?.product?.gid) {
