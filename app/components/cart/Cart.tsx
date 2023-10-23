@@ -253,8 +253,8 @@ function ItemRemoveButton({lineIds}: {lineIds: CartLine['id'][]}) {
 export function CartSummary({cost}: {cost: CartCost}) {
   return (
     <>
-      <div role="table" className="pr-2 2xl:ml-[7.25vw]" aria-label="Cost summary">
-        <div className="flex justify-between pb-8 pt-1" role="row">
+      <div role="table" className="pr-2 2xl:ml-[7.25vw] pb-8 pt-1" aria-label="Cost summary">
+        <div className="flex justify-between " role="row">
           <span role="rowheader">Subtotal</span>
           <span role="cell" className=" md:w-[5.5em] px-2">
             {cost?.subtotalAmount?.amount ? (
@@ -263,6 +263,10 @@ export function CartSummary({cost}: {cost: CartCost}) {
               '-'
             )}
           </span>
+        </div>
+
+        <div className="text-xxs 2xl:text-lg" role="row">
+          <span>Shipping &amp; taxes calculated at checkout</span>
         </div>
 
         {/* <div
