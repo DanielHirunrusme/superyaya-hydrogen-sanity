@@ -55,9 +55,9 @@ module.exports = {
       ],
       //17px
       lg: [
-        '1.0625rem',
+        '.6640625vw',
         {
-          letterSpacing: '.0875em',
+          letterSpacing: '.1em',
           lineHeight: '1.25',
         },
       ],

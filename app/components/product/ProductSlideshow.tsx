@@ -169,7 +169,7 @@ export default function ProductSlideshow({
           })}
         </div>
       </div>
-      <div className="absolute bottom-0 z-10 flex w-full items-center justify-center gap-4 py-4 text-center">
+      <div className="absolute bottom-0 z-10 flex w-full items-center justify-center gap-4 py-4 2xl:py-8 text-center">
         <span>
           {selectedIndex + 1}/{media!.length}
         </span>

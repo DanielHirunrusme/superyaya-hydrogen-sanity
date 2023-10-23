@@ -201,7 +201,7 @@ export default function ModuleSlideshow(props) {
             data-await-intro
             mode="text"
             onClick={toggleIndexVisible}
-            className="fixed bottom-0 right-0 z-50 flex h-header-sm 2xl:h-header-2xl items-center px-4 2xl:px-8"
+            className="fixed bottom-0 right-0 z-50 flex h-header-sm 2xl:h-header-2xl 2xl:text-xl items-center px-4 2xl:px-8"
           >
             {!indexVisible ? 'Index' : 'Slideshow'}
           </Button>
