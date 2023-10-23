@@ -153,7 +153,7 @@ export default function Collection() {
 
 function EmptyMessage({children}) {
   return (
-    <div className="my-auto flex h-full w-full flex-1 items-center justify-center text-center">
+    <div className="w-full flex-1 text-center fixed h-screen top-0 left-0 flex justify-center items-center">
       {children}
     </div>
   );
