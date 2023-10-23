@@ -62,6 +62,8 @@ export default function Page() {
   const layout = root.data?.layout;
   const {assistance} = layout || {};
   const {page, gids} = useLoaderData<typeof loader>();
+  
+  console.log(page)
 
   const renderLinks = assistance?.links.map((link: SanityLink) => {
     if (link._type === 'linkExternal') {
@@ -105,7 +107,8 @@ export default function Page() {
           {/* <PageHero fallbackTitle={page.title} hero={page.hero} /> */}
           <div
             className={clsx(
-              'mx-auto w-full max-w-[660px] pb-24 font-body text-xxs 2xl:max-w-desktopRte',
+              'mx-auto w-full max-w-[660px] pb-24 text-xxs 2xl:max-w-[21.796875vw]',
+              page.slug?.current.includes('studio') ? 'font-serif' : 'font-body'
             )}
           >
             {page.displayAssistanceMenu && assistance && (

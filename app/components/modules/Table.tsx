@@ -1,7 +1,7 @@
 export default function ModuleTable(props) {
   const {value} = props;
   return (
-    <div className="mx-auto min-h-full max-w-[400px] overflow-hidden">
+    <div className="mx-auto min-h-full overflow-hidden">
         <br />
       <p className="text-center">{value.title || ''}</p>
       <br />

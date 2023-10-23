@@ -20,4 +20,5 @@ export const PAGE = groq`
   ${SEO},
   title,
   displayAssistanceMenu,
+  slug
 `;

@@ -235,7 +235,8 @@ select {
 }
 
 .font-serif .rte * {
-  font-family: 'Times New Roman', Times, serif
+  font-family: 'Times New Roman', Times, serif;
+  letter-spacing: .02em;
 }
 
 /* Collections */
