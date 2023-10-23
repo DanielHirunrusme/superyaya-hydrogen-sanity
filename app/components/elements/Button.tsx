@@ -56,7 +56,7 @@ export const defaultButtonStyles = (options?: ButtonStyleOptions) => {
     ]);
   } else {
     return clsx([
-      "hover:underline underline-offset-4 decoration-1 text-md md:text-xxs 2xl:text-xl uppercase"
+      "hover:underline underline-offset-4 decoration-1 text-md md:text-xxs 2xl:text-lg uppercase"
     ])
   }
 

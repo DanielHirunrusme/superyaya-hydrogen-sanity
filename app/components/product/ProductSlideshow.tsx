@@ -117,7 +117,7 @@ export default function ProductSlideshow({
       <Button
         mode="text"
         type="button"
-        className="fixed right-0 top-0 z-10 p-4"
+        className="fixed right-0 top-0 z-10 p-4 2xl:p-8"
         onClick={onClose}
       >
         Close
@@ -155,7 +155,7 @@ export default function ProductSlideshow({
 
             return (
               <MediaFile
-                className="relative flex w-full shrink-0 grow-0 select-none object-contain px-4 py-14"
+                className="relative flex w-full shrink-0 grow-0 select-none object-contain px-4 py-14 2xl:py-22"
                 data={data}
                 draggable={false}
                 key={med.id}
