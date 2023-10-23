@@ -66,7 +66,7 @@ export default function Page() {
   const renderLinks = assistance?.links.map((link: SanityLink) => {
     if (link._type === 'linkExternal') {
       return (
-        <div className="mb-6" key={link._key}>
+        <li className="mb-6" key={link._key}>
           <a
             className="linkTextNavigation"
             href={link.url}
@@ -75,7 +75,7 @@ export default function Page() {
           >
             {link.title}
           </a>
-        </div>
+        </li>
       );
     }
     if (link._type === 'linkInternal') {
@@ -84,11 +84,14 @@ export default function Page() {
       }
 
       return (
-        <div key={link._key}>
-          <Link className="linkTextNavigation linkTextNavigationPage" to={link.slug}>
+        <li key={link._key}>
+          <Link
+            className="linkTextNavigation linkTextNavigationPage"
+            to={link.slug}
+          >
             {link.title}
           </Link>
-        </div>
+        </li>
       );
     }
     return null;
@@ -102,13 +105,13 @@ export default function Page() {
           {/* <PageHero fallbackTitle={page.title} hero={page.hero} /> */}
           <div
             className={clsx(
-              'mx-auto w-full max-w-[660px] 2xl:max-w-desktopRte pb-24 font-body text-xxs',
+              'mx-auto w-full max-w-[660px] pb-24 font-body text-xxs 2xl:max-w-desktopRte',
             )}
           >
-            {assistance && (
-              <div className="mb-6 flex flex-col !uppercase rte">
+            {page.displayAssistanceMenu && assistance && (
+              <ol className="rte mb-6 flex flex-col !uppercase list-alpha list-inside">
                 {renderLinks}
-              </div>
+              </ol>
             )}
 
             {/* Body */}

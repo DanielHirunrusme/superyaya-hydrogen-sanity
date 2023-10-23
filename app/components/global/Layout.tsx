@@ -35,7 +35,7 @@ export function Layout({backgroundColor, children}: LayoutProps) {
           id="mainContent"
           role="main"
           className={clsx(
-            'mx-4 flex grow flex-col pb-24 pt-[3.875rem] md:pt-[8rem] 2xl:pt-[21.25rem]',
+            'mx-4 flex grow flex-col pb-24 pt-[3.875rem] md:pt-[8rem] 2xl:pt-[13.28125vw]',
           )}
         >
           <div className="mx-auto flex w-full flex-1 flex-col">{children}</div>

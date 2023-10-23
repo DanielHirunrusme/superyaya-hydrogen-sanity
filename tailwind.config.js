@@ -45,9 +45,9 @@ module.exports = {
           lineHeight: '1.1',
         },
       ],
-      // 15px
+      // 16px
       md: [
-        '.9375rem',
+        '.625vw',
         {
           letterSpacing: '.0875em',
           lineHeight: '1.4',
@@ -132,6 +132,10 @@ module.exports = {
         'header-2xl': '5.3125rem',
         laptopBox: '2rem',
         desktopBox: '3.875rem',
+      },
+      listStyleType: {
+        roman: 'upper-roman',
+        alpha: 'upper-alpha',
       },
       spacing: {
         1: '4px',
