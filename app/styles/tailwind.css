@@ -87,11 +87,15 @@
 
 @layer components {
   .linkTextNavigation {
-    @apply uppercase decoration-[.8px] underline-offset-4 hover:underline;
+    @apply uppercase decoration-[.8px] underline-offset-4 hover:opacity-50;
+  }
+
+  .linkTextNavigation.linkTextNavigationPage {
+    @apply hover:underline !opacity-100;
   }
 
   .linkTextNavigationActive {
-    @apply uppercase underline decoration-[.8px] underline-offset-4;
+    @apply uppercase underline decoration-[.8px] underline-offset-4 hover:opacity-100;
   }
 
   .portableText {

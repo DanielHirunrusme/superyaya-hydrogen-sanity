@@ -85,7 +85,7 @@ export default function Page() {
 
       return (
         <div key={link._key}>
-          <Link className="linkTextNavigation" to={link.slug}>
+          <Link className="linkTextNavigation linkTextNavigationPage" to={link.slug}>
             {link.title}
           </Link>
         </div>

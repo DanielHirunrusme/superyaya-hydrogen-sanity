@@ -54,14 +54,14 @@ export default function Footer() {
         <Link
           data-await-intro
           to="/"
-          className="fixed bottom-0 left-0 z-50 flex h-header-sm 2xl:h-header-2xl items-center px-4 2xl:px-8"
+          className="fixed bottom-0 left-0 z-50 flex h-header-sm 2xl:h-header-2xl items-center px-4 2xl:px-8 linkTextNavigation"
         >
           Abijan
         </Link>
         <Link
           data-await-intro
           to="/"
-          className="fixed bottom-0 right-0 z-50 flex h-header-sm 2xl:h-header-2xl  items-center px-4 2xl:px-8"
+          className="fixed bottom-0 right-0 z-50 flex h-header-sm 2xl:h-header-2xl  items-center px-4 2xl:px-8 linkTextNavigation"
         >
           Beirut
         </Link>
