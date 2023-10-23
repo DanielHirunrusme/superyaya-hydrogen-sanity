@@ -49,13 +49,11 @@
   button {
     letter-spacing: inherit;
   }
-  html {
-    @apply font-medium text-black;
+ 
+  body {
+    @apply font-medium bg-white text-black  font-sans text-md uppercase md:text-xs 2xl:text-xl;
   }
 
-  body {
-    @apply bg-white font-sans text-md uppercase md:text-xs 2xl:text-xl;
-  }
 
   html,
   body {
@@ -142,6 +140,11 @@
     opacity: 0.9;
   }
 }
+
+.theme-dark body {
+  @apply bg-black text-white;
+}
+
 
 * {
   font-variant-ligatures: none;

@@ -9,6 +9,18 @@ export const COLLECTION_FIELDS = `
     title
     description
     handle
+    startDate: metafield(namespace: "descriptors", key: "start_date") {
+      id
+      value
+    }
+    endDate: metafield(namespace: "descriptors", key: "end_date") {
+      id
+      value
+    }
+    message: metafield(namespace: "descriptors", key: "message") {
+      id
+      value
+    }
     products(first: $count, after: $cursor, sortKey: $sortKey, reverse: $reverse) {
       pageInfo {
         hasNextPage

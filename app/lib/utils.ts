@@ -189,7 +189,7 @@ export async function fetchGids({
 }) {
   const productGids = extract(`..[_type == "productWithVariant"].gid`, page);
   const collectionGids = extract(`..[_type == "collection"].gid`, page);
-  
+
   const {productsAndCollections} =
     await context.storefront.query<StorefrontPayload>(
       PRODUCTS_AND_COLLECTIONS,
@@ -315,3 +315,15 @@ export function isLocalPath(request: Request, url: string) {
   // If the origins don't match the slug is not on our domain.
   return currentUrl.origin === urlToCheck.origin;
 }
+
+export const isWithinDateRange = (from, to, check) => {
+  var fDate, lDate, cDate;
+  fDate = Date.parse(from);
+  lDate = Date.parse(to);
+  cDate = Date.parse(check);
+
+  if (cDate <= lDate && cDate >= fDate) {
+    return true;
+  }
+  return false;
+};

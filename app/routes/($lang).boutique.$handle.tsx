@@ -1,19 +1,22 @@
 import {Await, useLoaderData, useSearchParams} from '@remix-run/react';
 import {AnalyticsPageType, type SeoHandleFunction} from '@shopify/hydrogen';
 import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
-import clsx from 'clsx';
-import {Suspense} from 'react';
+// import clsx from 'clsx';
+import {Suspense, useEffect, useState} from 'react';
 import invariant from 'tiny-invariant';
 
 import ProductGrid from '~/components/collection/ProductGrid';
-import SortOrder from '~/components/collection/SortOrder';
+// import SortOrder from '~/components/collection/SortOrder';
 import {SORT_OPTIONS} from '~/components/collection/SortOrder';
-import CollectionHero from '~/components/heroes/Collection';
+import {useTheme, Theme} from '~/components/context/ThemeProvider';
+// import CollectionHero from '~/components/heroes/Collection';
 import type {SanityCollectionPage} from '~/lib/sanity';
 import {ColorTheme} from '~/lib/theme';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
 import {COLLECTION_PAGE_QUERY} from '~/queries/sanity/collection';
 import {COLLECTION_QUERY} from '~/queries/shopify/collection';
+import {isWithinDateRange} from '~/lib/utils';
+import {useAnimate} from 'framer-motion';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
   title: data?.page?.seo?.title ?? data?.collection?.title,
@@ -102,14 +105,16 @@ export default function Collection() {
 
   const products = collection.products.nodes;
 
+  const isPreorderCollection = collection.handle === 'pre-orders';
+
   return (
     <ColorTheme value={page.colorTheme}>
       <Suspense>
         <Await resolve={gids}>
           {/* Hero */}
           {/* <CollectionHero fallbackTitle={page.title} hero={page.hero} /> */}
- 
-            {/* {products.length > 0 && (
+
+          {/* {products.length > 0 && (
               <div
                 className={clsx(
                   'mb-8 flex justify-start', //
@@ -120,23 +125,104 @@ export default function Collection() {
               </div>
             )} */}
 
-            {/* No results */}
-            {products.length === 0 && (
-              <div className="flex w-full items-center justify-center h-full flex-1 my-auto">
-                No products.
-              </div>
-            )}
+          {/* No results */}
+          {products.length === 0 && <EmptyMessage>No products.</EmptyMessage>}
 
+          {!isPreorderCollection ? (
             <ProductGrid
               collection={collection}
               modules={page.modules}
               url={`/boutique/${collection.handle}`}
               key={`${collection.handle}-${sort}`}
             />
-         
+          ) : (
+            <PreorderCollection collection={collection}>
+              <ProductGrid
+                collection={collection}
+                modules={page.modules}
+                url={`/boutique/${collection.handle}`}
+                key={`${collection.handle}-${sort}`}
+              />
+            </PreorderCollection>
+          )}
         </Await>
       </Suspense>
     </ColorTheme>
+  );
+}
+
+function EmptyMessage({children}) {
+  return (
+    <div className="my-auto flex h-full w-full flex-1 items-center justify-center text-center">
+      {children}
+    </div>
+  );
+}
+
+function PreorderCollection({collection, children}) {
+  const [theme, setTheme] = useTheme();
+  const [scope, animate] = useAnimate();
+  const [showProducts, setShowProducts] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!collection.endDate.value || !collection.startDate.value) {
+      setTheme(Theme.DARK);
+    }
+    const date = new Date();
+    const start = new Date(collection.startDate.value);
+    const end = new Date(collection.endDate.value);
+
+    if (!isWithinDateRange(start, end, date)) {
+      setTheme(Theme.DARK);
+    } else {
+      setTheme(Theme.LIGHT);
+    }
+
+    return () => {
+      setTheme(Theme.LIGHT);
+    };
+  }, [collection]);
+
+  // Animate the pre-order message into the product grid
+  useEffect(() => {
+    if (scope.current) {
+      const fadeOut = async () => {
+        await animate(scope.current, {opacity: 0}, {duration: 0.1, delay: 3});
+        setShowProducts(true);
+      };
+      fadeOut();
+    }
+  }, [scope, animate]);
+
+  if (collection.endDate.value && collection.startDate.value) {
+    const date = new Date();
+    const start = new Date(collection.startDate.value);
+    const end = new Date(collection.endDate.value);
+
+    if (isWithinDateRange(start, end, date)) {
+      return (
+        <>
+          {!showProducts ? (
+            <div
+              className="my-auto flex h-full w-full flex-1 items-center justify-center text-center"
+              ref={scope}
+            >
+              <EmptyMessage>{collection.message?.value || ''}</EmptyMessage>
+            </div>
+          ) : (
+            <>{children}</>
+          )}
+        </>
+      );
+    } else {
+      return <EmptyMessage>{collection.message?.value || ''}</EmptyMessage>;
+    }
+  }
+
+  return (
+    <EmptyMessage>
+      No Pre-orders currently. Please check back another time.
+    </EmptyMessage>
   );
 }
 

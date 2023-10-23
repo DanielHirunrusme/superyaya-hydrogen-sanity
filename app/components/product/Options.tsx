@@ -28,17 +28,7 @@ const getSwatch = (variants, selectOption) => {
         }
       }
     });
-    // variant.selectOptions?.forEach((option) => {
-    //   if (option.name === 'Color' && option.value === selectOption) {
-    //     console.log('match')
-    //     return variant;
-    //   }
-    // });
   });
-  console.log('variant swatch:', swatch);
-  // if (swatch.reference.image.originalSrc) {
-  //   return <>box</>;
-  // }
 
   if (swatch?.reference?.image?.originalSrc) {
     return (
@@ -135,7 +125,7 @@ export default function ProductOptions({
               case 'Color':
                 return <>{swatch}</>;
               case 'Size':
-                return <span className='px-2'>Size: </span>;
+                return <span className="px-2">Size: </span>;
               default:
                 return <></>;
             }
@@ -152,7 +142,12 @@ export default function ProductOptions({
                   >
                     <Listbox.Button className="group relative block min-h-laptopBox w-full 2xl:min-h-desktopBox">
                       {!open ? (
-                        <span className={clsx("block flex items-center text-left", option.name === "Color" && "gap-3")}>
+                        <span
+                          className={clsx(
+                            'block flex items-center text-left',
+                            option.name === 'Color' && 'gap-3',
+                          )}
+                        >
                           {label()}
                           <span className="">{match?.[0]?.value}</span>
                         </span>

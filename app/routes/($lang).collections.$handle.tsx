@@ -59,6 +59,8 @@ export async function loader({params, context}: LoaderArgs) {
 export default function Page() {
   const {page, gids} = useLoaderData<typeof loader>();
 
+
+
   return (
     <ColorTheme value={page.colorTheme}>
       <Suspense>
