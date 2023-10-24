@@ -19,8 +19,8 @@ export default function CalloutModule({module}: Props) {
       {/* Text */}
       <div
         className={clsx(
-          'max-w-[60rem] text-2xl', //
-          'md:text-4xl',
+          'max-w-[60rem] ', //
+          ' ',
         )}
       >
         {module.text}

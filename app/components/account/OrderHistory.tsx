@@ -8,7 +8,7 @@ type Props = {
 export default function AccountOrderHistory({orders}: Props) {
   return (
     <div>
-      <h2 className="text-xl ">Order History</h2>
+      <h2 className=" ">Order History</h2>
       <div className="mt-4">
         {!orders?.length && <p>You haven&apos;t placed any orders yet.</p>}
 

@@ -5,7 +5,7 @@ export default function SanityFooter() {
     <div className="-my-overlap bg-[#121923] pt-overlap text-white">
       <div
         className={clsx(
-          'mx-auto max-w-[47rem] px-4 py-12 text-center text-xl leading-caption', //
+          'mx-auto max-w-[47rem] px-4 py-12 text-center  leading-caption', //
           '',
         )}
       >
@@ -108,7 +108,7 @@ export default function SanityFooter() {
         {/* Learn more */}
         <a
           className={clsx(
-            'mt-8 inline-flex items-center justify-center gap-1 text-lg text-[#508EEA]',
+            'mt-8 inline-flex items-center justify-center gap-1  text-[#508EEA]',
             'hover:opacity-70',
           )}
           href="https://www.sanity.io"

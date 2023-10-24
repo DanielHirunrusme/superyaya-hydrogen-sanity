@@ -18,7 +18,9 @@ import ModuleGrid from '~/components/modules/ModuleGrid';
 import Button from '~/components/elements/Button';
 import ModuleSlideshow from '~/components/modules/ModuleSlideshow';
 import StaggerIndexList from '~/components/framer/StaggerIndexList';
-import { Theme } from '~/components/context/ThemeProvider';
+import {Theme} from '~/components/context/ThemeProvider';
+import {Container} from '~/components/global/Container';
+import {Typography} from '~/components/global/Typography';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
   title: data?.page?.seo?.title,
@@ -66,21 +68,23 @@ export default function Page() {
   const [zoom, setZoom] = useState(false);
   const [index, setIndex] = useState(0);
 
-   
-
   return (
     <ColorTheme value={page.colorTheme}>
       <Suspense>
         <Await resolve={gids}>
-          <div className="mb-22 text-center font-serif">
-            <div className="!uppercase text-xxs 2xl:text-md">
-              {page.collection}&nbsp;{page.title}
+          <Container type="pageDescription" asChild>
+            <div className="mx-auto mb-22 text-center">
+              <Typography type="rte">
+                <div className=" !uppercase ">
+                  {page.collection}&nbsp;{page.title}
+                </div>
+                <br />
+                <div className="mx-auto text-left !normal-case">
+                  <PortableText blocks={page.body} />
+                </div>
+              </Typography>
             </div>
-            <br />
-            <div className="mx-auto max-w-[19.1875rem] 2xl:max-w-[21.796875vw] text-left !normal-case">
-              <PortableText blocks={page.body} />
-            </div>
-          </div>
+          </Container>
           {page.modules && (
             <StaggerIndexList>
               <ModuleGrid
@@ -89,7 +93,7 @@ export default function Page() {
                 showCount
                 showIndex
                 outboundLink={page.preOrder?.slug}
-                outboundLinkText={"Pre-Order"}
+                outboundLinkText={'Pre-Order'}
                 theme={Theme.DARK}
               />
             </StaggerIndexList>

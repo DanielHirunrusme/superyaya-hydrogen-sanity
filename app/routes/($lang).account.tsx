@@ -148,8 +148,8 @@ function Account({customer, orders, heading, addresses}: Account) {
         <div className="mb-4  ">Account</div>
         <h1
           className={clsx([
-            'mb-4 text-2xl', //
-            'md:text-3xl',
+            'mb-4 ', //
+            '',
           ])}
         >
           {heading}

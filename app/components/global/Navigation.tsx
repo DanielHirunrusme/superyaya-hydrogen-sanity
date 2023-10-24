@@ -6,7 +6,7 @@ import {Link} from '~/components/Link';
 import type {SanityMenuLink} from '~/lib/sanity';
 import clsx from 'clsx';
 import {useAnimate, stagger, useInView} from 'framer-motion';
-import {STAGGER_SPEED} from '~/lib/constants';
+import {NAV_GAP, NAV_GAP_Y, STAGGER_SPEED} from '~/lib/constants';
 import {Theme, useTheme} from '../context/ThemeProvider';
 import {motion} from 'framer-motion';
 
@@ -77,13 +77,20 @@ export default function Navigation({menuLinks, logoVisible}: Props) {
   const location = useLocation();
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
-  const [theme, setTheme, navVisible, setNavVisible] = useTheme();
+  const [
+    theme,
+    setTheme,
+    navVisible,
+    setNavVisible,
+    plpVisible,
+    setPlpVisible,
+  ] = useTheme();
 
   const renderLinks = useCallback(() => {
     if (menuLinks?.length === 0) return null;
 
     return (
-      <ul className="hidden gap-5 md:flex 2xl:gap-10">
+      <ul className={clsx('hidden md:flex', NAV_GAP)}>
         {menuLinks?.map((link) => {
           if (link._type === 'collectionGroup') {
             return <CollectionGroup collectionGroup={link} key={link._key} />;
@@ -208,7 +215,7 @@ export default function Navigation({menuLinks, logoVisible}: Props) {
                 return (
                   <motion.ul
                     key={`link-${link._key}`}
-                    className="hidden gap-5 md:flex 2xl:gap-10"
+                    className={clsx('hidden md:flex', NAV_GAP)}
                     variants={boxVariant}
                     animate={navVisible ? 'visible' : 'hidden'}
                     initial={!navVisible ? 'hidden' : 'visible'}
@@ -319,7 +326,7 @@ export default function Navigation({menuLinks, logoVisible}: Props) {
                     return (
                       <motion.ul
                         key={`sub-${subLink._key}`}
-                        className="hidden gap-5 md:flex 2xl:gap-10"
+                        className={clsx('hidden md:flex', NAV_GAP)}
                         variants={boxVariant}
                         animate={navVisible ? 'visible' : 'hidden'}
                         initial={!navVisible ? 'hidden' : 'visible'}
@@ -380,7 +387,10 @@ export default function Navigation({menuLinks, logoVisible}: Props) {
   return (
     <nav
       ref={scope}
-      className="z-40 flex flex-col items-center justify-center gap-3 pb-4"
+      className={clsx(
+        'z-40 flex flex-col items-center justify-center',
+        NAV_GAP_Y,
+      )}
     >
       <>{renderLinks()}</>
       <>{renderSubLinks()}</>
@@ -388,13 +398,3 @@ export default function Navigation({menuLinks, logoVisible}: Props) {
     </nav>
   );
 }
-
-// function FramerNav({
-//   delay = 0,
-//   children,
-// }: {
-//   delay?: number;
-//   children: React.ReactNode;
-// }) {
-//   return <ul className="hidden gap-5 md:flex 2xl:gap-10">{children}</ul>;
-// }

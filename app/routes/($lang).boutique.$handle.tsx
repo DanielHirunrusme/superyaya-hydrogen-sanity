@@ -18,6 +18,7 @@ import {COLLECTION_QUERY} from '~/queries/shopify/collection';
 import {isWithinDateRange} from '~/lib/utils';
 import {useAnimate} from 'framer-motion';
 import Newsletter from '~/components/modules/Newsletter';
+import {Container} from '~/components/global/Container';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
   title: data?.page?.seo?.title ?? data?.collection?.title,
@@ -154,10 +155,10 @@ export default function Collection() {
 
 function EmptyMessage({children}) {
   return (
-    <div className="w-full flex-col flex-1 text-center fixed h-screen top-0 left-0 flex justify-center items-center">
-      <div className='2xl:max-w-desktopRte m-auto w-full'>
-      {children}
-      </div>
+    <div className="fixed left-0 top-0 flex h-screen w-full flex-1 flex-col items-center justify-center text-center">
+      <Container type="preOrder" asChild>
+        <div className="m-auto w-full">{children}</div>
+      </Container>
     </div>
   );
 }
@@ -211,7 +212,6 @@ function PreorderCollection({collection, children}) {
               ref={scope}
             >
               <EmptyMessage>{collection.message?.value || ''}</EmptyMessage>
-           
             </div>
           ) : (
             <>{children}</>
@@ -219,13 +219,13 @@ function PreorderCollection({collection, children}) {
         </>
       );
     } else {
-      return <EmptyMessage>
-        <div>
-        {collection.message?.value || ''}
-        </div>
-        <br />
-        <Newsletter />
-      </EmptyMessage>;
+      return (
+        <EmptyMessage>
+          <div>{collection.message?.value || ''}</div>
+          <br />
+          <Newsletter />
+        </EmptyMessage>
+      );
     }
   }
 

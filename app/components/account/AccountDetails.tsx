@@ -10,7 +10,7 @@ export function AccountDetails({customer}: {customer: Customer}) {
     <>
       <div>
         <div className="flex items-baseline gap-3">
-          <h3 className="align-baseline text-xl ">Profile</h3>
+          <h3 className="align-baseline  ">Profile</h3>
           <Link
             prefetch="intent"
             className=" "

@@ -5,13 +5,14 @@ import clsx from 'clsx';
 import Badge from '~/components/elements/Badge';
 import {Link} from '~/components/Link';
 import AddToCartButton from '~/components/product/buttons/AddToCartButton';
-import { PRODUCT_IMAGE_RATIO } from '~/lib/constants';
+import {PRODUCT_IMAGE_RATIO} from '~/lib/constants';
 import {
   getProductOptionString,
   hasMultipleProductOptions,
   useGid,
 } from '~/lib/utils';
 import type {ProductWithNodes} from '~/types/shopify';
+import {Typography} from '../global/Typography';
 
 type Props = {
   imageAspectClassName?: string;
@@ -52,37 +53,40 @@ export default function ProductCard({
 
   return (
     <div className="group relative">
-      <div
-        className={clsx(PRODUCT_IMAGE_RATIO,
-          'relative flex items-center justify-center overflow-hidden bg-lightGray object-cover  duration-500 ease-out',
-        )}
-      >
-        <Link
-          className="absolute left-0 top-0 h-full w-full"
-          to={`/products/${storefrontProduct.handle}`}
-        >
-          {firstVariant.image && (
-            <Image
-              className="absolute h-full w-full transform bg-cover bg-center object-cover object-center ease-in-out"
-              data={firstVariant.image}
-              crop="center"
-              sizes="100%"
-            />
+      <Typography type="body" size="sm">
+        <div
+          className={clsx(
+            PRODUCT_IMAGE_RATIO,
+            'relative flex items-center justify-center overflow-hidden bg-lightGray object-cover  duration-500 ease-out',
           )}
-
-          {/* Badges */}
-          <div className="absolute left-4 top-4">
-            {/* Sale */}
-            {firstVariant?.availableForSale && firstVariant?.compareAtPrice && (
-              <Badge label="Sale" tone="critical" />
+        >
+          <Link
+            className="absolute left-0 top-0 h-full w-full"
+            to={`/products/${storefrontProduct.handle}`}
+          >
+            {firstVariant.image && (
+              <Image
+                className="absolute h-full w-full transform bg-cover bg-center object-cover object-center ease-in-out"
+                data={firstVariant.image}
+                crop="center"
+                sizes="100%"
+              />
             )}
-            {/* Sold out */}
-            {!firstVariant?.availableForSale && <Badge label="Sold out" />}
-          </div>
-        </Link>
 
-        {/* Quick add to cart */}
-        {/* {firstVariant.availableForSale && (
+            {/* Badges */}
+            <div className="absolute left-4 top-4">
+              {/* Sale */}
+              {firstVariant?.availableForSale &&
+                firstVariant?.compareAtPrice && (
+                  <Badge label="Sale" tone="critical" />
+                )}
+              {/* Sold out */}
+              {!firstVariant?.availableForSale && <Badge label="Sold out" />}
+            </div>
+          </Link>
+
+          {/* Quick add to cart */}
+          {/* {firstVariant.availableForSale && (
           <div
             className={clsx(
               'absolute bottom-0 right-4 translate-y-full pb-4 duration-200 ease-in-out',
@@ -106,45 +110,46 @@ export default function ProductCard({
             </AddToCartButton>
           </div>
         )} */}
-      </div>
+        </div>
 
-      <div className="mt-1 mb-2 text-xxs 2xl:text-lg">
-        <div className="space-y-1 truncate">
-          {/* Title */}
-          <Link
-            className={clsx(
-              '', //
-              'group-hover:opacity-50',
-            )}
-            to={`/products/${storefrontProduct.handle}`}
-          >
-            {storefrontProduct.title}
-          </Link>
+        <div className="mt-2">
+          <div className="space-y-1 truncate">
+            {/* Title */}
+            <Link
+              className={clsx(
+                '', //
+                'group-hover:opacity-50',
+              )}
+              to={`/products/${storefrontProduct.handle}`}
+            >
+              {storefrontProduct.title}
+            </Link>
 
-          {/* Vendor */}
-          {/* {storefrontProduct.vendor && (
+            {/* Vendor */}
+            {/* {storefrontProduct.vendor && (
             <div className="">{storefrontProduct.vendor}</div>
           )} */}
 
-          {/* Product options */}
-          {/* {multipleProductOptions && (
+            {/* Product options */}
+            {/* {multipleProductOptions && (
             <div className="">{productOptions}</div>
           )} */}
-        </div>
+          </div>
 
-        {/* Price / compare at price */}
-        <div className="flex group-hover:opacity-50">
-          {firstVariant.compareAtPrice && (
-            <span className="">
-              <Money
-                data={firstVariant.compareAtPrice}
-                className="mr-2.5 line-through decoration-red"
-              />
-            </span>
-          )}
-          {firstVariant.price && <Money data={firstVariant.price} />}
+          {/* Price / compare at price */}
+          <div className="flex group-hover:opacity-50">
+            {firstVariant.compareAtPrice && (
+              <span className="">
+                <Money
+                  data={firstVariant.compareAtPrice}
+                  className="mr-2.5 line-through decoration-red"
+                />
+              </span>
+            )}
+            {firstVariant.price && <Money data={firstVariant.price} />}
+          </div>
         </div>
-      </div>
+      </Typography>
     </div>
   );
 }

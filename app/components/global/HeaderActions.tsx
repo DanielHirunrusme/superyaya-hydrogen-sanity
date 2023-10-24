@@ -11,7 +11,8 @@ import {Link} from '~/components/Link';
 import {useCartFetchers} from '~/hooks/useCartFetchers';
 import MobileNavigation from './MobileNavigation';
 import {stagger, useAnimate} from 'framer-motion';
-import {STAGGER_SPEED} from '~/lib/constants';
+import {HEADER_TOP, NAV_GAP, STAGGER_SPEED} from '~/lib/constants';
+import { Typography } from './Typography';
 
 type Props = {
   menuLinks: any;
@@ -56,7 +57,7 @@ export default function HeaderActions(props: Props) {
     <>
       <ul
         ref={scope}
-        className="fixed right-0 top-0 flex h-header-sm 2xl:h-auto 2xl:mt-7 items-center gap-[14px] px-4 2xl:px-8 md:gap-4 2xl:gap-6"
+        className={clsx("fixed right-0 top-0 flex  items-center px-mobile md:px-tablet xl:px-laptop 2xl:px-desktop gap-[1em] md:gap-[2em]", HEADER_TOP)}
       >
         {/* Country select */}
         {/* <div
@@ -82,9 +83,9 @@ export default function HeaderActions(props: Props) {
         <li className="opacity-0">
           <Link
             to="/pages/faq"
-            className="linkTextNavigation hidden text-xxs md:inline 2xl:text-lg"
+            className="linkTextNavigation hidden  md:inline "
           >
-            Assistance
+            <Typography type="body" size="sm">Assistance</Typography>
           </Link>
         </li>
 

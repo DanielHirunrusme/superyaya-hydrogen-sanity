@@ -96,8 +96,8 @@ export default function OrderRoute() {
           </div>
           <h1
             className={clsx([
-              'mb-4 text-2xl', //
-              'md:text-3xl',
+              'mb-4 ', //
+              '',
             ])}
           >
             Order {order.name}

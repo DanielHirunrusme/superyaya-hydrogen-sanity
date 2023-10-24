@@ -14,9 +14,7 @@ import {Listbox, Transition} from '@headlessui/react';
 import MinusIcon from '../icons/Minus';
 import PlusIcon from '../icons/Plus';
 import clsx from 'clsx';
-
-const BOX_STYLES = 'w-laptopBox 2xl:w-desktopBox';
-const SELECT_STYLES = 'min-h-laptopBox 2xl:min-h-desktopBox';
+import {UI_FORM_ELEMENT_HEIGHT} from '~/lib/constants';
 
 const getSwatch = (variants, selectOption) => {
   let swatch;
@@ -32,7 +30,7 @@ const getSwatch = (variants, selectOption) => {
 
   if (swatch?.reference?.image?.originalSrc) {
     return (
-      <div className={clsx('relative aspect-square', BOX_STYLES)}>
+      <div className={clsx('relative aspect-square')}>
         <Image
           className="absolute h-full w-full object-cover"
           alt="color"
@@ -43,7 +41,11 @@ const getSwatch = (variants, selectOption) => {
     );
   }
 
-  return <div className="h-8 w-8 2xl:h-desktopBox 2xl:w-desktopBox bg-gray"></div>;
+  return (
+    <div
+      className={clsx('aspect-square bg-gray', UI_FORM_ELEMENT_HEIGHT)}
+    ></div>
+  );
 };
 
 export default function ProductOptions({
@@ -66,7 +68,7 @@ export default function ProductOptions({
     {name: 'Color', value: ''},
   ]);
 
-  // console.log(variants);
+ 
 
   useEffect(() => {
     if (
@@ -95,7 +97,7 @@ export default function ProductOptions({
   };
 
   return (
-    <div className="my-4 flex flex-col gap-2 md:mb-2 2xl:gap-4">
+    <>
       <VariantSelector
         handle={product.handle}
         options={options}
@@ -140,7 +142,7 @@ export default function ProductOptions({
                       !open && 'hover:opacity-50'
                     } relative border border-black`}
                   >
-                    <Listbox.Button className="group relative block min-h-laptopBox w-full 2xl:min-h-desktopBox">
+                    <Listbox.Button className={clsx("group relative block w-full", UI_FORM_ELEMENT_HEIGHT)}>
                       {!open ? (
                         <span
                           className={clsx(
@@ -152,7 +154,7 @@ export default function ProductOptions({
                           <span className="">{match?.[0]?.value}</span>
                         </span>
                       ) : (
-                        <span className="pointer-events-none block px-2 2xl:px-6 text-left ">
+                        <span className="pointer-events-none block px-2 text-left 2xl:px-6 ">
                           Select {option.name}
                         </span>
                       )}
@@ -250,10 +252,10 @@ export default function ProductOptions({
                                     // data-isactive={isActive}
                                     prefetch="intent"
                                     className={clsx(
-                                      SELECT_STYLES,
+                                      UI_FORM_ELEMENT_HEIGHT,
                                       isActive
                                         ? 'underline'
-                                        : 'hover:underline',
+                                        : 'hover:text-opacity-50 text-black',
                                       'flex   items-center decoration-1 underline-offset-4',
                                     )}
                                     key={id}
@@ -262,7 +264,9 @@ export default function ProductOptions({
                                     }
                                   >
                                     {swatch}
-                                    <span className="px-2 2xl:px-6">{value}</span>
+                                    <span className="px-2 2xl:px-6">
+                                      {value}
+                                    </span>
                                   </Listbox.Option>
                                 );
                             }
@@ -308,7 +312,7 @@ export default function ProductOptions({
           );
         }}
       </VariantSelector>
-    </div>
+    </>
   );
 
   // return (
@@ -328,7 +332,7 @@ export default function ProductOptions({
 
   //         return (
   //           <div>
-  //             <legend className="mb-2 text-xs ">{option.name}</legend>
+  //             <legend className="mb-2  ">{option.name}</legend>
   //             <div className="flex flex-wrap items-center gap-1">
   //               {option.values.map(({value, to, isActive, isAvailable}) => {
   //                 const id = `option-${option.name}-${value}`;

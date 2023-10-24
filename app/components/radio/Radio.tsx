@@ -13,10 +13,16 @@ export default function Radio({open, setOpen}) {
       leaveTo="translate-y-full"
       className="fixed bottom-0 left-0 z-50 h-screen w-full bg-yellow"
     >
-        <Button mode='text' className='absolute top-0 right-0 p-4' onClick={()=>setOpen(false)}>Close</Button>
+      <Button
+        mode="text"
+        className="absolute right-0 top-0 p-4"
+        onClick={() => setOpen(false)}
+      >
+        Close
+      </Button>
       <div className=" bottom-0 h-screen w-full bg-yellow">
         <div className="flex h-full w-full flex-col items-center justify-center">
-          <div className="flex w-full flex-1 flex-col justify-evenly text-center font-serif text-2xl md:grow-0 md:flex-row">
+          <div className="flex w-full flex-1 flex-col justify-evenly text-center font-serif  md:grow-0 md:flex-row">
             <div>22.10.2023</div>
             <h2>Radio Yaya</h2>
             <div>Episode 1</div>

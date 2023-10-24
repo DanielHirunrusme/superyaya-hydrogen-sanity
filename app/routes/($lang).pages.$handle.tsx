@@ -15,6 +15,8 @@ import {SanityLink} from '~/lib/sanity';
 import {Link} from '~/components/Link';
 
 import {useMatches} from '@remix-run/react';
+import {Container} from '~/components/global/Container';
+import {Typography} from '~/components/global/Typography';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
   title: data?.page?.seo?.title,
@@ -62,8 +64,8 @@ export default function Page() {
   const layout = root.data?.layout;
   const {assistance} = layout || {};
   const {page, gids} = useLoaderData<typeof loader>();
-  
-  console.log(page)
+
+  console.log(page);
 
   const renderLinks = assistance?.links.map((link: SanityLink) => {
     if (link._type === 'linkExternal') {
@@ -99,29 +101,54 @@ export default function Page() {
     return null;
   });
 
-  return (
-    <ColorTheme value={page.colorTheme}>
-      <Suspense>
-        <Await resolve={gids}>
-          {/* Page hero */}
-          {/* <PageHero fallbackTitle={page.title} hero={page.hero} /> */}
-          <div
-            className={clsx(
-              'mx-auto w-full max-w-[660px] pb-24 text-xxs 2xl:max-w-[21.796875vw]',
-              page.slug?.current.includes('studio') ? 'font-serif' : 'font-body'
-            )}
-          >
-            {page.displayAssistanceMenu && assistance && (
-              <ol className="rte mb-6 flex flex-col !uppercase list-alpha list-inside">
-                {renderLinks}
-              </ol>
-            )}
+  if (page.slug?.current.includes('studio')) {
+    return (
+      <ColorTheme value={page.colorTheme}>
+        <Suspense>
+          <Await resolve={gids}>
+            {/* Page hero */}
+            {/* <PageHero fallbackTitle={page.title} hero={page.hero} /> */}
+            <Container type="pageDescription" asChild>
+              <div className={clsx('mx-auto w-full pb-24')}>
+                <Typography type="rte">
+                  {page.displayAssistanceMenu && assistance && (
+                    <ol className="rte mb-6 flex list-inside list-alpha flex-col !uppercase">
+                      {renderLinks}
+                    </ol>
+                  )}
+                  {/* Body */}
+                  {page.body && <PortableText blocks={page.body} centered />}
+                </Typography>
+              </div>
+            </Container>
+          </Await>
+        </Suspense>
+      </ColorTheme>
+    );
+  } else {
+    return (
+      <ColorTheme value={page.colorTheme}>
+        <Suspense>
+          <Await resolve={gids}>
+            {/* Page hero */}
+            {/* <PageHero fallbackTitle={page.title} hero={page.hero} /> */}
+            <Container type="assistance" asChild>
+              <div className={clsx('mx-auto w-full pb-24 font-index')}>
+                <Typography type="index">
+                {page.displayAssistanceMenu && assistance && (
+                  <ol className="rte mb-6 flex list-inside list-alpha flex-col !uppercase">
+                    {renderLinks}
+                  </ol>
+                )}
 
-            {/* Body */}
-            {page.body && <PortableText blocks={page.body} centered />}
-          </div>
-        </Await>
-      </Suspense>
-    </ColorTheme>
-  );
+                {/* Body */}
+                {page.body && <PortableText blocks={page.body} centered />}
+                </Typography>
+              </div>
+            </Container>
+          </Await>
+        </Suspense>
+      </ColorTheme>
+    );
+  }
 }

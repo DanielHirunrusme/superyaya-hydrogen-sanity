@@ -7,6 +7,9 @@ import MinimalHeader from '../global/MinimalHeader';
 import StaggerIndexList from '../framer/StaggerIndexList';
 import {Link} from '~/components/Link';
 import {useTheme, Theme} from '../context/ThemeProvider';
+import {Container} from '../global/Container';
+import {HEADER_TOP, SITE_MARGINS_X, SITE_MARGINS_Y} from '~/lib/constants';
+import {Typography} from '../global/Typography';
 
 type Props = {
   modules: any[];
@@ -104,10 +107,12 @@ export default function ModuleSlideshow(props) {
           <Button
             mode="text"
             type="button"
-            className="fixed right-0 top-0 z-10 p-4"
+            className={clsx('fixed right-0 z-10', SITE_MARGINS_X, HEADER_TOP)}
             onClick={onClose}
           >
-            Close
+            <Typography type="body" size="sm">
+              Close
+            </Typography>
           </Button>
         </>
       )}
@@ -120,10 +125,8 @@ export default function ModuleSlideshow(props) {
                   'h-full w-full flex-shrink-0 flex-grow-0',
                   module.layout === 'full'
                     ? 'object-cover'
-                    : `flex flex-col items-center justify-center object-contain px-4 pb-11 2xl:pb-22 ${
-                        detached
-                          ? 'pt-14 2xl:pt-19'
-                          : 'pt-14 md:pt-19 2xl:pt-32'
+                    : `flex flex-col items-center justify-center object-contain px-4 pt-[4vw] xl:pb-[3.203125vw] ${
+                        detached ? 'pt-[4vw] xl:pt-[3.203125vw]' : 'py-[14vw] xl:pt-[6vw] 2xl:pt-[5.203125vw]'
                       }`,
                 )}
                 key={module._key}
@@ -146,39 +149,44 @@ export default function ModuleSlideshow(props) {
       )}
       {showIndex && indexVisible && (
         <div className="flex min-h-screen w-full items-center justify-center text-center">
-          <div className="mx-auto my-24 w-full text-center md:max-w-[500px] 2xl:max-w-desktopContainer">
-            {/* Table */}
-            <StaggerIndexList>
-              <ul className="relative top-[-2em] mx-auto w-full">
-                <li className="text-center">
-                  {title}
-                  <br />
-                  <br />
-                </li>
-                {modules?.map((module, index) => (
-                  <li
-                    onClick={() => {
-                      setIndexVisible(false);
-                      setSelectedIndex(index);
-                    }}
-                    className="cursor-pointer"
-                    key={`table-${module._key}`}
-                  >
-                    <div className="leaders hover:opacity-50">
-                      <span>{module.caption || 'Figure'}</span>
-                      <span>{String(index + 1).padStart(2, '0')}</span>
-                    </div>
+          <Container type="slideshowIndex" asChild>
+            <div className="mx-auto my-24 w-full text-center">
+              {/* Table */}
+              <StaggerIndexList>
+                <ul className="relative top-[-2em] mx-auto w-full">
+                  <li className="text-center">
+                    {title}
+                    <br />
+                    <br />
                   </li>
-                ))}
-              </ul>
-            </StaggerIndexList>
-          </div>
+                  {modules?.map((module, index) => (
+                    <li
+                      onClick={() => {
+                        setIndexVisible(false);
+                        setSelectedIndex(index);
+                      }}
+                      className="cursor-pointer"
+                      key={`table-${module._key}`}
+                    >
+                      <div className="leaders hover:opacity-50">
+                        <span>{module.caption || 'Figure'}</span>
+                        <span>{String(index + 1).padStart(2, '0')}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </StaggerIndexList>
+            </div>
+          </Container>
         </div>
       )}
       {!indexVisible && (
         <div
           data-await-intro
-          className="absolute bottom-0 z-10 flex h-header-sm w-full items-center justify-center gap-4 text-center 2xl:h-header-2xl"
+          className={clsx(
+            'absolute bottom-0 z-10 flex  w-full items-center justify-center gap-4 text-center',
+            SITE_MARGINS_Y,
+          )}
         >
           <span>
             {String(selectedIndex + 1).padStart(2, '0')}/
@@ -196,7 +204,11 @@ export default function ModuleSlideshow(props) {
             <Link
               to={outboundLink}
               data-await-intro
-              className="linkTextNavigation fixed bottom-0 left-0 z-50 flex h-header-sm items-center px-4 2xl:h-header-2xl 2xl:px-8"
+              className={clsx(
+                'linkTextNavigation fixed bottom-0 left-0 z-50 flex items-center !no-underline',
+                SITE_MARGINS_X,
+                SITE_MARGINS_Y,
+              )}
             >
               {outboundLinkText}
             </Link>
@@ -205,7 +217,11 @@ export default function ModuleSlideshow(props) {
             data-await-intro
             mode="text"
             onClick={toggleIndexVisible}
-            className="fixed bottom-0 right-0 z-50 flex h-header-sm items-center px-4 2xl:h-header-2xl 2xl:px-8 2xl:text-xl"
+            className={clsx(
+              'linkTextNavigation fixed bottom-0 right-0 z-50 flex items-center !no-underline',
+              SITE_MARGINS_X,
+              SITE_MARGINS_Y,
+            )}
           >
             {!indexVisible ? 'Index' : 'Slideshow'}
           </Button>

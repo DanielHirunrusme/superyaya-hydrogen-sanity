@@ -26,6 +26,7 @@ import {GRID_GAP, PRODUCT_IMAGE_RATIO} from '~/lib/constants';
 import PlusIcon from '../icons/Plus';
 import MinusIcon from '../icons/Minus';
 import React from 'react';
+import { Typography } from '../global/Typography';
 
 export function CartLineItems({
   linesObj,
@@ -265,9 +266,9 @@ export function CartSummary({cost}: {cost: CartCost}) {
           </span>
         </div>
 
-        <div className="text-xxs 2xl:text-lg" role="row">
-          <span>Shipping &amp; taxes calculated at checkout</span>
-        </div>
+        <Typography type="body" size="sm">
+          Shipping &amp; taxes calculated at checkout
+        </Typography>
 
         {/* <div
           role="row"

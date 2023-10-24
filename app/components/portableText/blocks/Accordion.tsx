@@ -25,7 +25,7 @@ export default function AccordionBlock({value}: Props) {
             <div className="flex flex-col border-b border-b-gray">
               <Disclosure.Button
                 className={clsx(
-                  'flex items-center justify-between py-4 text-lg  transition-opacity duration-200 ease-out',
+                  'flex items-center justify-between py-4   transition-opacity duration-200 ease-out',
                   'hover:opacity-60',
                 )}
               >
@@ -34,7 +34,7 @@ export default function AccordionBlock({value}: Props) {
                   {open ? <MinusIcon /> : <PlusIcon />}
                 </div>
               </Disclosure.Button>
-              <Disclosure.Panel className="pb-4 text-md">
+              <Disclosure.Panel className="pb-4 ">
                 <PortableText blocks={group.body} />
               </Disclosure.Panel>
             </div>

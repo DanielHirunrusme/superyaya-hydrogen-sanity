@@ -18,7 +18,7 @@ export function AccountAddressBook({
   return (
     <>
       <div className="grid w-full">
-        <h3 className="text-xl ">Address Book</h3>
+        <h3 className=" ">Address Book</h3>
         <div>
           {!addresses?.length && (
             <p>You haven&apos;t saved any addresses yet.</p>

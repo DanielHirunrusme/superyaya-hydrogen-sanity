@@ -5,6 +5,7 @@ import SanityFooter from '~/components/global/SanityFooter';
 import LogoIcon from '~/components/icons/Logo';
 import {Link} from '~/components/Link';
 import PortableText from '~/components/portableText/PortableText';
+import { SITE_MARGINS_X, SITE_MARGINS_Y } from '~/lib/constants';
 import type {SanityLink} from '~/lib/sanity';
 
 /**
@@ -48,20 +49,23 @@ export default function Footer() {
     return null;
   });
 
-  if (!location.pathname.includes('/collections') && !location.pathname.includes('/archives')) {
+  if (
+    !location.pathname.includes('/collections') &&
+    !location.pathname.includes('/archives')
+  ) {
     return (
       <>
         <Link
           data-await-intro
           to="/"
-          className="fixed bottom-0 left-0 z-50 flex h-header-sm 2xl:h-header-2xl items-center px-4 2xl:px-8 linkTextNavigation"
+          className={clsx("linkTextNavigation !no-underline fixed bottom-0 left-0 z-40 flex items-center leading-none", SITE_MARGINS_X, SITE_MARGINS_Y)}
         >
           Abijan
         </Link>
         <Link
           data-await-intro
           to="/"
-          className="fixed bottom-0 right-0 z-50 flex h-header-sm 2xl:h-header-2xl  items-center px-4 2xl:px-8 linkTextNavigation"
+          className={clsx("linkTextNavigation !no-underline fixed bottom-0 right-0 z-40 flex items-center leading-none", SITE_MARGINS_X, SITE_MARGINS_Y)}
         >
           Beirut
         </Link>
@@ -82,7 +86,7 @@ export default function Footer() {
           <PortableText
             blocks={footer.text}
             className={clsx(
-              'text-xs', //
+              '', //
               ' ',
             )}
           />

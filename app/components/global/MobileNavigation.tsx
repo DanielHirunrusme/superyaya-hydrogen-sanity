@@ -278,7 +278,7 @@ export default function MobileNavigation({menuLinks}: Props) {
     <>
       <button
         onClick={handleOpen}
-        className="-mb-1 h-[14px] w-[18px] md:hidden"
+        className="-mb-1 aspect-[1.214] w-[4.358vw] md:hidden"
       >
         <MenuIcon />
       </button>
@@ -286,12 +286,12 @@ export default function MobileNavigation({menuLinks}: Props) {
       <div
         className={clsx(
           open
-            ? 'fixed bottom-0 left-0 right-0 top-0 z-50 h-full w-full overflow-y-auto bg-white pb-40'
+            ? 'fixed bottom-0 left-0 right-0 top-0 z-50 h-full w-full overflow-y-auto bg-white'
             : 'hidden',
         )}
       >
         {/* Header */}
-        <header className="flex h-header-sm items-center justify-center">
+        <header className="flex items-center justify-center pt-mobile">
           <Link className="linkTextNavigation !no-underline" to="/">
             SUPER YAYA
           </Link>

@@ -76,7 +76,7 @@ export default function ProductTooltip({
         </Link>
       </div>
 
-      <div className="mt-3 text-md">
+      <div className="mt-3 ">
         <div className="space-y-1">
           {/* Title */}
           <Link

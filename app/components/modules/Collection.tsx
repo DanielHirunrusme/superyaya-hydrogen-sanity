@@ -63,9 +63,9 @@ export default function CollectionModule({module}: Props) {
         {/* Title */}
         <div
           className={clsx(
-            'relative mt-[0.5em] w-[65%] text-center text-2xl',
+            'relative mt-[0.5em] w-[65%] text-center ',
             'group-hover:underline',
-            'md:text-3xl',
+            '',
             collection.vector ? 'text-white' : 'text-offBlack',
           )}
         >

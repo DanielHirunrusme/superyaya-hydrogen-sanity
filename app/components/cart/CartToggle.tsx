@@ -4,6 +4,7 @@ import {Suspense} from 'react';
 import {Link} from '~/components/Link';
 import Button from '../elements/Button';
 import CartIcon from '../icons/Cart';
+import { Typography } from '../global/Typography';
 
 type Props = {
   cart: Cart;
@@ -20,13 +21,16 @@ export default function CartToggle({cart, isOpen, openDrawer}: Props) {
       <Await resolve={cart}>
         {(data) => (
           <Link to="/cart" className="linkTextNavigation">
-            <span className='hidden lead md:inline text-xxs 2xl:text-lg'>
+            <Typography type="body" size="sm">
+            <span className='hidden lead md:inline  '>
               Cart ({data?.totalQuantity || 0})
             </span>
-            <div className='md:hidden w-4 h-5 relative'>
+           
+            <div className='md:hidden w-[4.1025vw] aspect-[0.8] relative'>
               <CartIcon />
-              <span className='absolute leading-none w-4 text-xs text-center left-0 bottom-[.125em]'>{data?.totalQuantity || 0}</span>
+              <span className='absolute leading-none w-full  text-center left-0 bottom-[.1875em]'>{data?.totalQuantity || 0}</span>
             </div>
+            </Typography>
           </Link>
         )}
       </Await>

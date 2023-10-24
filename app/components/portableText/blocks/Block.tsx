@@ -13,7 +13,7 @@ export default function Block({children, value}: Props) {
       <h2
         className={clsx(
           'first:mt-0 last:mb-0', //
-          'mb-4 mt-16 text-xl ',
+          'mb-4 mt-16',
         )}
       >
         {children}

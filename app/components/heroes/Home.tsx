@@ -20,8 +20,8 @@ export default function HomeHero({hero}: Props) {
       {hero.title && (
         <h1
           className={clsx(
-            'mb-7 max-w-[60rem] whitespace-pre-line text-center text-3xl',
-            'md:text-5xl',
+            'mb-7 max-w-[60rem] whitespace-pre-line text-center',
+            ' ',
           )}
         >
           {hero.title}

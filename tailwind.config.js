@@ -16,89 +16,125 @@ module.exports = {
     },
     fontFamily: {
       sans: 'EngraversGothic, "Helvetica Neue", Arial, sans-serif',
-      body: 'EurostileMonoEF, sans-serif',
+      radio: 'EngraversEF, serif',
+      index: 'EurostileMonoEF, sans-serif',
       serif: 'Times New Roman, serif',
       cursive: 'Snell, cursive',
     },
     fontSize: {
-      // 10px
-      xxs: [
-        '0.625rem',
+      bodyMobile: [
+        '3.846vw',
         {
-          letterSpacing: '.0875em',
+          letterSpacing: '.075em',
+          lineHeight: '1.2',
+        },
+      ],
+      bodyTablet: [
+        '1.005vw',
+        {
+          letterSpacing: '.09875em',
+          lineHeight: '1.5',
+        },
+      ],
+      bodyLaptop: [
+        '0.9259vw',
+        {
+          letterSpacing: '.09875em',
           lineHeight: '1.25',
         },
       ],
-      // 12px
-      xs: [
-        '0.75rem',
+      bodyDesktop: [
+        '0.859375vw',
         {
-          letterSpacing: '.0875em',
+          letterSpacing: '.09875em',
+          lineHeight: ' 1.227',
+        },
+      ],
+      // Utility (Header Actions)
+      utilityMobile: [
+        '3.0769vw',
+        {
+          letterSpacing: '.075em',
+          lineHeight: '1.2',
+        },
+      ],
+      utilityTablet: [
+        '0.8375vw',
+        {
+          letterSpacing: '.09875em',
+          lineHeight: '1.5',
+        },
+      ],
+      utilityLaptop: [
+        '0.7523vw',
+        {
+          letterSpacing: '.09875em',
           lineHeight: '1.25',
         },
       ],
-      // 14px
-      sm: [
-        '0.875rem',
+      utilityDesktop: [
+        '0.6640625vw',
         {
-          letterSpacing: '-0.03em',
-          lineHeight: '1.1',
+          letterSpacing: '.09875em',
+          lineHeight: ' 1.227',
         },
       ],
-      // 16px
-      md: [
-        '.625vw',
+      // Rte
+      rteMobile: [
+        '3.846vw',
+        {
+          letterSpacing: '.075em',
+          lineHeight: '1.3333',
+        },
+      ],
+      rteTablet: [
+        '0.837520938vw',
         {
           letterSpacing: '.0875em',
           lineHeight: '1.4',
         },
       ],
-      //17px
-      lg: [
-        '.6640625vw',
-        {
-          letterSpacing: '.1em',
-          lineHeight: '1.25',
-        },
-      ],
-      // 22px
-      xl: [
-        '.859375vw',
-        {
-          letterSpacing: '.1em',
-          lineHeight: '1.2',
-        },
-      ],
-      // 27px
-      '2xl': [
-        '1.6875rem',
+      rteLaptop: [
+        '0.7352vw',
         {
           letterSpacing: '.0875em',
-          lineHeight: '1.25',
+          lineHeight: '1.38',
         },
       ],
-      // 54px
-      '3xl': [
-        '3.375rem',
+      rteDesktop: [
+        '0.625vw',
         {
-          letterSpacing: '-0.03em',
-          lineHeight: '1',
+          letterSpacing: '.0875em',
+          lineHeight: '1.375',
         },
       ],
-      // 74px
-      '4xl': [
-        '4.625rem',
+      // Index
+      indexMobile: [
+        '3.333vw',
         {
-          letterSpacing: '-0.03em',
-          lineHeight: '1',
+          letterSpacing: '.075em',
+          lineHeight: '1.5',
         },
       ],
-      // 110px
-      '5xl': [
-        '6.875rem',
+      indexTablet: [
+        '1.0050vw',
         {
-          letterSpacing: '-0.03em',
-          lineHeight: '1',
+          letterSpacing: '.0875em',
+          lineHeight: '1.5',
+        },
+      ],
+      // indexLaptop: [
+      //   '0.7352vw',
+      //   {
+      //     letterSpacing: '.0875em',
+      //     lineHeight: '1.38',
+      //   },
+      // ],
+      indexDesktop: [
+        '0.625vw',
+        {
+          letterSpacing: '.0875em',
+          lineHeight: '1.5',
         },
       ],
     },
@@ -110,6 +146,7 @@ module.exports = {
       normal: '-0.03em',
     },
     lineHeight: {
+      label: '.65',
       none: '1',
       field: '1.25',
       caption: '1.25',
@@ -181,6 +218,10 @@ module.exports = {
         overlap: '20px',
         laptopBox: '2rem',
         desktopBox: '3.875rem',
+        mobile: "4.6153vw",
+        tablet: "1.34vw",
+        laptop: "1.1574vw",
+        desktop: "1.3671vw",
       },
       minHeight: {
         laptopBox: '2rem',
@@ -191,7 +232,7 @@ module.exports = {
         desktopForm: '26.0625rem',
         desktopRte: '51.125rem',
         desktopContainer: '68.25rem',
-      }
+      },
     },
   },
   plugins: [],

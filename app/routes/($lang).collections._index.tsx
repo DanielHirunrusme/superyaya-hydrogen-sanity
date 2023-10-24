@@ -70,7 +70,7 @@ export default function Index() {
                     <Link
                       to={season.slug}
                       title={season.title}
-                      className="large-title mx-auto self-start font-cursive text-2xl !normal-case md:text-3xl lg:text-4xl 2xl:text-5xl"
+                      className="large-title mx-auto self-start font-cursive  !normal-case"
                     >
                       <div
                         className="collection-title"

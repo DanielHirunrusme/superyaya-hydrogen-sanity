@@ -9,6 +9,8 @@ import HeaderActions from '~/components/global/HeaderActions';
 import Navigation from '~/components/global/Navigation';
 import {Link} from '~/components/Link';
 import {useState} from 'react';
+import clsx from 'clsx';
+import {HEADER_TOP, NAV_GAP, NAV_GAP_Y} from '~/lib/constants';
 
 /**
  * A server component that specifies the content of the header on the website
@@ -31,12 +33,16 @@ export default function Header() {
     <>
       <header
         id="Header"
-        className="absolute top-0 z-50 flex w-full  flex-col items-center justify-center text-center 2xl:text-xl"
+        className={clsx(
+          ' absolute z-50 flex  w-full flex-col items-center justify-center text-center',
+          NAV_GAP_Y,
+          HEADER_TOP,
+        )}
         role="banner"
       >
         <Link
           ref={scope}
-          className="linkTextNavigation mb-3 mt-4 2xl:mt-7 !no-underline opacity-0"
+          className="linkTextNavigation !no-underline opacity-0"
           to="/"
         >
           SUPER YAYA

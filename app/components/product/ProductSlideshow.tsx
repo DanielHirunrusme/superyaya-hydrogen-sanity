@@ -9,6 +9,8 @@ import type {ProductWithNodes} from '~/types/shopify';
 import clsx from 'clsx';
 import Button from '../elements/Button';
 import MinimalHeader from '../global/MinimalHeader';
+import {Typography} from '../global/Typography';
+import {SITE_MARGINS_X, HEADER_TOP, SITE_MARGINS_Y} from '~/lib/constants';
 
 type Props = {
   storefrontProduct: ProductWithNodes;
@@ -34,7 +36,6 @@ export default function ProductSlideshow({
     EXTERNAL_VIDEO: 'ExternalVideo',
   };
 
- 
   const media = storefrontProduct?.media?.nodes;
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -55,7 +56,6 @@ export default function ProductSlideshow({
     onSelect();
     emblaApi.on('select', onSelect);
   }, [emblaApi, onSelect]);
-
 
   const onEmblaClick = (e) => {
     if (e.clientX > window.innerWidth / 2) {
@@ -103,13 +103,9 @@ export default function ProductSlideshow({
     setZoom(false);
   };
 
-
-
   if (!media?.length || !zoom) {
     return null;
   }
-
-
 
   return (
     <div className="fixed bottom-0 left-0 right-0 top-0 z-50 bg-white">
@@ -117,10 +113,12 @@ export default function ProductSlideshow({
       <Button
         mode="text"
         type="button"
-        className="fixed right-0 top-0 z-10 p-4 2xl:p-8"
+        className={clsx('fixed right-0 z-50', SITE_MARGINS_X, HEADER_TOP)}
         onClick={onClose}
       >
-        Close
+        <Typography type="body" size="sm">
+          Close
+        </Typography>
       </Button>
       <div
         onClick={onEmblaClick}
@@ -155,7 +153,7 @@ export default function ProductSlideshow({
 
             return (
               <MediaFile
-                className="relative flex w-full shrink-0 grow-0 select-none object-contain px-4 py-14 2xl:py-22"
+                className="relative flex w-full shrink-0 grow-0 select-none object-contain px-4 py-[4vw] xl:py-[3.203125vw]"
                 data={data}
                 draggable={false}
                 key={med.id}
@@ -169,7 +167,12 @@ export default function ProductSlideshow({
           })}
         </div>
       </div>
-      <div className="absolute bottom-0 z-10 flex w-full items-center justify-center gap-4 py-4 2xl:py-8 text-center">
+      <div
+        className={clsx(
+          'absolute bottom-0 z-10 flex w-full items-center justify-center gap-4 text-center leading-label',
+          SITE_MARGINS_Y,
+        )}
+      >
         <span>
           {selectedIndex + 1}/{media!.length}
         </span>

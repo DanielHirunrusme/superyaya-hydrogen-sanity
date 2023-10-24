@@ -69,11 +69,11 @@ export default function CollectionGroupContent({
       {/* Header */}
       <header
         className={clsx(
-          'flex h-header-sm items-center justify-between px-8',
-          'lg:h-header-lg',
+          'flex  items-center justify-between px-8',
+          '',
         )}
       >
-        <div className="text-xl  leading-none">
+        <div className="  leading-none">
           {collectionGroup?.title}
         </div>
         <button type="button" onClick={onClose}>
@@ -83,7 +83,7 @@ export default function CollectionGroupContent({
 
       {/* Collections */}
       <div className="px-8">
-        <div className="text-lg ">Collections</div>
+        <div className=" ">Collections</div>
         <div className="relative mt-3 grid grid-cols-2 gap-2">
           {renderCollections()}
         </div>
@@ -94,7 +94,7 @@ export default function CollectionGroupContent({
         <div className="mt-8 px-8" ref={ref}>
           {products ? (
             <>
-              <div className="text-lg ">{collection.title}</div>
+              <div className=" ">{collection.title}</div>
               <ul className="mt-3 grid grid-cols-1 gap-2">
                 {renderCollectionProducts()}
               </ul>

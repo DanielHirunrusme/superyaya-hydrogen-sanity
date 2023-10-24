@@ -147,9 +147,9 @@ const ImageContent = ({module, parentModule, mode, inSlideShow}: Props) => {
             {/* Title */}
             <div
               className={clsx(
-                'max-w-[30rem] text-xl text-white', //
-                'lg:text-2xl',
-                'xl:text-3xl',
+                'max-w-[30rem]  text-white', //
+                '',
+                '',
               )}
             >
               {module.callToAction?.title}

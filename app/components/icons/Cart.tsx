@@ -3,8 +3,7 @@ import {SVGAttributes} from 'react';
 export default function CartIcon(props: SVGAttributes<SVGElement>) {
   return (
     <svg
-      width="16"
-      height="20"
+      width="100%"
       viewBox="0 0 18 22"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

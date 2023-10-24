@@ -51,17 +51,19 @@
   }
  
   body {
-    @apply font-medium bg-white text-black  font-sans text-md uppercase md:text-xs 2xl:text-xl;
+    @apply font-medium bg-white text-black  font-sans uppercase text-bodyMobile md:text-bodyTablet xl:text-bodyLaptop 2xl:text-bodyDesktop ;
   }
 
 
   html,
   body {
     overscroll-behavior: none;
+
   }
 
   * {
     @apply uppercase;
+
   }
 
   .skew {
@@ -159,8 +161,7 @@
 }
 
 html {
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  @apply antialiased overflow-x-hidden;
 }
 
 .embla__slide {
@@ -174,6 +175,10 @@ html {
 
 .leaders span {
   @apply relative z-10 bg-white;
+}
+
+.theme-dark .leaders span {
+  @apply bg-black;
 }
 
 .leaders::before {
@@ -199,14 +204,18 @@ fieldset {
   letter-spacing: inherit;
 }
 input {
-  @apply border border-[1.5px] border-black p-2 outline-none hover:opacity-50 focus:opacity-100 md:p-5;
+  @apply border border-black  px-[1em] outline-none hover:opacity-50 focus:opacity-100 h-[11.7948vw] md:h-[3.015vw] 2xl:h-[2.578125vw];
   letter-spacing: inherit;
 }
 
 textarea,
 select {
-  @apply border border-[1.5px]  border-black p-2 md:p-5;
+  @apply border  border-black px-[1em];
   letter-spacing: inherit;
+}
+
+textarea {
+  @apply py-[.875em]
 }
 
 /* Gallery */
@@ -260,7 +269,7 @@ select {
 
 /* RTE */
 .rte, .rte * {
-  @apply font-body !normal-case 2xl:text-md;
+  @apply !normal-case;
 }
 
 /* Intro */

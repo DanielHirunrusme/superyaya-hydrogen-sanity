@@ -116,7 +116,7 @@ function CartHeader({
     <header
       className={clsx(
         'sticky top-0 flex items-center justify-between py-4 px-3',
-        'lg:h-header-lg',
+        '',
       )}
     >
       <div className="">
@@ -146,7 +146,7 @@ function CartFooter({cart}: {cart: Cart}) {
 function CartEmpty({onClose}: {onClose: () => void}) {
   return (
     <div className="flex flex-col px-8 pt-6">
-      <p className="mb-4 text-lg ">
+      <p className="mb-4  ">
         There&rsquo;s nothing in here...yet.
       </p>
       <Button onClick={onClose} type="button">

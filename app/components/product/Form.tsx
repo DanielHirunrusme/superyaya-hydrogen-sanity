@@ -15,6 +15,9 @@ import type {SanityCustomProductOption} from '~/lib/sanity';
 import {hasMultipleProductOptions} from '~/lib/utils';
 import Button from '../elements/Button';
 import ContactFormModal from '../contact/ContactForm';
+import {Container} from '../global/Container';
+import clsx from 'clsx';
+import { GRID_GAP } from '~/lib/constants';
 
 export default function ProductForm({
   product,
@@ -48,7 +51,8 @@ export default function ProductForm({
   };
 
   return (
-    <div className="max-w-laptopForm 2xl:max-w-desktopForm">
+    <Container type="pdpForm">
+      <div className={clsx('flex flex-col mt-mobile md:mt-tablet xl:mt-laptop 2xl:mt-desktop', 'gap-mobile md:gap-tablet xl:gap-laptop 2xl:gap-desktop')}>
       {multipleProductOptions && (
         <>
           <ProductOptions
@@ -61,7 +65,7 @@ export default function ProductForm({
         </>
       )}
 
-      <div className="flex flex-col space-y-2">
+      <div className="flex flex-col">
         <AddToCartButton
           lines={[
             {
@@ -85,6 +89,7 @@ export default function ProductForm({
           mode='outline'
         /> */}
       </div>
-    </div>
+      </div>
+    </Container>
   );
 }

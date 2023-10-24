@@ -12,6 +12,7 @@ import {Link} from '~/components/Link';
 
 import {CartActions, CartLineItems, CartSummary} from '~/components/cart/Cart';
 import StaggerIndexList from '~/components/framer/StaggerIndexList';
+import {Container} from '~/components/global/Container';
 import SpinnerIcon from '~/components/icons/Spinner';
 import {isLocalPath} from '~/lib/utils';
 
@@ -117,35 +118,43 @@ export default function Cart() {
         <Await resolve={root.data?.cart}>
           {(cart) => (
             <StaggerIndexList>
-              {cart && cart.lines?.edges?.length >0   ? (
-                <ul className="mx-auto max-w-4xl 2xl:max-w-[59.5vw]">
-                  <li className="hidden grid-cols-8 2xl:grid-cols-12 gap-6 border-b border-black opacity-0 md:grid">
-                    <span className="col-span-4 2xl:col-span-6">
-                      <span className="block px-2">Item</span>
-                    </span>
-                    <span className="col-span-3 2xl:col-span-4">Quantity</span>
-                    <span className="col-span-1 2xl:col-span-2 text-right justify-end items-end">
-                      <span className="block px-2 w-[5.5em] ml-auto text-left">Price</span>
-                    </span>
-                  </li>
-                  <li>
-                    <CartLineItems linesObj={cart?.lines} />
-                  </li>
-                  <li className="grid grid-cols-8 2xl:grid-cols-3 gap-6 border-t border-black opacity-0">
-                    <div className="col-span-4 md:col-span-6 2xl:col-span-1" />
-                    <div className="col-span-4 md:col-span-2 2xl:col-span-1 2xl:col-start-3 2xl:col-end-3">
-                      <CartSummary cost={cart?.cost} />
-                      <CartActions cart={cart} />
-                    </div>
-                  </li>
-                </ul>
+              {cart && cart.lines?.edges?.length > 0 ? (
+                <Container type="cart">
+                  <ul>
+                    <li className="hidden grid-cols-8 gap-6 border-b border-black opacity-0 md:grid 2xl:grid-cols-12">
+                      <span className="col-span-4 2xl:col-span-6">
+                        <span className="block px-2">Item</span>
+                      </span>
+                      <span className="col-span-3 2xl:col-span-4">
+                        Quantity
+                      </span>
+                      <span className="col-span-1 items-end justify-end text-right 2xl:col-span-2">
+                        <span className="ml-auto block w-[5.5em] px-2 text-left">
+                          Price
+                        </span>
+                      </span>
+                    </li>
+                    <li>
+                      <CartLineItems linesObj={cart?.lines} />
+                    </li>
+                    <li className="grid grid-cols-8 gap-6 border-t border-black opacity-0 2xl:grid-cols-3">
+                      <div className="col-span-4 md:col-span-6 2xl:col-span-1" />
+                      <div className="col-span-4 md:col-span-2 2xl:col-span-1 2xl:col-start-3 2xl:col-end-3">
+                        <CartSummary cost={cart?.cost} />
+                        <CartActions cart={cart} />
+                      </div>
+                    </li>
+                  </ul>
+                </Container>
               ) : (
-                <ul>
-                  <li className="text-center">
-                    You cart is empty.{' '}
-                    <Link to="/boutique/all">Continue shopping</Link>
-                  </li>
-                </ul>
+                <Container type="cart">
+                  <ul>
+                    <li className="text-center">
+                      You cart is empty.{' '}
+                      <Link to="/boutique/all">Continue shopping</Link>
+                    </li>
+                  </ul>
+                </Container>
               )}
             </StaggerIndexList>
           )}

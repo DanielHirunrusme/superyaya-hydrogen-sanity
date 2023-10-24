@@ -31,14 +31,13 @@ export const defaultButtonStyles = (options?: ButtonStyleOptions) => {
   const mode: ButtonMode = options?.mode || 'default';
   const tone: ButtonTone = options?.tone || 'default';
 
-  if(mode !== "text"){
+  if (mode !== 'text') {
     return clsx([
-      'flex items-center justify-center overflow-hidden px-4 md:px-2 2xl:p-5 hover:opacity-50',
+      'flex items-center justify-center overflow-hidden px-4 md:px-2 hover:opacity-50',
       'disabled:opacity-20 disabled:bg-opacity-100',
-      'border-black border 2xl:border-[1.5px]',
-      'max-w-laptopForm 2xl:max-w-desktopForm',
-      'h-laptopBox 2xl:h-desktopBox',
-      
+      'border-black border',
+      'h-[11.7948vw] md:h-[2.68vw] xl:h-[2.719vw] 2xl:h-[2.421875vw]',
+
       // mode === 'default' &&
       //   clsx([
       //     tone === 'critical' && 'bg-red',
@@ -56,11 +55,9 @@ export const defaultButtonStyles = (options?: ButtonStyleOptions) => {
     ]);
   } else {
     return clsx([
-      "hover:underline underline-offset-4 decoration-1 text-md md:text-xxs 2xl:text-lg uppercase"
-    ])
+      'hover:opacity-50 uppercase',
+    ]);
   }
-
-
 };
 
 export default function Button({

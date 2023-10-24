@@ -17,7 +17,7 @@ export default function Badge({
     <div
       className={clsx(
         'flex place-content-center rounded-sm bg-white px-1.5 py-1 leading-none',
-        small ? 'text-xs' : '',
+        small ? '' : '',
         mode === 'outline' && 'border',
         tone === 'critical' && 'border-red text-red',
         tone === 'default' && 'border-darkGray ',

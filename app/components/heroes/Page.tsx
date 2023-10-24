@@ -16,8 +16,8 @@ export default function PageHero({fallbackTitle, hero}: Props) {
     return (
       <h1
         className={clsx(
-          'mx-auto max-w-[60rem] px-4 pb-8 pt-34 text-center text-3xl',
-          'md:px-8 md:text-4xl',
+          'mx-auto max-w-[60rem] px-4 pb-8 pt-34 text-center',
+          'md:px-8 ',
         )}
       >
         {fallbackTitle}
@@ -37,8 +37,8 @@ export default function PageHero({fallbackTitle, hero}: Props) {
       {hero.title && (
         <h1
           className={clsx(
-            'max-w-[60rem] whitespace-pre-line text-2xl',
-            'md:text-4xl',
+            'max-w-[60rem] whitespace-pre-line ',
+            ' ',
           )}
           style={{color: colorTheme?.text || 'black'}}
         >

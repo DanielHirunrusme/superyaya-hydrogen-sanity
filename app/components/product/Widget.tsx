@@ -57,11 +57,11 @@ export default function ProductWidget({
     <div>
       {/* Sold out */}
       {!availableForSale && (
-        <div className="mb-3 text-xs  uppercase ">Sold out</div>
+        <div className="mb-3   uppercase ">Sold out</div>
       )}
       {/* Sale */}
       {availableForSale && selectedVariant?.compareAtPrice && (
-        <div className="mb-3 text-xs  uppercase text-red">Sale</div>
+        <div className="mb-3   uppercase text-red">Sale</div>
       )}
       {/* Title */}
       {storefrontProduct?.title && (
@@ -90,10 +90,10 @@ export default function ProductWidget({
         customProductOptions={sanityProduct.customProductOptions}
       />
 
-      <div>
+      <div className='mt-mobile md:mt-tablet xl:mt-laptop 2xl:mt-desktop'>
         {/* Details */}
         {storefrontProduct.details && (
-          <div className="mt-4">
+          <div>
             {storefrontProduct.details && (
               <Disclosure>
                 {({open}) => (

@@ -25,6 +25,8 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
+import {Container} from '~/components/global/Container';
+import {Typography} from '~/components/global/Typography';
 
 const seo: SeoHandleFunction = ({data}) => ({
   title: data?.page?.seo?.title || 'SUPER YAYA',
@@ -38,11 +40,11 @@ export const handle = {
 };
 
 const COLUMN_SIZES = [
-  'md:w-20 2xl:w-[8.75rem] flex-grow-0 text-left pl-2 2xl:pl-4 py-1 uppercase flex gap-1',
-  'flex-1 text-left py-1 overflow-hidden uppercase flex gap-1',
-  'hidden md:flex w-48 2xl:w-[19.625rem] flex-grow-0 text-left py-1 uppercase gap-1',
-  'hidden md:flex w-32 2xl:w-[14rem] flex-grow-0 text-left py-1 uppercase gap-1',
-  'hidden md:flex w-16 2xl:w-[4.5rem] flex-grow-0 text-left pr-2 2xl:pr-4 py-1 uppercase gap-1',
+  'md:w-20 2xl:w-[7em] flex-grow-0 text-left pl-2 2xl:pl-4 py-1.5 uppercase flex gap-1',
+  'flex-1 text-left py-1.5 overflow-hidden uppercase flex gap-1',
+  'hidden md:flex w-48 2xl:w-[19.625rem] flex-grow-0 text-left py-1.5 uppercase gap-1',
+  'hidden md:flex w-32 2xl:w-[14rem] flex-grow-0 text-left py-1.5 uppercase gap-1',
+  'hidden md:flex w-16 2xl:w-[4.5rem] flex-grow-0 text-left pr-2 2xl:pr-4 py-1.5 uppercase gap-1',
 ];
 
 export async function loader({context, params}: LoaderArgs) {
@@ -179,277 +181,168 @@ export default function IndexPage() {
         return (
           <Suspense>
             <Await resolve={gids}>
-              <StaggerIndexList className="mx-auto flex w-full max-w-[1160px] flex-col 2xl:max-w-[72.77vw]">
-                <div>
+              <Container asChild type="index">
+                <StaggerIndexList className="mx-auto flex w-full flex-col">
                   <ul
                     className={clsx(
-                      'hidden w-full flex-1 justify-between text-left md:flex',
-               
+                      'hidden w-full flex-1 flex-col justify-between text-left md:flex',
                     )}
                   >
-                    {table.getHeaderGroups().map((headerGroup) => (
-                      <React.Fragment key={headerGroup.id}>
-                        {headerGroup.headers.map((header, index) => {
-                          return (
-                            <li key={header.id} className={clsx(COLUMN_SIZES[index], 'opacity-0 border-b')}>
-                              <div>
-                                {header.isPlaceholder ? null : (
-                                  <div
-                                    {...{
-                                      className: header.column.getCanSort()
-                                        ? 'cursor-pointer select-none flex gap-1 items-center'
-                                        : '',
-                                      onClick:
-                                        header.column.getToggleSortingHandler(),
-                                    }}
-                                  >
-                                    {flexRender(
-                                      header.column.columnDef.header,
-                                      header.getContext(),
-                                    )}
-                                    {{
-                                      asc: <ArrowUpIcon />,
-                                      desc: <ArrowDownIcon />,
-                                    }[header.column.getIsSorted() as string] ??
-                                      null}
-                                  </div>
+                    <li className="flex opacity-0">
+                      {table.getHeaderGroups().map((headerGroup) => (
+                        <React.Fragment key={headerGroup.id}>
+                          {headerGroup.headers.map((header, index) => {
+                            return (
+                              <div
+                                key={header.id}
+                                className={clsx(
+                                  COLUMN_SIZES[index],
+                                  'border-b',
                                 )}
-                              </div>
-                            </li>
-                          );
-                        })}
-                      </React.Fragment>
-                    ))}
-                  </ul>
-                  <ul>
-                    {table
-                      .getRowModel()
-                      .rows.slice(0, 10000)
-                      .map((row) => {
-                        return (
-                          <Disclosure key={row.id}>
-                            {({open}) => (
-                              <li
-                                className="flex-1 overflow-hidden border-b-[.8px] opacity-0 2xl:border-b"
-                                key={row.id}
                               >
-                                <Disclosure.Button
-                                  className={clsx(
-                                    'flex w-full flex-1 justify-between overflow-hidden text-left',
-                                 
-                                    !open && ' hover:opacity-50',
-                                    'font-body',
+                                <Typography type="index">
+                                  {header.isPlaceholder ? null : (
+                                    <div
+                                      {...{
+                                        className: header.column.getCanSort()
+                                          ? 'cursor-pointer select-none flex gap-1 items-center'
+                                          : '',
+                                        onClick:
+                                          header.column.getToggleSortingHandler(),
+                                      }}
+                                    >
+                                      {flexRender(
+                                        header.column.columnDef.header,
+                                        header.getContext(),
+                                      )}
+                                      {{
+                                        asc: <ArrowUpIcon />,
+                                        desc: <ArrowDownIcon />,
+                                      }[
+                                        header.column.getIsSorted() as string
+                                      ] ?? null}
+                                    </div>
                                   )}
+                                </Typography>
+                              </div>
+                            );
+                          })}
+                        </React.Fragment>
+                      ))}
+                    </li>
+                    <>
+                      {table
+                        .getRowModel()
+                        .rows.slice(0, 10000)
+                        .map((row) => {
+                          return (
+                            <Disclosure key={row.id}>
+                              {({open}) => (
+                                <li
+                                  className="flex-1 overflow-hidden border-b-[.8px] opacity-0 2xl:border-b"
+                                  key={row.id}
                                 >
-                                  {row.getVisibleCells().map((cell, index) => {
-                                    const year =
-                                      row.original.year?.split('-')[0];
-                                    return (
-                                      <div
-                                        className={COLUMN_SIZES[index]}
-                                        key={cell.id}
-                                      >
-                                        {flexRender(
-                                          cell.column.columnDef.cell,
-                                          cell.getContext(),
-                                        )}
-                                        <>
-                                          {index == 1 && open && (
-                                            <div className="md:hidden">
-                                              {row.original.kind && (
-                                                <div>
-                                                  Kind: {row.original.kind}
-                                                </div>
-                                              )}
-                                              {row.original.category && (
-                                                <div>
-                                                  Category:{' '}
-                                                  {row.original.category}
-                                                </div>
-                                              )}
-                                              {row.original.year && (
-                                                <div>Year: {year}</div>
-                                              )}
-                                            </div>
-                                          )}
-                                        </>
-                                      </div>
-                                    );
-                                  })}
-                                </Disclosure.Button>
-                                <Disclosure.Panel>
-                                  <div
+                                  <Disclosure.Button
                                     className={clsx(
-                                      'flex w-full flex-1 justify-between text-left',
-                                      GRID_GAP,
-                                      'font-body text-xxs',
+                                      'flex w-full flex-1 justify-between overflow-hidden text-left',
+
+                                      !open && ' hover:opacity-50',
                                     )}
                                   >
+                                    {row
+                                      .getVisibleCells()
+                                      .map((cell, index) => {
+                                        const year =
+                                          row.original.year?.split('-')[0];
+                                        return (
+                                          <div
+                                            className={COLUMN_SIZES[index]}
+                                            key={cell.id}
+                                          >
+                                            <Typography type="index">
+                                              {flexRender(
+                                                cell.column.columnDef.cell,
+                                                cell.getContext(),
+                                              )}
+                                            </Typography>
+                                            <>
+                                              {index == 1 && open && (
+                                                <div className="md:hidden">
+                                                  {row.original.kind && (
+                                                    <Typography type="index">
+                                                      Kind: {row.original.kind}
+                                                    </Typography>
+                                                  )}
+                                                  {row.original.category && (
+                                                    <Typography type="index">
+                                                      Category:{' '}
+                                                      {row.original.category}
+                                                    </Typography>
+                                                  )}
+                                                  {row.original.year && (
+                                                    <Typography type="index">
+                                                      Year: {year}
+                                                    </Typography>
+                                                  )}
+                                                </div>
+                                              )}
+                                            </>
+                                          </div>
+                                        );
+                                      })}
+                                  </Disclosure.Button>
+                                  <Disclosure.Panel>
                                     <div
                                       className={clsx(
-                                        COLUMN_SIZES[0],
-                                        'hidden md:block',
+                                        'flex w-full flex-1 justify-between text-left',
+                                        'font-index',
                                       )}
-                                    ></div>
-                                    <div className={COLUMN_SIZES[1]}>
-                                      {row.original._type ==
-                                      'productWithVariant' ? (
-                                        <div>
-                                          <div
-                                            className="rte body"
-                                            dangerouslySetInnerHTML={{
-                                              __html: row.original.description,
-                                            }}
-                                          />
-                                        </div>
-                                      ) : (
-                                        <div>
-                                          <PortableText
-                                            blocks={row.original.description}
-                                            className="body"
-                                          />
-                                        </div>
-                                      )}
+                                    >
+                                      <div
+                                        className={clsx(
+                                          COLUMN_SIZES[0],
+                                          'hidden md:block',
+                                        )}
+                                      ></div>
+                                      {/* Description */}
+                                      <div className={COLUMN_SIZES[1]}>
+                                        {row.original._type ==
+                                        'productWithVariant' ? (
+                                          <Typography type="index">
+                                            <div
+                                              dangerouslySetInnerHTML={{
+                                                __html:
+                                                  row.original.description,
+                                              }}
+                                            />
+                                          </Typography>
+                                        ) : (
+                                          <Typography type="index">
+                                            <PortableText
+                                              blocks={row.original.description}
+                                            />
+                                          </Typography>
+                                        )}
+                                      </div>
+                                      {/* Spacers */}
+                                      <div className={COLUMN_SIZES[2]}> </div>
+                                      <div className={COLUMN_SIZES[3]}></div>
+                                      <div className={COLUMN_SIZES[4]}></div>
                                     </div>
-                                    <div className={COLUMN_SIZES[2]}> </div>
-                                    <div className={COLUMN_SIZES[3]}></div>
-                                    <div className={COLUMN_SIZES[4]}></div>
-                                  </div>
-                                  <div className="mb-4 mt-2 md:ml-22">
-                                    <IndexImages item={row.original} />
-                                  </div>
-                                </Disclosure.Panel>
-                              </li>
-                            )}
-                          </Disclosure>
-                        );
-                      })}
+                                    {/* Images */}
+                                    <div className="mb-4 ml-[7em] mt-2">
+                                      <IndexImages item={row.original} />
+                                    </div>
+                                  </Disclosure.Panel>
+                                </li>
+                              )}
+                            </Disclosure>
+                          );
+                        })}
+                    </>
                   </ul>
-                </div>
-                {/* <ul className="w-full ">
-                <li className="border-b-[.8px]  font-body opacity-0 2xl:border-b">
-                  <nav
-                    className={clsx(
-                      'hidden w-full flex-1 justify-between text-left md:flex',
-                      GRID_GAP,
-                    )}
-                  >
-                    <button onClick={onNumClick} className={COLUMN_SIZES[0]}>
-                      NO. {getArrow(sortState.id)}
-                    </button>
-                    <button onClick={onTitleClick} className={COLUMN_SIZES[1]}>
-                      Title {getArrow(sortState.title)}
-                    </button>
-                    <button
-                      onClick={onCategoryClick}
-                      className={COLUMN_SIZES[2]}
-                    >
-                      Category {getArrow(sortState.category)}
-                    </button>
-                    <button onClick={onKindClick} className={COLUMN_SIZES[3]}>
-                      Kind {getArrow(sortState.kind)}
-                    </button>
-                    <button onClick={onYearClick} className={COLUMN_SIZES[4]}>
-                      Year {getArrow(sortState.year)}
-                    </button>
-                  </nav>
-                </li>
-
-                {sortedData?.map((item, index) => {
-                  const year = item.year?.split('-')[0];
-                  return (
-                    <Disclosure key={item._id}>
-                      {({open}) => (
-                        <li
-                          className="flex-1 overflow-hidden border-b-[.8px] opacity-0 2xl:border-b"
-                          tabIndex={index}
-                        >
-                          <Disclosure.Button
-                            className={clsx(
-                              'flex w-full flex-1 justify-between overflow-hidden text-left',
-                              GRID_GAP,
-                              !open && ' hover:opacity-50',
-                              'font-body',
-                            )}
-                          >
-                            <div className={COLUMN_SIZES[0]}>
-                              {String(item.id).padStart(3, '0')}
-                            </div>
-                            <div className={COLUMN_SIZES[1]}>
-                              <div className=" truncate">{item.title}</div>
-
-
-
-
-
-
-                              {open && (
-                                <div className="md:hidden">
-                                  {item.kind && <div>Kind: {item.kind}</div>}
-                                  {item.category && (
-                                    <div>Category: {item.category}</div>
-                                  )}
-                                  {item.year && <div>Year: {year}</div>}
-                                </div>
-                              )}
-
-
-
-                            </div>
-                            <div className={COLUMN_SIZES[2]}>{item.kind}</div>
-                            <div className={COLUMN_SIZES[3]}>
-                              {item.category || ''}
-                            </div>
-                            <div className={COLUMN_SIZES[4]}>{year}</div>
-                          </Disclosure.Button>
-                          <Disclosure.Panel>
-                            <div
-                              className={clsx(
-                                'flex w-full flex-1 justify-between text-left',
-                                GRID_GAP,
-                                'font-body text-xxs',
-                              )}
-                            >
-                              <div
-                                className={clsx(
-                                  COLUMN_SIZES[0],
-                                  'hidden md:block',
-                                )}
-                              ></div>
-                              <div className={COLUMN_SIZES[1]}>
-                                {item._type == 'productWithVariant' ? (
-                                  <div>
-                                    <div
-                                      className="rte body"
-                                      dangerouslySetInnerHTML={{
-                                        __html: item.description,
-                                      }}
-                                    />
-                                  </div>
-                                ) : (
-                                  <div>
-                                    <PortableText
-                                      blocks={item.description}
-                                      className="body"
-                                    />
-                                  </div>
-                                )}
-                              </div>
-                              <div className={COLUMN_SIZES[2]}> </div>
-                              <div className={COLUMN_SIZES[3]}></div>
-                              <div className={COLUMN_SIZES[4]}></div>
-                            </div>
-                            <div className="mb-4 mt-2 md:ml-22">
-                              <IndexImages item={item} />
-                            </div>
-                          </Disclosure.Panel>
-                        </li>
-                      )}
-                    </Disclosure>
-                  );
-                })}
-              </ul> */}
-              </StaggerIndexList>
+                </StaggerIndexList>
+              </Container>
             </Await>
           </Suspense>
         );

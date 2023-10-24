@@ -7,7 +7,8 @@ import type {SanityModule} from '~/lib/sanity';
 import type {ProductWithNodes} from '~/types/shopify';
 import ModuleSlideshow from './ModuleSlideshow';
 import {useState} from 'react';
-import { Theme } from '../context/ThemeProvider';
+import {Theme} from '../context/ThemeProvider';
+import {Typography} from '../global/Typography';
 
 // Sanity modules to render in full width (across all grid columns)
 const FULL_WIDTH_MODULE_TYPES: SanityModule['_type'][] = [
@@ -118,8 +119,8 @@ export default function ModuleGrid({
   const [zoom, setZoom] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const onClick = () => {
-    setZoom(true)
-  }
+    setZoom(true);
+  };
   return (
     <>
       <ul className={clsx(className, GRID_GAP)}>
@@ -140,19 +141,23 @@ export default function ModuleGrid({
             return (
               <li
                 key={item._key}
-                className={clsx(stagger && 'opacity-0', 'min-w-[68px] cursor-pointer')}
+                className={clsx(
+                  stagger && 'opacity-0',
+                  'min-w-[68px] cursor-pointer',
+                )}
                 onClick={onClick}
               >
-                <div className='h-full'>
+                <div>
                   <Module
                     imageAspectClassName={productImageAspect}
                     module={item}
-                   
                   />
                   {showCount && (
-                    <div className="mb-2 mt-1 text-center text-xxs 2xl:text-lg">
-                      {String(index + 1).padStart(2, '0')}
-                    </div>
+                    <Typography type="body" size="sm">
+                      <div className="mb-2 mt-1 text-center  ">
+                        {String(index + 1).padStart(2, '0')}
+                      </div>
+                    </Typography>
                   )}
                 </div>
               </li>
@@ -172,19 +177,21 @@ export default function ModuleGrid({
           }
         })}
       </ul>
-      {zoom && <ModuleSlideshow
-        modules={items}
-        zoom={zoom}
-        setZoom={setZoom}
-        index={selectedIndex}
-        setIndex={setSelectedIndex}
-        detached
-        showIndex={showIndex}
-        title={title}
-        outboundLink={outboundLink}
-        outboundLinkText={outboundLinkText}
-        mode={theme}
-      />}
+      {zoom && (
+        <ModuleSlideshow
+          modules={items}
+          zoom={zoom}
+          setZoom={setZoom}
+          index={selectedIndex}
+          setIndex={setSelectedIndex}
+          detached
+          showIndex={showIndex}
+          title={title}
+          outboundLink={outboundLink}
+          outboundLinkText={outboundLinkText}
+          mode={theme}
+        />
+      )}
     </>
   );
 }

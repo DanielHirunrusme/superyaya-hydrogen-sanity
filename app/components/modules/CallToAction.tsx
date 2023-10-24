@@ -36,8 +36,8 @@ export default function CallToActionModule({module}: Props) {
         {/* Title */}
         <div
           className={clsx(
-            'text-xl ', //
-            'md:text-2xl',
+            ' ', //
+            '',
           )}
         >
           {module.title}

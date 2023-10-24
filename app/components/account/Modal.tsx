@@ -33,7 +33,7 @@ export function Modal({
             tabIndex={0}
           >
             <div className="mb-10 flex items-start justify-between">
-              <h3 className="text-xl ">{title}</h3>
+              <h3 className=" ">{title}</h3>
               <Link to={cancelLink} preventScrollReset>
                 <CloseIcon />
               </Link>
