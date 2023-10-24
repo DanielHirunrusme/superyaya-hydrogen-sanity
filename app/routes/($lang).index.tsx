@@ -2,7 +2,7 @@ import {Await, useLoaderData} from '@remix-run/react';
 import {AnalyticsPageType, type SeoHandleFunction} from '@shopify/hydrogen';
 import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
 import {SanityPreview} from 'hydrogen-sanity';
-import {Suspense, useState, useEffect} from 'react';
+import React, {Suspense, useState, useEffect, useMemo} from 'react';
 import clsx from 'clsx';
 import {Link} from '~/components/Link';
 import {GRID_GAP} from '~/lib/constants';
@@ -17,6 +17,14 @@ import PortableText from '~/components/portableText/PortableText';
 import ModuleGrid from '~/components/modules/ModuleGrid';
 import {ArrowDownIcon} from '~/components/icons/ArrowDown';
 import {ArrowUpIcon} from '~/components/icons/ArrowUp';
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
+  SortingState,
+  useReactTable,
+} from '@tanstack/react-table';
 
 const seo: SeoHandleFunction = ({data}) => ({
   title: data?.page?.seo?.title || 'SUPER YAYA',
@@ -58,6 +66,7 @@ export async function loader({context, params}: LoaderArgs) {
   // Resolve any references to products on the Storefront API
   const gids = fetchGids({page, context});
 
+
   return defer({
     page,
     gids,
@@ -67,169 +76,70 @@ export async function loader({context, params}: LoaderArgs) {
   });
 }
 
+export type IndexItem = {
+  _type: string;
+  no: number;
+  title: string;
+  description: any;
+  category: string;
+  kind: string;
+  year: string;
+};
+
 export default function IndexPage() {
   const {page, gids} = useLoaderData<typeof loader>();
-  const [sorting, setSorting] = useState(false);
-  const [sort, setSort] = useState('year');
-  const [sortedData, setSortedData] = useState([]);
-  const [sortedHeader, setSortedHeader] = useState({});
   const [data, setData] = useState([]);
-  const [sortState, setSortState] = useState({
-    id: 'asc',
-    title: '',
-    category: '',
-    kind: '',
-    year: '',
+
+
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const columns = useMemo<ColumnDef<IndexItem>[]>(
+    () => [
+      {
+        accessorKey: 'id',
+        header: 'No.',
+        cell: (cell) => {
+          return <div>{String(cell.getValue()).padStart(3, '0')}</div>;
+        },
+      },
+      {
+        accessorKey: 'title',
+        header: 'Title',
+      },
+      {
+        accessorKey: 'category',
+        header: 'Category',
+      },
+      {
+        accessorKey: 'kind',
+        header: 'Kind',
+      },
+      {
+        accessorKey: 'year',
+        header: 'Year',
+        cell: (cell) => {
+          const year = cell.getValue()?.split('-')[0];
+          return <div>{year}</div>;
+        },
+      },
+    ],
+    [],
+  );
+
+  const table = useReactTable({
+    data,
+    columns,
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    debugTable: true,
   });
-
-  const getSortState = (key: string) => {
-    if (key === 'asc') {
-      return 'desc';
-    } else {
-      return 'asc';
-    }
-  };
-
-  const onNumClick = () => {
-    setSortedData([...sortByIndex(getSortState(sortState.id))]);
-    setSortState({
-      id: getSortState(sortState.id),
-      category: '',
-      kind: '',
-      title: '',
-      year: '',
-    });
-  };
-  const onTitleClick = () => {
-    setSortedData([...sortByTitle(getSortState(sortState.title))]);
-    setSortState({
-      id: '',
-      title: getSortState(sortState.title),
-      category: '',
-      kind: '',
-      year: '',
-    });
-  };
-  const onCategoryClick = () => {
-    setSortedData([...sortByCategory(getSortState(sortState.category))]);
-    setSortState({
-      id: '',
-      category: getSortState(sortState.category),
-      title: '',
-      kind: '',
-      year: '',
-    });
-  };
-  const onKindClick = () => {
-    setSortedData([...sortByKind(getSortState(sortState.kind))]);
-    setSortState({
-      id: '',
-      kind: getSortState(sortState.kind),
-      category: '',
-      title: '',
-      year: '',
-    });
-  };
-  const onYearClick = () => {
-    setSortedData([...sortByYear(getSortState(sortState.year))]);
-    setSortState({
-      id: '',
-      year: getSortState(sortState.year),
-      category: '',
-      title: '',
-      kind: '',
-    });
-  };
-
-  const sortByIndex = (order: 'asc' | 'desc') => {
-    const sorted = data.sort((a, b) => {
-      if (order === 'asc') {
-        return a.id - b.id;
-      } else {
-        return b.id - a.id;
-      }
-    });
-
-    return sorted;
-  };
-
-  const sortByYear = (order: 'asc' | 'desc') => {
-    const sorted = data.sort((a, b) => {
-      const aYear = a.year?.split('-')[0];
-      const bYear = b.year?.split('-')[0];
-      if (aYear && bYear) {
-        if (order === 'asc') {
-          return Number(aYear) - Number(bYear);
-        } else {
-          return Number(bYear) - Number(aYear);
-        }
-      }
-      return 0;
-    });
-
-    return sorted;
-  };
-
-  const sortByTitle = (order: 'asc' | 'desc') => {
-    const sorted = data.sort((a, b) => {
-      if (a.title && b.title) {
-        if (order === 'asc') {
-          return a.title.localeCompare(b.title);
-        } else {
-          return b.title.localeCompare(a.title);
-        }
-      }
-      return 0;
-    });
-
-    return sorted;
-  };
-
-  const sortByCategory = (order: 'asc' | 'desc') => {
-    const sorted = data.sort((a, b) => {
-      const aCat = a.category;
-      const bCat = b.category;
-      if (aCat && bCat) {
-        if (order === 'asc') {
-          return aCat.localeCompare(bCat);
-        } else {
-          return bCat.localeCompare(aCat);
-        }
-      }
-      return 0;
-    });
-
-    return sorted;
-  };
-
-  const sortByKind = (order: 'asc' | 'desc') => {
-    const sorted = data.sort((a, b) => {
-      const aKind = a.kind;
-      const bKind = b.kind;
-      if (aKind && bKind) {
-        if (order === 'asc') {
-          return aKind.localeCompare(bKind);
-        } else {
-          return bKind.localeCompare(aKind);
-        }
-      }
-
-      return 0;
-    });
-
-    return sorted;
-  };
-
-  useEffect(() => {
-    if (data?.length > 0) {
-      console.log('data', data);
-      setSortedData(sortByIndex('asc'));
-    }
-  }, [data]);
 
   useEffect(() => {
     if (page) {
-      console.log('set Data');
+      console.log('ue:', page)
       const d = page?.map((item: any, index: number) => {
         return {
           id: index,
@@ -248,23 +158,161 @@ export default function IndexPage() {
     }
   }, [page]);
 
-  const getArrow = (key: string) => {
-    if (key === 'asc') {
-      return <ArrowDownIcon className="h-4 w-4" />;
-    } else if (key === 'desc') {
-      return <ArrowUpIcon className="h-4 w-4" />;
-    } else {
-      return <></>;
-    }
-  };
-
   return (
     <SanityPreview data={page} query={INDEX_QUERY}>
-      {(page) => (
-        <Suspense>
-          <Await resolve={gids}>
-            <StaggerIndexList className="mx-auto flex w-full max-w-[1160px] 2xl:max-w-[72.77vw]">
-              <ul className="w-full ">
+      {(page) => {  
+        // console.log('page', page)
+        return (
+          <Suspense>
+            <Await resolve={gids}>
+              <StaggerIndexList className="mx-auto flex w-full max-w-[1160px] flex-col 2xl:max-w-[72.77vw]">
+                <div>
+                  <ul
+                    className={clsx(
+                      'hidden w-full flex-1 justify-between text-left md:flex',
+                      GRID_GAP,
+                    )}
+                  >
+                    {table.getHeaderGroups().map((headerGroup) => (
+                      <React.Fragment key={headerGroup.id}>
+                        {headerGroup.headers.map((header, index) => {
+                          return (
+                            <li key={header.id} className={COLUMN_SIZES[index]}>
+                              <div>
+                                {header.isPlaceholder ? null : (
+                                  <div
+                                    {...{
+                                      className: header.column.getCanSort()
+                                        ? 'cursor-pointer select-none flex gap-1 items-center'
+                                        : '',
+                                      onClick:
+                                        header.column.getToggleSortingHandler(),
+                                    }}
+                                  >
+                                    {flexRender(
+                                      header.column.columnDef.header,
+                                      header.getContext(),
+                                    )}
+                                    {{
+                                      asc: <ArrowUpIcon />,
+                                      desc: <ArrowDownIcon />,
+                                    }[header.column.getIsSorted() as string] ??
+                                      null}
+                                  </div>
+                                )}
+                              </div>
+                            </li>
+                          );
+                        })}
+                      </React.Fragment>
+                    ))}
+                  </ul>
+                  <ul>
+                    {table
+                      .getRowModel()
+                      .rows.slice(0, 10000)
+                      .map((row) => {
+                        return (
+                          <Disclosure key={row.id}>
+                            {({open}) => (
+                              <li
+                                className="flex-1 overflow-hidden border-b-[.8px] opacity-0 2xl:border-b"
+                                key={row.id}
+                              >
+                                <Disclosure.Button
+                                  className={clsx(
+                                    'flex w-full flex-1 justify-between overflow-hidden text-left',
+                                    GRID_GAP,
+                                    !open && ' hover:opacity-50',
+                                    'font-body',
+                                  )}
+                                >
+                                  {row.getVisibleCells().map((cell, index) => {
+                                    const year =
+                                      row.original.year?.split('-')[0];
+                                    return (
+                                      <div
+                                        className={COLUMN_SIZES[index]}
+                                        key={cell.id}
+                                      >
+                                        {flexRender(
+                                          cell.column.columnDef.cell,
+                                          cell.getContext(),
+                                        )}
+                                        <>
+                                          {index == 1 && open && (
+                                            <div className="md:hidden">
+                                              {row.original.kind && (
+                                                <div>
+                                                  Kind: {row.original.kind}
+                                                </div>
+                                              )}
+                                              {row.original.category && (
+                                                <div>
+                                                  Category:{' '}
+                                                  {row.original.category}
+                                                </div>
+                                              )}
+                                              {row.original.year && (
+                                                <div>Year: {year}</div>
+                                              )}
+                                            </div>
+                                          )}
+                                        </>
+                                      </div>
+                                    );
+                                  })}
+                                </Disclosure.Button>
+                                <Disclosure.Panel>
+                                  <div
+                                    className={clsx(
+                                      'flex w-full flex-1 justify-between text-left',
+                                      GRID_GAP,
+                                      'font-body text-xxs',
+                                    )}
+                                  >
+                                    <div
+                                      className={clsx(
+                                        COLUMN_SIZES[0],
+                                        'hidden md:block',
+                                      )}
+                                    ></div>
+                                    <div className={COLUMN_SIZES[1]}>
+                                      {row.original._type ==
+                                      'productWithVariant' ? (
+                                        <div>
+                                          <div
+                                            className="rte body"
+                                            dangerouslySetInnerHTML={{
+                                              __html: row.original.description,
+                                            }}
+                                          />
+                                        </div>
+                                      ) : (
+                                        <div>
+                                          <PortableText
+                                            blocks={row.original.description}
+                                            className="body"
+                                          />
+                                        </div>
+                                      )}
+                                    </div>
+                                    <div className={COLUMN_SIZES[2]}> </div>
+                                    <div className={COLUMN_SIZES[3]}></div>
+                                    <div className={COLUMN_SIZES[4]}></div>
+                                  </div>
+                                  <div className="mb-4 mt-2 md:ml-22">
+                                    <IndexImages item={row.original} />
+                                  </div>
+                                </Disclosure.Panel>
+                              </li>
+                            )}
+                          </Disclosure>
+                        );
+                      })}
+                  </ul>
+                </div>
+                {/* <ul className="w-full ">
                 <li className="border-b-[.8px]  font-body opacity-0 2xl:border-b">
                   <nav
                     className={clsx(
@@ -315,7 +363,12 @@ export default function IndexPage() {
                             </div>
                             <div className={COLUMN_SIZES[1]}>
                               <div className=" truncate">{item.title}</div>
-                              {/* Mobile information */}
+
+
+
+
+
+
                               {open && (
                                 <div className="md:hidden">
                                   {item.kind && <div>Kind: {item.kind}</div>}
@@ -325,6 +378,9 @@ export default function IndexPage() {
                                   {item.year && <div>Year: {year}</div>}
                                 </div>
                               )}
+
+
+
                             </div>
                             <div className={COLUMN_SIZES[2]}>{item.kind}</div>
                             <div className={COLUMN_SIZES[3]}>
@@ -378,17 +434,17 @@ export default function IndexPage() {
                     </Disclosure>
                   );
                 })}
-              </ul>
-            </StaggerIndexList>
-          </Await>
-        </Suspense>
-      )}
+              </ul> */}
+              </StaggerIndexList>
+            </Await>
+          </Suspense>
+        );
+      }}
     </SanityPreview>
   );
 }
 
-function IndexImages({item}) {
-  return <></>;
+function IndexImages({item}: {item: any}) {
   switch (item._type) {
     case 'productWithVariant':
       return (
