@@ -40,15 +40,12 @@ export default function ProductImages({
   return (
     <>
       <div className="group relative">
-        <div
-          className={clsx(
-            'relative grid grid-cols-4 gap-2 md:flex',
-          )}
-        >
+        <div className={clsx('relative grid grid-cols-4 gap-2 md:flex')}>
           {storefrontProduct?.images?.nodes?.map((image, index) => (
             <div
               onClick={() => onClick(index)}
               className="flex-grow-0 cursor-pointer md:w-[70px]"
+              key={image._key}
             >
               <Image
                 key={image.id}

@@ -66,7 +66,6 @@ export async function loader({context, params}: LoaderArgs) {
   // Resolve any references to products on the Storefront API
   const gids = fetchGids({page, context});
 
-
   return defer({
     page,
     gids,
@@ -89,7 +88,6 @@ export type IndexItem = {
 export default function IndexPage() {
   const {page, gids} = useLoaderData<typeof loader>();
   const [data, setData] = useState([]);
-
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const columns = useMemo<ColumnDef<IndexItem>[]>(
@@ -139,20 +137,36 @@ export default function IndexPage() {
 
   useEffect(() => {
     if (page) {
-      console.log('ue:', page)
+      console.log('page:', page);
       const d = page?.map((item: any, index: number) => {
-        return {
-          id: index,
-          category: item.category,
-          description: item.description,
-          kind: item.kind,
-          modules: item.modules,
-          slug: item.slug,
-          title: item.title,
-          year: item.year,
-          _id: item._id,
-          _type: item._type,
-        };
+        if (item._type === 'productWithVariant') {
+          return {
+            id: index,
+            category: item.category,
+            description: item.description,
+            kind: item.kind,
+            modules: item.modules,
+            slug: item.slug,
+            title: item.title,
+            year: item.year,
+            _id: item._id,
+            productWithVariant: item.productWithVariant,
+            _type: item._type,
+          };
+        } else {
+          return {
+            id: index,
+            category: item.category,
+            description: item.description,
+            kind: item.kind,
+            modules: item.modules,
+            slug: item.slug,
+            title: item.title,
+            year: item.year,
+            _id: item._id,
+            _type: item._type,
+          };
+        }
       });
       setData(d);
     }
@@ -160,7 +174,7 @@ export default function IndexPage() {
 
   return (
     <SanityPreview data={page} query={INDEX_QUERY}>
-      {(page) => {  
+      {(page) => {
         // console.log('page', page)
         return (
           <Suspense>

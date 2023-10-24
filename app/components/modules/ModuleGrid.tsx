@@ -143,7 +143,7 @@ export default function ModuleGrid({
                 className={clsx(stagger && 'opacity-0', 'min-w-[68px] cursor-pointer')}
                 onClick={onClick}
               >
-                <div>
+                <div className='h-full'>
                   <Module
                     imageAspectClassName={productImageAspect}
                     module={item}

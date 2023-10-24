@@ -200,7 +200,7 @@ export async function fetchGids({
       },
     );
 
-// console.log('productsAndCollections', productsAndCollections  )
+  // console.log('productsAndCollections', productsAndCollections  )
   return extract(`..[id?]`, productsAndCollections) as (
     | Product
     | Collection
