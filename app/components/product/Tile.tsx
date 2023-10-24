@@ -38,7 +38,7 @@ export default function ProductTile({storefrontProduct, variantGid}: Props) {
     <Link to={`/products/${storefrontProduct.handle}`}>
       <div
         className={clsx(
-          'group min-w-[12.5em] rounded-md bg-yellow p-4 transition-[border-radius] duration-500 ease-out',
+          'group min-w-[12.5em] rounded-md bg-yellow text-black p-4 transition-[border-radius] duration-500 ease-out',
           'hover:rounded-xl',
         )}
         role="row"

@@ -147,6 +147,7 @@ export default function ModuleGrid({
                   <Module
                     imageAspectClassName={productImageAspect}
                     module={item}
+                   
                   />
                   {showCount && (
                     <div className="mb-2 mt-1 text-center text-xxs 2xl:text-lg">

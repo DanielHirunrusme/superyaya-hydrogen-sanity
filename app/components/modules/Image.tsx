@@ -13,9 +13,10 @@ type Props = {
   module: SanityModuleImage;
   parentModule?: any;
   mode?: Theme.DARK | Theme.LIGHT;
+  inSlideShow?: boolean;
 };
 
-export default function ImageModule({module, parentModule, mode}: Props) {
+export default function ImageModule({module, parentModule, mode, inSlideShow}: Props) {
   if (!module.image) {
     return null;
   }
@@ -24,10 +25,10 @@ export default function ImageModule({module, parentModule, mode}: Props) {
     <>
       {module.variant === 'callToAction' && module.callToAction?.link ? (
         <Link className="group" link={module.callToAction.link}>
-          <ImageContent module={module} />
+          <ImageContent module={module} inSlideShow={inSlideShow} />
         </Link>
       ) : (
-        <ImageContent parentModule={parentModule} module={module} mode={mode} />
+        <ImageContent parentModule={parentModule} module={module} mode={mode} inSlideShow={inSlideShow} />
       )}
 
       {/* Caption */}
@@ -38,7 +39,7 @@ export default function ImageModule({module, parentModule, mode}: Props) {
       )}
 
       {/* Product tags */}
-      {module.variant === 'productTags' && (
+      {module.variant === 'productTags' && !inSlideShow && (
         <div className=" flex flex-wrap gap-x-1 gap-y-2">
           {module.productTags?.map((tag) => {
             if (!tag?.gid) {
@@ -59,7 +60,7 @@ export default function ImageModule({module, parentModule, mode}: Props) {
   );
 }
 
-const ImageContent = ({module, parentModule, mode}: Props) => {
+const ImageContent = ({module, parentModule, mode, inSlideShow}: Props) => {
   const image = module.image;
   const mobileImage = module.mobileImage;
   const [root] = useMatches();
@@ -114,7 +115,7 @@ const ImageContent = ({module, parentModule, mode}: Props) => {
       )}
 
       {/* Product hotspots */}
-      {module.variant === 'productHotspots' && (
+      {module.variant === 'productHotspots' && inSlideShow && (
         <>
           {module.productHotspots?.map((hotspot) => {
             if (!hotspot?.product?.gid) {

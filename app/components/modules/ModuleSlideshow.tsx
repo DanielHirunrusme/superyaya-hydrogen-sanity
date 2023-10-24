@@ -128,7 +128,7 @@ export default function ModuleSlideshow(props) {
                 )}
                 key={module._key}
               >
-                <Module module={module} mode={mode} />
+                <Module module={module} mode={mode} inSlideShow={true} />
                 <div
                   data-await-intro
                   className={clsx(

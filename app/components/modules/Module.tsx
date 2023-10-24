@@ -12,9 +12,10 @@ type Props = {
   imageAspectClassName?: string;
   module: SanityModule;
   mode?: Theme.DARK | Theme.LIGHT;
+  inSlideShow?: boolean;
 };
 
-export default function Module({imageAspectClassName, module, mode}: Props) {
+export default function Module({imageAspectClassName, module, mode, inSlideShow}: Props) {
   switch (module._type) {
     case 'module.callout':
       return <CalloutModule module={module} />;
@@ -23,7 +24,7 @@ export default function Module({imageAspectClassName, module, mode}: Props) {
     case 'module.collection':
       return <CollectionModule module={module} />;
     case 'module.image':
-      return <ImageModule module={module} mode={mode} />;
+      return <ImageModule module={module} mode={mode} inSlideShow={inSlideShow} />;
     case 'module.gallery':
       return <GalleryModule module={module} />;
     case 'module.instagram':
