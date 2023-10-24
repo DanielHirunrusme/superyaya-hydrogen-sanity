@@ -66,9 +66,7 @@ export default function Page() {
   const [zoom, setZoom] = useState(false);
   const [index, setIndex] = useState(0);
 
-  const toggleIndex = () => {
-    setShowIndex(!showIndex);
-  };
+   
 
   return (
     <ColorTheme value={page.colorTheme}>

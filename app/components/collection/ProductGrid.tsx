@@ -9,6 +9,9 @@ import ModuleGrid from '~/components/modules/ModuleGrid';
 import type {SanityModule} from '~/lib/sanity';
 import {combineProductsAndModules} from '~/lib/utils';
 import StaggerIndexList from '../framer/StaggerIndexList';
+import {stagger, useAnimate} from 'framer-motion';
+import {STAGGER_SPEED} from '~/lib/constants';
+import {useTheme} from '../context/ThemeProvider';
 
 export default function ProductGrid({
   collection,
@@ -56,6 +59,35 @@ export default function ProductGrid({
     );
   }
 
+  const [scope, animate] = useAnimate();
+  const [
+    theme,
+    setTheme,
+    navVisible,
+    setNavVisible,
+    plpVisible,
+    setPlpVisible,
+  ] = useTheme();
+
+  useEffect(() => {
+    const play = async () => {
+      const sequence = [
+        [
+          'ul li',
+          {opacity: 1},
+          {delay: stagger(STAGGER_SPEED), duration: 0.01},
+        ],
+      ];
+      await animate(sequence);
+    };
+
+    if (navVisible) {
+      play().then(() => {
+        setPlpVisible(true);
+      });
+    }
+  }, [navVisible]);
+
   useEffect(() => {
     if (!fetcher.data) return;
     const {collection} = fetcher.data;
@@ -66,8 +98,8 @@ export default function ProductGrid({
   }, [fetcher.data]);
 
   return (
-    <StaggerIndexList>
-      <ModuleGrid items={items} stagger />
+    <ul ref={scope}>
+      <ModuleGrid items={items} stagger={!plpVisible} />
       {nextPage && (
         <div className="flex h-30 items-center justify-center">
           {fetcher.state !== 'idle' ? (
@@ -83,6 +115,6 @@ export default function ProductGrid({
           )}
         </div>
       )}
-    </StaggerIndexList>
+    </ul>
   );
 }

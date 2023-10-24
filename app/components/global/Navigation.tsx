@@ -211,7 +211,7 @@ export default function Navigation({menuLinks, logoVisible}: Props) {
                     className="hidden gap-5 md:flex 2xl:gap-10"
                     variants={boxVariant}
                     animate={navVisible ? 'visible' : 'hidden'}
-                    initial="hidden"
+                    initial={!navVisible ? 'hidden' : 'visible'}
                   >
                     {link.links.map((subLink) => {
                       let hasChildChildActive = false;
@@ -232,7 +232,8 @@ export default function Navigation({menuLinks, logoVisible}: Props) {
                           <Link
                             className={clsx(
                               'linkTextNavigation',
-                              (hasChildChildActive || isActive) && 'linkTextNavigationActive',
+                              (hasChildChildActive || isActive) &&
+                                'linkTextNavigationActive',
                             )}
                             to={subLink.slug}
                           >
@@ -321,7 +322,7 @@ export default function Navigation({menuLinks, logoVisible}: Props) {
                         className="hidden gap-5 md:flex 2xl:gap-10"
                         variants={boxVariant}
                         animate={navVisible ? 'visible' : 'hidden'}
-                        initial="hidden"
+                        initial={!navVisible ? 'hidden' : 'visible'}
                       >
                         {subLink.links.map((subSubLink) => {
                           return (
@@ -363,23 +364,10 @@ export default function Navigation({menuLinks, logoVisible}: Props) {
           {opacity: 1},
           {delay: stagger(STAGGER_SPEED), duration: 0.01},
         ],
-        [
-          'nav ul+ul li',
-          {opacity: 1},
-          {delay: stagger(STAGGER_SPEED), duration: 0.01},
-        ],
-        [
-          'nav ul+ul li',
-          {opacity: 1},
-          {delay: stagger(STAGGER_SPEED), duration: 0.01},
-        ],
       ];
       await animate(sequence).then(() => {
         setNavVisible(true);
       });
-
-      // setTheme(Theme.DARK);
-      // setNavVisible(true);
     };
 
     if (!navVisible) {
@@ -388,27 +376,6 @@ export default function Navigation({menuLinks, logoVisible}: Props) {
       }
     }
   }, [isInView, logoVisible, location, navVisible]);
-
-  // useEffect(() => {
-  //   if (navVisible) {
-  //     const showSubNav = async () => {
-  //       const sequence = [
-  //         [
-  //           'nav ul+ul li',
-  //           {opacity: 1},
-  //           {delay: stagger(STAGGER_SPEED), duration: 0.01},
-  //         ],
-  //         [
-  //           'nav ul+ul li',
-  //           {opacity: 1},
-  //           {delay: stagger(STAGGER_SPEED), duration: 0.01},
-  //         ],
-  //       ];
-  //       await animate(sequence);
-  //     };
-  //     showSubNav();
-  //   }
-  // }, [location, navVisible]);
 
   return (
     <nav

@@ -38,11 +38,11 @@ export const handle = {
 };
 
 const COLUMN_SIZES = [
-  'md:w-20 2xl:w-[8.75rem] flex-grow-0 text-left ml-2 2xl:ml-4 py-1 uppercase flex gap-1',
+  'md:w-20 2xl:w-[8.75rem] flex-grow-0 text-left pl-2 2xl:pl-4 py-1 uppercase flex gap-1',
   'flex-1 text-left py-1 overflow-hidden uppercase flex gap-1',
   'hidden md:flex w-48 2xl:w-[19.625rem] flex-grow-0 text-left py-1 uppercase gap-1',
   'hidden md:flex w-32 2xl:w-[14rem] flex-grow-0 text-left py-1 uppercase gap-1',
-  'hidden md:flex w-16 2xl:w-[4.5rem] flex-grow-0 text-left mr-2 2xl:mr-4 py-1 uppercase gap-1',
+  'hidden md:flex w-16 2xl:w-[4.5rem] flex-grow-0 text-left pr-2 2xl:pr-4 py-1 uppercase gap-1',
 ];
 
 export async function loader({context, params}: LoaderArgs) {
@@ -184,14 +184,14 @@ export default function IndexPage() {
                   <ul
                     className={clsx(
                       'hidden w-full flex-1 justify-between text-left md:flex',
-                      GRID_GAP,
+               
                     )}
                   >
                     {table.getHeaderGroups().map((headerGroup) => (
                       <React.Fragment key={headerGroup.id}>
                         {headerGroup.headers.map((header, index) => {
                           return (
-                            <li key={header.id} className={COLUMN_SIZES[index]}>
+                            <li key={header.id} className={clsx(COLUMN_SIZES[index], 'opacity-0 border-b')}>
                               <div>
                                 {header.isPlaceholder ? null : (
                                   <div
@@ -236,7 +236,7 @@ export default function IndexPage() {
                                 <Disclosure.Button
                                   className={clsx(
                                     'flex w-full flex-1 justify-between overflow-hidden text-left',
-                                    GRID_GAP,
+                                 
                                     !open && ' hover:opacity-50',
                                     'font-body',
                                   )}

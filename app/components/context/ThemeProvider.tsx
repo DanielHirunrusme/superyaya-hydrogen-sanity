@@ -13,6 +13,8 @@ const defaultContext = {
   setTheme: () => {},
   navVisible: false,
   setNavVisible: () => {},
+  plpVisible: false,
+  setPlpVisible: () => {},
 };
 
 const ThemeContext = createContext(defaultContext);
@@ -20,9 +22,19 @@ const ThemeContext = createContext(defaultContext);
 function ThemeProvider({children}: {children: ReactNode}) {
   const [theme, setTheme] = useState<Theme | null>(Theme.LIGHT);
   const [navVisible, setNavVisible] = useState<boolean>(false);
+  const [plpVisible, setPlpVisible] = useState<boolean>(false);
 
   return (
-    <ThemeContext.Provider value={[theme, setTheme, navVisible, setNavVisible]}>
+    <ThemeContext.Provider
+      value={[
+        theme,
+        setTheme,
+        navVisible,
+        setNavVisible,
+        plpVisible,
+        setPlpVisible,
+      ]}
+    >
       {children}
     </ThemeContext.Provider>
   );
