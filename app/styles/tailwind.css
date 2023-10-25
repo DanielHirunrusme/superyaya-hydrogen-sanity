@@ -81,7 +81,7 @@
 
 @layer components {
   .linkTextNavigation {
-    @apply uppercase decoration-[.8px] underline-offset-4 hover:opacity-50;
+    @apply uppercase decoration-1 underline-offset-4 hover:opacity-50;
   }
 
   .linkTextNavigation.linkTextNavigationPage {

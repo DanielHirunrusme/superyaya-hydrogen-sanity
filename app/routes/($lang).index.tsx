@@ -241,7 +241,7 @@ export default function IndexPage() {
                             <Disclosure key={row.id}>
                               {({open}) => (
                                 <li
-                                  className="flex-1 overflow-hidden border-b-[.8px] opacity-0 2xl:border-b"
+                                  className="flex-1 overflow-hidden border-b opacity-0 2xl:border-b"
                                   key={row.id}
                                 >
                                   <Disclosure.Button

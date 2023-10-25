@@ -3,7 +3,7 @@ import {defineField} from 'sanity'
 
 export default defineField({
   name: 'module.gallery',
-  title: 'Gallery',
+  title: '2-Up Images',
   type: 'object',
   icon: ImageIcon,
   fields: [
