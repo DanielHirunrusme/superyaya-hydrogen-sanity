@@ -30,7 +30,7 @@ const getSwatch = (variants, selectOption) => {
 
   if (swatch?.reference?.image?.originalSrc) {
     return (
-      <div className={clsx('relative aspect-square')}>
+      <div className={clsx('relative aspect-square h-full')}>
         <Image
           className="absolute h-full w-full object-cover"
           alt="color"
@@ -149,7 +149,7 @@ export default function ProductOptions({
                         <span
                           className={clsx(
                             'block flex items-center text-left',
-                            option.name === 'Color' && 'gap-3 2xl:gap-6',
+                            option.name === 'Color' && 'gap-3 2xl:gap-6 h-full relative',
                           )}
                         >
                           {label()}

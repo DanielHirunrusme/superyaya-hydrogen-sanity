@@ -55,13 +55,14 @@ function EmailForm({
   const yyyyMmDd = new Date().toISOString().split('T')[0];
   return (
     <Form action="/api/contact" method="post" className="pt-[1em]">
+
       <Disclosure defaultOpen>
         {({open}) => (
           <>
             <fieldset>
               <Disclosure.Button className="flex gap-4">
                 <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
-                <label htmlFor="message">Special Requirements</label>
+                <label htmlFor="message">Special Requirements*</label>
               </Disclosure.Button>
               <Disclosure.Panel className="flex flex-col gap-4 pb-8">
                 <textarea
@@ -73,6 +74,32 @@ function EmailForm({
                 />
               </Disclosure.Panel>
             </fieldset>
+          </>
+        )}
+      </Disclosure>
+             {/* Contact Details */}
+             <Disclosure defaultOpen>
+        {({open}) => (
+          <>
+            <Disclosure.Button className="flex gap-4">
+              <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
+              <h4>Contact Details</h4>
+            </Disclosure.Button>
+            <Disclosure.Panel className="flex flex-col gap-4 pb-8">
+              <fieldset>
+                <label htmlFor="email">E-mail Address*</label>
+                <input
+                  placeholder="E-mail Address"
+                  type="email"
+                  name="email"
+                  required
+                />
+              </fieldset>
+              <fieldset>
+                <label htmlFor="phone">Phone</label>
+                <input placeholder="Phone" type="phone" name="phone" required />
+              </fieldset>
+            </Disclosure.Panel>
           </>
         )}
       </Disclosure>
@@ -120,32 +147,7 @@ function EmailForm({
           </>
         )}
       </Disclosure>
-      {/* Contact Details */}
-      <Disclosure>
-        {({open}) => (
-          <>
-            <Disclosure.Button className="flex gap-4">
-              <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
-              <h4>Contact Details</h4>
-            </Disclosure.Button>
-            <Disclosure.Panel className="flex flex-col gap-4 pb-8">
-              <fieldset>
-                <label htmlFor="email">E-mail Address</label>
-                <input
-                  placeholder="E-mail Address"
-                  type="email"
-                  name="email"
-                  required
-                />
-              </fieldset>
-              <fieldset>
-                <label htmlFor="phone">Phone</label>
-                <input placeholder="Phone" type="phone" name="phone" required />
-              </fieldset>
-            </Disclosure.Panel>
-          </>
-        )}
-      </Disclosure>
+     
       {/* Shipping Details */}
       <Disclosure>
         {({open}) => (

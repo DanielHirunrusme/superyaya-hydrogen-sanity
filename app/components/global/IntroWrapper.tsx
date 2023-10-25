@@ -47,7 +47,7 @@ export default function IntroWrapper(props: any) {
       >
         <div
           style={{
-            opacity: 0,
+            opacity: 1,
             aspectRatio: data.layout.introImage.metadata.dimensions.aspectRatio,
           }}
           className="absolute left-1/2 top-1/2 w-[103.5vw] -translate-x-1/2  -translate-y-1/2 rotate-90 transform md:w-[27.26vw] md:rotate-0"

@@ -13,7 +13,7 @@ type Props = {
 
 export default function RelatedProducts({relatedProducts}: Props) {
   const colorTheme = useColorTheme();
-  const products = relatedProducts && relatedProducts?.slice(0, 4);
+  const products = relatedProducts && relatedProducts?.slice(0, 12);
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function RelatedProducts({relatedProducts}: Props) {
 
   return (
     <div
-      className={clsx('mt-18 flex grid-cols-8 flex-col md:grid', GRID_GAP)}
+      className={clsx('mt-[11em] flex grid-cols-8 flex-col md:grid', GRID_GAP)}
       style={{background: colorTheme?.background || 'white'}}
     >
       <div className="hidden md:col-span-2 md:block"></div>

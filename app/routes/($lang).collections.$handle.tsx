@@ -73,7 +73,7 @@ export default function Page() {
       <Suspense>
         <Await resolve={gids}>
           <Container type="pageDescription" asChild>
-            <div className="mx-auto mb-22 text-center">
+            <div className="mx-auto mb-[36.92vw] md:mb-[7.035vw] xl:mb-[9.4328vw] 2xl:mb-[13.28125vw] text-center">
               <Typography type="rte">
                 <div className=" !uppercase ">
                   {page.collection}&nbsp;{page.title}

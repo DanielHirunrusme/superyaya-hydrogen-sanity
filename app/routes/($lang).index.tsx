@@ -106,13 +106,14 @@ export default function IndexPage() {
         header: 'Title',
       },
       {
+        accessorKey: 'kind',
+        header: 'Type',
+      },
+      {
         accessorKey: 'category',
         header: 'Category',
       },
-      {
-        accessorKey: 'kind',
-        header: 'Kind',
-      },
+
       {
         accessorKey: 'year',
         header: 'Year',
@@ -271,7 +272,7 @@ export default function IndexPage() {
                                                 <div className="md:hidden">
                                                   {row.original.kind && (
                                                     <Typography type="index">
-                                                      Kind: {row.original.kind}
+                                                      Type: {row.original.kind}
                                                     </Typography>
                                                   )}
                                                   {row.original.category && (

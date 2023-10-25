@@ -89,7 +89,7 @@
   }
 
   .linkTextNavigationActive {
-    @apply uppercase underline decoration-[.8px] underline-offset-4 hover:opacity-100;
+    @apply uppercase underline decoration-1 underline-offset-4 hover:opacity-100;
   }
 
   .portableText {
@@ -223,7 +223,7 @@ textarea {
 
 /* Collections */
 .collection-title svg {
-  @apply h-12 w-auto;
+  @apply h-[7vw] md:h-[4vw] w-auto;
 }
 
 @keyframes dash {
@@ -235,7 +235,6 @@ textarea {
 .collection-title svg path {
   stroke-dasharray: 100000000;
   stroke-dashoffset: 10000000;
-  fill: red;
   animation: dash 1s linear forwards;
 }
 

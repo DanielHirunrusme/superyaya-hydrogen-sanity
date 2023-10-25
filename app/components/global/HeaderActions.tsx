@@ -58,7 +58,7 @@ export default function HeaderActions(props: Props) {
       <ul
         ref={scope}
         className={clsx(
-          'fixed right-0 top-0 flex  items-center gap-[1em] px-mobile md:gap-[2em] md:px-tablet xl:px-laptop 2xl:px-desktop',
+          'fixed right-0 top-0 flex  items-center gap-[1em] px-mobile md:gap-[1.5em] md:px-tablet xl:px-laptop 2xl:px-desktop',
           HEADER_TOP,
         )}
       >

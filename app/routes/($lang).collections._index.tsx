@@ -61,14 +61,14 @@ export default function Index() {
   const {page, gids} = useLoaderData<typeof loader>();
 
   const draw = {
-    hidden: {pathLength: 1},
+    hidden: {pathLength: 1, opacity: 1},
     visible: (i) => {
-      const delay = i * 0.5;
+      const delay = i * 0.1;
       return {
         pathLength: 0,
-        // opacity: 1,
+        opacity: 1,
         transition: {
-          pathLength: {delay, type: 'linear', duration: 1.5, bounce: 0},
+          pathLength: {delay, type: 'linear', duration: .2, bounce: 0},
           opacity: {delay, duration: 0.01},
         },
       };
@@ -76,13 +76,13 @@ export default function Index() {
   };
 
 
-  const strokeWidth = "5.5em"
+  const strokeWidth = "1em"
   return (
     <SanityPreview data={page} query={SEASON_INDEX_PAGE}>
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
-            <div className="relative mx-auto w-full max-w-2xl">
+            {/* <div className="relative mx-auto w-full max-w-2xl">
               <svg
                 width="100%"
                 viewBox="0 0 1618 255"
@@ -178,161 +178,161 @@ export default function Index() {
               >
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={24}
                   d="M1513.23 108C1502.39 125.667 1480.03 163.9 1477.23 167.5C1473.73 172 1468.73 174.5 1479.73 161.5C1490.73 148.5 1515.73 121 1521.73 117C1527.73 113 1544.73 109.5 1545.23 118C1545.73 126.5 1532.23 138.5 1523.23 151.5C1514.23 164.5 1517.23 180 1533.73 171.5C1550.23 163 1573.73 132 1578.73 125"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={23}
                   d="M1461.5 132.5C1458.17 139.5 1449.4 155.1 1441 161.5C1430.5 169.5 1400.5 175.5 1409.5 149.5C1418.5 123.5 1429.5 115 1443.5 113C1457.5 111 1464 113.5 1464 121.5C1464 129.5 1455 132 1475 135C1495 138 1493.5 135.5 1501 126.5C1507 119.3 1509.5 116.833 1510 116.5"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={22}
                   d="M1352.56 182C1356.23 180.167 1365.16 175.9 1371.56 173.5C1379.56 170.5 1415.56 146 1418.06 138.5C1420.06 132.5 1424.23 125 1426.06 122"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={21}
                   d="M1387.56 133C1398.06 119.5 1386.06 105.5 1367.06 117.5C1361.06 120.5 1369.06 131 1370.56 139.5C1372.06 148 1378.06 158.5 1367.06 164.5C1356.06 170.5 1340.06 169.5 1339.06 156C1338.06 142.5 1349.56 148 1349.56 153C1349.56 158 1344.06 153 1343.06 153"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={20}
                   d="M1358.5 78.5L1346 94.5"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={19}
                   d="M1340.5 106.5C1331.5 119.5 1311.3 151.4 1306.5 163C1304 168.5 1318.5 181.5 1341.5 153C1359.9 130.2 1367.5 121.167 1369 119.5"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={18}
                   d="M1279.22 137.469C1283.72 116.969 1278.72 106.969 1261.72 113.969C1244.72 120.969 1234.22 134.469 1229.22 151.969C1224.22 169.469 1235.22 177.469 1250.22 165.969C1265.22 154.469 1288.72 128.969 1295.22 118.969C1301.72 108.969 1296.72 108.469 1291.22 116.969C1285.72 125.469 1267.72 151.969 1265.72 165.969C1263.72 179.969 1283.72 170.469 1292.72 161.969C1299.92 155.169 1317.39 133.136 1325.22 122.969"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={17}
                   d="M1262 77C1269.67 68.3333 1278.1 50.5 1250.5 48.5C1216 46 1216.5 91.5 1216 106.5C1215.5 121.5 1213 150.5 1192 166.5C1171 182.5 1138 172.5 1132.5 155C1127 137.5 1133.5 135 1139.5 132.5C1145.5 130 1144.5 133.5 1142 136C1139.5 138.5 1133.5 138 1130 136"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={16}
                   d="M1033.5 142C1041.5 143.333 1061.4 143 1077 131C1096.5 116 1088.5 108 1072.5 113C1056.5 118 1037.5 143 1039 162C1040.5 181 1063 172 1077 162C1091 152 1108 135 1112.5 124"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={15}
                   d="M1007.5 141C1014 116 1010 110 985 119.5C965.101 127.062 943.5 168.964 965 170.5C987.963 172.14 1001.5 147.5 1007.5 137"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={14}
                   d="M1069.5 45.5C1047 81 1001 153.6 999 156C993 164.5 994.5 184.5 1018 166C1036.8 151.2 1048.17 136.5 1051.5 131"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={13}
                   d="M860.5 182C864.167 180.167 873.1 175.9 879.5 173.5C887.5 170.5 923.5 146 926 138.5C928 132.5 932.167 125 934 122"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={12}
                   d="M895.5 133C906 119.5 894 105.5 875 117.5C869 120.5 877 131 878.5 139.5C880 148 886 158.5 875 164.5C864 170.5 848 169.5 847 156C846 142.5 857.5 148 857.5 153C857.5 158 852 153 851 153"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={11}
                   d="M808 108C801 117.667 785.2 139.8 778 151C769 165 771.5 182.5 788.5 169.5C805.5 156.5 823 141.5 834.5 125.5C846 109.5 847 104 841.5 112C836 120 809 154 814 169.5C819 185 840.5 161.5 845.5 155C849.5 149.8 868.167 127.5 877 117"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={10}
                   d="M807.5 45C794.5 63.8333 768.436 106.8 756.436 124C741.436 145.5 719.436 188.5 751.436 169C777.036 153.4 794.769 128.5 796.436 124"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={9}
                   d="M680.5 90.9999C680 113 675.5 141.5 644 139C612.5 136.5 639.5 85.9999 650 77.4999C660.5 68.9999 666 54.9999 703.5 49.9999C741 44.9999 755.5 51.4999 758 62.9999C760.5 74.4999 763.5 99 732 110C727.293 111.644 722.535 109.831 720.443 106.5M720.443 106.5C718.757 103.815 718.802 100.144 722 96.5C725.6 93.3 726.5 97.8333 726.5 100.5L720.443 106.5Z"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={8}
                   d="M769 43C757.667 45.5 732.5 54.5 722.5 70.5C710 90.5 688.5 129 673 146.5C657.5 164 657 171 630.5 173C604 175 598 172 590.5 169C583 166 599 165 614 167.5C629 170 661 178.5 683 174.5C705 170.5 723.5 166 737 148.5C747.8 134.5 752.833 128.333 754 127"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={7}
                   d="M527 138C531.5 117.5 526.5 107.5 509.5 114.5C492.5 121.5 482 135 477 152.5C472 170 483 178 498 166.5C513 155 536.5 129.5 543 119.5C549.5 109.5 544.5 109 539 117.5C533.5 126 515.5 152.5 513.5 166.5C511.5 180.5 531.5 171 540.5 162.5C547.7 155.7 565.167 133.667 573 123.5"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={6}
                   d="M387.5 172C390.5 174 395 174.5 400 171C420 157 444.5 133.5 447.5 127"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={5}
                   d="M385 108C366.5 134 359.5 142.5 352 154C344.5 165.5 353 180 369.5 167C386 154 412 127.5 419 119C426 110.5 421 102.5 415 114C409 125.5 370.5 198.5 347 216.5C323.5 234.5 296 231.5 291 209C287 191 301.667 188.834 309.5 190"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={4}
                   d="M348.5 67C356 76 360.5 77.5 352.5 91C346.1 101.8 335.5 102.833 331 102"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={3}
                   d="M265 108C254.167 125.667 231.8 163.9 229 167.5C225.5 172 220.5 174.5 231.5 161.5C242.5 148.5 267.5 121 273.5 117C279.5 113 296.5 109.5 297 118C297.5 126.5 284 138.5 275 151.5C266 164.5 269 180 285.5 171.5C302 163 325.5 132 330.5 125"
                   stroke="white"
                   strokeWidth={strokeWidth}
                 />
                 <motion.path
                   variants={draw}
-                  custom={1}
+                  custom={2}
                   d="M223.5 45C201.833 78.1667 156.6 147.5 149 159.5C139.5 174.5 158.5 180.5 174.5 164C190.5 147.5 202.5 136.5 210 124.5"
                   stroke="white"
                   strokeWidth={strokeWidth}
@@ -345,15 +345,15 @@ export default function Index() {
                   strokeWidth={strokeWidth}
                 />
               </motion.svg>
-            </div>
+            </div> */}
             <StaggerIndexList className="left-0  top-0 flex h-full w-full flex-col items-center justify-center text-center">
-              <ul className="flex flex-col items-center justify-center pb-20 text-center">
+              <ul className="flex flex-col gap-[1em] items-center justify-center pb-20 text-center">
                 {page?.map((season) => (
                   <li className="opacity-0" key={season.slug}>
                     <Link
                       to={season.slug}
                       title={season.title}
-                      className="large-title mx-auto self-start font-cursive  !normal-case"
+                      className="large-title mx-auto self-start font-cursive  !normal-case !hover:scale-50 transition-transform"
                     >
                       <div
                         className="collection-title"
