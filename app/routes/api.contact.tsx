@@ -14,8 +14,6 @@ export async function action({request, context}: ActionArgs) {
 
   const {form, error} = await createContactFormEntry({fields, context});
 
-  console.log('form', form);
-  console.log('error', error);
   if (error) {
     return json({error}, {status: 400});
   }

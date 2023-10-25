@@ -35,7 +35,6 @@ const getSwatch = (variants, selectOption) => {
           className="absolute h-full w-full object-cover"
           alt="color"
           src={swatch.reference?.image?.originalSrc}
-          alt=""
         />
       </div>
     );
