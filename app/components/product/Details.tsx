@@ -7,7 +7,7 @@ import clsx from 'clsx';
 
 import ProductGallery from '~/components/product/Gallery';
 import ProductWidget from '~/components/product/Widget';
-import {GRID_GAP} from '~/lib/constants';
+import {GRID_GAP, HEADER_TOP} from '~/lib/constants';
 import type {SanityProductPage} from '~/lib/sanity';
 import SizeChart from './SizeChart';
 
@@ -44,7 +44,7 @@ export default function ProductDetails({
         className={clsx('flex grid-cols-8 flex-col-reverse md:grid', GRID_GAP)}
       >
         {/* Widget (desktop) */}
-        <div className="self-start md:sticky md:top-2 md:col-span-2">
+        <div className={clsx("self-start md:sticky md:col-span-2", HEADER_TOP)}>
           <ProductWidget
             sanityProduct={sanityProduct}
             storefrontProduct={storefrontProduct}
