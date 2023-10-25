@@ -17,7 +17,7 @@ export default function CollectionCard({collection, onClick}: Props) {
     <Link onClick={onClick} to={collection.slug}>
       <div
         className={clsx(
-          'group relative flex aspect-[4/3] items-center justify-centerbg-lightGray transition-[border-radius] duration-500 ease-out',
+          'justify-centerbg-lightGray group relative flex aspect-[4/3] items-center transition-[border-radius] duration-500 ease-out',
           'hover:rounded-xl',
         )}
         style={{

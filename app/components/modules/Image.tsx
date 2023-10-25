@@ -7,7 +7,7 @@ import SanityImage from '~/components/media/SanityImage';
 import ProductHotspot from '~/components/product/Hotspot';
 import ProductTag from '~/components/product/Tag';
 import type {SanityModuleImage} from '~/lib/sanity';
-import { Theme } from '../context/ThemeProvider';
+import {Theme} from '../context/ThemeProvider';
 
 type Props = {
   module: SanityModuleImage;
@@ -16,7 +16,12 @@ type Props = {
   inSlideShow?: boolean;
 };
 
-export default function ImageModule({module, parentModule, mode, inSlideShow}: Props) {
+export default function ImageModule({
+  module,
+  parentModule,
+  mode,
+  inSlideShow,
+}: Props) {
   if (!module.image) {
     return null;
   }
@@ -28,7 +33,12 @@ export default function ImageModule({module, parentModule, mode, inSlideShow}: P
           <ImageContent module={module} inSlideShow={inSlideShow} />
         </Link>
       ) : (
-        <ImageContent parentModule={parentModule} module={module} mode={mode} inSlideShow={inSlideShow} />
+        <ImageContent
+          parentModule={parentModule}
+          module={module}
+          mode={mode}
+          inSlideShow={inSlideShow}
+        />
       )}
 
       {/* Caption */}
@@ -66,11 +76,9 @@ const ImageContent = ({module, parentModule, mode, inSlideShow}: Props) => {
   const [root] = useMatches();
   const {sanityDataset, sanityProjectID} = root.data;
   const applyAspectRatio = parentModule?._type === 'module.gallery';
-  
 
   return (
     <div
-
       className={clsx(
         'relative select-none',
         image.width > image.height ? 'w-full' : 'h-full',
@@ -108,7 +116,7 @@ const ImageContent = ({module, parentModule, mode, inSlideShow}: Props) => {
           layout="fill"
           objectFit={module.layout !== 'full' ? 'contain' : 'cover'}
           className={clsx(
-            module.layout === 'full' && 'object-center object-cover',
+            module.layout === 'full' && 'object-cover object-center',
             'md:hidden',
           )}
         />

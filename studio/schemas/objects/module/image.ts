@@ -40,8 +40,8 @@ export default defineField({
       },
       initialValue: undefined,
     }),
-     // Variant
-     defineField({
+    // Variant
+    defineField({
       name: 'layout',
       title: 'Layout',
       type: 'string',

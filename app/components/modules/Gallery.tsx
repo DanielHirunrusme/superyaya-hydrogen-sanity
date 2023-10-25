@@ -11,7 +11,7 @@ export default function GalleryModule({module}: Props) {
   return (
     <div
       className={clsx(
-        'flex flex-col md:grid h-full w-full md:grid-cols-2 justify-center gallery-module',
+        'gallery-module flex h-full w-full flex-col justify-center md:grid md:grid-cols-2',
         GRID_GAP,
       )}
     >

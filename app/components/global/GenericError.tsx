@@ -15,9 +15,7 @@ export function GenericError({
 
   return (
     <div className="pt-34">
-      <h1 className="mx-auto px-12 text-center   sm:max-w-2xl">
-        {heading}
-      </h1>
+      <h1 className="mx-auto px-12 text-center   sm:max-w-2xl">{heading}</h1>
 
       <p className="my-8 text-center">{description}</p>
 

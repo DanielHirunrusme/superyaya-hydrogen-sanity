@@ -26,7 +26,7 @@ import {GRID_GAP, PRODUCT_IMAGE_RATIO} from '~/lib/constants';
 import PlusIcon from '../icons/Plus';
 import MinusIcon from '../icons/Minus';
 import React from 'react';
-import { Typography } from '../global/Typography';
+import {Typography} from '../global/Typography';
 
 export function CartLineItems({
   linesObj,
@@ -105,7 +105,7 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
         <div
           role="cell"
           className={clsx(
-            'mr-3 w-[70px] 2xl:w-[5.07vw] flex-shrink-0 md:ml-2',
+            'mr-3 w-[70px] flex-shrink-0 md:ml-2 2xl:w-[5.07vw]',
             PRODUCT_IMAGE_RATIO,
           )}
         >
@@ -164,14 +164,14 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
         <CartItemQuantity line={lineItem} submissionQuantity={updating} />
       </div>
       {/* Price */}
-      <div className="absolute bottom-2 right-0 col-span-1 flex justify-end p-2 text-right md:text-left leading-none md:relative">
-      <span className='md:w-[5.5em] px-2'>
-        {updating ? (
-          <SpinnerIcon width={24} height={24} />
-        ) : (
-          <Money data={lineItem.cost.totalAmount} />
-        )}
-      </span>
+      <div className="absolute bottom-2 right-0 col-span-1 flex justify-end p-2 text-right leading-none md:relative md:text-left">
+        <span className="px-2 md:w-[5.5em]">
+          {updating ? (
+            <SpinnerIcon width={24} height={24} />
+          ) : (
+            <Money data={lineItem.cost.totalAmount} />
+          )}
+        </span>
       </div>
     </li>
   );
@@ -254,10 +254,14 @@ function ItemRemoveButton({lineIds}: {lineIds: CartLine['id'][]}) {
 export function CartSummary({cost}: {cost: CartCost}) {
   return (
     <>
-      <div role="table" className="pr-2 2xl:ml-[7.25vw] pb-8 pt-1" aria-label="Cost summary">
+      <div
+        role="table"
+        className="pb-8 pr-2 pt-1 2xl:ml-[7.25vw]"
+        aria-label="Cost summary"
+      >
         <div className="flex justify-between " role="row">
           <span role="rowheader">Subtotal</span>
-          <span role="cell" className=" md:w-[5.5em] px-2">
+          <span role="cell" className=" px-2 md:w-[5.5em]">
             {cost?.subtotalAmount?.amount ? (
               <Money data={cost?.subtotalAmount} />
             ) : (
@@ -305,7 +309,10 @@ export function CartActions({cart}: {cart: Cart}) {
         variantIdsAndQuantities={shopPayLineItems}
         storeDomain={storeDomain}
       /> */}
-      <Button to={cart.checkoutUrl} className={clsx([defaultButtonStyles()], '!max-w-none')}>
+      <Button
+        to={cart.checkoutUrl}
+        className={clsx([defaultButtonStyles()], '!max-w-none')}
+      >
         Checkout
       </Button>
     </div>

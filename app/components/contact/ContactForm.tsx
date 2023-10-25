@@ -63,7 +63,7 @@ function EmailForm({
                 <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
                 <label htmlFor="message">Special Requirements</label>
               </Disclosure.Button>
-              <Disclosure.Panel   className="flex flex-col gap-4 pb-8">
+              <Disclosure.Panel className="flex flex-col gap-4 pb-8">
                 <textarea
                   name="message"
                   required
@@ -84,7 +84,7 @@ function EmailForm({
               <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
               <h4>Measurements</h4>
             </Disclosure.Button>
-            <Disclosure.Panel   className="flex flex-col gap-4 pb-8">
+            <Disclosure.Panel className="flex flex-col gap-4 pb-8">
               <div className="flex gap-4">
                 <fieldset className="flex-1">
                   <label htmlFor="bust">Bust (cm)</label>
@@ -128,7 +128,7 @@ function EmailForm({
               <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
               <h4>Contact Details</h4>
             </Disclosure.Button>
-            <Disclosure.Panel   className="flex flex-col gap-4 pb-8">
+            <Disclosure.Panel className="flex flex-col gap-4 pb-8">
               <fieldset>
                 <label htmlFor="email">E-mail Address</label>
                 <input
@@ -154,7 +154,7 @@ function EmailForm({
               <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
               <h4>Shipping Details</h4>
             </Disclosure.Button>
-            <Disclosure.Panel  className="flex flex-col gap-4 pb-8">
+            <Disclosure.Panel className="flex flex-col gap-4 pb-8">
               <fieldset>
                 <label htmlFor="country">Country</label>
                 <input
@@ -235,7 +235,7 @@ function EmailForm({
                     Please specify your delivery date
                   </label>
                 </Disclosure.Button>
-                <Disclosure.Panel   className="flex flex-col gap-4 pb-8">
+                <Disclosure.Panel className="flex flex-col gap-4 pb-8">
                   <input
                     placeholder="Delivery Date"
                     type="text"

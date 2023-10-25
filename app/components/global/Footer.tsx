@@ -5,7 +5,7 @@ import SanityFooter from '~/components/global/SanityFooter';
 import LogoIcon from '~/components/icons/Logo';
 import {Link} from '~/components/Link';
 import PortableText from '~/components/portableText/PortableText';
-import { SITE_MARGINS_X, SITE_MARGINS_Y } from '~/lib/constants';
+import {SITE_MARGINS_X, SITE_MARGINS_Y} from '~/lib/constants';
 import type {SanityLink} from '~/lib/sanity';
 
 /**
@@ -58,14 +58,22 @@ export default function Footer() {
         <Link
           data-await-intro
           to="/"
-          className={clsx("linkTextNavigation !no-underline fixed bottom-0 left-0 z-40 flex items-center leading-none", SITE_MARGINS_X, SITE_MARGINS_Y)}
+          className={clsx(
+            'linkTextNavigation fixed bottom-0 left-0 z-40 flex items-center leading-none !no-underline',
+            SITE_MARGINS_X,
+            SITE_MARGINS_Y,
+          )}
         >
           Abijan
         </Link>
         <Link
           data-await-intro
           to="/"
-          className={clsx("linkTextNavigation !no-underline fixed bottom-0 right-0 z-40 flex items-center leading-none", SITE_MARGINS_X, SITE_MARGINS_Y)}
+          className={clsx(
+            'linkTextNavigation fixed bottom-0 right-0 z-40 flex items-center leading-none !no-underline',
+            SITE_MARGINS_X,
+            SITE_MARGINS_Y,
+          )}
         >
           Beirut
         </Link>

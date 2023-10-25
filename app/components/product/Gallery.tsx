@@ -12,7 +12,7 @@ import {GRID_GAP, STAGGER_SPEED} from '~/lib/constants';
 import type {ProductWithNodes} from '~/types/shopify';
 import clsx from 'clsx';
 import {stagger, useAnimate} from 'framer-motion';
-import { useLocation } from '@remix-run/react';
+import {useLocation} from '@remix-run/react';
 
 /**
  * A client component that defines a media gallery for hosting images, 3D models, and videos of products
@@ -212,7 +212,7 @@ export default function ProductGallery({
           } as MediaImage;
 
           return (
-            <li key={med.id} className="opacity-0 aspect-[866/1300] bg-gray">
+            <li key={med.id} className="aspect-[866/1300] bg-gray opacity-0">
               <MediaFile
                 className="relative flex w-full shrink-0 grow-0 cursor-pointer select-none object-cover"
                 data={data}

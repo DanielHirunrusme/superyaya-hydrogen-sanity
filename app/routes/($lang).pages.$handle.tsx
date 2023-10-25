@@ -135,14 +135,14 @@ export default function Page() {
             <Container type="assistance" asChild>
               <div className={clsx('mx-auto w-full pb-24 font-index')}>
                 <Typography type="index">
-                {page.displayAssistanceMenu && assistance && (
-                  <ol className="rte mb-6 flex list-inside list-alpha flex-col !uppercase">
-                    {renderLinks}
-                  </ol>
-                )}
+                  {page.displayAssistanceMenu && assistance && (
+                    <ol className="rte mb-6 flex list-inside list-alpha flex-col !uppercase">
+                      {renderLinks}
+                    </ol>
+                  )}
 
-                {/* Body */}
-                {page.body && <PortableText blocks={page.body} centered />}
+                  {/* Body */}
+                  {page.body && <PortableText blocks={page.body} centered />}
                 </Typography>
               </div>
             </Container>

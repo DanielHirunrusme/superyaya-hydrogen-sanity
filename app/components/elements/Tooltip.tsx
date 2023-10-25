@@ -10,9 +10,7 @@ export default function Tooltip({label, tone = 'light'}: Props) {
     <div
       className={clsx(
         'relative flex place-content-center rounded-sm px-2 py-1.5  leading-none',
-        tone === 'light'
-          ? 'bg-lightGray '
-          : 'bg-offBlack text-white',
+        tone === 'light' ? 'bg-lightGray ' : 'bg-offBlack text-white',
       )}
     >
       <svg

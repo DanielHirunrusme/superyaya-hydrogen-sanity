@@ -67,15 +67,8 @@ export default function CollectionGroupContent({
   return (
     <div className="pb-10">
       {/* Header */}
-      <header
-        className={clsx(
-          'flex  items-center justify-between px-8',
-          '',
-        )}
-      >
-        <div className="  leading-none">
-          {collectionGroup?.title}
-        </div>
+      <header className={clsx('flex  items-center justify-between px-8', '')}>
+        <div className="  leading-none">{collectionGroup?.title}</div>
         <button type="button" onClick={onClose}>
           <CloseIcon />
         </button>

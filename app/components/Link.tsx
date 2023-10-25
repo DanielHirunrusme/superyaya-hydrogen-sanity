@@ -6,7 +6,7 @@ import {
   useMatches,
 } from '@remix-run/react';
 import {forwardRef} from 'react';
-import { useLocation } from "@remix-run/react";
+import {useLocation} from '@remix-run/react';
 import clsx from 'clsx';
 
 type LinkProps = Omit<RemixLinkProps, 'className'> & {
@@ -44,7 +44,6 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
     toWithLocale = selectedLocale ? `${selectedLocale.pathPrefix}${to}` : to;
   }
 
-
   if (typeof className === 'function') {
     return (
       <RemixNavLink
@@ -59,7 +58,10 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => {
   return (
     <RemixLink
       to={toWithLocale}
-      className={clsx(className, location.pathname === to && 'linkTextNavigationActive')}
+      className={clsx(
+        className,
+        location.pathname === to && 'linkTextNavigationActive',
+      )}
       {...resOfProps}
       ref={ref}
     />

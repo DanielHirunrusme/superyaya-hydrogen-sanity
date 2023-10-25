@@ -10,7 +10,7 @@ import type {SanityMenuLink} from '~/lib/sanity';
 import Button from '../elements/Button';
 import {useLocation, useNavigation} from '@remix-run/react';
 import {useAnimate, stagger, useInView} from 'framer-motion';
-import { STAGGER_SPEED } from '~/lib/constants';
+import {STAGGER_SPEED} from '~/lib/constants';
 
 type Props = {
   menuLinks: SanityMenuLink[];
@@ -88,7 +88,7 @@ export default function MobileNavigation({menuLinks}: Props) {
                       'linkTextNavigationActive',
                   )}
                   to={link.slug}
-                  onClick={()=>setOpen(false)}
+                  onClick={() => setOpen(false)}
                 >
                   {link.title}
                 </Link>
@@ -163,8 +163,7 @@ export default function MobileNavigation({menuLinks}: Props) {
                         hasChildChildActive && 'linkTextNavigationActive',
                       )}
                       to={subLink.slug}
-                      onClick={()=>setOpen(false)}
-
+                      onClick={() => setOpen(false)}
                     >
                       {subLink.title}
                     </Link>
@@ -225,7 +224,7 @@ export default function MobileNavigation({menuLinks}: Props) {
                         <Link
                           className="linkTextNavigation"
                           to={subSubLink.slug}
-                          onClick={()=>setOpen(false)}
+                          onClick={() => setOpen(false)}
                         >
                           {subSubLink.title}
                         </Link>
@@ -258,7 +257,6 @@ export default function MobileNavigation({menuLinks}: Props) {
         ],
         [
           'nav > div + div + div > ul li',
-          ,
           {opacity: 1},
           {delay: stagger(STAGGER_SPEED), duration: 0.01},
         ],

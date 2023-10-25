@@ -1,5 +1,5 @@
-import { CogIcon } from '@sanity/icons'
-import { defineType, defineField } from 'sanity'
+import {CogIcon} from '@sanity/icons'
+import {defineType, defineField} from 'sanity'
 
 const TITLE = 'Settings'
 interface ProductOptions {

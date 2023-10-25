@@ -202,7 +202,8 @@ export default function IndexPage() {
                               >
                                 <Typography type="index">
                                   {header.isPlaceholder ? null : (
-                                    <div
+                                    <button
+                                      type="button"
                                       {...{
                                         className: header.column.getCanSort()
                                           ? 'cursor-pointer select-none flex gap-1 items-center'
@@ -221,7 +222,7 @@ export default function IndexPage() {
                                       }[
                                         header.column.getIsSorted() as string
                                       ] ?? null}
-                                    </div>
+                                    </button>
                                   )}
                                 </Typography>
                               </div>

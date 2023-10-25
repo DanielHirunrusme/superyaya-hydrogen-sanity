@@ -85,7 +85,7 @@ export function CountrySelector({align = 'center'}: Props) {
 
               <Listbox.Options
                 className={clsx(
-                  'absolute top-full z-10 mt-3 min-w-[150px] overflow-hiddenshadow',
+                  'overflow-hiddenshadow absolute top-full z-10 mt-3 min-w-[150px]',
                   align === 'center' && 'left-1/2 -translate-x-1/2',
                   align === 'left' && 'left-0',
                   align === 'right' && 'right-0',

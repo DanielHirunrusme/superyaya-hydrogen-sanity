@@ -1,5 +1,5 @@
 import React from 'react'
-import { CopyIcon } from '@sanity/icons'
+import {CopyIcon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
 
 import ShopifyIcon from '../../components/icons/Shopify'

@@ -2,9 +2,9 @@ import {
   PortableText as PortableTextReact,
   PortableTextComponents,
 } from '@portabletext/react';
-import { PortableTextBlock } from '@sanity/types';
+import {PortableTextBlock} from '@sanity/types';
 import clsx from 'clsx';
-import { useMemo } from 'react';
+import {useMemo} from 'react';
 
 import LinkEmailAnnotation from '~/components/portableText/annotations/LinkEmail';
 import LinkExternalAnnotation from '~/components/portableText/annotations/LinkExternal';
@@ -31,13 +31,13 @@ type Props = {
   centered?: boolean;
 };
 
-export default function PortableText({ blocks, centered, className }: Props) {
+export default function PortableText({blocks, centered, className}: Props) {
   const components: PortableTextComponents = {
     list: {
-      bullet: ({ children }) => (
+      bullet: ({children}) => (
         <ul className={SHARED_LIST_CLASSES}>{children}</ul>
       ),
-      number: ({ children }) => (
+      number: ({children}) => (
         <ol className={SHARED_LIST_CLASSES}>{children}</ol>
       ),
     },
@@ -60,9 +60,7 @@ export default function PortableText({ blocks, centered, className }: Props) {
       'module.instagram': InstagramBlock,
       'module.products': ProductsBlock,
       'module.table': (props: any) => <ModuleTable {...props} />,
-      'module.newsletter': (props: any) => (
-        <NewsletterModule {...props} />
-      ),
+      'module.newsletter': (props: any) => <NewsletterModule {...props} />,
     },
   };
 

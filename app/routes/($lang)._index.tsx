@@ -24,7 +24,6 @@ export const handle = {
 };
 
 export async function loader({context, params}: LoaderArgs) {
-
   validateLocale({context, params});
 
   const cache = context.storefront.CacheCustom({
@@ -37,7 +36,6 @@ export async function loader({context, params}: LoaderArgs) {
     query: HOME_PAGE_QUERY,
     cache,
   });
-  
 
   if (!page) {
     throw notFound();

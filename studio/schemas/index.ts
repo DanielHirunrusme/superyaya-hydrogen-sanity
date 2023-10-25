@@ -26,7 +26,21 @@ import archive from './documents/archive'
 import route from './documents/route'
 import sizeChart from './documents/sizeChart'
 
-const documents = [collection, colorTheme, page, product, productVariant, radio, season, archive, category, collaboration, project, sizeChart, route]
+const documents = [
+  collection,
+  colorTheme,
+  page,
+  product,
+  productVariant,
+  radio,
+  season,
+  archive,
+  category,
+  collaboration,
+  project,
+  sizeChart,
+  route,
+]
 
 // Singleton document types
 import home from './singletons/home'

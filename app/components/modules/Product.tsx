@@ -21,7 +21,7 @@ export default function ProductModule({
   const productVariantGid = module?.productWithVariant?.variantGid;
   const storefrontProduct = useGid<Product>(productGid);
 
-  console.log('storefrontProduct', storefrontProduct)
+  console.log('storefrontProduct', storefrontProduct);
 
   if (!storefrontProduct) {
     return null;

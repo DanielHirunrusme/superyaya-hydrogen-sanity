@@ -25,7 +25,7 @@ export default function Newsletter(props: Props) {
           event.preventDefault();
           handleSubmit(fields);
         }}
-        className='relative border-b border-black mb-2 pb-[2px] !block'
+        className="relative mb-2 !block border-b border-black pb-[2px]"
       >
         <input
           id="EMAIL"
@@ -33,9 +33,9 @@ export default function Newsletter(props: Props) {
           type="email"
           value={fields.EMAIL}
           onChange={handleFieldChange}
-          className='w-full outline-none border-none bg-transparent autofill:bg-white !p-0 !h-auto'
+          className="!h-auto w-full border-none bg-transparent !p-0 outline-none autofill:bg-white"
         />
-        <button className='absolute right-0 hover:opacity-50'>SUBMIT</button>
+        <button className="absolute right-0 hover:opacity-50">SUBMIT</button>
       </form>
       {loading && 'submitting'}
       {error && message}

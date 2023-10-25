@@ -58,16 +58,18 @@ export default function Index() {
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
-            <StaggerIndexList className="left-0 top-0 flex h-full w-full flex-col items-center justify-center gap-8 text-center -mt-[2em]">
+            <StaggerIndexList className="left-0 top-0 -mt-[2em] flex h-full w-full flex-col items-center justify-center gap-8 text-center">
               {page.map((category) => (
                 <div
-                  className="mx-auto flex w-full max-w-[700px] 2xl:max-w-desktopContainer flex-col gap-2"
+                  className="mx-auto flex w-full max-w-[700px] flex-col gap-2 2xl:max-w-desktopContainer"
                   key={category._id}
                 >
                   <ul>
-                    {category.entries?.length > 0 && <li className="mb-2 opacity-0">
-                      <h2>{category.title}</h2>
-                    </li>}
+                    {category.entries?.length > 0 && (
+                      <li className="mb-2 opacity-0">
+                        <h2>{category.title}</h2>
+                      </li>
+                    )}
                     {category.entries?.map((entry, index) => (
                       <li className="opacity-0" key={entry._id}>
                         <Link to={entry.slug} className="leaders">

@@ -56,7 +56,7 @@ function Address({
   defaultAddress?: boolean;
 }) {
   return (
-    <div className="flex flex-colborder border-darkGray/50 p-4">
+    <div className="flex-colborder flex border-darkGray/50 p-4">
       {defaultAddress && (
         <div className="mb-3 inline-flex">
           <Badge mode="outline" label="Default" small />
@@ -85,9 +85,7 @@ function Address({
         </Link>
         <Form action="/account/address/delete" method="delete">
           <input type="hidden" name="addressId" value={address.id} />
-          <button className="ml-6 text-left  text-red">
-            Remove address
-          </button>
+          <button className="ml-6 text-left  text-red">Remove address</button>
         </Form>
       </div>
     </div>

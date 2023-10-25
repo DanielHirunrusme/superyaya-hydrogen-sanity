@@ -1,10 +1,10 @@
 import groq from 'groq';
 
-import { IMAGE } from '../image';
-import { LINK_EXTERNAL } from '../linkExternal';
-import { LINK_INTERNAL } from '../linkInternal';
-import { PRODUCT_HOTSPOT } from '../productHotspot';
-import { PRODUCT_WITH_VARIANT } from '../productWithVariant';
+import {IMAGE} from '../image';
+import {LINK_EXTERNAL} from '../linkExternal';
+import {LINK_INTERNAL} from '../linkInternal';
+import {PRODUCT_HOTSPOT} from '../productHotspot';
+import {PRODUCT_WITH_VARIANT} from '../productWithVariant';
 
 export const MODULE_GALLERY = groq`
 caption,

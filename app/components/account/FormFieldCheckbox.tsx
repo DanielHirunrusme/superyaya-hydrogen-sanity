@@ -26,17 +26,12 @@ const FormFieldCheckbox = (props: Props) => {
       <div>
         {/* Label */}
         {label && (
-          <label
-            className=" leading-none "
-            htmlFor={props.name}
-          >
+          <label className=" leading-none " htmlFor={props.name}>
             {label}
           </label>
         )}
         {/* Description */}
-        {description && (
-          <div className=" /75">{description}</div>
-        )}
+        {description && <div className=" /75">{description}</div>}
       </div>
 
       {/* Field error */}

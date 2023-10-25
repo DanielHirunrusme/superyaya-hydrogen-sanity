@@ -59,7 +59,10 @@ export default function ProductDetails({
         {/* Gallery */}
         <div className="relative md:col-span-6">
           {sizeChartVisible && (
-            <SizeChart setSizeChartVisible={setSizeChartVisible} sizeChart={sanityProduct.sizeChart} />
+            <SizeChart
+              setSizeChartVisible={setSizeChartVisible}
+              sizeChart={sanityProduct.sizeChart}
+            />
           )}
           <ProductGallery
             storefrontProduct={storefrontProduct}

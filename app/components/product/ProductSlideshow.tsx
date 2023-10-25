@@ -120,7 +120,8 @@ export default function ProductSlideshow({
           Close
         </Typography>
       </Button>
-      <div
+      <button
+        type="button"
         onClick={onEmblaClick}
         className="h-full overflow-hidden"
         ref={emblaRef}
@@ -166,7 +167,7 @@ export default function ProductSlideshow({
             );
           })}
         </div>
-      </div>
+      </button>
       <div
         className={clsx(
           'absolute bottom-0 z-10 flex w-full items-center justify-center gap-4 text-center leading-label',

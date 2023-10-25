@@ -67,14 +67,15 @@ export default function Page() {
           </div>
           {page.modules && <ModuleGrid items={page.modules} />}
           <div className="flex min-h-screen w-full items-center justify-center text-center">
-            <div className="my-24 text-center mx-auto w-[500px]">
+            <div className="mx-auto my-24 w-[500px] text-center">
               <div className="text-center">{page.title}</div>
               {/* Table */}
-              <ul className='w-full max-w-2xl  mx-auto'>
+              <ul className="mx-auto w-full  max-w-2xl">
                 {page.modules?.map((module, index) => (
-                  <li className='leaders' key={`table-${module._key}`}>
+                  <li className="leaders" key={`table-${module._key}`}>
                     <span>title</span>
-                    <span>{String(index + 1).padStart(2, '0')}</span></li>
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                  </li>
                 ))}
               </ul>
             </div>

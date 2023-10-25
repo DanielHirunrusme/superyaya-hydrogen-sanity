@@ -2,7 +2,7 @@ export default function ModuleTable(props) {
   const {value} = props;
   return (
     <div className="mx-auto min-h-full overflow-hidden">
-        <br />
+      <br />
       <p className="text-center">{value.title || ''}</p>
       <br />
       <table>

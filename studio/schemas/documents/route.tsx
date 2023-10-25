@@ -8,7 +8,7 @@ export default defineField({
   title: 'Route',
   type: 'document',
   icon: SchemaIcon,
-  
+
   fields: [
     // Title
     defineField({

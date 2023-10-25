@@ -12,7 +12,7 @@ import {useCartFetchers} from '~/hooks/useCartFetchers';
 import MobileNavigation from './MobileNavigation';
 import {stagger, useAnimate} from 'framer-motion';
 import {HEADER_TOP, NAV_GAP, STAGGER_SPEED} from '~/lib/constants';
-import { Typography } from './Typography';
+import {Typography} from './Typography';
 
 type Props = {
   menuLinks: any;
@@ -57,7 +57,10 @@ export default function HeaderActions(props: Props) {
     <>
       <ul
         ref={scope}
-        className={clsx("fixed right-0 top-0 flex  items-center px-mobile md:px-tablet xl:px-laptop 2xl:px-desktop gap-[1em] md:gap-[2em]", HEADER_TOP)}
+        className={clsx(
+          'fixed right-0 top-0 flex  items-center gap-[1em] px-mobile md:gap-[2em] md:px-tablet xl:px-laptop 2xl:px-desktop',
+          HEADER_TOP,
+        )}
       >
         {/* Country select */}
         {/* <div
@@ -85,7 +88,9 @@ export default function HeaderActions(props: Props) {
             to="/pages/faq"
             className="linkTextNavigation hidden  md:inline "
           >
-            <Typography type="body" size="sm">Assistance</Typography>
+            <Typography type="body" size="sm">
+              Assistance
+            </Typography>
           </Link>
         </li>
 

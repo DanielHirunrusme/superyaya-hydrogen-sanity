@@ -51,10 +51,7 @@ export default function CallToActionModule({module}: Props) {
         {/* Link */}
         {module.link && (
           <div className="mt-4">
-            <Link
-              className=" underline hover:no-underline"
-              link={module.link}
-            >
+            <Link className=" underline hover:no-underline" link={module.link}>
               {module.link.title}
             </Link>
           </div>

@@ -18,7 +18,8 @@ export const Typography = styled('div', {
         type: 'body',
         size: 'sm',
       },
-      className: '2xl:text-utilityDesktop xl:text-utilityLaptop md:text-utilityTablet text-utilityMobile',
+      className:
+        '2xl:text-utilityDesktop xl:text-utilityLaptop md:text-utilityTablet text-utilityMobile',
     },
   ],
 });

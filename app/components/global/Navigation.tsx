@@ -222,7 +222,7 @@ export default function Navigation({menuLinks, logoVisible}: Props) {
                   >
                     {link.links.map((subLink) => {
                       let hasChildChildActive = false;
-                      let isActive = location.pathname.includes(subLink.slug);
+                      const isActive = location.pathname.includes(subLink.slug);
                       if (subLink.links?.length) {
                         subLink.links.map((subSubLink) => {
                           if (location.pathname.includes(subSubLink.slug)) {

@@ -44,11 +44,11 @@ export default function ProductTooltip({
   };
 
   return (
-    <div className="border-1 relative w-[14rem]border border-gray bg-white p-3">
+    <div className="border-1 w-[14rem]border relative border-gray bg-white p-3">
       <div
         className={clsx([
           imageAspectClassName,
-          'relative flex items-center justify-center overflow-hiddenbg-lightGray object-cover transition-[border-radius] duration-500 ease-out',
+          'overflow-hiddenbg-lightGray relative flex items-center justify-center object-cover transition-[border-radius] duration-500 ease-out',
           'hover:rounded-xl',
         ])}
       >
@@ -79,10 +79,7 @@ export default function ProductTooltip({
       <div className="mt-3 ">
         <div className="space-y-1">
           {/* Title */}
-          <Link
-            className=" hover:underline"
-            to={`/products/${handle}`}
-          >
+          <Link className=" hover:underline" to={`/products/${handle}`}>
             {title}
           </Link>
 
@@ -90,9 +87,7 @@ export default function ProductTooltip({
           {vendor && <div className="">{vendor}</div>}
 
           {/* Product options */}
-          {multipleProductOptions && (
-            <div className="">{productOptions}</div>
-          )}
+          {multipleProductOptions && <div className="">{productOptions}</div>}
         </div>
 
         {/* Price */}

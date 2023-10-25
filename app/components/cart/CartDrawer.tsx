@@ -115,13 +115,11 @@ function CartHeader({
   return (
     <header
       className={clsx(
-        'sticky top-0 flex items-center justify-between py-4 px-3',
+        'sticky top-0 flex items-center justify-between px-3 py-4',
         '',
       )}
     >
-      <div className="">
-        Cart {numLines > 0 && `(${numLines})`}
-      </div>
+      <div className="">Cart {numLines > 0 && `(${numLines})`}</div>
       <button type="button" onClick={onClose}>
         <CloseIcon />
       </button>
@@ -146,9 +144,7 @@ function CartFooter({cart}: {cart: Cart}) {
 function CartEmpty({onClose}: {onClose: () => void}) {
   return (
     <div className="flex flex-col px-8 pt-6">
-      <p className="mb-4  ">
-        There&rsquo;s nothing in here...yet.
-      </p>
+      <p className="mb-4  ">There&rsquo;s nothing in here...yet.</p>
       <Button onClick={onClose} type="button">
         Continue Shopping
       </Button>

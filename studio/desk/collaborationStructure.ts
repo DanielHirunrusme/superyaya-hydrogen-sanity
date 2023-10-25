@@ -5,5 +5,7 @@ export default defineStructure<ListItemBuilder>((S) =>
   S.listItem()
     .title('Collaboration')
     .schemaType('collaboration')
-    .child(S.editor().title('Collaboration').schemaType('collaboration').documentId('collaboration'))
+    .child(
+      S.editor().title('Collaboration').schemaType('collaboration').documentId('collaboration')
+    )
 )

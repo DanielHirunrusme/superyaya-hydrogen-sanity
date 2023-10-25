@@ -20,9 +20,7 @@ const FormFieldText = (props: Props) => {
         </label>
       )}
       {/* Description */}
-      {description && (
-        <div className=" /75">{description}</div>
-      )}
+      {description && <div className=" /75">{description}</div>}
       <input
         aria-label={label}
         className={clsx([

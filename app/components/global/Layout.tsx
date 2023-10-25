@@ -5,7 +5,7 @@ import Header from '~/components/global/Header';
 import {PreviewBanner} from '~/components/preview/PreviewBanner';
 import RadioPopup from '../radio/RadioPopup';
 import clsx from 'clsx';
-import { SITE_CONTENT_OFFSET, SITE_MARGINS_X } from '~/lib/constants';
+import {SITE_CONTENT_OFFSET, SITE_MARGINS_X} from '~/lib/constants';
 
 type LayoutProps = {
   backgroundColor?: string;
@@ -38,7 +38,7 @@ export function Layout({backgroundColor, children}: LayoutProps) {
           className={clsx(
             'flex grow flex-col',
             SITE_CONTENT_OFFSET,
-            SITE_MARGINS_X
+            SITE_MARGINS_X,
           )}
         >
           <div className="mx-auto flex w-full flex-1 flex-col">{children}</div>

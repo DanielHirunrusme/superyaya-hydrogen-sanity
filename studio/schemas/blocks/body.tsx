@@ -71,6 +71,6 @@ export default defineField({
     },
     {
       type: 'module.table',
-    }
+    },
   ],
 })

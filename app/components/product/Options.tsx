@@ -68,8 +68,6 @@ export default function ProductOptions({
     {name: 'Color', value: ''},
   ]);
 
- 
-
   useEffect(() => {
     if (
       selectedVariant.selectedOptions[0].value &&
@@ -142,7 +140,12 @@ export default function ProductOptions({
                       !open && 'hover:opacity-50'
                     } relative border border-black`}
                   >
-                    <Listbox.Button className={clsx("group relative block w-full", UI_FORM_ELEMENT_HEIGHT)}>
+                    <Listbox.Button
+                      className={clsx(
+                        'group relative block w-full',
+                        UI_FORM_ELEMENT_HEIGHT,
+                      )}
+                    >
                       {!open ? (
                         <span
                           className={clsx(
@@ -255,7 +258,7 @@ export default function ProductOptions({
                                       UI_FORM_ELEMENT_HEIGHT,
                                       isActive
                                         ? 'underline'
-                                        : 'hover:text-opacity-50 text-black',
+                                        : 'text-black hover:text-opacity-50',
                                       'flex   items-center decoration-1 underline-offset-4',
                                     )}
                                     key={id}

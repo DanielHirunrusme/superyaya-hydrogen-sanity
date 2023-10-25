@@ -74,16 +74,14 @@ export default defineField({
       type: 'body',
       group: 'editorial',
     }),
-     // Modules
-     defineField({
-        name: 'modules',
-        title: 'Modules',
-        type: 'array',
-        of: [
-          {type: 'module.image'},
-        ],
-        group: 'editorial',
-      }),
+    // Modules
+    defineField({
+      name: 'modules',
+      title: 'Modules',
+      type: 'array',
+      of: [{type: 'module.image'}],
+      group: 'editorial',
+    }),
     // SEO
     defineField({
       name: 'seo',

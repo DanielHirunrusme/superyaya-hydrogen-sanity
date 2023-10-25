@@ -126,7 +126,9 @@ export default function ModuleSlideshow(props) {
                   module.layout === 'full'
                     ? 'object-cover'
                     : `flex flex-col items-center justify-center object-contain px-4 pt-[4vw] xl:pb-[3.203125vw] ${
-                        detached ? 'pt-[4vw] xl:pt-[3.203125vw]' : 'py-[14vw] xl:pt-[6vw] 2xl:pt-[5.203125vw]'
+                        detached
+                          ? 'pt-[4vw] xl:pt-[3.203125vw]'
+                          : 'py-[14vw] xl:pt-[6vw] 2xl:pt-[5.203125vw]'
                       }`,
                 )}
                 key={module._key}

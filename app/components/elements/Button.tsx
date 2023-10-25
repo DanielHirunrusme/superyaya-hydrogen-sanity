@@ -54,9 +54,7 @@ export const defaultButtonStyles = (options?: ButtonStyleOptions) => {
       //   ]),
     ]);
   } else {
-    return clsx([
-      'hover:opacity-50 uppercase',
-    ]);
+    return clsx(['hover:opacity-50 uppercase']);
   }
 };
 

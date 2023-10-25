@@ -10,7 +10,7 @@ export function ArrowUpIcon(props: SVGAttributes<SVGElement>) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M25 18L13 2L0.999999 18" stroke="black" stroke-width="1.5" />
+      <path d="M25 18L13 2L0.999999 18" stroke="black" strokeWidth="1.5" />
     </svg>
   );
 }

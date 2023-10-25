@@ -22,7 +22,7 @@ export function Modal({
       <div className="fixed inset-0 z-50 overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-4 sm:p-0">
           <div
-            className="shadow-xl shadow-xl relative w-full max-w-[600px] flex-1 transform overflow-hiddenbg-white p-6 transition-all"
+            className="shadow-xl shadow-xl overflow-hiddenbg-white relative w-full max-w-[600px] flex-1 transform p-6 transition-all"
             role="button"
             onClick={(e) => {
               e.stopPropagation();

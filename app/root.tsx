@@ -134,7 +134,10 @@ function App() {
   return (
     <html
       lang={locale.language}
-      className={clsx(navVisible ? 'nav-visible' : 'nav-invisble', `theme-${theme}`)}
+      className={clsx(
+        navVisible ? 'nav-visible' : 'nav-invisble',
+        `theme-${theme}`,
+      )}
     >
       <head>
         <meta charSet="utf-8" />

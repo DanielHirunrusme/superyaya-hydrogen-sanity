@@ -61,13 +61,13 @@ export default defineField({
       to: [{type: 'category'}],
       validation: (Rule) => Rule.required(),
     }),
-        // Body
-        defineField({
-          name: 'body',
-          title: 'Body',
-          type: 'body',
-          group: 'editorial',
-        }),
+    // Body
+    defineField({
+      name: 'body',
+      title: 'Body',
+      type: 'body',
+      group: 'editorial',
+    }),
     // Color theme
     // defineField({
     //   name: 'colorTheme',
@@ -85,15 +85,12 @@ export default defineField({
     //   initialValue: false,
     //   group: 'editorial',
     // }),
-     // Modules
-     defineField({
+    // Modules
+    defineField({
       name: 'modules',
       title: 'Modules',
       type: 'array',
-      of: [
-        {type: 'module.image'},
-        {type: 'module.gallery'},
-      ],
+      of: [{type: 'module.image'}, {type: 'module.gallery'}],
       group: 'editorial',
     }),
     // SEO

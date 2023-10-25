@@ -17,7 +17,7 @@ import Button from '../elements/Button';
 import ContactFormModal from '../contact/ContactForm';
 import {Container} from '../global/Container';
 import clsx from 'clsx';
-import { GRID_GAP } from '~/lib/constants';
+import {GRID_GAP} from '~/lib/constants';
 
 export default function ProductForm({
   product,
@@ -52,43 +52,48 @@ export default function ProductForm({
 
   return (
     <Container type="pdpForm">
-      <div className={clsx('flex flex-col mt-mobile md:mt-tablet xl:mt-laptop 2xl:mt-desktop', 'gap-mobile md:gap-tablet xl:gap-laptop 2xl:gap-desktop')}>
-      {multipleProductOptions && (
-        <>
-          <ProductOptions
-            product={product}
-            variants={variants}
-            options={product.options}
-            selectedVariant={selectedVariant}
-            customProductOptions={customProductOptions}
-          />
-        </>
-      )}
+      <div
+        className={clsx(
+          'mt-mobile flex flex-col md:mt-tablet xl:mt-laptop 2xl:mt-desktop',
+          'gap-mobile md:gap-tablet xl:gap-laptop 2xl:gap-desktop',
+        )}
+      >
+        {multipleProductOptions && (
+          <>
+            <ProductOptions
+              product={product}
+              variants={variants}
+              options={product.options}
+              selectedVariant={selectedVariant}
+              customProductOptions={customProductOptions}
+            />
+          </>
+        )}
 
-      <div className="flex flex-col">
-        <AddToCartButton
-          lines={[
-            {
-              merchandiseId: selectedVariant.id,
-              quantity: 1,
-            },
-          ]}
-          disabled={isOutOfStock}
-          mode="outline"
-          analytics={{
-            products: [productAnalytics],
-            totalValue: parseFloat(productAnalytics.price),
-          }}
-          buttonClassName="w-full hover:opacity-50"
-        >
-          {!isPreorder ? 'Add to Cart' : 'Pre-order'}
-        </AddToCartButton>
-        {/* <BuyNowButton
+        <div className="flex flex-col">
+          <AddToCartButton
+            lines={[
+              {
+                merchandiseId: selectedVariant.id,
+                quantity: 1,
+              },
+            ]}
+            disabled={isOutOfStock}
+            mode="outline"
+            analytics={{
+              products: [productAnalytics],
+              totalValue: parseFloat(productAnalytics.price),
+            }}
+            buttonClassName="w-full hover:opacity-50"
+          >
+            {!isPreorder ? 'Add to Cart' : 'Pre-order'}
+          </AddToCartButton>
+          {/* <BuyNowButton
           lines={[{merchandiseId: selectedVariant.id, quantity: 1}]}
           disabled={isOutOfStock}
           mode='outline'
         /> */}
-      </div>
+        </div>
       </div>
     </Container>
   );

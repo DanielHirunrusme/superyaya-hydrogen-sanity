@@ -1,5 +1,5 @@
 import groq from 'groq';
-import { MODULES } from './fragments/modules';
+import {MODULES} from './fragments/modules';
 export const INDEX_QUERY = groq`
   *[(_type == "product" && !store.isDeleted) || _type == "season" || _type == "collaboration" || _type == "archive" || _type == "project"] | order(_type asc){
     _type,

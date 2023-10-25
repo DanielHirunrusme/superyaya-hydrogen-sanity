@@ -9,7 +9,7 @@ import {colorInput} from '@sanity/color-input'
 import {imageHotspotArrayPlugin} from 'sanity-plugin-hotspot-array'
 import {media, mediaAssetSource} from 'sanity-plugin-media'
 import {customDocumentActions} from './plugins/customDocumentActions'
-import { table } from '@sanity/table';
+import {table} from '@sanity/table'
 const devOnlyPlugins = [visionTool()]
 
 export default defineConfig({
@@ -17,7 +17,7 @@ export default defineConfig({
   title: 'SUPER YAYA',
   projectId: 'wswdnh4k',
   dataset: 'production',
-  
+
   plugins: [
     deskTool({structure}),
     colorInput(),

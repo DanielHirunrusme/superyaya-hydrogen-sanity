@@ -24,11 +24,7 @@ export function AccountDetails({customer}: {customer: Customer}) {
         <div className="mt-4 space-y-4">
           <div className="space-y-1">
             <div className=" ">Name</div>
-            <p
-              className={clsx(
-                !firstName && !lastName && 'italic ',
-              )}
-            >
+            <p className={clsx(!firstName && !lastName && 'italic ')}>
               {firstName || lastName
                 ? (firstName ? firstName + ' ' : '') + lastName
                 : 'Add name'}{' '}
@@ -36,9 +32,7 @@ export function AccountDetails({customer}: {customer: Customer}) {
           </div>
           <div className="space-y-1">
             <div className=" ">Phone</div>
-            <p className={clsx(!phone && 'italic ')}>
-              {phone ?? 'Not added'}
-            </p>
+            <p className={clsx(!phone && 'italic ')}>{phone ?? 'Not added'}</p>
           </div>
           <div className="space-y-1">
             <div className=" ">Email address</div>

@@ -318,10 +318,9 @@ export function isLocalPath(request: Request, url: string) {
 }
 
 export const isWithinDateRange = (from, to, check) => {
-  var fDate, lDate, cDate;
-  fDate = Date.parse(from);
-  lDate = Date.parse(to);
-  cDate = Date.parse(check);
+  const fDate = Date.parse(from);
+  const lDate = Date.parse(to);
+  const cDate = Date.parse(check);
 
   if (cDate <= lDate && cDate >= fDate) {
     return true;

@@ -22,9 +22,7 @@ const FormFieldCountries = (props: Props) => {
         </label>
       )}
       {/* Description */}
-      {description && (
-        <div className=" /75">{description}</div>
-      )}
+      {description && <div className=" /75">{description}</div>}
       <select
         aria-label={label}
         className={clsx([

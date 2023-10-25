@@ -94,9 +94,7 @@ export default function ProductPill({
 
             {/* Vendor */}
             {storefrontProduct.vendor && (
-              <div className="truncate ">
-                {storefrontProduct.vendor}
-              </div>
+              <div className="truncate ">{storefrontProduct.vendor}</div>
             )}
 
             {/* Product options */}

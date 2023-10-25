@@ -91,8 +91,7 @@ export default function OrderRoute() {
             <Link className="linkTextNavigation " to="/account">
               Account
             </Link>{' '}
-            /{' '}
-            <span className=" text-offBlack">Order {order.name}</span>
+            / <span className=" text-offBlack">Order {order.name}</span>
           </div>
           <h1
             className={clsx([
@@ -112,10 +111,7 @@ export default function OrderRoute() {
               <table className="my-8 min-w-full divide-y divide-darkGray/50 md:col-span-3">
                 <thead>
                   <tr className="align-baseline ">
-                    <th
-                      scope="col"
-                      className="pb-4 pl-0 pr-3 text-left "
-                    >
+                    <th scope="col" className="pb-4 pl-0 pr-3 text-left ">
                       Product
                     </th>
                     <th
@@ -216,9 +212,7 @@ export default function OrderRoute() {
                       </th>
                       <td className="pl-3 pr-4 pt-6 text-right font-medium text-green-700 md:pr-3">
                         {discountPercentage ? (
-                          <span className="">
-                            -{discountPercentage}% off
-                          </span>
+                          <span className="">-{discountPercentage}% off</span>
                         ) : (
                           discountValue && <Money data={discountValue!} />
                         )}
@@ -269,10 +263,7 @@ export default function OrderRoute() {
                     >
                       Total
                     </th>
-                    <th
-                      scope="row"
-                      className="pr-3 pt-4 text-left  sm:hidden"
-                    >
+                    <th scope="row" className="pr-3 pt-4 text-left  sm:hidden">
                       <p>Total</p>
                     </th>
                     <td className="pl-3 pr-4 pt-4 text-right  md:pr-3">

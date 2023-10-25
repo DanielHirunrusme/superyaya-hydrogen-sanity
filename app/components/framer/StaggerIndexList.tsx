@@ -1,7 +1,7 @@
 import {useAnimate, stagger, useInView} from 'framer-motion';
 import {useEffect} from 'react';
 import {STAGGER_SPEED} from '~/lib/constants';
-import { useTheme } from '../context/ThemeProvider';
+import {useTheme} from '../context/ThemeProvider';
 
 type Props = {
   children: React.ReactNode;
