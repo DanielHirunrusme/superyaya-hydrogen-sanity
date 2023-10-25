@@ -49,21 +49,18 @@
   button {
     letter-spacing: inherit;
   }
- 
-  body {
-    @apply font-medium bg-white text-black  font-sans uppercase text-bodyMobile md:text-bodyTablet xl:text-bodyLaptop 2xl:text-bodyDesktop ;
-  }
 
+  body {
+    @apply bg-white font-sans text-bodyMobile  font-medium uppercase text-black md:text-bodyTablet xl:text-bodyLaptop 2xl:text-bodyDesktop;
+  }
 
   html,
   body {
     overscroll-behavior: none;
-
   }
 
   * {
     @apply uppercase;
-
   }
 
   .skew {
@@ -93,7 +90,7 @@
   }
 
   .linkTextNavigation.linkTextNavigationPage {
-    @apply hover:underline !opacity-100;
+    @apply !opacity-100 hover:underline;
   }
 
   .linkTextNavigationActive {
@@ -121,30 +118,6 @@
       list-style: square outside;
     }
   }
-
-  .select {
-    align-items: center;
-    background-color: theme('colors.lightGray');
-    border-radius: theme('borderRadius.full');
-    color: theme('colors.offBlack');
-    display: flex;
-    font-size: theme('fontSize.sm');
-    font-weight: theme('fontWeight.bold');
-    height: 2.5rem;
-    justify-content: center;
-    letter-spacing: theme('letterSpacing.normal');
-    overflow: hidden;
-    padding: theme('padding.4');
-    transition: all 200ms ease-out;
-  }
-
-  .select:disabled {
-    color: theme('colors.darkGray');
-  }
-
-  .select:hover:not(:disabled) {
-    opacity: 0.9;
-  }
 }
 
 .theme-dark body {
@@ -155,13 +128,12 @@
   @apply border-white;
 }
 
-
 * {
   font-variant-ligatures: none;
 }
 
 html {
-  @apply antialiased overflow-x-hidden;
+  @apply overflow-x-hidden antialiased;
 }
 
 .embla__slide {
@@ -204,7 +176,7 @@ fieldset {
   letter-spacing: inherit;
 }
 input {
-  @apply border border-black  px-[1em] outline-none hover:opacity-50 focus:opacity-100 h-[11.7948vw] md:h-[3.015vw] 2xl:h-[2.578125vw];
+  @apply h-[11.7948vw] border  border-black px-[1em] outline-none hover:opacity-50 focus:opacity-100 md:h-[3.015vw] 2xl:h-[2.578125vw];
   letter-spacing: inherit;
 }
 
@@ -215,7 +187,7 @@ select {
 }
 
 textarea {
-  @apply py-[.875em]
+  @apply py-[.875em];
 }
 
 /* Gallery */
@@ -245,7 +217,7 @@ textarea {
 
 .font-serif .rte * {
   font-family: 'Times New Roman', Times, serif;
-  letter-spacing: .02em;
+  letter-spacing: 0.02em;
 }
 
 /* Collections */
@@ -259,7 +231,6 @@ textarea {
   }
 }
 
-
 .collection-title svg path {
   stroke-dasharray: 100000000;
   stroke-dashoffset: 10000000;
@@ -268,12 +239,13 @@ textarea {
 }
 
 /* RTE */
-.rte, .rte * {
+.rte,
+.rte * {
   @apply !normal-case;
 }
 
 /* Intro */
-[data-await-intro] { 
+[data-await-intro] {
   @apply invisible;
 }
 
