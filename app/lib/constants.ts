@@ -11,6 +11,8 @@ export const NAV_GAP_Y =
   'gap-y-[4.6153vw] md:gap-y-[.8vw] xl:gap-y-[.8vw] 2xl:gap-y-[.8vw]';
 export const HEADER_TOP =
   'top-[4.6153vw] md:top-[1.34vw] xl:top-[1.1574vw] 2xl:top-[1.09375vw]';
+  export const RADIO_PLAYER =
+  'bottom-[4.6153vw] md:bottom-[1.34vw] xl:bottom-[1.1574vw] 2xl:bottom-[3.3203125vw]';
 
 export const SITE_CONTENT_OFFSET =
   'my-[15.897vw] md:my-[10.5527vw] xl:my-[11.5162vw] 2xl:my-[13.28125vw]';

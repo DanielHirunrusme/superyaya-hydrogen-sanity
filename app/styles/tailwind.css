@@ -5,9 +5,8 @@
 @layer base {
   @font-face {
     font-family: 'EngraversEF';
-    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversEF-Roman.woff2?v=1697635125')
-        format('woff2'),
-      url('/fonts/EngraversEF-Roman.woff') format('woff');
+    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversEF-Roman.woff2?v=1697635125') format('woff2'),
+      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversEF-Roman.woff?v=1697635125') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -15,10 +14,8 @@
 
   @font-face {
     font-family: 'Snell';
-    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellBT-Regular.woff2?v=1697635125')
-        format('woff2'),
-      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellBT-Regular.woff?v=1697635125')
-        format('woff');
+    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellBT-Regular.woff2?v=1697635125') format('woff2'),
+      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellBT-Regular.woff?v=1697635125') format('woff');
     font-weight: normal;
     font-style: italic;
     font-display: swap;
@@ -26,10 +23,8 @@
 
   @font-face {
     font-family: 'EngraversGothic';
-    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff2?v=1697635125')
-        format('woff2'),
-      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff?v=1697635125')
-        format('woff');
+    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff2?v=1697635125') format('woff2'),
+      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff?v=1697635125') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -37,10 +32,8 @@
 
   @font-face {
     font-family: 'EurostileMonoEF';
-    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EurostileMonoEF-Regular.woff2?v=1697635125')
-        format('woff2'),
-      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EurostileMonoEF-Regular.woff?v=1697635125')
-        format('woff');
+    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EurostileMonoEF-Regular.woff2?v=1697635125') format('woff2'),
+      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EurostileMonoEF-Regular.woff?v=1697635125') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -51,7 +44,7 @@
   }
 
   body {
-    @apply bg-white font-sans text-bodyMobile  font-medium uppercase text-black md:text-bodyTablet xl:text-bodyLaptop 2xl:text-bodyDesktop;
+    @apply bg-white font-sans text-bodyMobile font-medium uppercase text-black md:text-bodyTablet xl:text-bodyLaptop 2xl:text-bodyDesktop;
   }
 
   html,
@@ -70,12 +63,14 @@
   }
 
   .min-h-screen {
-    min-height: 100vh !important; /* fallback */
+    min-height: 100vh !important;
+    /* fallback */
     min-height: 100dvh !important;
   }
 
   .h-screen {
-    height: 100vh !important; /* fallback */
+    height: 100vh !important;
+    /* fallback */
     height: 100dvh !important;
   }
 
@@ -90,7 +85,7 @@
   }
 
   .linkTextNavigation.linkTextNavigationPage {
-    @apply !opacity-100 hover:underline;
+    @apply  !opacity-100 hover:underline;
   }
 
   .linkTextNavigationActive {
@@ -101,9 +96,11 @@
     ol {
       list-style-type: decimal;
     }
+
     ol ol {
       list-style-type: lower-alpha;
     }
+
     ol ol ol {
       list-style-type: lower-roman;
     }
@@ -111,9 +108,11 @@
     ul {
       list-style: disc outside;
     }
+
     ul ul {
       list-style: circle outside;
     }
+
     ul ul ul {
       list-style: square outside;
     }
@@ -169,20 +168,22 @@ html {
 
 /* Form */
 form {
-  @apply flex flex-col gap-4 md:gap-6;
+  @apply flex flex-col gap-4 gap-6;
 }
+
 fieldset {
   @apply flex flex-col gap-[1rem];
   letter-spacing: inherit;
 }
+
 input {
-  @apply h-[11.7948vw] border  border-black px-[1em] outline-none hover:opacity-50 focus:opacity-100 md:h-[3.015vw] 2xl:h-[2.578125vw];
+  @apply h-[11.7948vw] border border-black px-[1em] outline-none hover:opacity-50 focus:opacity-100 md:h-[3.015vw] 2xl:h-[2.578125vw];
   letter-spacing: inherit;
 }
 
 textarea,
 select {
-  @apply border  border-black px-[1em];
+  @apply border border-black px-[1em];
   letter-spacing: inherit;
 }
 
@@ -202,7 +203,7 @@ textarea {
 /* Portable Text */
 .portableText,
 .portableText * {
-  @apply !normal-case;
+  @apply  !normal-case;
 }
 
 .font-serif * {
@@ -212,7 +213,7 @@ textarea {
 
 .rte.body,
 .rte.body * {
-  @apply !normal-case;
+  @apply  !normal-case;
 }
 
 .font-serif .rte * {
@@ -241,7 +242,7 @@ textarea {
 /* RTE */
 .rte,
 .rte * {
-  @apply !normal-case;
+  @apply  !normal-case;
 }
 
 /* Intro */
@@ -251,4 +252,18 @@ textarea {
 
 html.nav-visible [data-await-intro] {
   @apply visible;
+}
+
+/* Radio Player */
+progress {
+  -webkit-appearance: none;
+  height: .2em;
+}
+
+progress[value]::-webkit-progress-value {
+  background-color: black;
+}
+
+::-webkit-progress-bar {
+  background-color: rgba(0, 0, 0, .4)
 }

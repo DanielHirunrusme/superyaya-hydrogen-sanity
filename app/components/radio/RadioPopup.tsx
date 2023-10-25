@@ -3,11 +3,12 @@ import {useEffect, useRef, useState} from 'react';
 import Radio from './Radio';
 import {motion, useDragControls} from 'framer-motion';
 import clsx from 'clsx';
+import RadioPlayer from './RadioPlayer';
 export default function RadioPopup() {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(true);
   const [dragging, setDragging] = useState(false);
-  // const controls = useDragControls();
+  const [isPlaying, setIsPlaying] = useState(false);
   const timer = useRef();
   const visibleTimer = useRef();
   const [randomPosition, setRandomPosition] = useState({x: 0, y: 0});
@@ -49,40 +50,49 @@ export default function RadioPopup() {
   }, []);
   return (
     <>
-      <motion.div
-        className={clsx(
-          'fixed  z-50 m-8 outline-none',
-          !visible && 'pointer-events-none opacity-0',
-        )}
-        drag
-        style={{touchAction: 'none'}}
-        onDragStart={onPointerDown}
-        onDragEnd={onPointerUp}
-        dragMomentum={false}
-        dragTransition={{timeConstant: 100000, power: 0.1}}
-        style={{
-          mixBlendMode: 'multiply',
-          left: randomPosition.x,
-          top: randomPosition.y,
-        }}
-      >
-        <button
-          type="button"
-          aria-label="Open radio"
-          className="cursor-pointer outline-none"
-          onClick={() => !dragging && setOpen(true)}
+      {!isPlaying && (
+        <motion.div
+          className={clsx(
+            'fixed  z-50 m-8 outline-none',
+            // !visible && 'pointer-events-none opacity-0',
+          )}
+          data-radio-cat
+          drag
+          style={{touchAction: 'none'}}
+          onDragStart={onPointerDown}
+          onDragEnd={onPointerUp}
+          dragMomentum={false}
+          dragTransition={{timeConstant: 100000, power: 0.1}}
+          style={{
+            mixBlendMode: 'multiply',
+            left: randomPosition.x,
+            top: randomPosition.y,
+          }}
         >
-          <img
-            src="/images/cat-popup.gif"
-            width="200"
-            height="200"
-            alt="SUPER YAYA Radio"
-            style={{mixBlendMode: 'multiply'}}
-            className="pointer-events-none"
-          />
-        </button>
-      </motion.div>
-      <Radio open={open} setOpen={setOpen} />
+          <button
+            type="button"
+            aria-label="Open radio"
+            className="cursor-pointer outline-none"
+            onClick={() => !dragging && setOpen(true)}
+          >
+            <img
+              src="/images/cat-popup.gif"
+              width="200"
+              height="200"
+              alt="SUPER YAYA Radio"
+              style={{mixBlendMode: 'multiply'}}
+              className="pointer-events-none"
+            />
+          </button>
+        </motion.div>
+      )}
+      <Radio
+        open={open}
+        setOpen={setOpen}
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
+      />
+      <RadioPlayer isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
     </>
   );
 }

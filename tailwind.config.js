@@ -16,7 +16,7 @@ module.exports = {
     },
     fontFamily: {
       sans: 'EngraversGothic, "Helvetica Neue", Arial, sans-serif',
-      radio: 'EngraversEF, serif',
+      radio: 'EngraversEF, Georgia, serif',
       index: 'EurostileMonoEF, sans-serif',
       serif: 'Times New Roman, serif',
       cursive: 'Snell, cursive',
@@ -137,6 +137,64 @@ module.exports = {
           lineHeight: '1.5',
         },
       ],
+      // Radio
+      radioMobile: [
+        '5.128vw',
+        {
+          letterSpacing: '.075em',
+          lineHeight: '1.2',
+        },
+      ],
+      // radioTablet: [
+      //   '0.837520938vw',
+      //   {
+      //     letterSpacing: '.0875em',
+      //     lineHeight: '1.4',
+      //   },
+      // ],
+      // radioLaptop: [
+      //   '0.7352vw',
+      //   {
+      //     letterSpacing: '.0875em',
+      //     lineHeight: '1.38',
+      //   },
+      // ],
+      radioDesktop: [
+        '1.5625vw',
+        {
+          letterSpacing: '.0875em',
+          lineHeight: '1.2',
+        },
+      ],
+      // Radio Player
+      radioPlayerMobile: [
+        '3.333vw',
+        {
+          letterSpacing: '.075em',
+          lineHeight: '1.2',
+        },
+      ],
+      radioPlayerTablet: [
+        '0.837520938vw',
+        {
+          letterSpacing: '.0875em',
+          lineHeight: '1.4',
+        },
+      ],
+      radioPlayerLaptop: [
+        '0.7352vw',
+        {
+          letterSpacing: '.0875em',
+          lineHeight: '1.38',
+        },
+      ],
+      radioPlayerDesktop: [
+        '0.546875vw',
+        {
+          letterSpacing: '.0875em',
+          lineHeight: '1.18',
+        },
+      ],
     },
     fontWeight: {
       bold: 700,
@@ -161,7 +219,7 @@ module.exports = {
         peach: '#FFE1D1',
         red: '#EC5039',
         shopPay: '#5A31F4',
-        yellow: 'yellow',
+        yellow: '#FFF500',
       },
       height: {
         'header-sm': '2.8rem',
