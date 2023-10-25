@@ -76,7 +76,7 @@ export default function Index() {
   };
 
 
-  const strokeWidth = "4.5em"
+  const strokeWidth = "5.5em"
   return (
     <SanityPreview data={page} query={SEASON_INDEX_PAGE}>
       {(page) => (
