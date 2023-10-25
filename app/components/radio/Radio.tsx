@@ -4,6 +4,7 @@ import {useRef, useState} from 'react';
 import {animate, stagger} from 'framer-motion';
 import {Typography} from '../global/Typography';
 import clsx from 'clsx';
+import { CAT_SIZE } from '~/lib/constants';
 
 export default function Radio({open, setOpen, setIsPlaying}) {
   const frame1Ref = useRef(null);
@@ -81,16 +82,15 @@ export default function Radio({open, setOpen, setIsPlaying}) {
             {/* Frame 1 */}
             <div
               ref={frame1Ref}
-              className={clsx(initialClasses, 'opacity-100')}
+              className={clsx(initialClasses, CAT_SIZE, 'opacity-100')}
             >
               {rootOpen && (
                 <img
                   src="/images/cat.gif"
                   alt="Radio Yaya"
                   style={{mixBlendMode: 'multiply'}}
-                  width="400"
-                  height="400"
-                  className="-mb-40"
+                  width="100%"
+                  className="-mb-[4em]"
                 />
               )}
             </div>
@@ -105,7 +105,7 @@ export default function Radio({open, setOpen, setIsPlaying}) {
             {/* Frame 3 */}
             <div ref={frame3Ref} className={initialClasses}>
               <ul className="frame3Ul flex w-full flex-1 flex-col justify-evenly text-center ">
-                <li className="opacity-0">With</li>
+                <li className="opacity-0"><small>with</small><br /><br /></li>
                 <li className="opacity-0">ALIM QASIMOV</li>
                 <li className="opacity-0">ELMAN</li>
                 <li className="opacity-0">MIRI YUSIFFIDAN HUSEYNOVA</li>

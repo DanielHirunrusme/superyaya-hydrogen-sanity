@@ -4,6 +4,7 @@ import Radio from './Radio';
 import {motion, useDragControls} from 'framer-motion';
 import clsx from 'clsx';
 import RadioPlayer from './RadioPlayer';
+import {CAT_SIZE} from '~/lib/constants';
 export default function RadioPopup() {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -53,7 +54,7 @@ export default function RadioPopup() {
       {!isPlaying && (
         <motion.div
           className={clsx(
-            'fixed  z-50 m-8 outline-none',
+            'fixed  z-50 outline-none',
             // !visible && 'pointer-events-none opacity-0',
           )}
           data-radio-cat
@@ -72,13 +73,12 @@ export default function RadioPopup() {
           <button
             type="button"
             aria-label="Open radio"
-            className="cursor-pointer outline-none"
+            className={clsx('cursor-pointer outline-none', CAT_SIZE)}
             onClick={() => !dragging && setOpen(true)}
           >
             <img
               src="/images/cat-popup.gif"
-              width="200"
-              height="200"
+              width="100%"
               alt="SUPER YAYA Radio"
               style={{mixBlendMode: 'multiply'}}
               className="pointer-events-none"

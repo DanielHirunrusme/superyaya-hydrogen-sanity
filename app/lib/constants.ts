@@ -23,3 +23,5 @@ export const SITE_CONTENT_OFFSET =
 export const UI_FORM_ELEMENT_HEIGHT =
   'h-[11.7948vw] md:h-[3.015vw] 2xl:h-[2.578125vw]'; // need laptop size
 export const NAV_GAP = 'gap-[2em]';
+
+export const CAT_SIZE = '2xl:w-[6.25vw] 2xl:h-5vw';
