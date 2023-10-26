@@ -121,15 +121,15 @@ export default function Cart() {
               {cart && cart.lines?.edges?.length > 0 ? (
                 <Container type="cart">
                   <ul>
-                    <li className="hidden grid-cols-8 gap-6 border-b border-black opacity-0 md:grid 2xl:grid-cols-12">
-                      <span className="col-span-4 2xl:col-span-6">
-                        <span className="block px-2">Item</span>
+                    <li className="hidden grid-cols-8 border-b border-black opacity-0 md:grid">
+                      <span className="col-span-4">
+                        <span className="block cell leading-none">Item</span>
                       </span>
-                      <span className="col-span-3 2xl:col-span-4">
+                      <span className="col-span-3 cell leading-none">
                         Quantity
                       </span>
-                      <span className="col-span-1 items-end justify-end text-right 2xl:col-span-2">
-                        <span className="ml-auto block w-[5.5em] px-2 text-left">
+                      <span className=" col-span-1 flex justify-end cell text-right leading-none md:relative md:text-left">
+                        <span className="block ml-auto w-[5.5em] leading-none text-right leading-none md:relative md:text-left">
                           Price
                         </span>
                       </span>

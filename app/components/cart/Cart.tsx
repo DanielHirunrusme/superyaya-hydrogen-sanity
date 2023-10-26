@@ -95,17 +95,16 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
       role="row"
       className={clsx(
         'relative grid grid-cols-8 opacity-0',
-        GRID_GAP,
-        'flex border-b border-black py-2 last:border-b-0',
+        'flex border-b border-black last:border-b-0',
         deleting && 'opacity-50',
       )}
     >
       {/* Image & Title */}
-      <div className="col-span-8 flex md:col-span-4">
+      <div className="col-span-8 flex md:col-span-4 cell gap-[1em]">
         <div
           role="cell"
           className={clsx(
-            'mr-3 w-[70px] flex-shrink-0 md:ml-2 2xl:w-[5.07vw]',
+            'w-[70px] flex-shrink-0  2xl:w-[5.07vw]',
             PRODUCT_IMAGE_RATIO,
           )}
         >
@@ -128,7 +127,7 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
           >
             <Link
               to={`/products/${merchandise.product.handle}`}
-              className="leading-none hover:underline"
+              className="leading-none "
             >
               {merchandise.product.title}
             </Link>
@@ -160,12 +159,12 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
       </div>
 
       {/* Quantity */}
-      <div className="col-span-3 hidden md:block">
+      <div className="col-span-3 hidden md:block cell">
         <CartItemQuantity line={lineItem} submissionQuantity={updating} />
       </div>
       {/* Price */}
-      <div className="absolute bottom-2 right-0 col-span-1 flex justify-end p-2 text-right leading-none md:relative md:text-left">
-        <span className="px-2 md:w-[5.5em]">
+      <div className="absolute bottom-2 md:bottom-0 right-0 col-span-1 flex justify-end cell text-right leading-none md:relative md:text-left">
+        <span className=" md:w-[5.5em]">
           {updating ? (
             <SpinnerIcon width={24} height={24} />
           ) : (
@@ -241,12 +240,13 @@ function ItemRemoveButton({lineIds}: {lineIds: CartLine['id'][]}) {
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button
+      <Button
         className="disabled:pointer-events-all disabled:cursor-wait"
         type="submit"
+        mode='text'
       >
         Remove
-      </button>
+      </Button>
     </CartForm>
   );
 }
@@ -256,12 +256,12 @@ export function CartSummary({cost}: {cost: CartCost}) {
     <>
       <div
         role="table"
-        className="pb-8 pr-2 pt-1 2xl:ml-[7.25vw]"
+        className="!pb-[2em] cell !pl-0 2xl:ml-[7.25vw]"
         aria-label="Cost summary"
       >
         <div className="flex justify-between " role="row">
           <span role="rowheader">Subtotal</span>
-          <span role="cell" className=" px-2 md:w-[5.5em]">
+          <span role="cell" className=" md:w-[5.5em]">
             {cost?.subtotalAmount?.amount ? (
               <Money data={cost?.subtotalAmount} />
             ) : (
