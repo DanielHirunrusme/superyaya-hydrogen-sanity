@@ -59,7 +59,6 @@ export default function RadioPopup() {
           )}
           data-radio-cat
           drag
-          style={{touchAction: 'none'}}
           onDragStart={onPointerDown}
           onDragEnd={onPointerUp}
           dragMomentum={false}
@@ -68,6 +67,7 @@ export default function RadioPopup() {
             mixBlendMode: 'multiply',
             left: randomPosition.x,
             top: randomPosition.y,
+            touchAction: 'none'
           }}
         >
           <button

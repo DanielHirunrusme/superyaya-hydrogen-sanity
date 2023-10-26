@@ -32,7 +32,7 @@ export default function IntroWrapper(props: any) {
     setTargetWidth(getTargetWidth());
     if (targetWidth > 0) {
       const introAnimation = async () => {
-        await animate('div', {opacity: 1}, {duration: 3, delay: 0.5});
+        await animate('div', {opacity: 1}, {duration: 1, delay: 0.5});
         safeToRemove();
       };
       introAnimation();

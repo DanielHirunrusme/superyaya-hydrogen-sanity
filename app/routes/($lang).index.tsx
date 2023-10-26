@@ -40,8 +40,8 @@ export const handle = {
 };
 
 const COLUMN_SIZES = [
-  'md:w-20 2xl:w-[7em] flex-grow-0 text-left pl-2 2xl:pl-4 py-1.5 uppercase flex gap-1',
-  'flex-1 text-left py-1.5 overflow-hidden uppercase flex gap-1',
+  'w-[3.25em] md:w-20 2xl:w-[7em] flex-grow-0 text-left pl-2 2xl:pl-4 py-1.5 uppercase flex gap-1',
+  'flex-1 text-left py-1.5 overflow-hidden uppercase md:flex gap-1',
   'hidden md:flex w-48 2xl:w-[19.625rem] flex-grow-0 text-left py-1.5 uppercase gap-1',
   'hidden md:flex w-32 2xl:w-[14rem] flex-grow-0 text-left py-1.5 uppercase gap-1',
   'hidden md:flex w-16 2xl:w-[4.5rem] flex-grow-0 text-left pr-2 2xl:pr-4 py-1.5 uppercase gap-1',
@@ -186,7 +186,7 @@ export default function IndexPage() {
                 <StaggerIndexList className="mx-auto flex w-full flex-col">
                   <ul
                     className={clsx(
-                      'hidden w-full flex-1 flex-col justify-between text-left md:flex',
+                      'w-full flex-1 flex-col justify-between text-left flex',
                     )}
                   >
                     <li className="flex opacity-0">
@@ -268,7 +268,7 @@ export default function IndexPage() {
                                               )}
                                             </Typography>
                                             <>
-                                              {index == 1 && open && (
+                                              {index == 1  && (
                                                 <div className="md:hidden">
                                                   {row.original.kind && (
                                                     <Typography type="index">
@@ -332,8 +332,11 @@ export default function IndexPage() {
                                       <div className={COLUMN_SIZES[4]}></div>
                                     </div>
                                     {/* Images */}
-                                    <div className="mb-4 ml-[7em] mt-2">
+                                    <div className='flex'>
+                                    <div className={clsx(COLUMN_SIZES[0], "hidden md:block")}> </div>
+                                    <div className="mb-4 mt-2">
                                       <IndexImages item={row.original} />
+                                    </div>
                                     </div>
                                   </Disclosure.Panel>
                                 </li>

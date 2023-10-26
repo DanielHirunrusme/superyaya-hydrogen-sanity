@@ -24,17 +24,17 @@ export default function RadioPlayer(props: Props) {
         <div className={clsx(' z-50 rounded-[.75em] bg-yellow p-[.75em]')}>
           <Typography type="radioPlayer">
             <div className="flex flex-col gap-[1em]">
-              <header className="flex justify-between gap-[6em]">
+              <header className="flex justify-between gap-[2em] md:gap-[6em]">
                 <h4>Radio Yaya&nbsp;&nbsp;Episode 1</h4>
                 <button onClick={() => setIsPlaying(false)}>Close</button>
               </header>
-              <div className="flex items-center gap-[1em]">
+              <div className="flex justify-between items-center gap-[1em]">
                 <PlayIcon />
                 <time>10:30</time>
-                <progress className="w-[16em]" value="30" max="100" />
+                <progress className="w-[4em] md:w-[16em]" value="30" max="100" />
                 <time>45:30</time>
                 <VolumeIcon />
-                <progress value="10" max="100" className="w-[4em]" />
+                <progress value="10" max="100" className="w-[2em] md:w-[4em]" />
               </div>
             </div>
           </Typography>

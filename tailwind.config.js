@@ -145,20 +145,20 @@ module.exports = {
           lineHeight: '1.2',
         },
       ],
-      // radioTablet: [
-      //   '0.837520938vw',
-      //   {
-      //     letterSpacing: '.0875em',
-      //     lineHeight: '1.4',
-      //   },
-      // ],
-      // radioLaptop: [
-      //   '0.7352vw',
-      //   {
-      //     letterSpacing: '.0875em',
-      //     lineHeight: '1.38',
-      //   },
-      // ],
+      radioTablet: [
+        '2vw',
+        {
+          letterSpacing: '.0875em',
+          lineHeight: '1.4',
+        },
+      ],
+      radioLaptop: [
+        '1.5vw',
+        {
+          letterSpacing: '.0875em',
+          lineHeight: '1.38',
+        },
+      ],
       radioDesktop: [
         '1.5625vw',
         {
