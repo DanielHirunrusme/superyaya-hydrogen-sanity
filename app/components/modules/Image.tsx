@@ -81,9 +81,10 @@ const ImageContent = ({module, parentModule, mode, inSlideShow}: Props) => {
     <div
       className={clsx(
         'relative select-none',
-        image.width > image.height ? 'w-full' : 'h-full',
+        // image.width > image.height ? 'w-full' : 'w-full',
         parentModule?._type === 'module.gallery' && 'h-full md:h-auto',
         module.layout === 'full' && 'h-full',
+        'w-full'
       )}
       style={{
         aspectRatio: !applyAspectRatio ? image.width / image.height : 'auto',

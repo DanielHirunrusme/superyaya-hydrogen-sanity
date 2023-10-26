@@ -100,7 +100,7 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
       )}
     >
       {/* Image & Title */}
-      <div className="col-span-8 flex md:col-span-4 cell gap-[1em]">
+      <div className="cell col-span-8 flex gap-[1em] md:col-span-4">
         <div
           role="cell"
           className={clsx(
@@ -159,11 +159,11 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
       </div>
 
       {/* Quantity */}
-      <div className="col-span-3 hidden md:block cell">
+      <div className="cell col-span-3 hidden md:block">
         <CartItemQuantity line={lineItem} submissionQuantity={updating} />
       </div>
       {/* Price */}
-      <div className="absolute bottom-2 md:bottom-0 right-0 col-span-1 flex justify-end cell text-right leading-none md:relative md:text-left">
+      <div className="cell absolute bottom-2 right-0 col-span-1 flex justify-end text-right leading-none md:relative md:bottom-0 md:text-left">
         <span className=" md:w-[5.5em]">
           {updating ? (
             <SpinnerIcon width={24} height={24} />
@@ -243,7 +243,7 @@ function ItemRemoveButton({lineIds}: {lineIds: CartLine['id'][]}) {
       <Button
         className="disabled:pointer-events-all disabled:cursor-wait"
         type="submit"
-        mode='text'
+        mode="text"
       >
         Remove
       </Button>
@@ -256,7 +256,7 @@ export function CartSummary({cost}: {cost: CartCost}) {
     <>
       <div
         role="table"
-        className="!pb-[2em] cell !pl-0 2xl:ml-[7.25vw]"
+        className="cell !pb-[2em] !pl-0 2xl:ml-[7.25vw]"
         aria-label="Cost summary"
       >
         <div className="flex justify-between " role="row">

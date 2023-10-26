@@ -356,7 +356,7 @@ export default function Index() {
                       className="large-title mx-auto self-start font-cursive  !normal-case !hover:scale-50 transition-transform"
                     >
                       <div
-                        className="collection-title"
+                        className="collection-title hover:-scale-x-100 transition-transform"
                         dangerouslySetInnerHTML={{__html: season.titleSvg}}
                       ></div>
                     </Link>

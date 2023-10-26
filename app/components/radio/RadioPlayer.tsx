@@ -19,9 +19,9 @@ export default function RadioPlayer(props: Props) {
         style={{touchAction: 'none'}}
         dragMomentum={false}
         dragTransition={{timeConstant: 100000, power: 0.1}}
-        className={clsx('fixed right-0', RADIO_PLAYER, SITE_MARGINS_X)}
+        className={clsx('fixed right-0 z-40', RADIO_PLAYER, SITE_MARGINS_X)}
       >
-        <div className={clsx(' z-50 rounded-[.75em] bg-yellow p-[.75em]')}>
+        <div className={clsx('  rounded-[.75em] bg-yellow p-[.75em]')}>
           <Typography type="radioPlayer">
             <div className="flex flex-col gap-[1em]">
               <header className="flex justify-between gap-[2em] md:gap-[6em]">

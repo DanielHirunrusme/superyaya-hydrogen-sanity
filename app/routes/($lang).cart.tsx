@@ -138,9 +138,9 @@ export default function Cart() {
                       <CartLineItems linesObj={cart?.lines} />
                     </li>
                     <li className="grid grid-cols-8 gap-6 border-t border-black opacity-0 2xl:grid-cols-3">
-                      <div className="col-span-4 md:col-span-6 2xl:col-span-1" />
-                      <div className="col-span-4 md:col-span-2 2xl:col-span-1 2xl:col-start-3 2xl:col-end-3">
-                        <CartSummary cost={cart?.cost} />
+                      <div className="hidden md:block col-span-4 md:col-span-6 2xl:col-span-1" />
+                      <div className="col-span-8 md:col-span-2 2xl:col-span-1 2xl:col-start-3 2xl:col-end-3">
+                        <div className='w-1/2 md:w-auto ml-auto md:ml-0'><CartSummary cost={cart?.cost} /></div>
                         <CartActions cart={cart} />
                       </div>
                     </li>
