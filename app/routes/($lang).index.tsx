@@ -140,7 +140,6 @@ export default function IndexPage() {
 
   useEffect(() => {
     if (page) {
-      console.log('page:', page);
       const d = page?.map((item: any, index: number) => {
         if (item._type === 'productWithVariant') {
           return {
@@ -178,7 +177,6 @@ export default function IndexPage() {
   return (
     <SanityPreview data={page} query={INDEX_QUERY}>
       {(page) => {
-        // console.log('page', page)
         return (
           <Suspense>
             <Await resolve={gids}>

@@ -23,6 +23,7 @@ type Props = {
   setSelectedIndex: (index: number) => void;
   sizeChartVisible: boolean;
   setSizeChartVisible: (visible: boolean) => void;
+  sizeGuide: any;
 };
 
 export default function ProductDetails({
@@ -34,10 +35,12 @@ export default function ProductDetails({
   zoom,
   setZoom,
   selectedIndex,
+  sizeGuide,
   setSelectedIndex,
   sizeChartVisible,
   setSizeChartVisible,
 }: Props) {
+
   return (
     <>
       <div
@@ -61,7 +64,9 @@ export default function ProductDetails({
           {sizeChartVisible && (
             <SizeChart
               setSizeChartVisible={setSizeChartVisible}
-              sizeChart={sanityProduct.sizeChart}
+              frenchCm={sizeGuide.frenchCm}
+              frenchIn={sizeGuide.frenchIn}
+              international={sizeGuide.international}
             />
           )}
           <ProductGallery

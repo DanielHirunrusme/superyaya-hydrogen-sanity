@@ -112,7 +112,6 @@ export default function ProductOptions({
             (selectedOption) => selectedOption.name === option.name,
           );
 
-          console.log('match', match[0]);
 
           const swatch = match?.[0]?.value ? (
             getSwatch(variants, match[0].value)

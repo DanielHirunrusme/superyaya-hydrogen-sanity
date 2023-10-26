@@ -54,6 +54,14 @@ export default function ProductWidget({
     return null;
   }
 
+  const onSizeGuideClick = () => {
+    setSizeChartVisible(!sizeChartVisible);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
+
   return (
     <div>
       {/* Sold out */}
@@ -124,7 +132,7 @@ export default function ProductWidget({
 
         {/* Size Guide */}
         <button
-          onClick={() => setSizeChartVisible(!sizeChartVisible)}
+          onClick={onSizeGuideClick}
           className="flex gap-4"
         >
           <span className="w-3">{!sizeChartVisible ? '+' : <>&ndash;</>}</span>

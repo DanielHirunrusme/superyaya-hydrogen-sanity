@@ -11,7 +11,7 @@ export const Container = styled('article', {
       slideshowIndex: 'mx:max-w-[42.592vw] 2xl:max-w-[39.0625vw]', //Archive & Collection leader index of images
       preOrder: 'md:max-w-[34.2578125vw]',
       customRequest: 'md:max-w-[41.25vw]',
-      sizeChart: 'md:max-w-[65vw]', // note: manually adjusted from design to fit new content
+      sizeChart: 'md:max-w-[75vw] xl:max-w-[65vw]', // note: manually adjusted from design to fit new content
     },
   },
 });

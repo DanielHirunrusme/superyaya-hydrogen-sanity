@@ -65,7 +65,6 @@ export default function Page() {
   const {assistance} = layout || {};
   const {page, gids} = useLoaderData<typeof loader>();
 
-  console.log(page);
 
   const renderLinks = assistance?.links.map((link: SanityLink) => {
     if (link._type === 'linkExternal') {

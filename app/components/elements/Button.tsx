@@ -33,7 +33,7 @@ export const defaultButtonStyles = (options?: ButtonStyleOptions) => {
 
   if (mode !== 'text') {
     return clsx([
-      'flex items-center justify-center overflow-hidden px-4 md:px-2 hover:opacity-50',
+      'flex items-center justify-center overflow-hidden w-full px-4 md:px-2 hover:opacity-50',
       'disabled:opacity-20 disabled:bg-opacity-100',
       'border-black border',
       'h-[11.7948vw] md:h-[2.68vw] xl:h-[2.719vw] 2xl:h-[2.421875vw]',

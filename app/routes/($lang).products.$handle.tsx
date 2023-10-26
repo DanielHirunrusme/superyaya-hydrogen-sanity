@@ -75,7 +75,7 @@ export async function loader({params, context, request}: LoaderArgs) {
     staleWhileRevalidate: 60,
   });
 
-  const [page, {product}] = await Promise.all([
+  const [page, {product}, sizeGuide] = await Promise.all([
     context.sanity.query<SanityProductPage>({
       query: PRODUCT_PAGE_QUERY,
       params: {
@@ -90,6 +90,10 @@ export async function loader({params, context, request}: LoaderArgs) {
         handle,
         selectedOptions,
       },
+    }),
+    context.sanity.query<SanityProductPage>({
+      query: SIZE_GUIDE_QUERY,
+      cache,
     }),
   ]);
 
@@ -136,6 +140,7 @@ export async function loader({params, context, request}: LoaderArgs) {
   return defer({
     page,
     product,
+    sizeGuide,
     variants,
     gids,
     selectedVariant,
@@ -172,6 +177,7 @@ export default function ProductHandle() {
   const {
     page,
     product,
+    sizeGuide,
     variants,
     selectedVariant,
     analytics,
@@ -199,6 +205,7 @@ export default function ProductHandle() {
                 setZoom={setZoom}
                 sizeChartVisible={sizeChartVisible}
                 setSizeChartVisible={setSizeChartVisible}
+                sizeGuide={sizeGuide}
               />
             }
           >
@@ -219,6 +226,7 @@ export default function ProductHandle() {
                   setZoom={setZoom}
                   sizeChartVisible={sizeChartVisible}
                   setSizeChartVisible={setSizeChartVisible}
+                  sizeGuide={sizeGuide}
                 />
               )}
             </Await>

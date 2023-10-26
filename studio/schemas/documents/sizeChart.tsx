@@ -35,6 +35,7 @@ export default defineField({
   preview: {
     select: {
       title: 'title',
+      subtitle: 'slug.current',
     },
   },
 })

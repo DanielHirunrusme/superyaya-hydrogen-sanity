@@ -12,8 +12,18 @@ export const PRODUCT_PAGE_QUERY = groq`
 `;
 
 export const SIZE_GUIDE_QUERY = groq`
-  *[_type == 'sizeChart' && slug.current == "global-desktop"][0]{
-    title,
-    sizeChart,
+  {
+    "frenchCm": *[_type == 'sizeChart' && slug.current == "french-sizes-cm"][0]{
+      title,
+      sizeChart,
+    },
+    "frenchIn": *[_type == 'sizeChart' && slug.current == "french-sizes-in"][0]{
+      title,
+      sizeChart,
+    },
+    "international": *[_type == 'sizeChart' && slug.current == "international"][0]{
+      title,
+      sizeChart,
+    },
   }
 `;
