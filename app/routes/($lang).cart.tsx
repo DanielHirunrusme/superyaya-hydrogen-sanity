@@ -118,6 +118,7 @@ export default function Cart() {
       >
         <Await resolve={root.data?.cart}>
           {(cart) => (
+            <div className='cart'>
             <StaggerIndexList>
               {cart && cart.lines?.edges?.length > 0 ? (
                 <Container type="cart">
@@ -165,6 +166,7 @@ export default function Cart() {
                 </Container>
               )}
             </StaggerIndexList>
+            </div>
           )}
         </Await>
       </Suspense>

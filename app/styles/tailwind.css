@@ -275,6 +275,11 @@ progress[value]::-webkit-progress-value {
 .cell-header {
   @apply md:px-[1em];
 }
+
 .cell {
   @apply md:px-[1em] py-[.5em]
+}
+
+.cart .cell {
+  @apply py-[1em];
 }
