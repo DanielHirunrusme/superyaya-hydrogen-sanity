@@ -163,11 +163,28 @@ html {
 
 /* Large titles */
 .large-title:hover {
-  -moz-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
+  /* -moz-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
   -webkit-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
   -o-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
   -ms-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
-  transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
+  transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg); */
+
+}
+
+.large-title svg, .large-title-stretch svg {
+  @apply transition-transform ease-linear;
+}
+
+.large-title-stretch rect {
+  @apply hidden;
+}
+
+.large-title:hover svg {
+  transform: skewX(50deg);
+}
+
+.large-title-stretch:hover svg {
+  transform: scalex(.75) scaley(1.5);
 }
 
 /* Form */
