@@ -1,10 +1,12 @@
 import {Await, useLoaderData} from '@remix-run/react';
 import {AnalyticsPageType, type SeoHandleFunction} from '@shopify/hydrogen';
 import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
+import clsx from 'clsx';
 import {SanityPreview} from 'hydrogen-sanity';
 import {Suspense} from 'react';
 import {Link} from '~/components/Link';
 import StaggerIndexList from '~/components/framer/StaggerIndexList';
+import {Container} from '~/components/global/Container';
 
 import type {SanityHomePage} from '~/lib/sanity';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
@@ -58,30 +60,32 @@ export default function Index() {
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
-            <StaggerIndexList className="left-0 top-0 -mt-[2em] flex h-full w-full flex-col items-center justify-center gap-8 text-center">
-              {page.map((category) => (
-                <div
-                  className="mx-auto flex w-full max-w-[700px] flex-col gap-2 2xl:max-w-desktopContainer"
-                  key={category._id}
-                >
-                  <ul>
-                    {category.entries?.length > 0 && (
-                      <li className="mb-2 opacity-0">
-                        <h2>{category.title}</h2>
-                      </li>
-                    )}
-                    {category.entries?.map((entry, index) => (
-                      <li className="opacity-0" key={entry._id}>
-                        <Link to={entry.slug} className="leaders">
-                          <span>{entry.title}</span>
-                          <span>{String(index + 1).padStart(2, '0')}</span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </StaggerIndexList>
+            <Container type="slideshowIndex">
+              <StaggerIndexList className="left-0 top-0 -mt-[2em] flex h-full w-full flex-col items-center justify-center gap-8 text-center">
+                {page.map((category) => (
+                  <div
+                    className={clsx('mx-auto flex w-full flex-col gap-2')}
+                    key={category._id}
+                  >
+                    <ul>
+                      {category.entries?.length > 0 && (
+                        <li className="mb-2 opacity-0">
+                          <h2>{category.title}</h2>
+                        </li>
+                      )}
+                      {category.entries?.map((entry, index) => (
+                        <li className="opacity-0" key={entry._id}>
+                          <Link to={entry.slug} className="leaders">
+                            <span>{entry.title}</span>
+                            <span>{String(index + 1).padStart(2, '0')}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </StaggerIndexList>
+            </Container>
           </Await>
         </Suspense>
       )}

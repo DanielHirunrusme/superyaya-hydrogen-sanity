@@ -8,7 +8,7 @@ export const Container = styled('article', {
       assistance: 'md:max-w-[38.773vw] 2xl:max-w-[31.953125vw]',
       cart: 'md:max-w-[59.4921875vw] w-full mx-auto',
       index: 'md:max-w-[85.4166vw] 2xl:max-w-[71.2109375vw]',
-      slideshowIndex: 'mx:max-w-[42.592vw] 2xl:max-w-[39.0625vw]', //Archive & Collection leader index of images
+      slideshowIndex: 'md:max-w-[42.592vw] 2xl:max-w-[39.0625vw] mx-auto w-full', //Archive & Collection leader index of images
       preOrder: 'md:max-w-[34.2578125vw]',
       customRequest: 'md:max-w-[41.25vw]',
       sizeChart: 'md:max-w-[75vw] xl:max-w-[65vw]', // note: manually adjusted from design to fit new content
