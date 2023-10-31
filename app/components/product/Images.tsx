@@ -45,7 +45,7 @@ export default function ProductImages({
             <button
               type="button"
               onClick={() => onClick(index)}
-              className="flex-grow-0 cursor-pointer md:w-[70px]"
+              className="flex-grow-0 cursor-pointer md:w-[6em]"
               key={image._key}
             >
               <Image

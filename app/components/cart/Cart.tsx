@@ -104,7 +104,7 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
         <div
           role="cell"
           className={clsx(
-            'w-[70px] flex-shrink-0  2xl:w-[5.07vw]',
+            'w-[6em] flex-shrink-0  2xl:w-[5.07vw]',
             PRODUCT_IMAGE_RATIO,
           )}
         >
@@ -258,7 +258,7 @@ export function CartSummary({cost}: {cost: CartCost}) {
     <>
       <div
         role="table"
-        className="cell !pb-[2em] !pl-0 2xl:ml-[7.25vw] flex justify-end"
+        className="cell !pb-[2em] !pl-0 2xl:ml-[7.25vw] flex-col md:flex-row flex justify-end"
         aria-label="Cost summary"
       >
         <div className="flex gap-[1em]" role="row">

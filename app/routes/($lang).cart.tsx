@@ -124,7 +124,7 @@ export default function Cart() {
                   <ul>
                     <li className="hidden grid-cols-8 border-b border-black opacity-0 md:grid">
                       <span className="col-span-4">
-                        <span className="cell block leading-none">Item</span>
+                        <span className="cell block leading-none ml-[7em] 2xl:ml-[5.07vw]">Item</span>
                       </span>
                       <span className="cell col-span-3 leading-none">
                         Quantity
@@ -140,7 +140,7 @@ export default function Cart() {
                     </li>
                     <li className="grid grid-cols-8 gap-6 border-t border-black opacity-0 2xl:grid-cols-3">
                       <div className="cell col-span-4 hidden md:col-span-6 md:flex gap-[1em] 2xl:col-span-1">
-                        <div className='w-[70px] flex-shrink-0  2xl:w-[5.07vw] aspect-[866/1300]' />
+                        <div className='w-[6em] flex-shrink-0  2xl:w-[5.07vw] aspect-[866/1300]' />
                         <Typography type="body" size="sm">
                           Shipping &amp; taxes calculated at checkout
                         </Typography>
