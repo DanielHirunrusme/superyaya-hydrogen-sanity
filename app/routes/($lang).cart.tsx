@@ -13,6 +13,7 @@ import {Link} from '~/components/Link';
 import {CartActions, CartLineItems, CartSummary} from '~/components/cart/Cart';
 import StaggerIndexList from '~/components/framer/StaggerIndexList';
 import {Container} from '~/components/global/Container';
+import {Typography} from '~/components/global/Typography';
 import SpinnerIcon from '~/components/icons/Spinner';
 import {isLocalPath} from '~/lib/utils';
 
@@ -123,13 +124,13 @@ export default function Cart() {
                   <ul>
                     <li className="hidden grid-cols-8 border-b border-black opacity-0 md:grid">
                       <span className="col-span-4">
-                        <span className="block cell leading-none">Item</span>
+                        <span className="cell block leading-none">Item</span>
                       </span>
-                      <span className="col-span-3 cell leading-none">
+                      <span className="cell col-span-3 leading-none">
                         Quantity
                       </span>
-                      <span className=" col-span-1 flex justify-end cell text-right leading-none md:relative md:text-left">
-                        <span className="block ml-auto w-[5.5em] leading-none text-right leading-none md:relative md:text-left">
+                      <span className=" cell col-span-1 flex justify-end text-right leading-none md:relative md:text-left">
+                        <span className="ml-auto block w-[5.5em] text-right leading-none leading-none md:relative md:text-left">
                           Price
                         </span>
                       </span>
@@ -138,9 +139,16 @@ export default function Cart() {
                       <CartLineItems linesObj={cart?.lines} />
                     </li>
                     <li className="grid grid-cols-8 gap-6 border-t border-black opacity-0 2xl:grid-cols-3">
-                      <div className="hidden md:block col-span-4 md:col-span-6 2xl:col-span-1" />
+                      <div className="cell col-span-4 hidden md:col-span-6 md:flex gap-[1em] 2xl:col-span-1">
+                        <div className='w-[70px] flex-shrink-0  2xl:w-[5.07vw] aspect-[866/1300]' />
+                        <Typography type="body" size="sm">
+                          Shipping &amp; taxes calculated at checkout
+                        </Typography>
+                      </div>
                       <div className="col-span-8 md:col-span-2 2xl:col-span-1 2xl:col-start-3 2xl:col-end-3">
-                        <div className='w-1/2 md:w-auto ml-auto md:ml-0'><CartSummary cost={cart?.cost} /></div>
+                        <div className="ml-auto md:ml-0 md:w-auto">
+                          <CartSummary cost={cart?.cost} />
+                        </div>
                         <CartActions cart={cart} />
                       </div>
                     </li>

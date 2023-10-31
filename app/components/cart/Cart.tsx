@@ -245,7 +245,9 @@ function ItemRemoveButton({lineIds}: {lineIds: CartLine['id'][]}) {
         type="submit"
         mode="text"
       >
-        Remove
+        <Typography type="body" size="sm">
+          Remove
+        </Typography>
       </Button>
     </CartForm>
   );
@@ -270,9 +272,11 @@ export function CartSummary({cost}: {cost: CartCost}) {
           </span>
         </div>
 
+        <div className='md:hidden'>
         <Typography type="body" size="sm">
           Shipping &amp; taxes calculated at checkout
         </Typography>
+        </div>
 
         {/* <div
           role="row"
