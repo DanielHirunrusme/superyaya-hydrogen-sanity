@@ -302,6 +302,8 @@ export default function MobileNavigation({menuLinks}: Props) {
           </Button>
         </header>
 
+        <br />
+
         {/* Links */}
         <nav ref={scope} className="flex flex-col gap-4">
           <FramerNav>{renderLinks()}</FramerNav>
