@@ -86,6 +86,12 @@ export default function ModuleSlideshow(props) {
       setTheme(mode);
     }
 
+    if (indexVisible && mode === Theme.DARK) {
+      setTheme(Theme.LIGHT);
+    } else {
+      setTheme(mode);
+    }
+
     return () => {
       setTheme(Theme.LIGHT);
     };
@@ -97,7 +103,7 @@ export default function ModuleSlideshow(props) {
       className={clsx(
         'fixed left-0 top-0 h-screen w-screen',
         detached ? 'z-50' : 'z-40',
-        theme === Theme.DARK ? 'bg-black' : 'bg-white',
+        theme === Theme.DARK && !indexVisible ? 'bg-black' : 'bg-white',
       )}
       // tabIndex={-1}
     >
@@ -128,7 +134,7 @@ export default function ModuleSlideshow(props) {
                     : `flex flex-col items-center justify-center object-contain px-4  xl:pb-[3.203125vw] ${
                         detached
                           ? 'pt-[4vw] xl:pt-[3.203125vw]'
-                          : 'py-[13vw] md:pt-[7vw] md:pb-[4.25vw] xl:pt-[6vw] 2xl:pt-[5.203125vw]'
+                          : 'py-[13vw] md:pb-[4.25vw] md:pt-[7vw] xl:pt-[6vw] 2xl:pt-[5.203125vw]'
                       }`,
                 )}
                 key={module._key}
