@@ -258,10 +258,10 @@ export function CartSummary({cost}: {cost: CartCost}) {
     <>
       <div
         role="table"
-        className="cell !pb-[2em] !pl-0 2xl:ml-[7.25vw]"
+        className="cell !pb-[2em] !pl-0 2xl:ml-[7.25vw] flex justify-end"
         aria-label="Cost summary"
       >
-        <div className="flex justify-between " role="row">
+        <div className="flex gap-[1em]" role="row">
           <span role="rowheader">Subtotal</span>
           <span role="cell" className=" md:w-[5.5em]">
             {cost?.subtotalAmount?.amount ? (
