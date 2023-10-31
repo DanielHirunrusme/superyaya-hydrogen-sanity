@@ -257,7 +257,7 @@ export default function ProductOptions({
                                       isActive
                                         ? 'underline'
                                         : 'text-black hover:text-opacity-50',
-                                      'flex   items-center decoration-1 underline-offset-4',
+                                      'flex  overflow-hidden items-center decoration-1 underline-offset-4',
                                     )}
                                     key={id}
                                     onClick={() =>
