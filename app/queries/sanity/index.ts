@@ -44,10 +44,10 @@ export const INDEX_QUERY = groq`
     },
     // Project
      _type == "project" => {
-      "slug": '/projets/' + slug.current,
+      "slug": '/projects/' + slug.current,
       title,
       "category": category->title,
-      "kind": "Projet",
+      "kind": "Project",
       "year": date,
       "description": body,
       modules[] {

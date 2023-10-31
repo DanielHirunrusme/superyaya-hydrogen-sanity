@@ -32,6 +32,10 @@ export default function Module({
       return (
         <ImageModule module={module} mode={mode} inSlideShow={inSlideShow} />
       );
+    case 'module.imageCollection':
+      return (
+        <ImageModule module={module} mode={mode} inSlideShow={inSlideShow} />
+      );
     case 'module.gallery':
       return <GalleryModule module={module} />;
     case 'module.instagram':

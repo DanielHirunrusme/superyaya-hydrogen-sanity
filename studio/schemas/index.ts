@@ -80,6 +80,7 @@ import moduleGrid from './objects/module/grid'
 import gridItems from './objects/module/gridItem'
 import menu from './objects/global/menu'
 import moduleImage from './objects/module/image'
+import moduleImageCollection from './objects/module/imageCollection'
 import moduleGallery from './objects/module/gallery'
 import moduleImageAction from './objects/module/imageCallToAction'
 import moduleImages from './objects/module/images'
@@ -134,6 +135,7 @@ const objects = [
   moduleGrid,
   gridItems,
   moduleImage,
+  moduleImageCollection,
   moduleGallery,
   moduleImageAction,
   moduleImages,

@@ -127,6 +127,10 @@
   @apply border-white;
 }
 
+.theme-dark rect, .theme-dark path {
+  @apply stroke-white;
+}
+
 * {
   font-variant-ligatures: none;
 }

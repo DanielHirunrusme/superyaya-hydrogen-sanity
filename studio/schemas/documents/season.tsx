@@ -79,7 +79,7 @@ export default defineField({
       name: 'modules',
       title: 'Modules',
       type: 'array',
-      of: [{type: 'module.image'}],
+      of: [{type: 'module.image'}, {type: 'module.imageCollection'}],
       group: 'editorial',
     }),
     // SEO
