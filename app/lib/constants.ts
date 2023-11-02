@@ -21,7 +21,7 @@ export const HEADER_TOP =
 export const SITE_CONTENT_OFFSET =
   'my-[15.897vw] md:my-[10.5527vw] xl:my-[11.5162vw] 2xl:my-[13.28125vw]';
 export const UI_FORM_ELEMENT_HEIGHT =
-  'h-[11.7948vw] md:h-[3.015vw] 2xl:h-[2.578125vw]'; // need laptop size
+  'h-[11.7948vw] md:h-[3.015vw] xl:h-[2.719vw] 2xl:h-[2.578125vw]'; // need laptop size
 export const NAV_GAP = 'gap-[2em]';
 
 export const CAT_SIZE = 'w-[40vw] md:w-[14vw]  2xl:w-[6.25vw]';

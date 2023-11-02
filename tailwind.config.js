@@ -123,13 +123,13 @@ module.exports = {
           lineHeight: '1.5',
         },
       ],
-      // indexLaptop: [
-      //   '0.7352vw',
-      //   {
-      //     letterSpacing: '.0875em',
-      //     lineHeight: '1.38',
-      //   },
-      // ],
+      indexLaptop: [
+        '0.6944vw',
+        {
+          letterSpacing: '.0875em',
+          lineHeight: '1.5',
+        },
+      ],
       indexDesktop: [
         '0.625vw',
         {
@@ -146,14 +146,14 @@ module.exports = {
         },
       ],
       radioTablet: [
-        '2vw',
+        '1.842vw',
         {
           letterSpacing: '.0875em',
           lineHeight: '1.4',
         },
       ],
       radioLaptop: [
-        '1.5vw',
+        '1.504vw',
         {
           letterSpacing: '.0875em',
           lineHeight: '1.38',
@@ -175,14 +175,14 @@ module.exports = {
         },
       ],
       radioPlayerTablet: [
-        '0.837520938vw',
+        '0.7537vw',
         {
           letterSpacing: '.0875em',
           lineHeight: '1.4',
         },
       ],
       radioPlayerLaptop: [
-        '0.7352vw',
+        '0.636vw',
         {
           letterSpacing: '.0875em',
           lineHeight: '1.38',

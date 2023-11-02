@@ -183,9 +183,6 @@ html {
   transform: skewX(50deg);
 }
 
-.large-title-stretch:hover svg {
-  transform: scalex(.75) scaley(1.5);
-}
 
 /* Form */
 form {

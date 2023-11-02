@@ -68,15 +68,14 @@ export default function Index() {
         pathLength: 0,
         opacity: 1,
         transition: {
-          pathLength: {delay, type: 'linear', duration: .2, bounce: 0},
+          pathLength: {delay, type: 'linear', duration: 0.2, bounce: 0},
           opacity: {delay, duration: 0.01},
         },
       };
     },
   };
 
-
-  const strokeWidth = "1em"
+  const strokeWidth = '1em';
   return (
     <SanityPreview data={page} query={SEASON_INDEX_PAGE}>
       {(page) => (
@@ -347,16 +346,16 @@ export default function Index() {
               </motion.svg>
             </div> */}
             <StaggerIndexList className="left-0  top-0 flex h-full w-full flex-col items-center justify-center text-center">
-              <ul className="flex flex-col gap-[1em] items-center justify-center pb-20 text-center">
+              <ul className="flex flex-col items-center justify-center gap-[1em] pb-20 text-center">
                 {page?.map((season) => (
                   <li className="opacity-0" key={season.slug}>
                     <Link
                       to={season.slug}
                       title={season.title}
-                      className="large-title mx-auto self-start font-cursive  !normal-case !hover:scale-50 transition-transform"
+                      className="large-title !hover:scale-50 mx-auto self-start  font-cursive !normal-case transition-transform"
                     >
                       <div
-                        className="collection-title hover:-scale-x-100 transition-transform"
+                        className="collection-title transition-transform"
                         dangerouslySetInnerHTML={{__html: season.titleSvg}}
                       ></div>
                     </Link>
@@ -364,40 +363,6 @@ export default function Index() {
                 ))}
               </ul>
             </StaggerIndexList>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-
-            <StaggerIndexList className="left-0  top-0 flex h-full w-full flex-col items-center justify-center text-center">
-              <ul className="flex flex-col gap-[1em] items-center justify-center pb-20 text-center">
-                {page?.map((season) => (
-                  <li className="opacity-0" key={season.slug}>
-                    <Link
-                      to={season.slug}
-                      title={season.title}
-                      className="large-title-stretch mx-auto self-start font-cursive  !normal-case !hover:scale-50 transition-transform"
-                    >
-                      <div
-                        className="collection-title"
-                        dangerouslySetInnerHTML={{__html: season.titleSvg}}
-                      ></div>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </StaggerIndexList>
-
           </Await>
         </Suspense>
       )}
