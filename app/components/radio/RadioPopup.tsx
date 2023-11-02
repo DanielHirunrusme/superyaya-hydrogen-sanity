@@ -7,6 +7,7 @@ import RadioPlayer from './RadioPlayer';
 import {CAT_SIZE} from '~/lib/constants';
 import RadioCat1 from './RadioCat1';
 import {useTheme} from '../context/ThemeProvider';
+import { throttle } from '~/lib/utils';
 export default function RadioPopup() {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -46,7 +47,8 @@ export default function RadioPopup() {
     };
 
     setVisibility();
-    window.addEventListener('resize', winResize);
+    const handleResizedThrottle = throttle(winResize, 1000);
+    window.addEventListener('resize', handleResizedThrottle);
     winResize();
     return () => {
       window.removeEventListener('resize', winResize);
