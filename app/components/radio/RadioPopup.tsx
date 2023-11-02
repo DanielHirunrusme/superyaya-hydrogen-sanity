@@ -5,6 +5,8 @@ import {motion, useDragControls} from 'framer-motion';
 import clsx from 'clsx';
 import RadioPlayer from './RadioPlayer';
 import {CAT_SIZE} from '~/lib/constants';
+import RadioCat1 from './RadioCat1';
+import {useTheme} from '../context/ThemeProvider';
 export default function RadioPopup() {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -13,6 +15,7 @@ export default function RadioPopup() {
   const timer = useRef();
   const visibleTimer = useRef();
   const [randomPosition, setRandomPosition] = useState({x: 0, y: 0});
+  const [theme, setTheme, navVisible, setNavVisible] = useTheme();
 
   const onPointerDown = () => {
     setDragging(true);
@@ -49,6 +52,9 @@ export default function RadioPopup() {
       window.removeEventListener('resize', winResize);
     };
   }, []);
+
+  if(!navVisible) return null;
+
   return (
     <>
       {!isPlaying && (
@@ -76,13 +82,14 @@ export default function RadioPopup() {
             className={clsx('cursor-pointer outline-none', CAT_SIZE)}
             onClick={() => !dragging && setOpen(true)}
           >
-            <img
+            <RadioCat1 />
+            {/* <img
               src="/images/cat-popup.gif"
               width="100%"
               alt="SUPER YAYA Radio"
               style={{mixBlendMode: 'multiply'}}
               className="pointer-events-none"
-            />
+            /> */}
           </button>
         </motion.div>
       )}

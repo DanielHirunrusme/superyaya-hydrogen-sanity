@@ -1,47 +1,29 @@
 import {Transition} from '@headlessui/react';
 import Button from '../elements/Button';
 import {useRef, useState} from 'react';
-import {animate, stagger} from 'framer-motion';
+import {stagger, useAnimate} from 'framer-motion';
 import {Typography} from '../global/Typography';
 import clsx from 'clsx';
 import {CAT_SIZE} from '~/lib/constants';
+import RadioCat2 from './RadioCat2';
 
 export default function Radio({open, setOpen, setIsPlaying}) {
   const frame1Ref = useRef(null);
   const frame2Ref = useRef(null);
   const frame3Ref = useRef(null);
   const [rootOpen, setRootOpen] = useState(false);
+  const [scope, animate] = useAnimate();
+  const timer = useRef();
 
   const initialClasses =
     'absolute h-screen flex items-center justify-center w-full';
 
   const afterEnter = () => {
     setRootOpen(true);
-    const showTitles = async () => {
-      const sequence = [
-        ['.brand', {opacity: 1}, {delay: 5, duration: 0.001}],
-        ['.brand', {opacity: 0}, {at: 6, duration: 0.001}],
-        [frame1Ref.current, {opacity: 0}, {at: 6, duration: 0.001}],
-        ['.date', {opacity: 1}, {delay: 0.5, duration: 0.001}],
-        ['.brand', {opacity: 1}, {delay: 0.5, duration: 0.001}],
-        ['.episode', {opacity: 1}, {delay: 0.5, duration: 0.001}],
-        [frame2Ref.current, {opacity: 0}, {delay: 1, duration: 0.001}],
-        ['.frame3Ul li', {opacity: 1}, {delay: stagger(0.25), duration: 0.001}],
-      ];
-
-      await animate(sequence);
-    };
-
-    showTitles().then(() => {
-      setTimeout(() => {
-        setOpen(false);
-        setRootOpen(false);
-        setIsPlaying(true);
-      }, 2000);
-    });
   };
 
   const beforeLeave = () => {
+    clearTimeout(timer.current);
     const hideTitles = async () => {
       const sequence = [
         ['.brand', {opacity: 0}, {duration: 0}],
@@ -58,8 +40,39 @@ export default function Radio({open, setOpen, setIsPlaying}) {
     hideTitles();
   };
 
+  const beforeEnter = () => {
+    clearTimeout(timer.current);
+  };
+
   const afterLeave = () => {
     setRootOpen(false);
+  };
+
+  const onCatComplete = () => {
+    const showTitles = async () => {
+      const sequence = [
+        ['.brand', {opacity: 1}, {duration: 0.001}],
+        ['.brand', {opacity: 0}, {delay: 1, duration: 0.001}],
+        [frame1Ref.current, {opacity: 0}, {at: 1, duration: 0.001}],
+        ['.date', {opacity: 1}, {delay: 0.5, duration: 0.001}],
+        ['.brand', {opacity: 1}, {delay: 0.5, duration: 0.001}],
+        ['.episode', {opacity: 1}, {delay: 0.5, duration: 0.001}],
+        [frame2Ref.current, {opacity: 0}, {delay: 1, duration: 0.001}],
+        ['.frame3Ul li', {opacity: 1}, {delay: stagger(0.25), duration: 0.001}],
+      ];
+
+      await animate(sequence);
+    };
+
+    showTitles().then(() => {
+      timer.current = setTimeout(() => {
+        if (rootOpen) {
+          setOpen(false);
+          setRootOpen(false);
+          setIsPlaying(true);
+        }
+      }, 2000);
+    });
   };
 
   return (
@@ -75,6 +88,7 @@ export default function Radio({open, setOpen, setIsPlaying}) {
       afterEnter={afterEnter}
       beforeLeave={beforeLeave}
       afterLeave={afterLeave}
+      beforeEnter={beforeEnter}
     >
       <Button
         mode="text"
@@ -84,22 +98,15 @@ export default function Radio({open, setOpen, setIsPlaying}) {
         Close
       </Button>
       <Typography type="radio">
-        <div className=" bottom-0 h-screen w-full bg-yellow">
+        <div ref={scope} className=" bottom-0 h-screen w-full bg-yellow">
           <div className="flex h-full w-full flex-col items-center justify-center">
             {/* Frame 1 */}
             <div
               ref={frame1Ref}
               className={clsx(initialClasses, CAT_SIZE, 'opacity-100')}
+              style={{mixBlendMode: 'multiply'}}
             >
-              {rootOpen && (
-                <img
-                  src="/images/cat.gif"
-                  alt="Radio Yaya"
-                  style={{mixBlendMode: 'multiply'}}
-                  width="100%"
-                  className="-mb-[4em]"
-                />
-              )}
+              {rootOpen && <RadioCat2 onComplete={onCatComplete} />}
             </div>
             {/* Frame 2 */}
             <div ref={frame2Ref} className={initialClasses}>
