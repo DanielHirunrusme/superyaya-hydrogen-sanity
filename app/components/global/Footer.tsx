@@ -18,6 +18,8 @@ export default function Footer() {
   const layout = root.data?.layout;
   const {footer} = layout || {};
 
+  console.log(location)
+
   const renderLinks = footer?.links?.map((link: SanityLink) => {
     if (link._type === 'linkExternal') {
       return (
@@ -50,9 +52,7 @@ export default function Footer() {
   });
 
   if (
-    !location.pathname.includes('/collections') &&
-    !location.pathname.includes('/products') &&
-    !location.pathname.includes('/archives')
+    !location.pathname.includes('/products') && !location.pathname.includes('/collections/')
   ) {
     return (
       <>
