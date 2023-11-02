@@ -168,10 +168,10 @@ module.exports = {
       ],
       // Radio Player
       radioPlayerMobile: [
-        '3.333vw',
+        '2.307vw',
         {
           letterSpacing: '.075em',
-          lineHeight: '1.2',
+          lineHeight: '1.4',
         },
       ],
       radioPlayerTablet: [

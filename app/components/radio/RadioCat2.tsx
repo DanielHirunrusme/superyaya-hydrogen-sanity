@@ -33,7 +33,7 @@ export default function RadioCat2({onComplete}) {
     }
   }, [scope]);
   return (
-    <ul className="pointer-events-none h-48 w-48" ref={scope} style={{ mixBlendMode: 'multiply'}}>
+    <ul className="pointer-events-none h-48 w-48 relative" ref={scope} style={{ mixBlendMode: 'multiply'}}>
       <li className="frame-1 opacity-1 absolute h-full w-full">
         <Image
           src="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/cat-2-1.png?v=1698890552"
