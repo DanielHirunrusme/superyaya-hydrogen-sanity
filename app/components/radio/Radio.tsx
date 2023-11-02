@@ -84,7 +84,7 @@ export default function Radio({open, setOpen, setIsPlaying}) {
       leave="transition-translate-y duration-500"
       leaveFrom="translate-y-0"
       leaveTo="translate-y-full"
-      className="fixed bottom-0 left-0 z-50 h-screen w-full bg-yellow"
+      className="fixed bottom-0 left-0 z-50 h-screen w-full bg-yellow text-black"
       afterEnter={afterEnter}
       beforeLeave={beforeLeave}
       afterLeave={afterLeave}
@@ -95,7 +95,9 @@ export default function Radio({open, setOpen, setIsPlaying}) {
         className="absolute right-0 top-0 z-50 p-4"
         onClick={() => setOpen(false)}
       >
+        <Typography type="body" size="sm">
         Close
+        </Typography>
       </Button>
       <Typography type="radio">
         <div ref={scope} className=" bottom-0 h-screen w-full bg-yellow">

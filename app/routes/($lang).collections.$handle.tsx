@@ -1,7 +1,6 @@
 import {Await, useLoaderData} from '@remix-run/react';
 import type {SeoHandleFunction} from '@shopify/hydrogen';
 import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
-import clsx from 'clsx';
 import {Suspense, useState} from 'react';
 import invariant from 'tiny-invariant';
 
@@ -10,17 +9,12 @@ import type {SanityPage} from '~/lib/sanity';
 import {ColorTheme} from '~/lib/theme';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
 import {SEASON_PAGE_QUERY} from '~/queries/sanity/seasons';
-import {SanityLink} from '~/lib/sanity';
-import {Link} from '~/components/Link';
-
-import {useMatches} from '@remix-run/react';
-import ModuleGrid from '~/components/modules/ModuleGrid';
-import Button from '~/components/elements/Button';
-import ModuleSlideshow from '~/components/modules/ModuleSlideshow';
+ 
 import StaggerIndexList from '~/components/framer/StaggerIndexList';
 import {Theme} from '~/components/context/ThemeProvider';
 import {Container} from '~/components/global/Container';
 import {Typography} from '~/components/global/Typography';
+import CollectionGrid from '~/components/season/CollectionGrid';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
   title: data?.page?.seo?.title,
@@ -88,7 +82,7 @@ export default function Page() {
           
           {page.modules && (
             <StaggerIndexList>
-              <ModuleGrid
+              <CollectionGrid
                 items={page.modules}
                 title={`${page.collection} ${page.title}`}
                 showCount
