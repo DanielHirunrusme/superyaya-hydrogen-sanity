@@ -134,7 +134,7 @@ export default function ModuleSlideshow(props) {
                     : `flex flex-col items-center justify-center object-contain px-4  xl:pb-[3.203125vw] ${
                         detached
                           ? 'pt-[4vw] xl:pt-[3.203125vw]'
-                          : 'py-[13vw] md:pb-[4.25vw] md:pt-[7vw] xl:pt-[6vw] 2xl:pt-[5.203125vw]'
+                          : 'py-[13vw] md:pb-[4.25vw] md:pt-[7vw] xl:pt-[5.5vw] 2xl:pt-[5.203125vw]'
                       }`,
                 )}
                 key={module._key}
@@ -192,7 +192,7 @@ export default function ModuleSlideshow(props) {
         <div
           data-await-intro
           className={clsx(
-            'absolute bottom-0 z-10 flex  w-full items-center justify-center gap-4 text-center',
+            'absolute bottom-0 leading-none z-10 flex  w-full items-center justify-center gap-4 text-center',
             SITE_MARGINS_Y,
           )}
         >
