@@ -103,6 +103,7 @@ type Props = {
   outboundLink?: string;
   outboundLinkText?: string;
   theme?: Theme.DARK | Theme.LIGHT;
+  children?: React.ReactNode;
 };
 
 export default function ModuleGrid({
@@ -115,6 +116,7 @@ export default function ModuleGrid({
   outboundLink = '',
   outboundLinkText = '',
   theme = Theme.LIGHT,
+  children
 }: Props) {
   const [zoom, setZoom] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -143,7 +145,7 @@ export default function ModuleGrid({
                 key={item._key}
                 className={clsx(
                   stagger && 'opacity-0',
-                  'min-w-[68px] cursor-pointer',
+                  ' cursor-pointer',
                 )}
                 onClick={onClick}
               >

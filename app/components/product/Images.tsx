@@ -3,7 +3,7 @@ import {Image} from '@shopify/hydrogen';
 import type {ProductVariant} from '@shopify/hydrogen/storefront-api-types';
 import clsx from 'clsx';
 
-import {PRODUCT_IMAGE_RATIO} from '~/lib/constants';
+import {GRID_GAP, PRODUCT_IMAGE_RATIO} from '~/lib/constants';
 import {useGid} from '~/lib/utils';
 import type {ProductWithNodes} from '~/types/shopify';
 import ProductSlideshow from './ProductSlideshow';
@@ -40,12 +40,12 @@ export default function ProductImages({
   return (
     <>
       <div className="group relative">
-        <div className={clsx('relative grid grid-cols-4 gap-2 md:flex')}>
+        <div className={clsx('relative grid grid-cols-3 md:grid-cols-12', GRID_GAP)}>
           {storefrontProduct?.images?.nodes?.map((image, index) => (
             <button
               type="button"
               onClick={() => onClick(index)}
-              className="flex-grow-0 cursor-pointer md:w-[6em]"
+              className="flex-grow-0 cursor-pointer"
               key={image._key}
             >
               <Image

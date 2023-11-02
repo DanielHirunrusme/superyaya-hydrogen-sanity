@@ -40,11 +40,11 @@ export const handle = {
 };
 
 const COLUMN_SIZES = [
-  'w-[3.25em] md:w-20 2xl:w-[7em] flex-grow-0 text-left pl-2 2xl:pl-4 py-1.5 uppercase flex gap-1',
-  'flex-1 text-left py-1.5 overflow-hidden uppercase md:flex gap-1',
-  'hidden md:flex w-48 2xl:w-[19.625rem] flex-grow-0 text-left py-1.5 uppercase gap-1',
-  'hidden md:flex w-32 2xl:w-[14rem] flex-grow-0 text-left py-1.5 uppercase gap-1',
-  'hidden md:flex w-16 2xl:w-[4.5rem] flex-grow-0 text-left pr-2 2xl:pr-4 py-1.5 uppercase gap-1',
+  'w-[3.5em] md:w-auto col-span-1 text-left pl-2 2xl:pl-4 py-1.5 uppercase flex gap-1',
+  'col-span-6 flex-1 text-left py-1.5 overflow-hidden uppercase md:flex gap-1',
+  'col-span-2 hidden md:flex  text-left py-1.5 uppercase gap-1',
+  'col-span-2 hidden md:flex  text-left py-1.5 uppercase gap-1',
+  'col-span-1 hidden md:flex  text-right justify-end pr-2 2xl:pr-4 py-1.5 uppercase gap-1',
 ];
 
 export async function loader({context, params}: LoaderArgs) {
@@ -184,10 +184,10 @@ export default function IndexPage() {
                 <StaggerIndexList className="mx-auto flex w-full flex-col">
                   <ul
                     className={clsx(
-                      'w-full flex-1 flex-col justify-between text-left flex',
+                      'flex w-full flex-1 flex-col justify-between text-left',
                     )}
                   >
-                    <li className="flex opacity-0">
+                    <li className="hidden md:grid grid-cols-3 opacity-0 md:grid-cols-12">
                       {table.getHeaderGroups().map((headerGroup) => (
                         <React.Fragment key={headerGroup.id}>
                           {headerGroup.headers.map((header, index) => {
@@ -205,7 +205,7 @@ export default function IndexPage() {
                                       type="button"
                                       {...{
                                         className: header.column.getCanSort()
-                                          ? 'cursor-pointer select-none flex gap-1 items-center'
+                                          ? 'cursor-pointer select-none flex gap-1 items-center h-[1.2em]'
                                           : '',
                                         onClick:
                                           header.column.getToggleSortingHandler(),
@@ -244,7 +244,7 @@ export default function IndexPage() {
                                 >
                                   <Disclosure.Button
                                     className={clsx(
-                                      'flex w-full flex-1 justify-between overflow-hidden text-left',
+                                      'flex md:grid w-full flex-1 grid-cols-3 justify-between overflow-hidden text-left md:grid-cols-12',
 
                                       !open && ' hover:opacity-50',
                                     )}
@@ -266,7 +266,7 @@ export default function IndexPage() {
                                               )}
                                             </Typography>
                                             <>
-                                              {index == 1  && (
+                                              {index == 1 && (
                                                 <div className="md:hidden">
                                                   {row.original.kind && (
                                                     <Typography type="index">
@@ -294,7 +294,7 @@ export default function IndexPage() {
                                   <Disclosure.Panel>
                                     <div
                                       className={clsx(
-                                        'flex w-full flex-1 justify-between text-left',
+                                        'flex md:grid grid-cols-12 w-full flex-1 justify-between text-left',
                                         'font-index',
                                       )}
                                     >
@@ -330,11 +330,12 @@ export default function IndexPage() {
                                       <div className={COLUMN_SIZES[4]}></div>
                                     </div>
                                     {/* Images */}
-                                    <div className='flex'>
-                                    <div className={clsx(COLUMN_SIZES[0], "hidden md:block")}> </div>
-                                    <div className="mb-4 mt-2">
-                                      <IndexImages item={row.original} />
-                                    </div>
+                                    {/* <div className={clsx(COLUMN_SIZES[0], "hidden md:block")}> </div> */}
+                                    <div className="mb-4 mt-2 md:grid md:grid-cols-12">
+                                      <div className="col-span-1 hidden md:block" />
+                                      <div className="md:col-span-11">
+                                        <IndexImages item={row.original} />
+                                      </div>
                                     </div>
                                   </Disclosure.Panel>
                                 </li>
@@ -366,7 +367,7 @@ function IndexImages({item}: {item: any}) {
       return (
         <ModuleGrid
           items={item.modules}
-          className="relative grid grid-cols-4 gap-2 md:flex"
+          className="relative grid grid-cols-3 md:grid-cols-12"
         />
       );
   }

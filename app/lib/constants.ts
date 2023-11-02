@@ -1,5 +1,8 @@
+// export const GRID_GAP =
+//   'gap-x-[2.3076vw] md:gap-x-[0.67vw] xl:gap-x-[0.5787vw] 2xl:gap-x-[.703125vw] gap-y-[4.6153vw] md:gap-y-[1.34vw] xl:gap-y-[1.1574vw] 2xl:gap-y-[1.3671vw]';
+
 export const GRID_GAP =
-  'gap-x-[2.3076vw] md:gap-x-[0.67vw] xl:gap-x-[0.5787vw] 2xl:gap-x-[.703125vw] gap-y-[4.6153vw] md:gap-y-[1.34vw] xl:gap-y-[1.1574vw] 2xl:gap-y-[1.3671vw]';
+  'gap-[2.3076vw] md:gap-[0.67vw] xl:gap-[0.5787vw] 2xl:gap-[.703125vw]';
 
 
 export const PRODUCT_IMAGE_RATIO = 'aspect-[866/1300]';
