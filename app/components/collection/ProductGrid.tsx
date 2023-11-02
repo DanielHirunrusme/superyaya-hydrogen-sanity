@@ -13,6 +13,7 @@ import {stagger, useAnimate} from 'framer-motion';
 import {STAGGER_SPEED} from '~/lib/constants';
 import {useTheme} from '../context/ThemeProvider';
 
+import CollectionGrid from './CollectionGrid';
 export default function ProductGrid({
   collection,
   modules,
@@ -99,7 +100,7 @@ export default function ProductGrid({
 
   return (
     <ul ref={scope}>
-      <ModuleGrid items={items} stagger={!plpVisible} />
+      <CollectionGrid items={items} stagger={!plpVisible} />
       {nextPage && (
         <div className="flex h-30 items-center justify-center">
           {fetcher.state !== 'idle' ? (
