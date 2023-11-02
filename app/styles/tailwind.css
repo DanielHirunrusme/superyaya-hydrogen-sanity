@@ -161,15 +161,24 @@ html {
   @apply pointer-events-none absolute bottom-0 select-none;
 }
 
-/* Large titles */
-.large-title:hover {
-  /* -moz-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
-  -webkit-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
-  -o-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
-  -ms-transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg);
-  transform: scale(1) rotate(0deg) translate(0px, 0px) skew(55deg, 0deg); */
-
+/* Collections */
+.collection-title svg {
+  @apply h-[10vw] md:h-[6vw] xl:h-[4vw] w-auto;
 }
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.collection-title svg path {
+  stroke-dasharray: 100000000;
+  stroke-dashoffset: 10000000;
+  animation: dash 1s linear forwards;
+}
+
+/* Large titles */
 
 .large-title svg, .large-title-stretch svg {
   @apply transition-transform ease-linear;
@@ -179,9 +188,22 @@ html {
   @apply hidden;
 }
 
-.large-title:hover svg {
-  transform: skewX(50deg);
+.large-title svg {
+  transform: scaleX(.75) scaleY(1.5);
 }
+
+
+@screen md {
+  .large-title svg {
+    transform: none;
+  }
+
+  .large-title:hover svg {
+    transform: skewX(50deg);
+  }
+  
+}
+
 
 
 /* Form */
@@ -239,22 +261,7 @@ textarea {
   letter-spacing: 0.02em;
 }
 
-/* Collections */
-.collection-title svg {
-  @apply h-[7vw] md:h-[4vw] w-auto;
-}
 
-@keyframes dash {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-.collection-title svg path {
-  stroke-dasharray: 100000000;
-  stroke-dashoffset: 10000000;
-  animation: dash 1s linear forwards;
-}
 
 /* RTE */
 .rte,
