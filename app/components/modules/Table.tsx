@@ -3,7 +3,7 @@ export default function ModuleTable(props) {
   return (
     <div className="mx-auto min-h-full overflow-hidden">
       <br />
-      <p className="text-center">{value.title || ''}</p>
+      <p className="text-center uppercase !tracking-widest">{value.title || ''}</p>
       <br />
       <table>
         {value.table.rows.map((row, index) => (

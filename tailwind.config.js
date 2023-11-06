@@ -202,6 +202,8 @@ module.exports = {
     },
     letterSpacing: {
       normal: '-0.03em',
+      wider: '.05em',
+      widest: '.1em',
     },
     lineHeight: {
       label: '.65',
