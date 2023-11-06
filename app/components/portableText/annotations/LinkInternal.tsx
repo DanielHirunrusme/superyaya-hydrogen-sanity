@@ -18,7 +18,7 @@ export default function LinkInternalAnnotation({children, value}: Props) {
     <Link
       className={clsx(
         'inline-flex items-center underline transition-opacity duration-200',
-        'hover:opacity-60',
+        'hover:opacity-50 active:opacity-50',
       )}
       to={value?.slug}
     >

@@ -246,7 +246,7 @@ export default function IndexPage() {
                                     className={clsx(
                                       'flex md:grid w-full flex-1 grid-cols-3 justify-between overflow-hidden text-left md:grid-cols-12',
 
-                                      !open && ' hover:opacity-50',
+                                      !open && ' hover:opacity-50 active:opacity-50',
                                     )}
                                   >
                                     {row

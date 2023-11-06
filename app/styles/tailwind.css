@@ -81,15 +81,15 @@
 
 @layer components {
   .linkTextNavigation {
-    @apply uppercase decoration-1 underline-offset-4 hover:opacity-50;
+    @apply uppercase decoration-1 underline-offset-4 hover:opacity-50 active:opacity-50;
   }
 
   .linkTextNavigation.linkTextNavigationPage {
-    @apply  !opacity-100 hover:underline;
+    @apply  !opacity-100 hover:underline active:underline;
   }
 
   .linkTextNavigationActive {
-    @apply uppercase underline decoration-1 underline-offset-4 hover:opacity-100;
+    @apply uppercase underline decoration-1 underline-offset-4 hover:opacity-100 active:opacity-100;
   }
 
   .portableText {
@@ -145,7 +145,7 @@ html {
 }
 
 .leaders {
-  @apply relative flex w-full justify-between overflow-hidden hover:opacity-50;
+  @apply relative flex w-full justify-between overflow-hidden hover:opacity-50 active:opacity-50;
 }
 
 .leaders span {
@@ -217,7 +217,7 @@ fieldset {
 }
 
 input {
-  @apply h-[11.7948vw] border border-black px-[1em] outline-none hover:opacity-50 focus:opacity-100 md:h-[3.015vw] 2xl:h-[2.578125vw];
+  @apply h-[11.7948vw] border border-black pl-[1em] outline-none hover:opacity-50  focus:opacity-100 md:h-[3.015vw] 2xl:h-[2.578125vw];
   letter-spacing: inherit;
 }
 

@@ -176,7 +176,7 @@ export default function ModuleSlideshow(props) {
                       className="cursor-pointer"
                       key={`table-${module._key}`}
                     >
-                      <div className="leaders hover:opacity-50">
+                      <div className="leaders hover:opacity-50 active:opacity-50">
                         <span>{module.caption || 'Figure'}</span>
                         <span>{String(index + 1).padStart(2, '0')}</span>
                       </div>

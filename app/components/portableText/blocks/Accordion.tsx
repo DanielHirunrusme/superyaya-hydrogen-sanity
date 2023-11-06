@@ -28,7 +28,7 @@ export default function AccordionBlock({value}: Props) {
               <Disclosure.Button
                 className={clsx(
                   'flex items-center justify-between  transition-opacity duration-200 ease-out',
-                  'hover:opacity-60',
+                  'hover:opacity-50 active:opacity-50',
                 )}
               >
                 <div className="truncate">

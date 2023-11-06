@@ -35,7 +35,7 @@ export default function Newsletter(props: Props) {
           onChange={handleFieldChange}
           className="!h-auto w-full border-none bg-transparent !p-0 outline-none autofill:bg-white"
         />
-        <button className="absolute right-0 hover:opacity-50">SUBMIT</button>
+        <button className="absolute right-0 hover:opacity-50 active:opacity-50">SUBMIT</button>
       </form>
       {loading && 'submitting'}
       {error && message}
