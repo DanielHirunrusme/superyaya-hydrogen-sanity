@@ -2,7 +2,7 @@ import {Await, useLoaderData} from '@remix-run/react';
 import type {SeoHandleFunction} from '@shopify/hydrogen';
 import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
 import clsx from 'clsx';
-import {Suspense} from 'react';
+import {Suspense, useState} from 'react';
 import invariant from 'tiny-invariant';
 
 import PageHero from '~/components/heroes/Page';
@@ -17,6 +17,7 @@ import {Link} from '~/components/Link';
 import {useMatches} from '@remix-run/react';
 import {Container} from '~/components/global/Container';
 import {Typography} from '~/components/global/Typography';
+import StaggerIndexList from '~/components/framer/StaggerIndexList';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
   title: data?.page?.seo?.title,
@@ -64,12 +65,12 @@ export default function Page() {
   const layout = root.data?.layout;
   const {assistance} = layout || {};
   const {page, gids} = useLoaderData<typeof loader>();
-
+  const [menuVisible, setMenuVisible] = useState(false);
 
   const renderLinks = assistance?.links.map((link: SanityLink) => {
     if (link._type === 'linkExternal') {
       return (
-        <li className="mb-6" key={link._key}>
+        <li className="mb-6 opacity-0" key={link._key}>
           <a
             className="linkTextNavigation"
             href={link.url}
@@ -87,7 +88,7 @@ export default function Page() {
       }
 
       return (
-        <li key={link._key}>
+        <li key={link._key} className='opacity-0'>
           <Link
             className="linkTextNavigation linkTextNavigationPage"
             to={link.slug}
@@ -100,6 +101,10 @@ export default function Page() {
     return null;
   });
 
+  const onComplete = () => {
+    setMenuVisible(true);
+  };
+
   if (page.slug?.current.includes('studio')) {
     return (
       <ColorTheme value={page.colorTheme}>
@@ -111,9 +116,11 @@ export default function Page() {
               <div className={clsx('mx-auto w-full pb-24')}>
                 <Typography type="rte">
                   {page.displayAssistanceMenu && assistance && (
-                    <ol className="rte mb-6 flex list-inside list-alpha flex-col !uppercase">
-                      {renderLinks}
-                    </ol>
+                    <StaggerIndexList target="ol li">
+                      <ol className="rte mb-6 flex list-inside list-alpha flex-col !uppercase">
+                        {renderLinks}
+                      </ol>
+                    </StaggerIndexList>
                   )}
                   {/* Body */}
                   {page.body && <PortableText blocks={page.body} centered />}
@@ -135,13 +142,15 @@ export default function Page() {
               <div className={clsx('mx-auto w-full pb-24 font-index')}>
                 <Typography type="index">
                   {page.displayAssistanceMenu && assistance && (
-                    <ol className="rte mb-6 flex list-inside list-alpha flex-col !uppercase">
-                      {renderLinks}
-                    </ol>
+                    <StaggerIndexList target="ol li" onComplete={onComplete}>
+                      <ol className="rte mb-6 flex list-inside list-alpha flex-col !uppercase">
+                        {renderLinks}
+                      </ol>
+                    </StaggerIndexList>
                   )}
 
                   {/* Body */}
-                  {page.body && <PortableText blocks={page.body} centered />}
+                  {page.body && menuVisible && <PortableText blocks={page.body} centered />}
                 </Typography>
               </div>
             </Container>

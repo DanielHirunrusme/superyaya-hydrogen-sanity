@@ -1,7 +1,8 @@
 import {Disclosure} from '@headlessui/react';
 import {PortableTextBlock} from '@portabletext/types';
 import clsx from 'clsx';
-import { Typography } from '~/components/global/Typography';
+import StaggerIndexList from '~/components/framer/StaggerIndexList';
+import {Typography} from '~/components/global/Typography';
 
 import MinusIcon from '~/components/icons/Minus';
 import PlusIcon from '~/components/icons/Plus';
@@ -14,36 +15,35 @@ type Props = {
 
 export default function AccordionBlock({value}: Props) {
   return (
-    <div
-      className={clsx(
-        'first:mt-0 last:mb-0', //
-        'mb-[1em]',
-      )}
-    >
-      
-      {value?.groups?.map((group) => (
-        <Disclosure key={group._key}>
-          {({open}: {open: boolean}) => (
-            <div className="flex flex-col">
-              <Disclosure.Button
-                className={clsx(
-                  'flex items-center justify-between  transition-opacity duration-200 ease-out',
-                  'hover:opacity-50 active:opacity-50',
-                )}
-              >
-                <div className="truncate">
-                  {open ? <MinusIcon /> : <PlusIcon />} {group.title}
-                </div>
-            
-              </Disclosure.Button>
-              <Disclosure.Panel className="pb-[2em]">
-                <PortableText blocks={group.body} />
-              </Disclosure.Panel>
-            </div>
-          )}
-        </Disclosure>
-      ))}
- 
-    </div>
+    <StaggerIndexList>
+      <ul
+        className={clsx(
+          'first:mt-0 last:mb-0', //
+          'mb-[1em]',
+        )}
+      >
+        {value?.groups?.map((group) => (
+          <Disclosure key={group._key}>
+            {({open}: {open: boolean}) => (
+              <li className="flex flex-col opacity-0">
+                <Disclosure.Button
+                  className={clsx(
+                    'flex items-center justify-between  transition-opacity duration-200 ease-out',
+                    'hover:opacity-50 active:opacity-50',
+                  )}
+                >
+                  <div className="truncate">
+                    {open ? <MinusIcon /> : <PlusIcon />} {group.title}
+                  </div>
+                </Disclosure.Button>
+                <Disclosure.Panel className="pb-[2em]">
+                  <PortableText blocks={group.body} />
+                </Disclosure.Panel>
+              </li>
+            )}
+          </Disclosure>
+        ))}
+      </ul>
+    </StaggerIndexList>
   );
 }
