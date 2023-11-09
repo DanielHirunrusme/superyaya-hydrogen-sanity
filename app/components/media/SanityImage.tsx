@@ -75,7 +75,7 @@ export default function SanityImage(props) {
     objectFit,
     options,
     projectId,
-    quality = 80,
+    quality = 100,
     sizes,
     src,
     width,
