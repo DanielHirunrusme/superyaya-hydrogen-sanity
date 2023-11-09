@@ -181,7 +181,9 @@ export default function Navigation({menuLinks, logoVisible}: Props) {
       return null;
     });
 
-    if (hasChildren === 1) {
+    console.log('hasChildren', hasChildren);
+
+    if (hasChildren === 0) {
       return (
         <>
           {menuLinks?.map((link) => {
@@ -291,7 +293,7 @@ export default function Navigation({menuLinks, logoVisible}: Props) {
       return null;
     });
 
-    if (hasSubSubLinks === 1) {
+    if (hasSubSubLinks === 0) {
       return (
         <>
           {menuLinks?.map((link) => {
