@@ -1,107 +1,29 @@
-import clsx from 'clsx';
+import Button from '../elements/Button';
 import {useState, useCallback, useEffect} from 'react';
-
+import {useMatches} from '@remix-run/react';
+import {FramerNav} from '../global/MobileNavigation';
 import CloseIcon from '~/components/icons/Close';
 import MenuIcon from '~/components/icons/Menu';
 import {Link} from '~/components/Link';
 import type {SanityMenuLink} from '~/lib/sanity';
-import Button from '../elements/Button';
 import {useLocation, useNavigation} from '@remix-run/react';
 import {useAnimate, stagger, useInView} from 'framer-motion';
 import {STAGGER_SPEED} from '~/lib/constants';
+import clsx from 'clsx';
+import {useTheme} from '../context/ThemeProvider';
 
-type Props = {
-  menuLinks: SanityMenuLink[];
-};
+export default function CollectionBreadcrumb(props) {
+  const [root] = useMatches();
+  const layout = root.data?.layout;
+  const {menuLinks} = layout || {};
 
-export default function MobileNavigation({menuLinks}: Props) {
+  const {collection} = props;
+
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
-
   const [open, setOpen] = useState(false);
-  const handleClose = () => setOpen(false);
-  const handleOpen = () => setOpen(true);
 
-  const location = useLocation();
-
-  const renderLinks = useCallback(() => {
-    return (
-      <ul>
-        {menuLinks?.map((link) => {
-          if (link._type === 'linkExternal') {
-            return (
-              <div
-                className="flex flex-col items-center text-center"
-                key={link._key}
-              >
-                <a
-                  className="linkTextNavigation"
-                  href={link.url}
-                  rel="noreferrer"
-                  target={link.newWindow ? '_blank' : '_self'}
-                >
-                  {link.title}
-                </a>
-              </div>
-            );
-          }
-          if (link._type === 'linkInternal') {
-            if (!link.slug) {
-              return null;
-            }
-
-            let hasChildActive = false;
-            let hasChildChildActive = false;
-
-            if (link.links?.length) {
-              link.links.forEach((childLink) => {
-                if (
-                  childLink.slug &&
-                  location.pathname.includes(childLink.slug)
-                ) {
-                  hasChildActive = true;
-                }
-                if (childLink.links?.length) {
-                  childLink.links.forEach((childChildLink) => {
-                    if (
-                      childChildLink.slug &&
-                      location.pathname.includes(childChildLink.slug)
-                    ) {
-                      hasChildChildActive = true;
-                    }
-                  });
-                }
-              });
-            }
-
-            return (
-              <li
-                className="flex flex-col items-center text-center opacity-0"
-                key={link._key}
-              >
-                <Link
-                  className={clsx(
-                    'linkTextNavigation',
-                    (hasChildActive || hasChildChildActive) &&
-                      'linkTextNavigationActive',
-                  )}
-                  to={link.slug}
-                  onClick={() => setOpen(false)}
-                >
-                  {link.title}
-                </Link>
-              </li>
-            );
-          }
-
-          return null;
-        })}
-        <li>
-          <Link to="/pages/faq">Assistance</Link>
-        </li>
-      </ul>
-    );
-  }, [menuLinks]);
+  const [theme, settheme, navVisible] = useTheme();
 
   const renderSubLinks = useCallback(() => {
     return menuLinks?.map((link) => {
@@ -153,6 +75,7 @@ export default function MobileNavigation({menuLinks}: Props) {
                     }
                   });
                 }
+                console.log(subLink);
                 return (
                   <li
                     className="flex flex-col items-center text-center opacity-0"
@@ -163,7 +86,11 @@ export default function MobileNavigation({menuLinks}: Props) {
                         'linkTextNavigation',
                         hasChildChildActive && 'linkTextNavigationActive',
                       )}
-                      to={subLink.slug}
+                      to={
+                        subLink.documentType !== 'route'
+                          ? subLink.slug
+                          : `/${subLink.slug}`
+                      }
                       onClick={() => setOpen(false)}
                     >
                       {subLink.title}
@@ -243,96 +170,71 @@ export default function MobileNavigation({menuLinks}: Props) {
     });
   }, [menuLinks, location]);
 
+  const openMenu = () => {
+    setOpen(true);
+  };
+
+  const closeMenu = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     if (open) {
       const sequence = [
         [
           'nav > div ul li',
           {opacity: 1},
-          {delay: stagger(STAGGER_SPEED), duration: 0.01},
+          {delay: stagger(STAGGER_SPEED), duration: 0.0},
         ],
         [
           'nav > div + div > ul li',
           {opacity: 1},
-          {delay: stagger(STAGGER_SPEED), duration: 0.01},
+          {delay: stagger(STAGGER_SPEED), duration: 0.0},
         ],
         [
           'nav > div + div + div > ul li',
           {opacity: 1},
-          {delay: stagger(STAGGER_SPEED), duration: 0.01},
+          {delay: stagger(STAGGER_SPEED), duration: 0.0},
         ],
       ];
       animate(sequence);
     } else {
-      const sequence = [
-        ['nav > div ul li', {opacity: 0}],
-        ['nav > div + div > ul li', {opacity: 0}],
-        ['nav > div + div + div > ul li', , {opacity: 0}],
-      ];
-      animate(sequence);
+      //   const sequence = [
+      //     ['nav > div ul li', {opacity: 0}],
+      //     ['nav > div + div > ul li', {opacity: 0}],
+      //     ['nav > div + div + div > ul li', , {opacity: 0}],
+      //   ];
+      //   animate(sequence);
     }
   }, [isInView, open]);
 
-  return (
-    <>
-      <button
-        onClick={handleOpen}
-        className="-mb-1 aspect-[1.214] w-[4.358vw] md:hidden"
-      >
-        <MenuIcon />
-      </button>
-
-      <div
-        className={clsx(
-          open
-            ? 'fixed bottom-0 left-0 right-0 top-0 z-50 h-full w-full overflow-y-auto bg-white text-black'
-            : 'hidden',
-        )}
-      >
-        {/* Header */}
-        <header className="flex items-center justify-center pt-mobile">
-          <Link className="linkTextNavigation !no-underline" to="/">
-            SUPER YAYA
-          </Link>
-          <Button
-            mode="text"
-            className=" absolute right-0 px-4"
-            onClick={handleClose}
-          >
-            <CloseIcon />
+  if (navVisible) {
+    if (!open) {
+      return (
+        <header className="md:hidden mb-4 text-center">
+          <Button onClick={openMenu} mode="text">
+            {collection.title.split(':')?.[0]} /{' '}
+            {collection.title.split(':')?.[1]}
           </Button>
         </header>
+      );
+    } else {
+      return (
+        <header className="md:hidden mb-4 text-center">
+          {/* Links */}
+          <nav ref={scope} className="flex flex-col gap-4 pb-4">
+            {/* <FramerNav>{renderLinks()}</FramerNav> */}
+            <FramerNav>{renderSubLinks()}</FramerNav>
+            <FramerNav>{renderSubSubLinks()}</FramerNav>
+          </nav>
 
-        <br />
-
-        {/* Links */}
-        <nav ref={scope} className="flex flex-col gap-4">
-          <FramerNav>{renderLinks()}</FramerNav>
-          <FramerNav>{renderSubLinks()}</FramerNav>
-          <FramerNav>{renderSubSubLinks()}</FramerNav>
-        </nav>
-      </div>
-    </>
-  );
+          <Button onClick={closeMenu} mode="text">
+            Close
+          </Button>
+        </header>
+      );
+    }
+  } else {
+    return null;
+  }
 }
-
-export const FramerNav = ({
-  delay = 0,
-  children,
-}: {
-  delay?: number;
-  children: React.ReactNode;
-}) => {
-  const [scope, animate] = useAnimate();
-  const isInView = useInView(scope);
-  // useEffect(() => {
-  //   if (isInView) {
-  //     animate('li', {opacity: 1}, {delay: stagger(0.05), duration: 0});
-  //   }
-  // }, [isInView]);
-  return (
-    <div className="gap-6 text-center" ref={scope}>
-      {children}
-    </div>
-  );
-};

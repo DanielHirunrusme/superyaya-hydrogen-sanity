@@ -19,6 +19,7 @@ import {isWithinDateRange} from '~/lib/utils';
 import {useAnimate} from 'framer-motion';
 import Newsletter from '~/components/modules/Newsletter';
 import {Container} from '~/components/global/Container';
+import CollectionBreadcrumb from '~/components/collection/CollectionBreadcrumb';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
   title: data?.page?.seo?.title ?? data?.collection?.title,
@@ -130,6 +131,8 @@ export default function Collection() {
           {/* No results */}
           {products.length === 0 && <EmptyMessage>No products.</EmptyMessage>}
 
+          <CollectionBreadcrumb collection={collection} />
+
           {!isPreorderCollection ? (
             <ProductGrid
               collection={collection}
@@ -155,7 +158,7 @@ export default function Collection() {
 
 function EmptyMessage({children}) {
   return (
-    <div className="fixed left-0 top-0 flex h-screen w-full flex-1 flex-col items-center justify-center text-center">
+    <div className="fixed pointer-events-none left-0 top-0 flex h-screen w-full flex-1 flex-col items-center justify-center text-center">
       <Container type="preOrder" asChild>
         <div className="m-auto mx-mobile md:mx-tablet xl:mx-laptop 2xl:mx-desktop">
           {children}
