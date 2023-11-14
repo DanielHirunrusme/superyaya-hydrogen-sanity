@@ -2,7 +2,7 @@ import {Await, useLoaderData} from '@remix-run/react';
 import type {SeoHandleFunction} from '@shopify/hydrogen';
 import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
 import clsx from 'clsx';
-import {Suspense, useState} from 'react';
+import {Suspense, useState, useEffect} from 'react';
 import invariant from 'tiny-invariant';
 
 import PageHero from '~/components/heroes/Page';
@@ -18,6 +18,9 @@ import {useMatches} from '@remix-run/react';
 import {Container} from '~/components/global/Container';
 import {Typography} from '~/components/global/Typography';
 import StaggerIndexList from '~/components/framer/StaggerIndexList';
+
+import SanityImage from '~/components/media/SanityImage';
+import {motion, useAnimate} from 'framer-motion';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
   title: data?.page?.seo?.title,
@@ -88,7 +91,7 @@ export default function Page() {
       }
 
       return (
-        <li key={link._key} className='opacity-0'>
+        <li key={link._key} className="opacity-0">
           <Link
             className="linkTextNavigation linkTextNavigationPage"
             to={link.slug}
@@ -107,31 +110,41 @@ export default function Page() {
 
   if (page.slug?.current.includes('studio')) {
     return (
-      <ColorTheme value={page.colorTheme}>
-        <Suspense>
-          <Await resolve={gids}>
-            {/* Page hero */}
-            {/* <PageHero fallbackTitle={page.title} hero={page.hero} /> */}
-            <Container type="pageDescription" asChild>
-              <div className={clsx('mx-auto w-full pb-24 grid grid-cols-10 gap-[2.56vw] md:block')}>
-                <div className='col-span-8 col-start-2'>
-                <Typography type="rte">
-                  {page.displayAssistanceMenu && assistance && (
-                    <StaggerIndexList target="ol li">
-                      <ol className="rte mb-6 flex list-inside list-alpha flex-col !uppercase">
-                        {renderLinks}
-                      </ol>
-                    </StaggerIndexList>
-                  )}
-                  {/* Body */}
-                  {page.body && <PortableText blocks={page.body} centered />}
-                </Typography>
-                </div>
+      <Cardwrapper>
+        <ColorTheme value={page.colorTheme}>
+          <Suspense>
+            <Await resolve={gids}>
+              {/* Page hero */}
+              {/* <PageHero fallbackTitle={page.title} hero={page.hero} /> */}
+              <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center">
+                <Container type="pageDescription" asChild>
+                  <div
+                    className={clsx(
+                      'mx-auto grid w-full grid-cols-10 gap-[2.56vw] md:block',
+                    )}
+                  >
+                    <div className="col-span-8 col-start-2">
+                      <Typography type="rte">
+                        {page.displayAssistanceMenu && assistance && (
+                          <StaggerIndexList target="ol li">
+                            <ol className="rte mb-6 flex list-inside list-alpha flex-col !uppercase">
+                              {renderLinks}
+                            </ol>
+                          </StaggerIndexList>
+                        )}
+                        {/* Body */}
+                        {page.body && (
+                          <PortableText blocks={page.body} centered />
+                        )}
+                      </Typography>
+                    </div>
+                  </div>
+                </Container>
               </div>
-            </Container>
-          </Await>
-        </Suspense>
-      </ColorTheme>
+            </Await>
+          </Suspense>
+        </ColorTheme>
+      </Cardwrapper>
     );
   } else {
     return (
@@ -152,7 +165,9 @@ export default function Page() {
                   )}
 
                   {/* Body */}
-                  {page.body && menuVisible && <PortableText blocks={page.body} centered />}
+                  {page.body && menuVisible && (
+                    <PortableText blocks={page.body} centered />
+                  )}
                 </Typography>
               </div>
             </Container>
@@ -161,4 +176,63 @@ export default function Page() {
       </ColorTheme>
     );
   }
+}
+
+function Cardwrapper(props: any) {
+  const [scope, animate] = useAnimate();
+  const {children} = props;
+
+  const [root] = useMatches();
+  const {sanityDataset, sanityProjectID} = root.data;
+  const [targetWidth, setTargetWidth] = useState<number>(0);
+  const [introDone, setIntroDone] = useState<boolean>(false);
+  const [cardVisible, setCardVisible] = useState<boolean>(true);
+
+  useEffect(() => {
+    const getTargetWidth = () => {
+      const wh = window.innerHeight;
+      const aspectRatio =
+        root.data?.layout?.introImage?.metadata?.dimensions?.aspectRatio;
+      const w = wh * aspectRatio;
+      return w;
+    };
+
+    setTargetWidth(getTargetWidth());
+  }, [targetWidth, root]);
+
+  return (
+    <>
+      <div ref={scope} className="fixed left-0 top-0 z-10 h-screen w-full ">
+        {cardVisible ? (
+          <button
+            style={{
+              aspectRatio:
+                root.data.layout?.introImage?.metadata?.dimensions?.aspectRatio,
+            }}
+            aria-label="View about"
+            type="button"
+            onClick={() => setCardVisible(false)}
+            className="absolute left-1/2 top-1/2  w-[112vw]  -translate-x-1/2 -translate-y-1/2 rotate-90 transform md:w-[33.33vw] md:rotate-0 xl:w-[27.546vw] 2xl:w-[27.265vw]"
+          >
+            <SanityImage
+              alt={'SUPER YAYA'}
+              dataset={sanityDataset}
+              layout="responsive"
+              objectFit="contain"
+              projectId={sanityProjectID}
+              sizes="50vw, 100vw"
+              src={root.data.layout?.introImage?._id}
+            />
+          </button>
+        ) : (
+          <>{children}</>
+        )}
+      </div>
+      <motion.div
+        animate={{opacity: 0}}
+        transition={{delay: 1, duration: 1}}
+        className="fixed left-0 top-0 h-screen w-full bg-black"
+      ></motion.div>
+    </>
+  );
 }
