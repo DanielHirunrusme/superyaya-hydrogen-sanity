@@ -140,7 +140,7 @@ export default function Cart() {
                       <CartLineItems linesObj={cart?.lines} />
                     </li>
                     <li className="grid grid-cols-8 gap-6 border-t border-black opacity-0 2xl:grid-cols-3">
-                      <div className="cell col-span-4 hidden md:col-span-6 md:flex gap-[1em] 2xl:col-span-1">
+                      <div className="cell col-span-4 hidden md:col-span-6 md:flex gap-[1em] 2xl:col-start-1 2xl:col-end-3">
                         <div className='w-[6em] flex-shrink-0  2xl:w-[5.07vw] aspect-[866/1300]' />
                         <Typography type="body" size="sm">
                           Shipping &amp; taxes calculated at checkout
