@@ -2,6 +2,8 @@ export const GRID_GAP =
   'gap-[2.3076vw] md:gap-[0.67vw] xl:gap-[0.5787vw] 2xl:gap-[.703125vw]';
 
 
+  export const COLLECTION_GRID = `grid-cols-2 md:grid-cols-8 2xl:grid-cols-10`
+
 export const COLLECTION_GRID_GAP =
   `${GRID_GAP} gap-y-[4.6153vw] md:gap-y-[1.34vw] xl:gap-y-[1.1574vw] 2xl:gap-y-[1.3671vw]`;
 

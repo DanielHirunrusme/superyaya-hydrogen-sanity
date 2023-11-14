@@ -2,7 +2,7 @@ import clsx from 'clsx';
 
 import Module from '~/components/modules/Module';
 import ProductCard from '~/components/product/Card';
-import {GRID_GAP} from '~/lib/constants';
+import {COLLECTION_GRID, GRID_GAP} from '~/lib/constants';
 import type {SanityModule} from '~/lib/sanity';
 import type {ProductWithNodes} from '~/types/shopify';
 import CollectionSlideshow from './CollectionSlideshow';
@@ -110,7 +110,7 @@ export default function CollectionGrid({
   items,
   showCount,
   stagger,
-  className = 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6',
+  className = `grid ${COLLECTION_GRID}`,
   showIndex = 'false',
   title = '',
   outboundLink = '',
