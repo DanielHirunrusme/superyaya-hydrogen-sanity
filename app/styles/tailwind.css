@@ -127,7 +127,7 @@
   @apply border-white;
 }
 
-.theme-dark rect, .theme-dark path {
+.theme-dark rect, .theme-dark path:not(.ignore-theme) {
   @apply stroke-white;
 }
 

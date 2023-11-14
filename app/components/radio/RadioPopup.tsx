@@ -62,7 +62,7 @@ export default function RadioPopup() {
       {!isPlaying && (
         <motion.div
           className={clsx(
-            'fixed  z-50 outline-none',
+            'fixed  z-50 outline-none text-black',
             // !visible && 'pointer-events-none opacity-0',
           )}
           data-radio-cat

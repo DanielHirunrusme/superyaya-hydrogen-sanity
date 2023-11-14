@@ -20,7 +20,7 @@ export default function RadioPlayer(props: Props) {
         dragMomentum={false}
         dragTransition={{timeConstant: 100000, power: 0.1}}
         className={clsx(
-          'fixed right-0 z-40 w-1/2 md:w-auto',
+          'fixed right-0 z-40 w-1/2 md:w-auto text-black',
           RADIO_PLAYER,
           SITE_MARGINS_X,
         )}

@@ -15,7 +15,7 @@ export default function PlayIcon() {
         stroke="black"
         stroke-width="2"
       />
-      <path d="M10 7V19L20 12.9993L10 7Z" fill="#FFF500" />
+      <path d="M10 7V19L20 12.9993L10 7Z" fill="#FFF500" className="ignore-theme" />
     </svg>
   );
 }
