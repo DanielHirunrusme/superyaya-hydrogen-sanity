@@ -74,7 +74,7 @@ export default function Index() {
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
-            <StaggerIndexList className="absolute left-0 top-0 flex min-h-full w-full flex-col items-center justify-center text-center">
+            <StaggerIndexList className="absolute left-0 top-0 flex min-h-full w-full flex-col items-center justify-center text-center overflow-hidden">
               <ul className="flex flex-col items-center justify-center gap-[1.5em] text-center md:gap-[1em] py-[8em]">
                 {page?.map((season) => (
                   <li className="opacity-0" key={season.slug}>

@@ -86,6 +86,7 @@ export default function Page() {
             setIndex={setSelectedIndex}
             detached
             showIndex={showIndex}
+            setShowIndex={setShowIndex}
             // title={title}
             // outboundLink={outboundLink}
             // outboundLinkText={outboundLinkText}

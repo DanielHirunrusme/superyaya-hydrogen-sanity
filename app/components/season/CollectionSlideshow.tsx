@@ -94,9 +94,9 @@ export default function CollectionSlideshow(props) {
     <div
       onClick={onClick}
       className={clsx(
-        'fixed left-0 top-0 h-screen w-screen',
+        'fixed left-0 top-0 h-screen w-screen bg-black text-white',
         detached ? 'z-50' : 'z-40',
-        theme === Theme.DARK && !indexVisible ? 'bg-black' : 'bg-white',
+         
       )}
     >
       {detached && (
@@ -154,7 +154,7 @@ export default function CollectionSlideshow(props) {
           </div>
         </div>
       )}
-      {showIndex && indexVisible && (
+      {indexVisible && (
         <div className="flex min-h-screen w-full items-center justify-center text-center">
           <Container type="slideshowIndex" asChild>
             <div className="mx-auto my-24 w-full text-center">
