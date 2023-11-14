@@ -163,7 +163,7 @@ html {
 
 /* Collections */
 .collection-title svg {
-  @apply h-[10vw] md:h-[6vw] xl:h-[4vw] w-auto;
+  @apply h-[10vw] md:h-[6vw] xl:h-[6.5vw] w-auto;
 }
 
 @keyframes dash {

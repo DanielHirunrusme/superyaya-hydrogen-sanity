@@ -32,8 +32,11 @@ export default function AccordionBlock({value}: Props) {
                     'hover:opacity-50 active:opacity-50',
                   )}
                 >
-                  <div className="truncate flex">
-                    <span className='block w-[1.5em] text-left'>{open ? <MinusIcon /> : <PlusIcon />}</span> {group.title}
+                  <div className="flex truncate">
+                    <span className="block w-[1.5em] text-left">
+                      {open ? <MinusIcon /> : <PlusIcon />}
+                    </span>{' '}
+                    {group.title}
                   </div>
                 </Disclosure.Button>
                 <Disclosure.Panel className="pb-[2em]">

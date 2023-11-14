@@ -71,15 +71,13 @@ export default function CollectionSlideshow(props) {
   }, []);
 
   const onClick = (e) => {
-    if (e.clientX < window.innerWidth / 2) {
-      emblaApi.scrollPrev();
-    } else {
-      emblaApi.scrollNext();
-    }
+    e.clientX < window.innerWidth / 2
+      ? emblaApi.scrollPrev()
+      : emblaApi.scrollNext();
   };
 
-  const onClose = () => {
-    setZoom(false);
+  const onClose = (e) => {
+    e.stopPropagation();
   };
 
   const toggleIndexVisible = () => {
@@ -89,23 +87,8 @@ export default function CollectionSlideshow(props) {
   useEffect(() => {
     if (!indexVisible && emblaApi) {
       emblaApi.scrollTo(selectedIndex);
-      setTheme(mode);
-    } else {
-      setTheme(mode);
     }
-
-    if (indexVisible && mode === Theme.DARK) {
-      setTheme(Theme.LIGHT);
-    } else {
-      setTheme(mode);
-    }
-
-    return () => {
-      setTheme(Theme.LIGHT);
-    };
   }, [indexVisible, emblaApi]);
-
-  console.log(modules);
 
   return (
     <div
@@ -115,21 +98,21 @@ export default function CollectionSlideshow(props) {
         detached ? 'z-50' : 'z-40',
         theme === Theme.DARK && !indexVisible ? 'bg-black' : 'bg-white',
       )}
-      // tabIndex={-1}
     >
       {detached && (
         <>
           <MinimalHeader />
-          <Button
-            mode="text"
-            type="button"
+          <Link
+            // mode="text"
+            // as={Link}
+            to="/collections"
             className={clsx('fixed right-0 z-10', SITE_MARGINS_X, HEADER_TOP)}
             onClick={onClose}
           >
             <Typography type="body" size="sm">
               Close
             </Typography>
-          </Button>
+          </Link>
         </>
       )}
       {!indexVisible && (
@@ -160,7 +143,7 @@ export default function CollectionSlideshow(props) {
                     className={clsx(
                       'mt-2 text-center',
 
-                      'absolute bottom-[1em] left-0 w-full text-center select-none',
+                      'absolute bottom-[1em] left-0 w-full select-none text-center',
                     )}
                   >
                     {modules[selectedIndex]?.caption || ''}
@@ -208,7 +191,7 @@ export default function CollectionSlideshow(props) {
         <div
           data-await-intro
           className={clsx(
-            'absolute bottom-0 z-10 flex w-full  items-center justify-center gap-4 text-center leading-none select-none',
+            'absolute bottom-0 z-10 flex w-full  select-none items-center justify-center gap-4 text-center leading-none',
             SITE_MARGINS_Y,
           )}
         >
@@ -219,35 +202,34 @@ export default function CollectionSlideshow(props) {
         </div>
       )}
       {/* Footer */}
-      {showIndex && (
-        <>
-          {outboundLink && (
-            <Link
-              to={outboundLink}
-              data-await-intro
-              className={clsx(
-                'linkTextNavigation fixed bottom-0 left-0 z-50 flex items-center !no-underline',
-                SITE_MARGINS_X,
-                SITE_MARGINS_Y,
-              )}
-            >
-              {outboundLinkText}
-            </Link>
-          )}
-          <Button
+
+      <div>
+        {outboundLink && (
+          <Link
+            to={outboundLink}
             data-await-intro
-            mode="text"
-            onClick={toggleIndexVisible}
             className={clsx(
-              'linkTextNavigation fixed bottom-0 right-0 z-50 flex items-center !no-underline',
+              'linkTextNavigation fixed bottom-0 left-0 z-50 flex items-center !no-underline',
               SITE_MARGINS_X,
               SITE_MARGINS_Y,
             )}
           >
-            {!indexVisible ? 'Index' : 'Slideshow'}
-          </Button>
-        </>
-      )}
+            {outboundLinkText}
+          </Link>
+        )}
+        <Button
+          data-await-intro
+          mode="text"
+          onClick={toggleIndexVisible}
+          className={clsx(
+            'linkTextNavigation fixed bottom-0 right-0 z-50 flex items-center !no-underline',
+            SITE_MARGINS_X,
+            SITE_MARGINS_Y,
+          )}
+        >
+          {!indexVisible ? 'Index' : 'Slideshow'}
+        </Button>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import {Await, useLoaderData} from '@remix-run/react';
 import type {SeoHandleFunction} from '@shopify/hydrogen';
 import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
-import {Suspense, useState} from 'react';
+import {Suspense, useEffect, useState} from 'react';
 import invariant from 'tiny-invariant';
 
 import PortableText from '~/components/portableText/PortableText';
@@ -9,12 +9,13 @@ import type {SanityPage} from '~/lib/sanity';
 import {ColorTheme} from '~/lib/theme';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
 import {SEASON_PAGE_QUERY} from '~/queries/sanity/seasons';
- 
+
 import StaggerIndexList from '~/components/framer/StaggerIndexList';
-import {Theme} from '~/components/context/ThemeProvider';
+import {Theme, useTheme} from '~/components/context/ThemeProvider';
 import {Container} from '~/components/global/Container';
 import {Typography} from '~/components/global/Typography';
 import CollectionGrid from '~/components/season/CollectionGrid';
+import CollectionSlideshow from '~/components/season/CollectionSlideshow';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
   title: data?.page?.seo?.title,
@@ -61,13 +62,37 @@ export default function Page() {
   const [showIndex, setShowIndex] = useState(false);
   const [zoom, setZoom] = useState(false);
   const [index, setIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const [theme, setTheme, navVisible] = useTheme();
+
+  useEffect(() => {
+    setTheme('dark');
+    return () => {
+      setTheme('light');
+    };
+  }, []);
 
   return (
     <ColorTheme value={page.colorTheme}>
       <Suspense>
         <Await resolve={gids}>
-          <Container type="pageDescription" asChild>
-            <div className="mx-auto mb-[36.92vw] md:mb-[7.035vw] xl:mb-[9.4328vw] 2xl:mb-[13.28125vw] text-center">
+          
+          {navVisible && <CollectionSlideshow
+            modules={page.modules}
+            zoom={zoom}
+            setZoom={setZoom}
+            index={selectedIndex}
+            setIndex={setSelectedIndex}
+            detached
+            showIndex={showIndex}
+            // title={title}
+            // outboundLink={outboundLink}
+            // outboundLinkText={outboundLinkText}
+            mode={theme}
+          />}
+          {/* <Container type="pageDescription" asChild>
+            <div className="mx-auto mb-[36.92vw] text-center md:mb-[7.035vw] xl:mb-[9.4328vw] 2xl:mb-[13.28125vw]">
               <Typography type="rte">
                 <div className=" !uppercase !tracking-widest">
                   {page.collection}&nbsp;{page.title}
@@ -79,7 +104,7 @@ export default function Page() {
               </Typography>
             </div>
           </Container>
-          
+
           {page.modules && (
             <StaggerIndexList>
               <CollectionGrid
@@ -92,7 +117,7 @@ export default function Page() {
                 theme={Theme.DARK}
               />
             </StaggerIndexList>
-          )}
+          )} */}
         </Await>
       </Suspense>
     </ColorTheme>
