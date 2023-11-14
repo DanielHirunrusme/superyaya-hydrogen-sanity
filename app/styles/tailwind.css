@@ -204,6 +204,10 @@ html {
   
 }
 
+.normal-case * {
+  @apply !normal-case;
+}
+
 
 
 /* Form */

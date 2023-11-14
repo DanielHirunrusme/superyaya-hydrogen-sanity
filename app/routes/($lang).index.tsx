@@ -310,6 +310,7 @@ export default function IndexPage() {
                                         'productWithVariant' ? (
                                           <Typography type="index">
                                             <div
+                                            className='normal-case'
                                               dangerouslySetInnerHTML={{
                                                 __html:
                                                   row.original.description,
