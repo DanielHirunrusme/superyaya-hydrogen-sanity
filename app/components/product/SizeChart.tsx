@@ -10,7 +10,6 @@ export default function SizeChart({
   international,
   setSizeChartVisible,
 }: any) {
-  console.log(frenchCm.sizeChart.rows);
   return (
     <Container type="sizeChart">
       <div className="grid w-full grid-flow-row gap-[2em] mb-[3em]">
@@ -41,7 +40,6 @@ export default function SizeChart({
 }
 
 function Chart({table}: any) {
-  console.log(table);
   // row 0 size
   // row 1 bust
   // row 2 waist

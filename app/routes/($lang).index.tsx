@@ -8,7 +8,7 @@ import {Link} from '~/components/Link';
 import {GRID_GAP} from '~/lib/constants';
 import type {SanityHomePage} from '~/lib/sanity';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
-import {INDEX_QUERY} from '~/queries/sanity/index';
+import {INDEX_QUERY, INDEX_COLOR_QUERY} from '~/queries/sanity/index';
 import {format} from 'date-fns';
 import {Disclosure} from '@headlessui/react';
 import ProductModule from '~/components/modules/Product';
@@ -61,6 +61,11 @@ export async function loader({context, params}: LoaderArgs) {
     cache,
   });
 
+  const colors = await context.sanity.query<SanityHomePage>({
+    query: INDEX_COLOR_QUERY,
+    cache,
+  });
+
   if (!page) {
     throw notFound();
   }
@@ -70,6 +75,7 @@ export async function loader({context, params}: LoaderArgs) {
 
   return defer({
     page,
+    colors,
     gids,
     analytics: {
       pageType: AnalyticsPageType.page,
@@ -88,7 +94,7 @@ export type IndexItem = {
 };
 
 export default function IndexPage() {
-  const {page, gids} = useLoaderData<typeof loader>();
+  const {page, colors, gids} = useLoaderData<typeof loader>();
   const [data, setData] = useState([]);
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -138,6 +144,8 @@ export default function IndexPage() {
     debugTable: true,
   });
 
+  console.log(colors);
+
   useEffect(() => {
     if (page) {
       const d = page?.map((item: any, index: number) => {
@@ -174,6 +182,29 @@ export default function IndexPage() {
     }
   }, [page]);
 
+  const getHoverColor = (item: any) => {
+    switch (item.original.kind) {
+      case 'collection':
+        return `hover:text-${colors.collectionColor}`;
+      case 'Archive':
+        return `hover:text-${colors.projectColor}`;
+    }
+  };
+
+  const getRowColor = (item: any) => {
+    console.log(item)
+    switch (item.original.kind) {
+      case 'collection':
+        return colors.collectionColor;
+      case 'Archive':
+      case 'Project':
+        case 'Collaboration':
+        return colors.projectColor;
+      case 'Garment':
+        return colors.garmentColor;
+    }
+  };
+
   return (
     <SanityPreview data={page} query={INDEX_QUERY}>
       {(page) => {
@@ -187,7 +218,7 @@ export default function IndexPage() {
                       'flex w-full flex-1 flex-col justify-between text-left',
                     )}
                   >
-                    <li className="hidden md:grid grid-cols-3 opacity-0 md:grid-cols-12">
+                    <li className="hidden grid-cols-3 opacity-0 md:grid md:grid-cols-12">
                       {table.getHeaderGroups().map((headerGroup) => (
                         <React.Fragment key={headerGroup.id}>
                           {headerGroup.headers.map((header, index) => {
@@ -239,15 +270,22 @@ export default function IndexPage() {
                             <Disclosure key={row.id}>
                               {({open}) => (
                                 <li
-                                  className="flex-1 overflow-hidden border-b opacity-0 2xl:border-b"
+                                  className={clsx(
+                                    'flex-1 overflow-hidden border-b opacity-0 2xl:border-b border-black',
+                                  )}
                                   key={row.id}
+                                  style={{
+                                    color: getRowColor(row),
+                                  }}
+                                  
                                 >
                                   <Disclosure.Button
                                     className={clsx(
-                                      'flex md:grid w-full flex-1 grid-cols-3 justify-between overflow-hidden text-left md:grid-cols-12',
+                                      'flex w-full flex-1 grid-cols-3 justify-between overflow-hidden text-left md:grid md:grid-cols-12 text-black hover:text-inherit active:text-inherit',
 
-                                      !open && ' hover:opacity-50 active:opacity-50',
+                                      open && "hover:text-black",
                                     )}
+                                    
                                   >
                                     {row
                                       .getVisibleCells()
@@ -294,7 +332,7 @@ export default function IndexPage() {
                                   <Disclosure.Panel>
                                     <div
                                       className={clsx(
-                                        'flex md:grid grid-cols-12 w-full flex-1 justify-between text-left',
+                                        'flex w-full flex-1 grid-cols-12 justify-between text-left md:grid',
                                         'font-index',
                                       )}
                                     >
@@ -305,12 +343,12 @@ export default function IndexPage() {
                                         )}
                                       ></div>
                                       {/* Description */}
-                                      <div className={COLUMN_SIZES[1]}>
+                                      <div className={clsx(COLUMN_SIZES[1], "text-black")}>
                                         {row.original._type ==
                                         'productWithVariant' ? (
                                           <Typography type="index">
                                             <div
-                                            className='normal-case'
+                                              className="normal-case text-black"
                                               dangerouslySetInnerHTML={{
                                                 __html:
                                                   row.original.description,

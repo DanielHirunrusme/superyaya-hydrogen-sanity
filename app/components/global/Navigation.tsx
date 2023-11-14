@@ -181,7 +181,6 @@ export default function Navigation({menuLinks, logoVisible}: Props) {
       return null;
     });
 
-    console.log('hasChildren', hasChildren);
 
     if (hasChildren === 0) {
       return (

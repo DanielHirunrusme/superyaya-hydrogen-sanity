@@ -69,3 +69,11 @@ export const INDEX_QUERY = groq`
  
   }
 `;
+ 
+
+export const INDEX_COLOR_QUERY = groq`{
+    "collectionColor": *[_type == "colorTheme" && _id == "9fa0e6d8-deb7-4764-b57a-b017ce1d6fdd"][0].text.hex,
+    "projectColor": *[_type == "colorTheme" && _id == "4fb4a554-4166-457b-8452-d88bdd652caf"][0].text.hex,
+    "objectColor": *[_type == "colorTheme" && _id == "651207d5-7f38-4d50-b576-10e910855512"][0].text.hex,
+    "garmentColor": *[_type == "colorTheme" && _id == "96515da1-0108-462e-bd5c-6069b6fa8f62"][0].text.hex
+}`;
