@@ -7,8 +7,8 @@ export default function CloseIcon() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M1 1L14 14" stroke="black" />
-      <path d="M14 1L1 14" stroke="black" />
+      <path d="M1 1L14 14" stroke="black" className="ignore-theme" />
+      <path d="M14 1L1 14" stroke="black" className="ignore-theme" />
     </svg>
   );
 }

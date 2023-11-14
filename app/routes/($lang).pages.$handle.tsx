@@ -113,7 +113,8 @@ export default function Page() {
             {/* Page hero */}
             {/* <PageHero fallbackTitle={page.title} hero={page.hero} /> */}
             <Container type="pageDescription" asChild>
-              <div className={clsx('mx-auto w-full pb-24')}>
+              <div className={clsx('mx-auto w-full pb-24 grid grid-cols-10 gap-[2.56vw] md:block')}>
+                <div className='col-span-8 col-start-2'>
                 <Typography type="rte">
                   {page.displayAssistanceMenu && assistance && (
                     <StaggerIndexList target="ol li">
@@ -125,6 +126,7 @@ export default function Page() {
                   {/* Body */}
                   {page.body && <PortableText blocks={page.body} centered />}
                 </Typography>
+                </div>
               </div>
             </Container>
           </Await>

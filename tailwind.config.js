@@ -82,9 +82,9 @@ module.exports = {
           lineHeight: ' 1.227',
         },
       ],
-      // Rte
+      // Rte Times
       rteMobile: [
-        '3.846vw',
+        '3.0769vw',
         {
           letterSpacing: '.075em',
           lineHeight: '1.3333',
