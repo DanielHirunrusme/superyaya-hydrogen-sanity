@@ -64,7 +64,8 @@ export default function Footer() {
             SITE_MARGINS_Y,
           )}
         >
-          Abijan
+          
+          Beyrouth
         </Link>
         <Link
           data-await-intro
@@ -75,7 +76,7 @@ export default function Footer() {
             SITE_MARGINS_Y,
           )}
         >
-          Beirut
+          Abidjan
         </Link>
       </>
     );
