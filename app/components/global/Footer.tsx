@@ -51,7 +51,7 @@ export default function Footer() {
   });
 
   if (
-    !location.pathname.includes('/products') && !location.pathname.includes('/collections/')
+    !location.pathname.includes('/products') && !location.pathname.includes('/collections/') && !location.pathname.includes('/archives/')
   ) {
     return (
       <>
