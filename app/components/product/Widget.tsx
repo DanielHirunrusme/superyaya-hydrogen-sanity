@@ -4,7 +4,7 @@ import {convertSchemaToHtml} from '@thebeyondgroup/shopify-rich-text-renderer';
 import ProductForm from '~/components/product/Form';
 import type {SanityProductPage} from '~/lib/sanity';
 import {Disclosure} from '@headlessui/react';
-import { Typography } from '../global/Typography';
+import {Typography} from '../global/Typography';
 
 type Props = {
   sanityProduct: SanityProductPage;
@@ -59,8 +59,8 @@ export default function ProductWidget({
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
-    })
-  }
+    });
+  };
 
   return (
     <div>
@@ -83,11 +83,9 @@ export default function ProductWidget({
       <br />
       {/* Description */}
       {storefrontProduct?.descriptionHtml && (
-        
         <div
           dangerouslySetInnerHTML={{__html: storefrontProduct.descriptionHtml}}
         />
-     
       )}
 
       {/* Product options */}
@@ -100,7 +98,6 @@ export default function ProductWidget({
       />
 
       <div className="mt-mobile md:mt-tablet xl:mt-laptop 2xl:mt-desktop">
-       
         {/* Details */}
         {storefrontProduct.details && (
           <div>
@@ -108,7 +105,7 @@ export default function ProductWidget({
               <Disclosure>
                 {({open}) => (
                   <>
-                    <Disclosure.Button className="flex gap-4">
+                    <Disclosure.Button className="flex gap-4 hover:opacity-50">
                       <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
                       Product Details
                     </Disclosure.Button>
@@ -131,14 +128,10 @@ export default function ProductWidget({
         )}
 
         {/* Size Guide */}
-        <button
-          onClick={onSizeGuideClick}
-          className="flex gap-4"
-        >
+        <button onClick={onSizeGuideClick} className="flex gap-4 hover:opacity-50">
           <span className="w-3">{!sizeChartVisible ? '+' : <>&ndash;</>}</span>
           Size Guide
         </button>
-        
       </div>
     </div>
   );
