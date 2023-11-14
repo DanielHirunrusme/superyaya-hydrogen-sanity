@@ -24,7 +24,7 @@ export default function RadioCat1() {
     }
   }, [scope]);
   return (
-    <ul className="h-48 w-48 pointer-events-none" ref={scope}>
+    <ul className="pointer-events-none h-full" ref={scope}>
       <li className="frame-1 opacity-1 absolute h-full w-full">
         <Image
           src="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/cat-1-1.png?v=1698890552"

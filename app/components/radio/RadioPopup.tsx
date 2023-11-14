@@ -81,7 +81,7 @@ export default function RadioPopup() {
           <button
             type="button"
             aria-label="Open radio"
-            className={clsx('cursor-pointer outline-none', CAT_SIZE)}
+            className={clsx('cursor-pointer outline-none relative aspect-square', CAT_SIZE)}
             onClick={() => !dragging && setOpen(true)}
           >
             <RadioCat1 />

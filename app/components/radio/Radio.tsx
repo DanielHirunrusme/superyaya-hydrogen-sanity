@@ -105,10 +105,12 @@ export default function Radio({open, setOpen, setIsPlaying}) {
             {/* Frame 1 */}
             <div
               ref={frame1Ref}
-              className={clsx(initialClasses, CAT_SIZE, 'opacity-100')}
+              className={clsx(initialClasses, 'opacity-100')}
               style={{mixBlendMode: 'multiply'}}
             >
+              <div className={clsx("relative aspect-square", CAT_SIZE)}>
               {rootOpen && <RadioCat2 onComplete={onCatComplete} />}
+              </div>
             </div>
             {/* Frame 2 */}
             <div ref={frame2Ref} className={initialClasses}>

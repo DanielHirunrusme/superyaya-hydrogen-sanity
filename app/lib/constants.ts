@@ -29,4 +29,4 @@ export const UI_FORM_ELEMENT_HEIGHT =
   'h-[11.7948vw] md:h-[3.015vw] xl:h-[2.719vw] 2xl:h-[2.578125vw]'; // need laptop size
 export const NAV_GAP = 'gap-[2em]';
 
-export const CAT_SIZE = 'w-[40vw] md:w-[14vw]  2xl:w-[6.25vw]';
+export const CAT_SIZE = 'w-[60vw] md:w-[24vw] xl:w-[18vw]  2xl:w-[18vw]';
