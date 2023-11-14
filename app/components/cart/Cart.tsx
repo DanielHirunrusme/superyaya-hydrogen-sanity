@@ -127,12 +127,10 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
           >
             <Link
               to={`/products/${merchandise.product.handle}`}
-              className="leading-none "
+              className="leading-none hover:opacity-50 "
             >
-              {merchandise.product.title}
-            </Link>
-
-            {/* Options */}
+              {merchandise.product.title}<br />
+               {/* Options */}
             {!hasDefaultVariantOnly && (
               <span className="">
                 {merchandise.selectedOptions
@@ -146,6 +144,9 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
                   ))}
               </span>
             )}
+            </Link>
+
+           
           </div>
 
           <div className="md:hidden">
@@ -199,6 +200,7 @@ function CartItemQuantity({
           aria-label="Decrease quantity"
           value={prevQuantity}
           disabled={quantity <= 1}
+          className='hover:opacity-50'
         >
           <MinusIcon />
         </button>
@@ -207,7 +209,7 @@ function CartItemQuantity({
       <div className="min-w-[1rem] text-center text-black">{lineQuantity}</div>
 
       <UpdateCartButton lines={[{id: lineId, quantity: nextQuantity}]}>
-        <button aria-label="Increase quantity" value={prevQuantity}>
+        <button           className='hover:opacity-50' aria-label="Increase quantity" value={prevQuantity}>
           <PlusIcon />
         </button>
       </UpdateCartButton>
