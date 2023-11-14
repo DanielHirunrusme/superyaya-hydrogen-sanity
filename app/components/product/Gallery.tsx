@@ -181,7 +181,7 @@ export default function ProductGallery({
       <ul
         ref={scope}
         className={clsx(
-          'hidden md:grid md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6',
+          'hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5',
           sizeChartVisible && 'opacity-0',
           GRID_GAP,
         )}

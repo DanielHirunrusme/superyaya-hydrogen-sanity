@@ -44,10 +44,10 @@ export default function ProductDetails({
   return (
     <>
       <div
-        className={clsx('flex grid-cols-8 flex-col-reverse md:grid', GRID_GAP)}
+        className={clsx('flex md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 flex-col-reverse md:grid', GRID_GAP)}
       >
         {/* Widget (desktop) */}
-        <div className={clsx("self-start md:sticky md:col-span-2", HEADER_TOP)}>
+        <div className={clsx("self-start md:sticky  md:pr-[2em] md:col-span-1", HEADER_TOP)}>
           <ProductWidget
             sanityProduct={sanityProduct}
             storefrontProduct={storefrontProduct}
@@ -60,7 +60,7 @@ export default function ProductDetails({
         </div>
 
         {/* Gallery */}
-        <div className="relative md:col-span-6">
+        <div className="relative md:col-span-2 lg:col-span-3 xl:col-span-4 2xl:col-span-5">
           {sizeChartVisible && (
             <SizeChart
               setSizeChartVisible={setSizeChartVisible}
