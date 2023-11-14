@@ -122,7 +122,7 @@ export default function CollectionSlideshow(props) {
               <div
                 className={clsx(
                   'flex h-full w-full flex-shrink-0 flex-grow-0',
-                  'flex flex-col items-center justify-center object-contain px-mobile  py-[13vw] xl:pb-[3.203125vw] xl:pt-[3.203125vw]',
+                  'flex flex-col items-center justify-center object-contain px-mobile  py-[13vw] xl:pb-[3.6vw] xl:pt-[3.6vw]',
                 )}
                 key={module._key}
               >

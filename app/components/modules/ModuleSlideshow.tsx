@@ -131,9 +131,9 @@ export default function ModuleSlideshow(props) {
                   'h-full w-full flex-shrink-0 flex-grow-0',
                   module.layout === 'full'
                     ? 'object-cover'
-                    : `flex flex-col items-center justify-center object-contain px-4  xl:pb-[3.203125vw] ${
+                    : `flex flex-col items-center justify-center object-contain px-4  xl:pb-[3.6vw] ${
                         detached
-                          ? 'pt-[4vw] xl:pt-[3.203125vw]'
+                          ? 'pt-[4vw] xl:pt-[3.6vw]'
                           : 'py-[13vw] md:pb-[4.25vw] md:pt-[7vw] xl:pt-[5.5vw] 2xl:pt-[5.203125vw]'
                       }`,
                 )}

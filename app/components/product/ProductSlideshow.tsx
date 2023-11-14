@@ -154,7 +154,7 @@ export default function ProductSlideshow({
 
             return (
               <MediaFile
-                className="relative flex w-full shrink-0 grow-0 select-none object-contain px-4 py-[4vw] xl:py-[3.203125vw]"
+                className="relative flex w-full shrink-0 grow-0 select-none object-contain px-4 py-[4vw] xl:py-[3.6vw]"
                 data={data}
                 draggable={false}
                 key={med.id}
