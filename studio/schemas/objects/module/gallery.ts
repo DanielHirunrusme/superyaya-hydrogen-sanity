@@ -21,5 +21,19 @@ export default defineField({
       rows: 2,
       // hidden: ({parent}) => parent.variant !== 'caption',
     }),
+    // Text color
+    // defineField({
+    //   name: 'text',
+    //   title: 'Text',
+    //   type: 'color',
+    //   options: {disableAlpha: true},
+    // }),
+    // Background color
+    defineField({
+      name: 'background',
+      title: 'Background',
+      type: 'color',
+      options: {disableAlpha: true},
+    }),
   ],
 })

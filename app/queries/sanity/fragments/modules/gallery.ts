@@ -8,6 +8,7 @@ import {PRODUCT_WITH_VARIANT} from '../productWithVariant';
 
 export const MODULE_GALLERY = groq`
 caption,
+background,
   images[] {
     _key,
     image {

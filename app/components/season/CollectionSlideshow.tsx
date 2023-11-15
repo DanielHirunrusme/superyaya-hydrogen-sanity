@@ -1,6 +1,5 @@
 import useEmblaCarousel from 'embla-carousel-react';
 import {useCallback, useEffect, useState} from 'react';
-import Module from '../modules/Module';
 import clsx from 'clsx';
 import Button from '../elements/Button';
 import MinimalHeader from '../global/MinimalHeader';
@@ -10,7 +9,6 @@ import {useTheme} from '../context/ThemeProvider';
 import {Container} from '../global/Container';
 import {
   HEADER_TOP,
-  SITE_CONTENT_OFFSET,
   SITE_MARGINS_X,
   SITE_MARGINS_Y,
 } from '~/lib/constants';
@@ -111,10 +109,9 @@ export default function CollectionSlideshow(props) {
     >
       <MinimalHeader />
       <Link
-        mode="text"
         as={Link}
         to="/collections"
-        className={clsx('fixed right-0 z-40', SITE_MARGINS_X, HEADER_TOP)}
+        className={clsx('fixed right-0 z-40 hover:opacity-50 active:opacity-50', SITE_MARGINS_X, HEADER_TOP)}
         // onClick={onClose}
       >
         <Typography type="body">Close</Typography>

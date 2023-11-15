@@ -15,7 +15,7 @@ const IMAGE_SIZES = [
 ]
 
 export default defineField({
-  name: 'module.image',
+  name: 'module.image', 
   title: 'Image',
   type: 'object',
   icon: ImageIcon,
@@ -101,6 +101,20 @@ export default defineField({
       type: 'image',
       options: {hotspot: true},
       hidden: ({parent}) => !parent.addMobileImage,
+    }),
+    // Text color
+    // defineField({
+    //   name: 'text',
+    //   title: 'Text',
+    //   type: 'color',
+    //   options: {disableAlpha: true},
+    // }),
+    // Background color
+    defineField({
+      name: 'background',
+      title: 'Background',
+      type: 'color',
+      options: {disableAlpha: true},
     }),
   ],
   preview: {

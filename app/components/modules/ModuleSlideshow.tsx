@@ -97,6 +97,8 @@ export default function ModuleSlideshow(props) {
     };
   }, [indexVisible, emblaApi]);
 
+  console.log(modules);
+
   return (
     <div
       onClick={onClick}
@@ -116,9 +118,7 @@ export default function ModuleSlideshow(props) {
             className={clsx('fixed right-0 z-10', SITE_MARGINS_X, HEADER_TOP)}
             onClick={onClose}
           >
-            <Typography type="body">
-              Close
-            </Typography>
+            <Typography type="body">Close</Typography>
           </Button>
         </>
       )}
@@ -138,6 +138,7 @@ export default function ModuleSlideshow(props) {
                       }`,
                 )}
                 key={module._key}
+                style={{ backgroundColor: module.background?.hex }}
               >
                 <Module module={module} mode={mode} inSlideShow={true} />
                 <div
@@ -192,7 +193,7 @@ export default function ModuleSlideshow(props) {
         <div
           data-await-intro
           className={clsx(
-            'absolute bottom-0 leading-none z-10 flex  w-full items-center justify-center gap-4 text-center',
+            'absolute bottom-0 z-10 flex w-full  items-center justify-center gap-4 text-center leading-none',
             SITE_MARGINS_Y,
           )}
         >

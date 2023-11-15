@@ -10,6 +10,7 @@ export const MODULE_IMAGE = groq`
   image {
     ${IMAGE}
   },
+  background,
   (addMobileImage) => {
     mobileImage {
       ${IMAGE}
