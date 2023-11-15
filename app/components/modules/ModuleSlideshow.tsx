@@ -97,7 +97,21 @@ export default function ModuleSlideshow(props) {
     };
   }, [indexVisible, emblaApi]);
 
-  console.log(modules);
+  const getImageLayout = (layout) => {
+    switch (layout) {
+      case 'full':
+        return 'object-cover';
+      case 'contain':
+        return 'object-contain flex flex-col items-center justify-center md:block';
+      case 'default':
+      default:
+        return `flex flex-col items-center justify-center object-contain px-4  xl:pb-[3.6vw] ${
+          detached
+            ? 'pt-[4vw] xl:pt-[3.6vw]'
+            : 'py-[13vw] md:pb-[4.25vw] md:pt-[7vw] xl:pt-[5.5vw] 2xl:pt-[5.203125vw]'
+        }`;
+    }
+  };
 
   return (
     <div
@@ -128,25 +142,20 @@ export default function ModuleSlideshow(props) {
             {modules?.map((module) => (
               <div
                 className={clsx(
-                  'h-full w-full flex-shrink-0 flex-grow-0',
-                  module.layout === 'full'
-                    ? 'object-cover'
-                    : `flex flex-col items-center justify-center object-contain px-4  xl:pb-[3.6vw] ${
-                        detached
-                          ? 'pt-[4vw] xl:pt-[3.6vw]'
-                          : 'py-[13vw] md:pb-[4.25vw] md:pt-[7vw] xl:pt-[5.5vw] 2xl:pt-[5.203125vw]'
-                      }`,
+                  'h-full w-full flex-shrink-0 flex-grow-0 relative',
+                  getImageLayout(module.layout),
                 )}
                 key={module._key}
-                style={{ backgroundColor: module.background?.hex }}
+                style={{backgroundColor: module.background?.hex}}
               >
                 <Module module={module} mode={mode} inSlideShow={true} />
                 <div
                   data-await-intro
+                  data-module-layout={module.layout}
                   className={clsx(
                     'mt-2 text-center md:hidden',
-                    module.layout === 'full' &&
-                      'absolute bottom-14 left-0 w-full text-center',
+                    module.layout === 'full' ?
+                      'absolute bottom-14 left-0 w-full text-center' : '',
                   )}
                 >
                   {modules[selectedIndex]?.caption || ''}

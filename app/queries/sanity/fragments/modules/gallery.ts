@@ -7,8 +7,10 @@ import {PRODUCT_HOTSPOT} from '../productHotspot';
 import {PRODUCT_WITH_VARIANT} from '../productWithVariant';
 
 export const MODULE_GALLERY = groq`
-caption,
-background,
+    caption,
+    background,
+    layout,
+    mobileStack,
   images[] {
     _key,
     image {

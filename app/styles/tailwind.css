@@ -236,13 +236,49 @@ textarea {
 }
 
 /* Gallery */
-.gallery-module div:first-child img {
+
+/* 2 count */
+.gallery-module[data-count="2"] div:nth-child(1) img {
   @apply md:object-right;
 }
 
-.gallery-module div:last-child img {
+.gallery-module[data-count="2"] div:nth-child(2) img {
   @apply md:object-left;
 }
+
+.gallery-module[data-mobilestack="Vertical"]  div:nth-child(1) img {
+  @apply object-bottom md:object-right;
+}
+.gallery-module[data-mobilestack="Vertical"]  div:nth-child(2) img {
+  @apply object-top md:object-left;
+}
+
+
+/* 4 count */
+.gallery-module[data-count="4"] div:nth-child(1) img {
+  @apply object-right-bottom;
+}
+
+.gallery-module[data-count="4"] div:nth-child(2) img {
+  @apply object-left-bottom;
+}
+
+.gallery-module[data-count="4"] div:nth-child(3) img {
+  @apply object-right-top;
+}
+
+.gallery-module[data-count="4"] div:nth-child(4) img {
+  @apply object-left-top;
+}
+
+@screen md {
+  .gallery-image {
+    @apply aspect-auto !important;
+  }
+}
+
+
+
 
 /* Portable Text */
 .portableText,

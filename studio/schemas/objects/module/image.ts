@@ -10,8 +10,10 @@ const VARIANTS = [
 ]
 
 const IMAGE_SIZES = [
+  {title: 'Small', value: 'small'},
   {title: 'Default', value: undefined},
-  {title: 'Full', value: 'full'},
+  {title: 'Full: Contain', value: 'contain'},
+  {title: 'Full: Cover', value: 'full'},
 ]
 
 export default defineField({
