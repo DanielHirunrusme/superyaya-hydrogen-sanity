@@ -11,6 +11,6 @@ export const MODULE_IMAGE_COLLECTION = groq`
   layout,
   reference->{
     _key,
-      ...${PRODUCT_WITH_VARIANT}
+    ...,
   },
 `;

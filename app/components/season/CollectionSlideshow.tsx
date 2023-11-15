@@ -99,6 +99,7 @@ export default function CollectionSlideshow(props) {
     }
   }, [indexVisible, emblaApi]);
 
+
   return (
     <div
       onClick={onClick}
@@ -232,25 +233,25 @@ export default function CollectionSlideshow(props) {
       {/* Footer */}
 
       <div>
-        {outboundLink && (
-          <Link
-            to={outboundLink}
+ 
+        {modules[index]?.reference?.store?.slug && !indexVisible &&  <Link
+            to={`/products/${modules[index]?.reference?.store?.slug.current}`}
             data-await-intro
             className={clsx(
-              'linkTextNavigation fixed bottom-0 left-0 z-50 flex items-center !no-underline',
+              'linkTextNavigation leading-none fixed bottom-0 left-0 z-50 flex items-center !no-underline',
               SITE_MARGINS_X,
               SITE_MARGINS_Y,
             )}
           >
-            {outboundLinkText}
-          </Link>
-        )}
+            Pre-order
+          </Link>}
+  
         <Button
           data-await-intro
           mode="text"
           onClick={toggleIndexVisible}
           className={clsx(
-            'linkTextNavigation fixed bottom-0 right-0 z-50 flex items-center !no-underline',
+            'linkTextNavigation  leading-none fixed bottom-0 right-0 z-50 flex items-center !no-underline',
             SITE_MARGINS_X,
             SITE_MARGINS_Y,
           )}
