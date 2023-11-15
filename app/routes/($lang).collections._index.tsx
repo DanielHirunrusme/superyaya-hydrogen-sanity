@@ -16,6 +16,7 @@ import {fetchGids, notFound, validateLocale} from '~/lib/utils';
 import {SEASON_INDEX_PAGE} from '~/queries/sanity/seasons';
 import {motion} from 'framer-motion';
 import {useTheme} from '~/components/context/ThemeProvider';
+import {Typography} from '~/components/global/Typography';
 
 const seo: SeoHandleFunction = ({data}) => ({
   title: data?.page?.seo?.title || 'Sanity x Hydrogen',
@@ -66,7 +67,7 @@ export default function Index() {
     setTheme('dark');
     return () => {
       setTheme('light');
-    }
+    };
   }, []);
 
   return (
@@ -74,19 +75,24 @@ export default function Index() {
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
-            <StaggerIndexList className="absolute left-0 top-0 flex min-h-full w-full flex-col items-center justify-center text-center overflow-hidden">
-              <ul className="flex flex-col items-center justify-center gap-[1.5em] text-center md:gap-[1em] py-[8em]">
+            <StaggerIndexList
+              speed={0.25}
+              className="absolute left-0 top-0 flex min-h-full w-full flex-col items-center justify-center overflow-hidden text-center"
+            >
+              <ul className="flex flex-col items-center justify-center gap-[1.5em] py-[8em] text-center md:gap-[1em]">
                 {page?.map((season) => (
                   <li className="opacity-0" key={season.slug}>
                     <Link
                       to={season.slug}
                       title={season.title}
-                      className="large-title  mx-auto self-start  font-cursive  "
+                      className="large-title  mx-auto self-start"
                     >
                       <div
                         className="collection-title transition-transform"
-                        dangerouslySetInnerHTML={{__html: season.titleSvg}}
-                      ></div>
+                        
+                      >
+                      <Typography type="collection">{season.title}</Typography>
+                      </div>
                     </Link>
                   </li>
                 ))}

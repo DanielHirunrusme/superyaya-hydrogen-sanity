@@ -82,6 +82,35 @@ module.exports = {
           lineHeight: ' 1.227',
         },
       ],
+      // Collection
+      collectionMobile: [
+        '11vw',
+        {
+          letterSpacing: '0',
+          lineHeight: '1',
+        },
+      ],
+      collectionTablet: [
+        '6.5vw',
+        {
+          letterSpacing: '0',
+          lineHeight: '1',
+        },
+      ],
+      collectionLaptop: [
+        '7vw',
+        {
+          letterSpacing: '0',
+          lineHeight: '1',
+        },
+      ],
+      collectionDesktop: [
+        '7vw',
+        {
+          letterSpacing: '0',
+          lineHeight: '1',
+        },
+      ],
       // Rte Times
       rteMobile: [
         '3.0769vw',

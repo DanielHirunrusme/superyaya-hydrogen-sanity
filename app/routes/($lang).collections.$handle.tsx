@@ -90,7 +90,7 @@ export default function Page() {
               detached
               showIndex={showIndex}
               setShowIndex={setShowIndex}
-              // title={title}
+              title={page.title}
               // outboundLink={outboundLink}
               // outboundLinkText={outboundLinkText}
               mode={theme}

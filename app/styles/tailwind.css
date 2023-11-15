@@ -180,26 +180,26 @@ html {
 
 /* Large titles */
 
-.large-title svg, .large-title-stretch svg {
-  @apply transition-transform ease-linear;
+.large-title div, .large-title-stretch div {
+  @apply transition-transform ease-linear whitespace-nowrap;
 }
 
 .large-title-stretch rect {
   @apply hidden;
 }
 
-.large-title svg {
-  transform: scaleX(.75) scaleY(1.5);
+.large-title div {
+  transform: scaleX(.875) scaleY(1.3);
 }
 
 
 @screen md {
-  .large-title svg {
+  .large-title div {
     transform: none;
   }
 
-  .large-title:hover svg {
-    transform: skewX(50deg);
+  .large-title:hover div {
+    transform: skewX(40deg);
   }
   
 }

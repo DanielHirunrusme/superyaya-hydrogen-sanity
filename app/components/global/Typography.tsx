@@ -7,6 +7,7 @@ export const Typography = styled('div', {
       index:
         'text-indexMobile md:text-indexTablet xl:text-indexLaptop 2xl:text-indexDesktop font-index',
       rte: 'text-rteMobile md:text-rteTablet xl:text-rteLaptop 2xl:text-rteDesktop font-serif',
+      collection: 'text-collectionMobile md:text-collectionTablet xl:text-collectionLaptop 2xl:text-collectionDesktop font-cursive !normal-case',
       radio:
         'font-radio text-radioMobile md:text-radioTablet xl:text-radioLaptop 2xl:text-radioDesktop',
       radioPlayer:

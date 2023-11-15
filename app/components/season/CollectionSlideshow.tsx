@@ -7,11 +7,7 @@ import StaggerIndexList from '../framer/StaggerIndexList';
 import {Link} from '~/components/Link';
 import {useTheme} from '../context/ThemeProvider';
 import {Container} from '../global/Container';
-import {
-  HEADER_TOP,
-  SITE_MARGINS_X,
-  SITE_MARGINS_Y,
-} from '~/lib/constants';
+import {HEADER_TOP, SITE_MARGINS_X, SITE_MARGINS_Y} from '~/lib/constants';
 import {Typography} from '../global/Typography';
 
 import {useMatches} from '@remix-run/react';
@@ -19,6 +15,7 @@ import {useMatches} from '@remix-run/react';
 import SanityImage from '~/components/media/SanityImage';
 import ProductHotspot from '~/components/product/Hotspot';
 import ProductTag from '~/components/product/Tag';
+import { motion } from 'framer-motion';
 
 type Props = {
   modules: any[];
@@ -51,6 +48,7 @@ export default function CollectionSlideshow(props) {
   } = props;
   const [indexVisible, setIndexVisible] = useState(false);
   const [theme, setTheme] = useTheme();
+  const [introComplete, setIntroComplete] = useState(false);
   const [w, setW] = useState<any>(null);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -99,6 +97,9 @@ export default function CollectionSlideshow(props) {
     }
   }, [indexVisible, emblaApi]);
 
+  const onIntroComplete = () => {
+    setIntroComplete(true);
+  };
 
   return (
     <div
@@ -112,11 +113,17 @@ export default function CollectionSlideshow(props) {
       <Link
         as={Link}
         to="/collections"
-        className={clsx('fixed right-0 z-40 hover:opacity-50 active:opacity-50', SITE_MARGINS_X, HEADER_TOP)}
+        className={clsx(
+          'fixed right-0 z-40 hover:opacity-50 active:opacity-50',
+          SITE_MARGINS_X,
+          HEADER_TOP,
+        )}
         // onClick={onClose}
       >
         <Typography type="body">Close</Typography>
       </Link>
+
+      <Intro onIntroComplete={onIntroComplete} title={title} />
 
       {!indexVisible && (
         <div className="h-full w-screen overflow-hidden" ref={emblaRef}>
@@ -172,7 +179,7 @@ export default function CollectionSlideshow(props) {
             >
               <div
                 className={clsx(
-                  'flex-0 relative bg-black py-[1em] md:py-[4em] text-white',
+                  'flex-0 relative bg-black py-[1em] text-white md:py-[4em]',
                   'aspect-[938/1276] portrait:w-full landscape:h-full',
                 )}
               >
@@ -233,25 +240,26 @@ export default function CollectionSlideshow(props) {
       {/* Footer */}
 
       <div>
- 
-        {modules[index]?.reference?.store?.slug && !indexVisible &&  <Link
+        {modules[index]?.reference?.store?.slug && !indexVisible && (
+          <Link
             to={`/products/${modules[index]?.reference?.store?.slug.current}`}
             data-await-intro
             className={clsx(
-              'linkTextNavigation leading-none fixed bottom-0 left-0 z-50 flex items-center !no-underline',
+              'linkTextNavigation fixed bottom-0 left-0 z-50 flex items-center leading-none !no-underline',
               SITE_MARGINS_X,
               SITE_MARGINS_Y,
             )}
           >
             Pre-order
-          </Link>}
-  
+          </Link>
+        )}
+
         <Button
           data-await-intro
           mode="text"
           onClick={toggleIndexVisible}
           className={clsx(
-            'linkTextNavigation  leading-none fixed bottom-0 right-0 z-50 flex items-center !no-underline',
+            'linkTextNavigation  fixed bottom-0 right-0 z-50 flex items-center leading-none !no-underline',
             SITE_MARGINS_X,
             SITE_MARGINS_Y,
           )}
@@ -381,3 +389,15 @@ const ImageContent = ({module, parentModule, mode, inSlideShow}: Props) => {
     </div>
   );
 };
+
+function Intro({title, onIntroComplete}) {
+  return (
+    <motion.div animate={{ opacity: 0 }} transition={{ delay: 1, duration: 1}} onAnimationComplete={onIntroComplete} className="fixed z-10 flex h-screen w-screen items-center justify-center bg-black text-white">
+      <div className="large-title pointer-events-none">
+        <div className="collection-title">
+          <Typography type="collection">{title}</Typography>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
