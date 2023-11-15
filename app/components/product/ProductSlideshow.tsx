@@ -108,7 +108,7 @@ export default function ProductSlideshow({
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 top-0 z-50 bg-white">
+    <div className="fixed bottom-0 left-0 right-0 top-0 z-50 bg-white text-black">
       <MinimalHeader />
       <Button
         mode="text"

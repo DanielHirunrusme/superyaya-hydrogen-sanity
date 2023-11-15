@@ -119,7 +119,7 @@ export default function ModuleSlideshow(props) {
       className={clsx(
         'fixed left-0 top-0 h-screen w-screen',
         detached ? 'z-50' : 'z-40',
-        theme === Theme.DARK && !indexVisible ? 'bg-black' : 'bg-white',
+        theme === Theme.DARK && !indexVisible ? 'bg-black' : 'bg-white text-black',
       )}
       // tabIndex={-1}
     >
@@ -129,7 +129,7 @@ export default function ModuleSlideshow(props) {
           <Button
             mode="text"
             type="button"
-            className={clsx('fixed right-0 z-10', SITE_MARGINS_X, HEADER_TOP)}
+            className={clsx('fixed right-0 z-20', SITE_MARGINS_X, HEADER_TOP)}
             onClick={onClose}
           >
             <Typography type="body">Close</Typography>
