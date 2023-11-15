@@ -116,7 +116,7 @@ export default function ModuleSlideshow(props) {
             className={clsx('fixed right-0 z-10', SITE_MARGINS_X, HEADER_TOP)}
             onClick={onClose}
           >
-            <Typography type="body" size="sm">
+            <Typography type="body">
               Close
             </Typography>
           </Button>

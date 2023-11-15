@@ -62,63 +62,55 @@ export default function Page() {
   const [showIndex, setShowIndex] = useState(false);
   const [zoom, setZoom] = useState(false);
   const [index, setIndex] = useState(0);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
   const [theme, setTheme, navVisible] = useTheme();
 
   useEffect(() => {
-    setTheme('dark');
+    console.log('index', index);
+    if (index === page.modules?.length) {
+      setTheme('light');
+    } else {
+      setTheme('dark');
+    }
     return () => {
       setTheme('light');
     };
-  }, []);
+  }, [index]);
 
   return (
     <ColorTheme value={page.colorTheme}>
       <Suspense>
         <Await resolve={gids}>
+          {navVisible && (
+            <CollectionSlideshow
+              modules={page.modules}
+              zoom={zoom}
+              setZoom={setZoom}
+              index={index}
+              setIndex={setIndex}
+              detached
+              showIndex={showIndex}
+              setShowIndex={setShowIndex}
+              // title={title}
+              // outboundLink={outboundLink}
+              // outboundLinkText={outboundLinkText}
+              mode={theme}
+            >
+              <Container type="pageDescription" asChild>
+                <div className="mx-auto mb-[36.92vw] text-center md:mb-[7.035vw] xl:mb-[9.4328vw] 2xl:mb-[13.28125vw]">
+                  <Typography type="rte">
+                    <div className=" !uppercase !tracking-widest">
+                      {page.collection}&nbsp;{page.title}
+                    </div>
+                    <br />
+                    <div className="mx-auto text-left !normal-case">
+                      <PortableText blocks={page.body} />
+                    </div>
+                  </Typography>
+                </div>
+              </Container>
+            </CollectionSlideshow>
+          )}
           
-          {navVisible && <CollectionSlideshow
-            modules={page.modules}
-            zoom={zoom}
-            setZoom={setZoom}
-            index={selectedIndex}
-            setIndex={setSelectedIndex}
-            detached
-            showIndex={showIndex}
-            setShowIndex={setShowIndex}
-            // title={title}
-            // outboundLink={outboundLink}
-            // outboundLinkText={outboundLinkText}
-            mode={theme}
-          />}
-          {/* <Container type="pageDescription" asChild>
-            <div className="mx-auto mb-[36.92vw] text-center md:mb-[7.035vw] xl:mb-[9.4328vw] 2xl:mb-[13.28125vw]">
-              <Typography type="rte">
-                <div className=" !uppercase !tracking-widest">
-                  {page.collection}&nbsp;{page.title}
-                </div>
-                <br />
-                <div className="mx-auto text-left !normal-case">
-                  <PortableText blocks={page.body} />
-                </div>
-              </Typography>
-            </div>
-          </Container>
-
-          {page.modules && (
-            <StaggerIndexList>
-              <CollectionGrid
-                items={page.modules}
-                title={`${page.collection} ${page.title}`}
-                showCount
-                showIndex
-                outboundLink={page.preOrder?.slug}
-                outboundLinkText={'Pre-Order'}
-                theme={Theme.DARK}
-              />
-            </StaggerIndexList>
-          )} */}
         </Await>
       </Suspense>
     </ColorTheme>

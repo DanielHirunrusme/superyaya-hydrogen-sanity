@@ -6,10 +6,21 @@ import Button from '../elements/Button';
 import MinimalHeader from '../global/MinimalHeader';
 import StaggerIndexList from '../framer/StaggerIndexList';
 import {Link} from '~/components/Link';
-import {useTheme, Theme} from '../context/ThemeProvider';
+import {useTheme} from '../context/ThemeProvider';
 import {Container} from '../global/Container';
-import {HEADER_TOP, SITE_MARGINS_X, SITE_MARGINS_Y} from '~/lib/constants';
+import {
+  HEADER_TOP,
+  SITE_CONTENT_OFFSET,
+  SITE_MARGINS_X,
+  SITE_MARGINS_Y,
+} from '~/lib/constants';
 import {Typography} from '../global/Typography';
+
+import {useMatches} from '@remix-run/react';
+
+import SanityImage from '~/components/media/SanityImage';
+import ProductHotspot from '~/components/product/Hotspot';
+import ProductTag from '~/components/product/Tag';
 
 type Props = {
   modules: any[];
@@ -32,6 +43,7 @@ export default function CollectionSlideshow(props) {
     zoom,
     setZoom,
     index,
+    setIndex,
     detached,
     showIndex,
     title,
@@ -39,7 +51,6 @@ export default function CollectionSlideshow(props) {
     outboundLinkText,
     mode,
   } = props;
-  const [selectedIndex, setSelectedIndex] = useState(index || 0);
   const [indexVisible, setIndexVisible] = useState(false);
   const [theme, setTheme] = useTheme();
   const [w, setW] = useState<any>(null);
@@ -54,8 +65,8 @@ export default function CollectionSlideshow(props) {
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi, setSelectedIndex]);
+    setIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi, setIndex]);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -86,7 +97,7 @@ export default function CollectionSlideshow(props) {
 
   useEffect(() => {
     if (!indexVisible && emblaApi) {
-      emblaApi.scrollTo(selectedIndex);
+      emblaApi.scrollTo(index);
     }
   }, [indexVisible, emblaApi]);
 
@@ -94,27 +105,21 @@ export default function CollectionSlideshow(props) {
     <div
       onClick={onClick}
       className={clsx(
-        'fixed left-0 top-0 h-screen w-screen bg-black text-white',
-        detached ? 'z-50' : 'z-40',
-         
+        'fixed left-0 top-0 z-50 h-screen w-screen',
+        theme === 'dark' ? 'bg-black' : 'bg-white',
       )}
     >
-      {detached && (
-        <>
-          <MinimalHeader />
-          <Link
-            // mode="text"
-            // as={Link}
-            to="/collections"
-            className={clsx('fixed right-0 z-10', SITE_MARGINS_X, HEADER_TOP)}
-            onClick={onClose}
-          >
-            <Typography type="body" size="sm">
-              Close
-            </Typography>
-          </Link>
-        </>
-      )}
+      <MinimalHeader />
+      <Link
+        mode="text"
+        as={Link}
+        to="/collections"
+        className={clsx('fixed right-0 z-40', SITE_MARGINS_X, HEADER_TOP)}
+        // onClick={onClose}
+      >
+        <Typography type="body">Close</Typography>
+      </Link>
+
       {!indexVisible && (
         <div className="h-full w-screen overflow-hidden" ref={emblaRef}>
           <div className="flex h-full">
@@ -122,35 +127,61 @@ export default function CollectionSlideshow(props) {
               <div
                 className={clsx(
                   'flex h-full w-full flex-shrink-0 flex-grow-0',
-                  'flex flex-col items-center justify-center object-contain px-mobile  py-[13vw] xl:pb-[3.6vw] xl:pt-[3.6vw]',
+                  'flex flex-col items-center justify-center object-contain px-mobile ',
+                  'py-[15.897vw] md:py-[4vw] xl:py-[3.25vw] 2xl:py-[3vw] 2xl:pb-[3.5vw]',
                 )}
                 key={module._key}
               >
                 <div
                   className={clsx(
-                    'flex-0 relative bg-white px-[1em] pt-[1em] text-black',
-                    w?.innerWidth > w?.innerHeight ? 'h-full' : 'w-full',
+                    'flex-0 relative bg-white px-[1em] py-[1em] text-black',
+                    'aspect-[938/1276] portrait:w-full landscape:h-full',
+                    // w?.innerWidth > w?.innerHeight ? 'h-full' : 'w-full',
                   )}
-                  style={{
-                    aspectRatio: `${
-                      module.image.width / (module.image.height + 60)
-                    }`,
-                  }}
+                  // style={{
+                  //   aspectRatio: `${
+                  //     module.image.width / (module.image.height + 60)
+                  //   }`,
+                  // }}
                 >
-                  <Module module={module} mode={mode} inSlideShow={true} />
+                  <CollectionModule
+                    module={module}
+                    mode={mode}
+                    inSlideShow={true}
+                  />
                   <div
                     data-await-intro
                     className={clsx(
-                      'mt-2 text-center',
+                      'text-center',
 
-                      'absolute bottom-[1em] left-0 w-full select-none text-center',
+                      'absolute bottom-[.875em] left-0 w-full select-none text-center xl:bottom-[.675em]',
                     )}
                   >
-                    {modules[selectedIndex]?.caption || ''}
+                    {modules[index]?.caption || ''}
                   </div>
                 </div>
               </div>
             ))}
+
+            {/* Text Slide */}
+            <div
+              className={clsx(
+                'flex h-full w-full flex-shrink-0 flex-grow-0 select-none',
+                'flex-col items-center justify-center object-contain',
+                'py-[15.897vw] md:py-[4vw] xl:py-[3.25vw] 2xl:py-[3vw] 2xl:pb-[3.5vw]',
+                SITE_MARGINS_X,
+              )}
+            >
+              <div
+                className={clsx(
+                  'flex-0 relative bg-black py-[1em] md:py-[4em] text-white',
+                  'aspect-[938/1276] portrait:w-full landscape:h-full',
+                )}
+              >
+                {children}
+              </div>
+            </div>
+            {/* End Text Slide */}
           </div>
         </div>
       )}
@@ -170,7 +201,7 @@ export default function CollectionSlideshow(props) {
                     <li
                       onClick={() => {
                         setIndexVisible(false);
-                        setSelectedIndex(index);
+                        setIndex(index);
                       }}
                       className="cursor-pointer"
                       key={`table-${module._key}`}
@@ -196,8 +227,8 @@ export default function CollectionSlideshow(props) {
           )}
         >
           <span>
-            {String(selectedIndex + 1).padStart(2, '0')}/
-            {String(modules!.length).padStart(2, '0')}
+            {String(index + 1).padStart(2, '0')}/
+            {String(modules!.length + 1).padStart(2, '0')}
           </span>
         </div>
       )}
@@ -233,3 +264,122 @@ export default function CollectionSlideshow(props) {
     </div>
   );
 }
+
+function CollectionModule({module, parentModule, mode, inSlideShow}: Props) {
+  if (!module.image) {
+    return null;
+  }
+
+  return (
+    <>
+      <ImageContent
+        parentModule={parentModule}
+        module={module}
+        mode={mode}
+        inSlideShow={inSlideShow}
+      />
+
+      {/* Caption */}
+      {module.variant === 'caption' && module.caption && (
+        <div className="mt-1 max-w-[35rem]  leading-caption ">
+          {module.caption}
+        </div>
+      )}
+
+      {/* Product tags */}
+      {module.variant === 'productTags' && !inSlideShow && (
+        <div className=" flex flex-wrap gap-x-1 gap-y-2">
+          {module.productTags?.map((tag) => {
+            if (!tag?.gid) {
+              return null;
+            }
+
+            return (
+              <ProductTag
+                key={tag._key}
+                productGid={tag?.gid}
+                variantGid={tag?.variantGid}
+              />
+            );
+          })}
+        </div>
+      )}
+    </>
+  );
+}
+
+const ImageContent = ({module, parentModule, mode, inSlideShow}: Props) => {
+  const image = module.image;
+  const mobileImage = module.mobileImage;
+  const [root] = useMatches();
+  const {sanityDataset, sanityProjectID} = root.data;
+  const applyAspectRatio = parentModule?._type === 'module.gallery';
+
+  return (
+    <div
+      className={clsx(
+        'relative select-none',
+        // image.width > image.height ? 'w-full' : 'w-full',
+        parentModule?._type === 'module.gallery' && 'h-full md:h-auto',
+        module.layout === 'full' && 'h-full',
+        'w-full',
+      )}
+      style={{
+        aspectRatio: !applyAspectRatio ? image.width / image.height : 'auto',
+      }}
+    >
+      <SanityImage
+        crop={image?.crop}
+        dataset={sanityDataset}
+        hotspot={image?.hotspot}
+        layout="responsive"
+        projectId={sanityProjectID}
+        sizes={['50vw, 100vw']}
+        src={image?.asset?._ref}
+        objectFit={module.layout !== 'full' ? 'contain' : 'cover'}
+        className={clsx(
+          module.layout === 'full' && 'object-center',
+          module.mobileImage && 'hidden md:block',
+        )}
+      />
+      {mobileImage && (
+        <SanityImage
+          crop={mobileImage?.crop}
+          dataset={sanityDataset}
+          hotspot={mobileImage?.hotspot}
+          // layout="responsive"
+          projectId={sanityProjectID}
+          sizes={['50vw, 100vw']}
+          src={mobileImage?.asset?._ref}
+          layout="fill"
+          objectFit={module.layout !== 'full' ? 'contain' : 'cover'}
+          className={clsx(
+            module.layout === 'full' && 'object-cover object-center',
+            'md:hidden',
+          )}
+        />
+      )}
+
+      {/* Product hotspots */}
+      {module.variant === 'productHotspots' && inSlideShow && (
+        <>
+          {module.productHotspots?.map((hotspot) => {
+            if (!hotspot?.product?.gid) {
+              return null;
+            }
+
+            return (
+              <ProductHotspot
+                key={hotspot._key}
+                productGid={hotspot?.product?.gid}
+                variantGid={hotspot?.product?.variantGid}
+                x={hotspot.x}
+                y={hotspot.y}
+              />
+            );
+          })}
+        </>
+      )}
+    </div>
+  );
+};

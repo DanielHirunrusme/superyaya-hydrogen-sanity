@@ -95,7 +95,7 @@ export default function Radio({open, setOpen, setIsPlaying}) {
         className="absolute right-0 top-0 z-50 p-4"
         onClick={() => setOpen(false)}
       >
-        <Typography type="body" size="sm">
+        <Typography type="body">
         Close
         </Typography>
       </Button>

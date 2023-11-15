@@ -116,7 +116,7 @@ export default function ProductSlideshow({
         className={clsx('fixed right-0 z-50', SITE_MARGINS_X, HEADER_TOP)}
         onClick={onClose}
       >
-        <Typography type="body" size="sm">
+        <Typography type="body">
           Close
         </Typography>
       </Button>

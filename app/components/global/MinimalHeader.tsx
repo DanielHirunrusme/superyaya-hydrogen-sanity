@@ -7,13 +7,13 @@ export default function MinimalHeader() {
     <header
       id="Header"
       className={clsx(
-        ' absolute flex  w-full flex-col items-center justify-center text-center',
+        ' absolute flex  w-full flex-col items-center justify-center text-center z-20',
         NAV_GAP_Y,
         HEADER_TOP,
       )}
       role="banner"
     >
-      <Link className="linkTextNavigation !no-underline " to="/">
+      <Link className="linkTextNavigation !no-underline hover:opacity-100" to="/">
         SUPER YAYA
       </Link>
     </header>
