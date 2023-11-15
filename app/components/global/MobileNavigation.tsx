@@ -97,7 +97,7 @@ export default function MobileNavigation({menuLinks}: Props) {
           return null;
         })}
         <li>
-          <Link to="/pages/faq">Assistance</Link>
+          <Link onClick={() => setOpen(false)} to="/pages/faq">Assistance</Link>
         </li>
       </ul>
     );
