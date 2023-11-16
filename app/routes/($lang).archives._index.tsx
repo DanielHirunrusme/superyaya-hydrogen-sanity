@@ -61,10 +61,10 @@ export default function Index() {
         <Suspense>
           <Await resolve={gids}>
             <Container type="slideshowIndex">
-              <StaggerIndexList className="left-0 top-0 -mt-[2em] flex h-full w-full flex-col items-center justify-center gap-8 text-center">
+              <StaggerIndexList className="left-0 md:top-0 flex h-full w-full flex-col justify-center gap-8 text-center md:items-center">
                 {page.map((category) => (
                   <div
-                    className={clsx('mx-auto flex w-full flex-col gap-2')}
+                    className={clsx('mx-auto flex w-full flex-col gap-2 -mt-[.5em] md:mt-0', category.entries?.length === 0 && 'hidden')}
                     key={category._id}
                   >
                     <ul>
