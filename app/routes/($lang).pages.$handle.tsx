@@ -203,30 +203,27 @@ function Cardwrapper(props: any) {
   return (
     <>
       <div ref={scope} className="fixed left-0 top-0 z-10 h-screen w-full ">
-        {cardVisible ? (
-          <button
-            style={{
-              aspectRatio:
-                root.data.layout?.introImage?.metadata?.dimensions?.aspectRatio,
-            }}
-            aria-label="View about"
-            type="button"
-            onClick={() => setCardVisible(false)}
-            className="absolute left-1/2 top-1/2  w-[112vw]  -translate-x-1/2 -translate-y-1/2 rotate-90 transform md:w-[33.33vw] md:rotate-0 xl:w-[27.546vw] 2xl:w-[27.265vw]"
-          >
-            <SanityImage
-              alt={'SUPER YAYA'}
-              dataset={sanityDataset}
-              layout="responsive"
-              objectFit="contain"
-              projectId={sanityProjectID}
-              sizes="50vw, 100vw"
-              src={root.data.layout?.introImage?._id}
-            />
-          </button>
-        ) : (
-          <>{children}</>
-        )}
+        <motion.div
+          animate={{transform: `translate(-50%, 200%) rotate(90deg)`}}
+          transition={{delay: 1, duration: 1}}
+          style={{
+            aspectRatio:
+              root.data.layout?.introImage?.metadata?.dimensions?.aspectRatio,
+          }}
+          className="absolute left-1/2 top-1/2  z-10 w-[112vw]  -translate-x-1/2 -translate-y-1/2 rotate-90 transform md:w-[33.33vw] md:rotate-0 xl:w-[27.546vw] 2xl:w-[27.265vw]"
+        >
+          <SanityImage
+            alt={'SUPER YAYA'}
+            dataset={sanityDataset}
+            layout="responsive"
+            objectFit="contain"
+            projectId={sanityProjectID}
+            sizes="50vw, 100vw"
+            src={root.data?.layout?.introImage?._id}
+          />
+        </motion.div>
+
+        <>{children}</>
       </div>
       <motion.div
         animate={{opacity: 0}}
