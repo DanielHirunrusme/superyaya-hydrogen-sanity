@@ -98,14 +98,14 @@ module.exports = {
         },
       ],
       collectionLaptop: [
-        '7vw',
+        '6.5vw',
         {
           letterSpacing: '0',
           lineHeight: '1',
         },
       ],
       collectionDesktop: [
-        '7vw',
+        '6.5vw',
         {
           letterSpacing: '0',
           lineHeight: '1',
