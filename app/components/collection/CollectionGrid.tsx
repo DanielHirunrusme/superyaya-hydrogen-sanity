@@ -120,7 +120,7 @@ export default function ModuleGrid({
 
           // Render product cards
           return (
-            <li key={item.id} className={clsx(stagger && 'opacity-0', 'col-span-2 2xl:col-span-2')}>
+            <li key={item.id} className={clsx(stagger && 'opacity-0', 'col-span-1 md:col-span-2')}>
               <div>
                 <ProductCard
                   imageAspectClassName={productImageAspect}
