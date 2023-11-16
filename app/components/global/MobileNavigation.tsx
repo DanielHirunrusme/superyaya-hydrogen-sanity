@@ -97,7 +97,9 @@ export default function MobileNavigation({menuLinks}: Props) {
           return null;
         })}
         <li>
-          <Link onClick={() => setOpen(false)} to="/pages/faq">Assistance</Link>
+          <Link onClick={() => setOpen(false)} to="/pages/faq">
+            Assistance
+          </Link>
         </li>
       </ul>
     );
@@ -245,6 +247,7 @@ export default function MobileNavigation({menuLinks}: Props) {
 
   useEffect(() => {
     if (open) {
+      document.body.classList.add('no-scroll')
       const sequence = [
         [
           'nav > div ul li',
@@ -264,6 +267,8 @@ export default function MobileNavigation({menuLinks}: Props) {
       ];
       animate(sequence);
     } else {
+      document.body.classList.remove('no-scroll')
+
       const sequence = [
         ['nav > div ul li', {opacity: 0}],
         ['nav > div + div > ul li', {opacity: 0}],

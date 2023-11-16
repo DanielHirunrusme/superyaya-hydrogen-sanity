@@ -119,6 +119,10 @@
   }
 }
 
+body.no-scroll {
+  @apply h-screen overflow-hidden;
+}
+
 .theme-dark body {
   @apply bg-black text-white;
 }
