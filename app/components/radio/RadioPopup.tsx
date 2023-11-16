@@ -7,7 +7,7 @@ import RadioPlayer from './RadioPlayer';
 import {CAT_SIZE} from '~/lib/constants';
 import RadioCat1 from './RadioCat1';
 import {useTheme} from '../context/ThemeProvider';
-import { throttle } from '~/lib/utils';
+import {throttle} from '~/lib/utils';
 export default function RadioPopup() {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -55,14 +55,14 @@ export default function RadioPopup() {
     };
   }, []);
 
-  if(!navVisible) return null;
+  if (!navVisible) return null;
 
   return (
     <>
       {!isPlaying && (
         <motion.div
           className={clsx(
-            'fixed  z-50 outline-none text-black',
+            'fixed  z-50 text-black outline-none',
             // !visible && 'pointer-events-none opacity-0',
           )}
           data-radio-cat
@@ -75,15 +75,21 @@ export default function RadioPopup() {
             mixBlendMode: 'multiply',
             left: randomPosition.x,
             top: randomPosition.y,
-            touchAction: 'none'
+            touchAction: 'none',
           }}
         >
-          <button
-            type="button"
-            aria-label="Open radio"
-            className={clsx('cursor-pointer outline-none relative aspect-square', CAT_SIZE)}
-            onClick={() => !dragging && setOpen(true)}
+          <div
+            className={clsx(
+              'relative aspect-square outline-none',
+              CAT_SIZE,
+            )}
           >
+            <button
+              type="button"
+              aria-label="Open radio"
+              onClick={() => !dragging && setOpen(true)}
+              className=" cursor-pointer absolute left-1/2 top-1/2 z-10 aspect-square w-[35%] -translate-x-1/2 -translate-y-1/2 transform"
+            />
             <RadioCat1 />
             {/* <img
               src="/images/cat-popup.gif"
@@ -92,7 +98,7 @@ export default function RadioPopup() {
               style={{mixBlendMode: 'multiply'}}
               className="pointer-events-none"
             /> */}
-          </button>
+          </div>
         </motion.div>
       )}
       <Radio
