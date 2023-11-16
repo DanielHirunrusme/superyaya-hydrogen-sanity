@@ -5,6 +5,7 @@ import {LINK_EXTERNAL} from '../linkExternal';
 import {LINK_INTERNAL} from '../linkInternal';
 import {PRODUCT_HOTSPOT} from '../productHotspot';
 import {PRODUCT_WITH_VARIANT} from '../productWithVariant';
+import {MARK_DEFS} from '../portableText/markDefs';
 
 export const MODULE_IMAGE = groq`
   image {
@@ -16,7 +17,12 @@ export const MODULE_IMAGE = groq`
       ${IMAGE}
     },
   },
-  caption,
+  caption[]{
+    ...,
+    markDefs[] {
+      ${MARK_DEFS}
+    }
+  },
   layout,
   (variant == 'callToAction') => {
     callToAction {

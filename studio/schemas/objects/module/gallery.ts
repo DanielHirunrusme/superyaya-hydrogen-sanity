@@ -25,8 +25,7 @@ export default defineField({
     defineField({
       name: 'caption',
       title: 'Caption',
-      type: 'text',
-      rows: 2,
+      type: 'caption',
       // hidden: ({parent}) => parent.variant !== 'caption',
     }),
     // Layout

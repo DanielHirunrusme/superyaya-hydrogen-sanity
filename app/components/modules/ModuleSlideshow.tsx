@@ -10,6 +10,8 @@ import {useTheme, Theme} from '../context/ThemeProvider';
 import {Container} from '../global/Container';
 import {HEADER_TOP, SITE_MARGINS_X, SITE_MARGINS_Y} from '~/lib/constants';
 import {Typography} from '../global/Typography';
+import PortableText from '../portableText/PortableText';
+import {PortableTextBlock} from '@sanity/types';
 
 type Props = {
   modules: any[];
@@ -97,29 +99,44 @@ export default function ModuleSlideshow(props) {
     };
   }, [indexVisible, emblaApi]);
 
-  const getImageLayout = (layout) => {
-    switch (layout) {
+  const getImageLayout = (module) => {
+    switch (module.layout) {
       case 'full':
         return 'object-cover';
       case 'contain':
         return 'object-contain flex flex-col items-center justify-center md:block';
       case 'default':
       default:
-        return `flex flex-col items-center justify-center object-contain px-4  xl:pb-[3.6vw] ${
-          detached
-            ? 'pt-[4vw] xl:pt-[3.6vw]'
-            : 'py-[13vw] md:pb-[4.25vw] md:pt-[7vw] xl:pt-[5.5vw] 2xl:pt-[5.203125vw]'
-        }`;
+        // default styles
+        let styles =
+          'flex flex-col items-center justify-center object-contain px-mobile md:px-0';
+
+        if (detached) {
+          styles += ' pt-[4vw] xl:pt-[3.6vw]';
+        } else {
+          if (module.caption) {
+            // if there is a caption add symmetrical padding top and bottom
+            styles +=
+              ' py-[13vw] md:py-[7vw] xl:py-[5.5vw] 2xl:py-[5.203125vw]';
+          } else {
+            // if there is no caption make image extend further down
+            styles +=
+              ' py-[13vw] md:pb-[3.25vw] md:pt-[7vw] xl:pt-[5.5vw] 2xl:pt-[5.203125vw]';
+          }
+        }
+
+        return styles;
     }
   };
 
   return (
     <div
-      onClick={onClick}
       className={clsx(
         'fixed left-0 top-0 h-screen w-screen',
         detached ? 'z-50' : 'z-40',
-        theme === Theme.DARK && !indexVisible ? 'bg-black' : 'bg-white text-black',
+        theme === Theme.DARK && !indexVisible
+          ? 'bg-black'
+          : 'bg-white text-black',
       )}
       // tabIndex={-1}
     >
@@ -142,10 +159,11 @@ export default function ModuleSlideshow(props) {
             {modules?.map((module) => (
               <div
                 className={clsx(
-                  'h-full w-full flex-shrink-0 flex-grow-0 relative',
-                  getImageLayout(module.layout),
+                  'relative h-full w-full flex-shrink-0 flex-grow-0',
+                  getImageLayout(module),
                 )}
                 key={module._key}
+                onClick={onClick}
                 style={{backgroundColor: module.background?.hex}}
               >
                 <Module module={module} mode={mode} inSlideShow={true} />
@@ -154,11 +172,12 @@ export default function ModuleSlideshow(props) {
                   data-module-layout={module.layout}
                   className={clsx(
                     'mt-2 text-center md:hidden',
-                    module.layout === 'full' ?
-                      'absolute bottom-14 left-0 w-full text-center' : '',
+                    module.layout === 'full'
+                      ? 'absolute bottom-14 left-0 w-full text-center'
+                      : '',
                   )}
                 >
-                  {modules[selectedIndex]?.caption || ''}
+                  {/* {modules[selectedIndex]?.caption || ''} */}
                 </div>
               </div>
             ))}
@@ -166,12 +185,12 @@ export default function ModuleSlideshow(props) {
         </div>
       )}
       {showIndex && indexVisible && (
-        <div className="flex min-h-screen w-full md:items-center justify-center text-center ">
+        <div className="flex min-h-screen w-full justify-center text-center md:items-center ">
           <Container type="slideshowIndex" asChild>
             <div className="mx-auto my-24 w-full text-center">
               {/* Table */}
               <StaggerIndexList>
-                <ul className="relative md:top-[-2em] mx-auto w-full">
+                <ul className="relative mx-auto w-full md:top-[-2em]">
                   <li className="text-center">
                     {title}
                     <br />
@@ -187,7 +206,7 @@ export default function ModuleSlideshow(props) {
                       key={`table-${module._key}`}
                     >
                       <div className="leaders hover:opacity-50 active:opacity-50">
-                        <span>{module.caption || 'Figure'}</span>
+                        {/* <span>{module.caption || 'Figure'}</span> */}
                         <span>{String(index + 1).padStart(2, '0')}</span>
                       </div>
                     </li>
@@ -202,16 +221,16 @@ export default function ModuleSlideshow(props) {
         <div
           data-await-intro
           className={clsx(
-            'absolute bottom-0 z-10 flex w-full  items-center justify-center gap-4 text-center leading-none',
+            'absolute bottom-0 z-10 flex w-full flex-col items-center justify-center gap-[1em] text-center leading-none',
             SITE_MARGINS_Y,
           )}
         >
+          <span className="hidden md:inline">
+            <SlideshowCaption blocks={modules[selectedIndex]?.caption} />
+          </span>
           <span>
             {String(selectedIndex + 1).padStart(2, '0')}/
             {String(modules!.length).padStart(2, '0')}
-          </span>
-          <span className="hidden md:inline">
-            {modules[selectedIndex]?.caption || ''}
           </span>
         </div>
       )}
@@ -245,6 +264,18 @@ export default function ModuleSlideshow(props) {
           </Button>
         </>
       )}
+    </div>
+  );
+}
+
+type SlideshowCaptionProps = {
+  blocks: PortableTextBlock[];
+};
+function SlideshowCaption(props: SlideshowCaptionProps) {
+  const {blocks} = props;
+  return (
+    <div className="uppercase">
+      <PortableText blocks={blocks} variant="caption" />
     </div>
   );
 }

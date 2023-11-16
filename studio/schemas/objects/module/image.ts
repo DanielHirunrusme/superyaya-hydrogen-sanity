@@ -58,8 +58,7 @@ export default defineField({
     defineField({
       name: 'caption',
       title: 'Caption',
-      type: 'text',
-      rows: 2,
+      type: 'caption',
       // hidden: ({parent}) => parent.variant !== 'caption',
     }),
     // Call to action
@@ -104,13 +103,6 @@ export default defineField({
       options: {hotspot: true},
       hidden: ({parent}) => !parent.addMobileImage,
     }),
-    // Text color
-    // defineField({
-    //   name: 'text',
-    //   title: 'Text',
-    //   type: 'color',
-    //   options: {disableAlpha: true},
-    // }),
     // Background color
     defineField({
       name: 'background',

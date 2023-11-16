@@ -5,8 +5,10 @@
 @layer base {
   @font-face {
     font-family: 'EngraversEF';
-    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversEF-Roman.woff2?v=1697635125') format('woff2'),
-      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversEF-Roman.woff?v=1697635125') format('woff');
+    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversEF-Roman.woff2?v=1697635125')
+        format('woff2'),
+      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversEF-Roman.woff?v=1697635125')
+        format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -14,8 +16,10 @@
 
   @font-face {
     font-family: 'Snell';
-    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellBT-Regular.woff2?v=1697635125') format('woff2'),
-      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellBT-Regular.woff?v=1697635125') format('woff');
+    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellBT-Regular.woff2?v=1697635125')
+        format('woff2'),
+      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellBT-Regular.woff?v=1697635125')
+        format('woff');
     font-weight: normal;
     font-style: italic;
     font-display: swap;
@@ -23,8 +27,10 @@
 
   @font-face {
     font-family: 'EngraversGothic';
-    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff2?v=1697635125') format('woff2'),
-      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff?v=1697635125') format('woff');
+    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff2?v=1697635125')
+        format('woff2'),
+      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff?v=1697635125')
+        format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -32,8 +38,10 @@
 
   @font-face {
     font-family: 'EurostileMonoEF';
-    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EurostileMonoEF-Regular.woff2?v=1697635125') format('woff2'),
-      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EurostileMonoEF-Regular.woff?v=1697635125') format('woff');
+    src: url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EurostileMonoEF-Regular.woff2?v=1697635125')
+        format('woff2'),
+      url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EurostileMonoEF-Regular.woff?v=1697635125')
+        format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -85,7 +93,7 @@
   }
 
   .linkTextNavigation.linkTextNavigationPage {
-    @apply  !opacity-100 hover:underline active:underline;
+    @apply !opacity-100 hover:underline active:underline;
   }
 
   .linkTextNavigationActive {
@@ -119,6 +127,11 @@
   }
 }
 
+::selection,
+::-moz-selection {
+  background: rgb(255, 245, 0); /* WebKit/Blink Browsers */
+}
+
 body.no-scroll {
   @apply h-screen overflow-hidden;
 }
@@ -131,7 +144,8 @@ body.no-scroll {
   @apply border-white;
 }
 
-.theme-dark rect, .theme-dark path:not(.ignore-theme) {
+.theme-dark rect,
+.theme-dark path:not(.ignore-theme) {
   @apply stroke-white;
 }
 
@@ -167,7 +181,7 @@ html {
 
 /* Collections */
 .collection-title svg {
-  @apply h-[10vw] md:h-[6vw] xl:h-[6.5vw] w-auto;
+  @apply h-[10vw] w-auto md:h-[6vw] xl:h-[6.5vw];
 }
 
 @keyframes dash {
@@ -184,8 +198,9 @@ html {
 
 /* Large titles */
 
-.large-title div, .large-title-stretch div {
-  @apply transition-transform ease-linear whitespace-nowrap;
+.large-title div,
+.large-title-stretch div {
+  @apply whitespace-nowrap transition-transform ease-linear;
 }
 
 .large-title-stretch rect {
@@ -193,9 +208,8 @@ html {
 }
 
 .large-title div {
-  transform: scaleX(.875) scaleY(1.3);
+  transform: scaleX(0.875) scaleY(1.3);
 }
-
 
 @screen md {
   .large-title div {
@@ -205,14 +219,11 @@ html {
   .large-title:hover div {
     transform: skewX(28deg);
   }
-  
 }
 
 .normal-case * {
   @apply !normal-case;
 }
-
-
 
 /* Form */
 form {
@@ -242,36 +253,35 @@ textarea {
 /* Gallery */
 
 /* 2 count */
-.gallery-module[data-count="2"] div:nth-child(1) img {
+.gallery-module[data-count='2'] div:nth-child(1) img {
   @apply md:object-right;
 }
 
-.gallery-module[data-count="2"] div:nth-child(2) img {
+.gallery-module[data-count='2'] div:nth-child(2) img {
   @apply md:object-left;
 }
 
-.gallery-module[data-mobilestack="Vertical"]  div:nth-child(1) img {
+.gallery-module[data-mobilestack='Vertical'] div:nth-child(1) img {
   @apply object-bottom md:object-right;
 }
-.gallery-module[data-mobilestack="Vertical"]  div:nth-child(2) img {
+.gallery-module[data-mobilestack='Vertical'] div:nth-child(2) img {
   @apply object-top md:object-left;
 }
 
-
 /* 4 count */
-.gallery-module[data-count="4"] div:nth-child(1) img {
+.gallery-module[data-count='4'] div:nth-child(1) img {
   @apply object-right-bottom;
 }
 
-.gallery-module[data-count="4"] div:nth-child(2) img {
+.gallery-module[data-count='4'] div:nth-child(2) img {
   @apply object-left-bottom;
 }
 
-.gallery-module[data-count="4"] div:nth-child(3) img {
+.gallery-module[data-count='4'] div:nth-child(3) img {
   @apply object-right-top;
 }
 
-.gallery-module[data-count="4"] div:nth-child(4) img {
+.gallery-module[data-count='4'] div:nth-child(4) img {
   @apply object-left-top;
 }
 
@@ -281,13 +291,10 @@ textarea {
   }
 }
 
-
-
-
 /* Portable Text */
 .portableText,
 .portableText * {
-  @apply  !normal-case;
+  @apply !normal-case;
 }
 
 .font-serif * {
@@ -297,7 +304,7 @@ textarea {
 
 .rte.body,
 .rte.body * {
-  @apply  !normal-case;
+  @apply !normal-case;
 }
 
 .font-serif .rte * {
@@ -305,12 +312,10 @@ textarea {
   letter-spacing: 0.02em;
 }
 
-
-
 /* RTE */
 .rte,
 .rte * {
-  @apply  !normal-case;
+  @apply !normal-case;
 }
 
 /* Intro */
@@ -325,7 +330,7 @@ html.nav-visible [data-await-intro] {
 /* Radio Player */
 progress {
   -webkit-appearance: none;
-  height: .2em;
+  height: 0.2em;
 }
 
 progress[value]::-webkit-progress-value {
@@ -333,7 +338,7 @@ progress[value]::-webkit-progress-value {
 }
 
 ::-webkit-progress-bar {
-  background-color: rgba(0, 0, 0, .4)
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 /* Cell */
@@ -342,7 +347,7 @@ progress[value]::-webkit-progress-value {
 }
 
 .cell {
-  @apply md:px-[1em] py-[.5em]
+  @apply py-[.5em] md:px-[1em];
 }
 
 .cart .cell {

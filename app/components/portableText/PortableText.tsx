@@ -29,9 +29,18 @@ type Props = {
   blocks: PortableTextBlock[];
   className?: string;
   centered?: boolean;
+  variant?: 'rte' | 'caption';
 };
 
-export default function PortableText({blocks, centered, className}: Props) {
+export default function PortableText({
+  blocks,
+  centered,
+  className,
+  variant = 'rte',
+}: Props) {
+
+  console.log('blocks', blocks)
+
   const components: PortableTextComponents = {
     list: {
       bullet: ({children}) => (
@@ -66,7 +75,7 @@ export default function PortableText({blocks, centered, className}: Props) {
 
   const portableText = useMemo(() => {
     return (
-      <div className={clsx('rte', className)}>
+      <div className={clsx(variant, className)}>
         <PortableTextReact value={blocks} components={components} />
       </div>
     );

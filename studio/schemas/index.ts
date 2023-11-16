@@ -52,8 +52,9 @@ const singletons = [home, settings]
 
 // Block content
 import body from './blocks/body'
+import caption from './blocks/caption'
 
-const blocks = [body]
+const blocks = [body, caption]
 
 // Object types
 import customProductOptionColor from './objects/customProductOption/color'
