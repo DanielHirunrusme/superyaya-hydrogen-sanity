@@ -216,7 +216,7 @@ export default function CollectionSlideshow(props) {
       {indexVisible && (
         <div className="flex min-h-screen w-full md:items-center justify-center text-center">
           <Container type="slideshowIndex" asChild>
-            <div className="mx-auto my-[3.65em] md:my-24 w-full text-center">
+             
               {/* Table */}
               <StaggerIndexList>
                 <ul className="relative mx-auto w-full">
@@ -242,7 +242,7 @@ export default function CollectionSlideshow(props) {
                   ))}
                 </ul>
               </StaggerIndexList>
-            </div>
+          
           </Container>
         </div>
       )}

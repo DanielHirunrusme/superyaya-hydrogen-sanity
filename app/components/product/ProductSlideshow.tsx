@@ -116,9 +116,7 @@ export default function ProductSlideshow({
         className={clsx('fixed right-0 z-50', SITE_MARGINS_X, HEADER_TOP)}
         onClick={onClose}
       >
-        <Typography type="body">
-          Close
-        </Typography>
+        <Typography type="body">Close</Typography>
       </Button>
       <button
         type="button"
@@ -154,7 +152,10 @@ export default function ProductSlideshow({
 
             return (
               <MediaFile
-                className="relative flex w-full shrink-0 grow-0 select-none object-contain px-4 py-[4vw] xl:py-[3.6vw]"
+                className={clsx(
+                  'relative flex w-full shrink-0 grow-0 select-none object-contain px-mobile md:px-0 mx-auto',
+                  'py-[13vw] md:pb-[7vw] md:pt-[3.25vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]', //extend image further up
+                )}
                 data={data}
                 draggable={false}
                 key={med.id}
@@ -170,14 +171,14 @@ export default function ProductSlideshow({
       </button>
       <div
         className={clsx(
-          'absolute bottom-0 z-10 flex w-full items-center justify-center gap-4 text-center leading-label',
+          'absolute bottom-0 z-10 flex w-full flex-col items-center justify-center gap-[1em] text-center leading-label',
           SITE_MARGINS_Y,
         )}
       >
+        <span>{storefrontProduct.title}</span>
         <span>
           {selectedIndex + 1}/{media!.length}
         </span>
-        <span>{storefrontProduct.title}</span>
       </div>
     </div>
   );

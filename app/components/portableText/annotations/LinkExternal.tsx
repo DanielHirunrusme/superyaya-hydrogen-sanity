@@ -22,6 +22,7 @@ const LinkExternalAnnotation = ({children, value}: Props) => {
       href={value?.url}
       rel="noopener noreferrer"
       target={value?.newWindow ? '_blank' : '_self'}
+      onClick={(e) => e.stopPropagation()}
     >
       <>{children}</>
     </a>

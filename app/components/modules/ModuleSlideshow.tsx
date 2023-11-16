@@ -12,6 +12,7 @@ import {HEADER_TOP, SITE_MARGINS_X, SITE_MARGINS_Y} from '~/lib/constants';
 import {Typography} from '../global/Typography';
 import PortableText from '../portableText/PortableText';
 import {PortableTextBlock} from '@sanity/types';
+import {NAV_GAP_Y} from '~/lib/constants';
 
 type Props = {
   modules: any[];
@@ -177,7 +178,7 @@ export default function ModuleSlideshow(props) {
                       : '',
                   )}
                 >
-                  {/* {modules[selectedIndex]?.caption || ''} */}
+                  <SlideshowCaption blocks={module.caption} />
                 </div>
               </div>
             ))}
@@ -187,7 +188,7 @@ export default function ModuleSlideshow(props) {
       {showIndex && indexVisible && (
         <div className="flex min-h-screen w-full justify-center text-center md:items-center ">
           <Container type="slideshowIndex" asChild>
-            <div className="mx-auto my-24 w-full text-center">
+           
               {/* Table */}
               <StaggerIndexList>
                 <ul className="relative mx-auto w-full md:top-[-2em]">
@@ -206,14 +207,20 @@ export default function ModuleSlideshow(props) {
                       key={`table-${module._key}`}
                     >
                       <div className="leaders hover:opacity-50 active:opacity-50">
-                        {/* <span>{module.caption || 'Figure'}</span> */}
+                        <span>
+                          {module.caption ? (
+                            <SlideshowCaption blocks={module.caption} />
+                          ) : (
+                            'Figure'
+                          )}
+                        </span>
                         <span>{String(index + 1).padStart(2, '0')}</span>
                       </div>
                     </li>
                   ))}
                 </ul>
               </StaggerIndexList>
-            </div>
+           
           </Container>
         </div>
       )}
@@ -221,8 +228,9 @@ export default function ModuleSlideshow(props) {
         <div
           data-await-intro
           className={clsx(
-            'absolute bottom-0 z-10 flex w-full flex-col items-center justify-center gap-[1em] text-center leading-none',
+            'absolute bottom-0 z-10 flex w-full flex-col items-center justify-center text-center leading-none',
             SITE_MARGINS_Y,
+            NAV_GAP_Y,
           )}
         >
           <span className="hidden md:inline">

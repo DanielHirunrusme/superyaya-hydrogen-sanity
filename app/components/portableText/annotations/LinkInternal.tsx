@@ -21,6 +21,7 @@ export default function LinkInternalAnnotation({children, value}: Props) {
         'hover:opacity-50 active:opacity-50',
       )}
       to={value?.slug}
+      onClick={(e) => e.stopPropagation()}
     >
       <>{children}</>
     </Link>
