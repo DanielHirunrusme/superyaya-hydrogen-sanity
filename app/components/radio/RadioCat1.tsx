@@ -2,10 +2,12 @@ import {Image} from '@shopify/hydrogen';
 import clsx from 'clsx';
 import {useAnimate} from 'framer-motion';
 import {useEffect} from 'react';
-import { CAT_SIZE } from '~/lib/constants';
+import {CAT_SIZE} from '~/lib/constants';
+import {useTheme, Theme} from '../context/ThemeProvider';
 
 export default function RadioCat1() {
   const [scope, animate] = useAnimate();
+  const [theme] = useTheme();
 
   useEffect(() => {
     if (scope.current) {
@@ -26,28 +28,50 @@ export default function RadioCat1() {
     }
   }, [scope]);
   return (
-    <ul className={clsx("pointer-events-none aspect-square absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform", CAT_SIZE)} ref={scope}>
+    <ul
+      className={clsx(
+        'pointer-events-none absolute left-1/2 top-1/2 aspect-square -translate-x-1/2 -translate-y-1/2 transform',
+        CAT_SIZE,
+      )}
+      ref={scope}
+    >
       <li className="frame-1 opacity-1 absolute h-full w-full">
         <Image
-          src="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/cat-1-1.png?v=1698890552"
+          src={
+            theme !== Theme.DARK
+              ? 'https://cdn.shopify.com/s/files/1/0831/2474/8591/files/cat-1-1.png?v=1698890552'
+              : 'https://cdn.shopify.com/s/files/1/0831/2474/8591/files/cat-1-1-black.png?v=1700170033'
+          }
           width="100%"
         />
       </li>
       <li className="frame-2 absolute h-full w-full opacity-0">
         <Image
-          src="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/cat-1-2.png?v=1698890552"
+          src={
+            theme !== Theme.DARK
+              ? 'https://cdn.shopify.com/s/files/1/0831/2474/8591/files/cat-1-2.png?v=1698890552'
+              : 'https://cdn.shopify.com/s/files/1/0831/2474/8591/files/cat-1-2-black.png?v=1700170033'
+          }
           width="100%"
         />
       </li>
       <li className="frame-3 absolute h-full w-full opacity-0">
         <Image
-          src="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/cat-1-3.png?v=1698890552"
+          src={
+            theme !== Theme.DARK
+              ? 'https://cdn.shopify.com/s/files/1/0831/2474/8591/files/cat-1-3.png?v=1698890552'
+              : 'https://cdn.shopify.com/s/files/1/0831/2474/8591/files/cat-1-3-black.png?v=1700170033'
+          }
           width="100%"
         />
       </li>
       <li className="frame-4 absolute h-full w-full opacity-0">
         <Image
-          src="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/cat-1-4.png?v=1698890552"
+          src={
+            theme !== Theme.DARK
+              ? 'https://cdn.shopify.com/s/files/1/0831/2474/8591/files/cat-1-4.png?v=1698890552'
+              : 'https://cdn.shopify.com/s/files/1/0831/2474/8591/files/cat-1-4-black.png?v=1700170033'
+          }
           width="100%"
         />
       </li>

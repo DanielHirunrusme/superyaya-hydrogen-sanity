@@ -1,13 +1,12 @@
-import {Image} from '@shopify/hydrogen';
 import {useEffect, useRef, useState} from 'react';
 import Radio from './Radio';
 import {motion, useDragControls} from 'framer-motion';
 import clsx from 'clsx';
 import RadioPlayer from './RadioPlayer';
-import {CAT_SIZE} from '~/lib/constants';
 import RadioCat1 from './RadioCat1';
-import {useTheme} from '../context/ThemeProvider';
+import {useTheme, Theme} from '../context/ThemeProvider';
 import {throttle} from '~/lib/utils';
+
 export default function RadioPopup() {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -72,7 +71,7 @@ export default function RadioPopup() {
           dragMomentum={false}
           dragTransition={{timeConstant: 100000, power: 0.1}}
           style={{
-            mixBlendMode: 'multiply',
+            mixBlendMode: theme !== Theme.DARK ? 'multiply' : 'lighten',
             left: randomPosition.x,
             top: randomPosition.y,
             touchAction: 'none',
