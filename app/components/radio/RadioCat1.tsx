@@ -1,6 +1,8 @@
 import {Image} from '@shopify/hydrogen';
+import clsx from 'clsx';
 import {useAnimate} from 'framer-motion';
 import {useEffect} from 'react';
+import { CAT_SIZE } from '~/lib/constants';
 
 export default function RadioCat1() {
   const [scope, animate] = useAnimate();
@@ -24,7 +26,7 @@ export default function RadioCat1() {
     }
   }, [scope]);
   return (
-    <ul className="pointer-events-none h-full" ref={scope}>
+    <ul className={clsx("pointer-events-none aspect-square absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform", CAT_SIZE)} ref={scope}>
       <li className="frame-1 opacity-1 absolute h-full w-full">
         <Image
           src="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/cat-1-1.png?v=1698890552"

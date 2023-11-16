@@ -28,28 +28,28 @@ module.exports = {
       bodyMobile: [
         '3.846vw',
         {
-          letterSpacing: '.075em',
+          letterSpacing: '0.14em',
           lineHeight: '1.2',
         },
       ],
       bodyTablet: [
         '1.005vw',
         {
-          letterSpacing: '.09875em',
+          letterSpacing: '0.14em',
           lineHeight: '1.5',
         },
       ],
       bodyLaptop: [
         '0.9259vw',
         {
-          letterSpacing: '.09875em',
+          letterSpacing: '0.14em',
           lineHeight: '1.25',
         },
       ],
       bodyDesktop: [
         '0.859375vw',
         {
-          letterSpacing: '.09875em',
+          letterSpacing: '0.14em',
           lineHeight: ' 1.227',
         },
       ],
@@ -57,28 +57,28 @@ module.exports = {
       utilityMobile: [
         '3.0769vw',
         {
-          letterSpacing: '.075em',
+          letterSpacing: '0.14em',
           lineHeight: '1.2',
         },
       ],
       utilityTablet: [
         '0.8375vw',
         {
-          letterSpacing: '.09875em',
+          letterSpacing: '0.14em',
           lineHeight: '1.5',
         },
       ],
       utilityLaptop: [
         '0.7523vw',
         {
-          letterSpacing: '.09875em',
+          letterSpacing: '0.14em',
           lineHeight: '1.25',
         },
       ],
       utilityDesktop: [
         '0.6640625vw',
         {
-          letterSpacing: '.09875em',
+          letterSpacing: '0.14em',
           lineHeight: ' 1.227',
         },
       ],

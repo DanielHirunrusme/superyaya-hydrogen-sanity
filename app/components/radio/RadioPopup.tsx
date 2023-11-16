@@ -80,15 +80,15 @@ export default function RadioPopup() {
         >
           <div
             className={clsx(
-              'relative aspect-square outline-none',
-              CAT_SIZE,
+              'relative aspect-square',
+              'w-[20vw] md:w-[8vw] xl:w-[6vw]'
             )}
           >
             <button
               type="button"
               aria-label="Open radio"
               onClick={() => !dragging && setOpen(true)}
-              className=" cursor-pointer absolute left-1/2 top-1/2 z-10 aspect-square w-[35%] -translate-x-1/2 -translate-y-1/2 transform"
+              className=" cursor-pointer absolute z-10 aspect-square w-full"
             />
             <RadioCat1 />
             {/* <img
