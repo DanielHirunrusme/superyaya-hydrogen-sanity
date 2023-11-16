@@ -123,7 +123,7 @@ export default function ProductOptions({
               case 'Color':
                 return <>{swatch}</>;
               case 'Size':
-                return <span className="px-2 2xl:px-6">Size: </span>;
+                return <span className="pl-[1em]">Size:&nbsp;</span>;
               default:
                 return <></>;
             }
@@ -148,18 +148,18 @@ export default function ProductOptions({
                         <span
                           className={clsx(
                             'block flex items-center text-left',
-                            option.name === 'Color' && 'gap-3 2xl:gap-6 h-full relative',
+                            option.name === 'Color' && 'gap-[1em] h-full relative',
                           )}
                         >
                           {label()}
                           <span className="">{match?.[0]?.value}</span>
                         </span>
                       ) : (
-                        <span className="pointer-events-none block px-2 text-left 2xl:px-6 ">
+                        <span className="pointer-events-none block px-[1em] text-left ">
                           Select {option.name}
                         </span>
                       )}
-                      <span className="pointer-events-none absolute inset-y-0 right-0 top-0 flex items-center px-2 2xl:px-6 ">
+                      <span className="pointer-events-none absolute inset-y-0 right-0 top-0 flex items-center px-[1em]">
                         {open ? <MinusIcon /> : <PlusIcon />}
                       </span>
                     </Listbox.Button>
@@ -265,7 +265,7 @@ export default function ProductOptions({
                                     }
                                   >
                                     {swatch}
-                                    <span className="px-2 2xl:px-6">
+                                    <span className="px-[1em]">
                                       {value}
                                     </span>
                                   </Listbox.Option>

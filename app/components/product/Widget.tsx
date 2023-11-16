@@ -105,7 +105,7 @@ export default function ProductWidget({
               <Disclosure>
                 {({open}) => (
                   <>
-                    <Disclosure.Button className="flex gap-4 hover:opacity-50">
+                    <Disclosure.Button className="flex gap-[.5em] hover:opacity-50">
                       <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
                       Product Details
                     </Disclosure.Button>
@@ -128,7 +128,7 @@ export default function ProductWidget({
         )}
 
         {/* Size Guide */}
-        <button onClick={onSizeGuideClick} className="flex gap-4 hover:opacity-50">
+        <button onClick={onSizeGuideClick} className="flex gap-[.5em] hover:opacity-50">
           <span className="w-3">{!sizeChartVisible ? '+' : <>&ndash;</>}</span>
           Size Guide
         </button>
