@@ -46,12 +46,13 @@ export default function RadioPopup() {
     };
 
     setVisibility();
-    const handleResizedThrottle = throttle(winResize, 1000);
-    window.addEventListener('resize', handleResizedThrottle);
     winResize();
-    return () => {
-      window.removeEventListener('resize', winResize);
-    };
+    // const handleResizedThrottle = throttle(winResize, 1000);
+    // window.addEventListener('resize', handleResizedThrottle);
+    // winResize();
+    // return () => {
+    //   window.removeEventListener('resize', winResize);
+    // };
   }, []);
 
   if (!navVisible) return null;
