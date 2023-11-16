@@ -65,7 +65,6 @@ export default function Page() {
   const [theme, setTheme, navVisible] = useTheme();
 
   useEffect(() => {
-    console.log('index', index);
     if (index === page.modules?.length) {
       setTheme('light');
     } else {
@@ -74,7 +73,7 @@ export default function Page() {
     return () => {
       setTheme('light');
     };
-  }, [index]);
+  }, []);
 
   return (
     <ColorTheme value={page.colorTheme}>

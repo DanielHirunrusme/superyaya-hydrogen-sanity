@@ -5,7 +5,7 @@ import Button from '../elements/Button';
 import MinimalHeader from '../global/MinimalHeader';
 import StaggerIndexList from '../framer/StaggerIndexList';
 import {Link} from '~/components/Link';
-import {useTheme} from '../context/ThemeProvider';
+import {Theme, useTheme} from '../context/ThemeProvider';
 import {Container} from '../global/Container';
 import {HEADER_TOP, SITE_MARGINS_X, SITE_MARGINS_Y} from '~/lib/constants';
 import {Typography} from '../global/Typography';
@@ -15,7 +15,7 @@ import {useMatches} from '@remix-run/react';
 import SanityImage from '~/components/media/SanityImage';
 import ProductHotspot from '~/components/product/Hotspot';
 import ProductTag from '~/components/product/Tag';
-import { motion } from 'framer-motion';
+import {motion} from 'framer-motion';
 
 type Props = {
   modules: any[];
@@ -78,13 +78,10 @@ export default function CollectionSlideshow(props) {
   }, []);
 
   const onClick = (e) => {
+    if (indexVisible) return;
     e.clientX < window.innerWidth / 2
-      ? emblaApi.scrollPrev()
-      : emblaApi.scrollNext();
-  };
-
-  const onClose = (e) => {
-    e.stopPropagation();
+      ? emblaApi?.scrollPrev()
+      : emblaApi?.scrollNext();
   };
 
   const toggleIndexVisible = () => {
@@ -96,6 +93,27 @@ export default function CollectionSlideshow(props) {
       emblaApi.scrollTo(index);
     }
   }, [indexVisible, emblaApi]);
+
+  useEffect(() => {
+    if (indexVisible) {
+      setTheme(Theme.LIGHT);
+    } else {
+      setTheme(Theme.DARK);
+    }
+  }, [indexVisible, setTheme]);
+
+  useEffect(() => {
+    if (!indexVisible) {
+      if (index === modules?.length) {
+        setTheme('light');
+      } else {
+        setTheme('dark');
+      }
+    }
+    return () => {
+      setTheme('light');
+    };
+  }, [index, indexVisible]);
 
   const onIntroComplete = () => {
     setIntroComplete(true);
@@ -125,71 +143,76 @@ export default function CollectionSlideshow(props) {
 
       <Intro onIntroComplete={onIntroComplete} title={title} />
 
-      {!indexVisible && (
-        <div className="h-full w-screen overflow-hidden" ref={emblaRef}>
-          <div className="flex h-full">
-            {modules?.map((module) => (
-              <div
-                className={clsx(
-                  'flex h-full w-full flex-shrink-0 flex-grow-0',
-                  'flex flex-col items-center justify-center object-contain px-mobile ',
-                  'py-[15.897vw] md:py-[4vw] xl:py-[3.25vw] 2xl:py-[3vw] 2xl:pb-[3.5vw]',
-                )}
-                key={module._key}
-              >
-                <div
-                  className={clsx(
-                    'flex-0 relative bg-white px-[1em] py-[1em] text-black',
-                    'aspect-[938/1276] portrait:w-full landscape:h-full',
-                    // w?.innerWidth > w?.innerHeight ? 'h-full' : 'w-full',
-                  )}
-                  // style={{
-                  //   aspectRatio: `${
-                  //     module.image.width / (module.image.height + 60)
-                  //   }`,
-                  // }}
-                >
-                  <CollectionModule
-                    module={module}
-                    mode={mode}
-                    inSlideShow={true}
-                  />
-                  <div
-                    data-await-intro
-                    className={clsx(
-                      'text-center',
-
-                      'absolute bottom-[.875em] left-0 w-full select-none text-center xl:bottom-[.675em]',
-                    )}
-                  >
-                    {modules[index]?.caption || ''}
-                  </div>
-                </div>
-              </div>
-            ))}
-
-            {/* Text Slide */}
+      <div
+        className={clsx(
+          'h-full w-screen overflow-hidden',
+          indexVisible && 'hidden',
+        )}
+        ref={emblaRef}
+      >
+        <div className="flex h-full">
+          {modules?.map((module) => (
             <div
               className={clsx(
-                'flex h-full w-full flex-shrink-0 flex-grow-0 select-none',
-                'flex-col items-center justify-center object-contain',
+                'flex h-full w-full flex-shrink-0 flex-grow-0',
+                'flex flex-col items-center justify-center object-contain px-mobile ',
                 'py-[15.897vw] md:py-[4vw] xl:py-[3.25vw] 2xl:py-[3vw] 2xl:pb-[3.5vw]',
-                SITE_MARGINS_X,
               )}
+              key={module._key}
             >
               <div
                 className={clsx(
-                  'flex-0 relative bg-black py-[1em] text-white md:py-[4em]',
+                  'flex-0 relative bg-white px-[1em] py-[1em] text-black',
                   'aspect-[938/1276] portrait:w-full landscape:h-full',
+                  // w?.innerWidth > w?.innerHeight ? 'h-full' : 'w-full',
                 )}
+                // style={{
+                //   aspectRatio: `${
+                //     module.image.width / (module.image.height + 60)
+                //   }`,
+                // }}
               >
-                {children}
+                <CollectionModule
+                  module={module}
+                  mode={mode}
+                  inSlideShow={true}
+                />
+                <div
+                  data-await-intro
+                  className={clsx(
+                    'text-center',
+
+                    'absolute bottom-[.875em] left-0 w-full select-none text-center xl:bottom-[.675em]',
+                  )}
+                >
+                  {modules[index]?.caption || ''}
+                </div>
               </div>
             </div>
-            {/* End Text Slide */}
+          ))}
+
+          {/* Text Slide */}
+          <div
+            className={clsx(
+              'flex h-full w-full flex-shrink-0 flex-grow-0 select-none',
+              'flex-col items-center justify-center object-contain',
+              'py-[15.897vw] md:py-[4vw] xl:py-[3.25vw] 2xl:py-[3vw] 2xl:pb-[3.5vw]',
+              SITE_MARGINS_X,
+            )}
+          >
+            <div
+              className={clsx(
+                'flex-0 relative bg-black py-[1em] text-white md:py-[4em]',
+                'aspect-[938/1276] portrait:w-full landscape:h-full',
+              )}
+            >
+              {children}
+            </div>
           </div>
+          {/* End Text Slide */}
         </div>
-      )}
+      </div>
+
       {indexVisible && (
         <div className="flex min-h-screen w-full items-center justify-center text-center">
           <Container type="slideshowIndex" asChild>
@@ -208,7 +231,7 @@ export default function CollectionSlideshow(props) {
                         setIndexVisible(false);
                         setIndex(index);
                       }}
-                      className="cursor-pointer"
+                      className="block cursor-pointer"
                       key={`table-${module._key}`}
                     >
                       <div className="leaders hover:opacity-50 active:opacity-50">
@@ -392,7 +415,12 @@ const ImageContent = ({module, parentModule, mode, inSlideShow}: Props) => {
 
 function Intro({title, onIntroComplete}) {
   return (
-    <motion.div animate={{ opacity: 0 }} transition={{ delay: 1, duration: 1}} onAnimationComplete={onIntroComplete} className="fixed z-10 flex h-screen w-screen items-center justify-center bg-black text-white">
+    <motion.div
+      animate={{opacity: 0}}
+      transition={{delay: 1, duration: 1}}
+      onAnimationComplete={onIntroComplete}
+      className="pointer-events-none fixed z-10 flex h-screen w-screen items-center justify-center bg-black text-white"
+    >
       <div className="large-title pointer-events-none">
         <div className="collection-title">
           <Typography type="collection">{title}</Typography>
