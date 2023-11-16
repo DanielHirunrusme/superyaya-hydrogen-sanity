@@ -205,7 +205,7 @@ function Cardwrapper(props: any) {
       <div ref={scope} className="fixed left-0 top-0 z-10 h-screen w-full ">
         <motion.div
           animate={{transform: `translate(-50%, 400%) rotate(90deg)`}}
-          transition={{delay: 2.25, duration: 2, ease: 'easeInOut'}}
+          transition={{delay: 2.25, duration: 2, ease: 'easeIn'}}
           style={{
             aspectRatio:
               root.data.layout?.introImage?.metadata?.dimensions?.aspectRatio,
