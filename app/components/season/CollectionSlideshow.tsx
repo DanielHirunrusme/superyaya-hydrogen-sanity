@@ -16,6 +16,7 @@ import SanityImage from '~/components/media/SanityImage';
 import ProductHotspot from '~/components/product/Hotspot';
 import ProductTag from '~/components/product/Tag';
 import {motion} from 'framer-motion';
+import {SlideshowCaption} from '../modules/ModuleSlideshow';
 
 type Props = {
   modules: any[];
@@ -185,7 +186,7 @@ export default function CollectionSlideshow(props) {
                     'absolute bottom-[.875em] left-0 w-full select-none text-center xl:bottom-[.675em]',
                   )}
                 >
-                  {modules[index]?.caption || ''}
+                  <SlideshowCaption blocks={module.caption} />
                 </div>
               </div>
             </div>
@@ -214,35 +215,39 @@ export default function CollectionSlideshow(props) {
       </div>
 
       {indexVisible && (
-        <div className="flex min-h-screen w-full md:items-center justify-center text-center">
+        <div className="flex min-h-screen w-full justify-center text-center md:items-center">
           <Container type="slideshowIndex" asChild>
-             
-              {/* Table */}
-              <StaggerIndexList>
-                <ul className="relative mx-auto w-full">
-                  <li className="text-center">
-                    {title}
-                    <br />
-                    <br />
+            {/* Table */}
+            <StaggerIndexList>
+              <ul className="relative mx-auto w-full">
+                <li className="text-center">
+                  {title}
+                  <br />
+                  <br />
+                </li>
+                {modules?.map((module, index) => (
+                  <li
+                    onClick={() => {
+                      setIndexVisible(false);
+                      setIndex(index);
+                    }}
+                    className="block cursor-pointer"
+                    key={`table-${module._key}`}
+                  >
+                    <div className="leaders hover:opacity-50 active:opacity-50">
+                      <span>
+                        {module.caption ? (
+                          <SlideshowCaption blocks={module.caption} />
+                        ) : (
+                          'Figure'
+                        )}
+                      </span>
+                      <span>{String(index + 1).padStart(2, '0')}</span>
+                    </div>
                   </li>
-                  {modules?.map((module, index) => (
-                    <li
-                      onClick={() => {
-                        setIndexVisible(false);
-                        setIndex(index);
-                      }}
-                      className="block cursor-pointer"
-                      key={`table-${module._key}`}
-                    >
-                      <div className="leaders hover:opacity-50 active:opacity-50">
-                        <span>{module.caption || 'Figure'}</span>
-                        <span>{String(index + 1).padStart(2, '0')}</span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </StaggerIndexList>
-          
+                ))}
+              </ul>
+            </StaggerIndexList>
           </Container>
         </div>
       )}
@@ -311,7 +316,7 @@ function CollectionModule({module, parentModule, mode, inSlideShow}: Props) {
       {/* Caption */}
       {module.variant === 'caption' && module.caption && (
         <div className="mt-1 max-w-[35rem]  leading-caption ">
-          {module.caption}
+          <SlideshowCaption blocks={module.caption} />
         </div>
       )}
 

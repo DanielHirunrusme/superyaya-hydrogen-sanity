@@ -188,39 +188,37 @@ export default function ModuleSlideshow(props) {
       {showIndex && indexVisible && (
         <div className="flex min-h-screen w-full justify-center text-center md:items-center ">
           <Container type="slideshowIndex" asChild>
-           
-              {/* Table */}
-              <StaggerIndexList>
-                <ul className="relative mx-auto w-full md:top-[-2em]">
-                  <li className="text-center">
-                    {title}
-                    <br />
-                    <br />
+            {/* Table */}
+            <StaggerIndexList>
+              <ul className="relative mx-auto w-full md:top-[-2em]">
+                <li className="text-center">
+                  {title}
+                  <br />
+                  <br />
+                </li>
+                {modules?.map((module, index) => (
+                  <li
+                    onClick={() => {
+                      setIndexVisible(false);
+                      setSelectedIndex(index);
+                    }}
+                    className="cursor-pointer"
+                    key={`table-${module._key}`}
+                  >
+                    <div className="leaders hover:opacity-50 active:opacity-50">
+                      <span>
+                        {module.caption ? (
+                          <SlideshowCaption blocks={module.caption} />
+                        ) : (
+                          'Figure'
+                        )}
+                      </span>
+                      <span>{String(index + 1).padStart(2, '0')}</span>
+                    </div>
                   </li>
-                  {modules?.map((module, index) => (
-                    <li
-                      onClick={() => {
-                        setIndexVisible(false);
-                        setSelectedIndex(index);
-                      }}
-                      className="cursor-pointer"
-                      key={`table-${module._key}`}
-                    >
-                      <div className="leaders hover:opacity-50 active:opacity-50">
-                        <span>
-                          {module.caption ? (
-                            <SlideshowCaption blocks={module.caption} />
-                          ) : (
-                            'Figure'
-                          )}
-                        </span>
-                        <span>{String(index + 1).padStart(2, '0')}</span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </StaggerIndexList>
-           
+                ))}
+              </ul>
+            </StaggerIndexList>
           </Container>
         </div>
       )}
@@ -279,11 +277,11 @@ export default function ModuleSlideshow(props) {
 type SlideshowCaptionProps = {
   blocks: PortableTextBlock[];
 };
-function SlideshowCaption(props: SlideshowCaptionProps) {
+export const SlideshowCaption = (props: SlideshowCaptionProps) => {
   const {blocks} = props;
   return (
     <div className="uppercase">
       <PortableText blocks={blocks} variant="caption" />
     </div>
   );
-}
+};
