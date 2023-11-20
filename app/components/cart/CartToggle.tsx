@@ -29,7 +29,7 @@ export default function CartToggle({cart, isOpen, openDrawer}: Props) {
               <div className="relative aspect-[0.8] w-[4.1025vw] md:hidden">
                 <CartIcon />
                 <span className="absolute bottom-[.1875em] left-[.5px]  w-full text-center leading-none">
-                  {data?.totalQuantity || 0}
+                  {data?.totalQuantity > 0 ? data?.totalQuantity : ""}
                 </span>
               </div>
             </Typography>
