@@ -41,6 +41,8 @@ export const getImageLayout = (module, detached = false) => {
         'flex flex-col items-center justify-center object-contain px-mobile md:px-0 pt-[3.4vw]';
 
       if (detached) {
+        styles +=
+            ' pb-[13vw] md:pb-[3.25vw]';
       } else {
         if (module.caption) {
           // if there is a caption add symmetrical padding top and bottom
