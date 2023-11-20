@@ -60,7 +60,9 @@ export default function Index() {
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
-            <div className='-mt-[3.65em] md:mt-0'>
+          <div className="flex min-h-screen w-full justify-center text-center md:items-center ">
+            <div className='-mt-[3.65em] md:mt-0 w-full'>
+              
             <Container type="slideshowIndex">
               <StaggerIndexList className="left-0 md:top-0 flex h-full w-full flex-col justify-center gap-8 text-center md:items-center">
                 {page.map((category) => (
@@ -87,6 +89,7 @@ export default function Index() {
                 ))}
               </StaggerIndexList>
             </Container>
+            </div>
             </div>
           </Await>
         </Suspense>

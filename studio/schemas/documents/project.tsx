@@ -39,7 +39,16 @@ export default defineField({
       // @ts-ignore - TODO - fix this TS error
       validation: validateSlug,
     }),
-
+    // Date
+    defineField({
+      name: 'date',
+      title: 'Date',
+      type: 'date',
+      options: {
+        dateFormat: 'MMMM YYYY',
+      },
+      validation: (Rule) => Rule.required(),
+    }),
     // Modules
     defineField({
       name: 'modules',

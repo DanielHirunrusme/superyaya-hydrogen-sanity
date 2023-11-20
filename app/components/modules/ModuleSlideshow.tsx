@@ -28,6 +28,36 @@ type Props = {
   outboundLinkText?: string;
 };
 
+export const getImageLayout = (module, detached = false) => {
+  switch (module.layout) {
+    case 'full':
+      return 'object-cover';
+    case 'contain':
+      return 'object-contain flex flex-col items-center justify-center md:block';
+    case 'default':
+    default:
+      // default styles
+      let styles =
+        'flex flex-col items-center justify-center object-contain px-mobile md:px-0 pt-[3.4vw]';
+
+      if (detached) {
+      } else {
+        if (module.caption) {
+          // if there is a caption add symmetrical padding top and bottom
+          styles +=
+            ' pb-[13vw] md:pb-[7vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]';
+        } else {
+          // if there is no caption make image extend further down
+          styles +=
+            ' pb-[13vw] md:pb-[3.25vw] md:pt-[7vw] xl:pt-[5.5vw] 2xl:pt-[5.203125vw]';
+        }
+      }
+
+      return styles;
+  }
+};
+
+
 export default function ModuleSlideshow(props) {
   const {
     modules,
@@ -100,35 +130,7 @@ export default function ModuleSlideshow(props) {
     };
   }, [indexVisible, emblaApi]);
 
-  const getImageLayout = (module) => {
-    switch (module.layout) {
-      case 'full':
-        return 'object-cover';
-      case 'contain':
-        return 'object-contain flex flex-col items-center justify-center md:block';
-      case 'default':
-      default:
-        // default styles
-        let styles =
-          'flex flex-col items-center justify-center object-contain px-mobile md:px-0';
-
-        if (detached) {
-          styles += ' pt-[4vw] xl:pt-[3.6vw]';
-        } else {
-          if (module.caption) {
-            // if there is a caption add symmetrical padding top and bottom
-            styles +=
-              ' py-[13vw] md:py-[7vw] xl:py-[5.5vw] 2xl:py-[5.203125vw]';
-          } else {
-            // if there is no caption make image extend further down
-            styles +=
-              ' py-[13vw] md:pb-[3.25vw] md:pt-[7vw] xl:pt-[5.5vw] 2xl:pt-[5.203125vw]';
-          }
-        }
-
-        return styles;
-    }
-  };
+ 
 
   return (
     <div
@@ -161,7 +163,7 @@ export default function ModuleSlideshow(props) {
               <div
                 className={clsx(
                   'relative h-full w-full flex-shrink-0 flex-grow-0',
-                  getImageLayout(module),
+                  getImageLayout(module, detached),
                 )}
                 key={module._key}
                 onClick={onClick}

@@ -44,6 +44,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-intersection-observer": "^9.4.3",
+    "react-portable-text": "^0.6.0",
     "react-social-media-embed": "^2.3.5",
     "react-tailwind-variants": "^1.0.2",
     "slugify": "^1.6.6",
