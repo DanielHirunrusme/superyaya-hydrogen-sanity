@@ -31,20 +31,6 @@ export default defineField({
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: 'subtitle',
-      title: 'Subtitle',
-      type: 'string',
-    }),
-    defineField({
-      name: 'date',
-      title: 'Date',
-      type: 'date',
-      options: {
-        dateFormat: 'YYYY-MM-DD',
-      },
-      validation: (Rule) => Rule.required(),
-    }),
     // Slug
     defineField({
       name: 'slug',
@@ -53,38 +39,7 @@ export default defineField({
       // @ts-ignore - TODO - fix this TS error
       validation: validateSlug,
     }),
-    // Category
-    defineField({
-      name: 'category',
-      title: 'Category',
-      type: 'reference',
-      to: [{type: 'category'}],
-      validation: (Rule) => Rule.required(),
-    }),
-    // Body
-    defineField({
-      name: 'body',
-      title: 'Body',
-      type: 'body',
-      group: 'editorial',
-    }),
-    // Color theme
-    // defineField({
-    //   name: 'colorTheme',
-    //   title: 'Color theme',
-    //   type: 'reference',
-    //   to: [{type: 'colorTheme'}],
-    //   group: 'theme',
-    // }),
-    // // Show hero
-    // defineField({
-    //   name: 'showHero',
-    //   title: 'Show hero',
-    //   type: 'boolean',
-    //   description: 'If disabled, page title will be displayed instead',
-    //   initialValue: false,
-    //   group: 'editorial',
-    // }),
+
     // Modules
     defineField({
       name: 'modules',
