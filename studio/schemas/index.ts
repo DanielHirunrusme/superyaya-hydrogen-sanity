@@ -33,7 +33,7 @@ const documents = [
   productVariant,
   radio,
   season,
-  archive,
+  // archive,
   category,
   collaboration,
   project,

@@ -62,7 +62,7 @@ export default function RadioPopup() {
       {!isPlaying && (
         <motion.div
           className={clsx(
-            'fixed  z-50 text-black outline-none',
+            'fixed z-40 text-black outline-none right-12 bottom-16',
             // !visible && 'pointer-events-none opacity-0',
           )}
           data-radio-cat
@@ -73,8 +73,8 @@ export default function RadioPopup() {
           dragTransition={{timeConstant: 100000, power: 0.1}}
           style={{
             mixBlendMode: theme !== Theme.DARK ? 'multiply' : 'lighten',
-            left: randomPosition.x,
-            top: randomPosition.y,
+            // left: randomPosition.x,
+            // top: randomPosition.y,
             touchAction: 'none',
           }}
         >
