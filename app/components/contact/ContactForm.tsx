@@ -54,13 +54,13 @@ function EmailForm({
 }) {
   const yyyyMmDd = new Date().toISOString().split('T')[0];
   return (
-    <Form action="/api/contact" method="post" className="pt-[1em]">
+    <Form action="/api/contact" method="post" className="pt-[1em] gap-0">
 
       <Disclosure defaultOpen>
         {({open}) => (
           <>
-            <fieldset>
-              <Disclosure.Button className="flex gap-4">
+            <fieldset className='gap-[.75em]'>
+              <Disclosure.Button className=" hover:opacity-50 flex gap-4">
                 <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
                 <label htmlFor="message">Special Requirements*</label>
               </Disclosure.Button>
@@ -81,12 +81,12 @@ function EmailForm({
              <Disclosure defaultOpen>
         {({open}) => (
           <>
-            <Disclosure.Button className="flex gap-4">
+            <Disclosure.Button className=" hover:opacity-50 flex gap-4">
               <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
               <h4>Contact Details</h4>
             </Disclosure.Button>
-            <Disclosure.Panel className="flex flex-col gap-4 pb-8">
-              <fieldset>
+            <Disclosure.Panel className="flex flex-col gap-4 pb-8 pt-4">
+              <fieldset className='gap-[.75em]'>
                 <label htmlFor="email">E-mail Address*</label>
                 <input
                   placeholder="E-mail Address"
@@ -95,7 +95,7 @@ function EmailForm({
                   required
                 />
               </fieldset>
-              <fieldset>
+              <fieldset className='gap-[.75em]'>
                 <label htmlFor="phone">Phone</label>
                 <input placeholder="Phone" type="phone" name="phone" required />
               </fieldset>
@@ -107,17 +107,17 @@ function EmailForm({
       <Disclosure>
         {({open}) => (
           <>
-            <Disclosure.Button className="flex gap-4">
+            <Disclosure.Button className=" hover:opacity-50 flex gap-4">
               <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
               <h4>Measurements</h4>
             </Disclosure.Button>
-            <Disclosure.Panel className="flex flex-col gap-4 pb-8">
+            <Disclosure.Panel className="flex flex-col gap-4 pb-8 pt-4">
               <div className="flex gap-4">
-                <fieldset className="flex-1">
+                <fieldset className="flex-1 gap-[.75em]">
                   <label htmlFor="bust">Bust (cm)</label>
                   <input placeholder="Bust" type="text" name="bust" required />
                 </fieldset>
-                <fieldset className="flex-1">
+                <fieldset className="flex-1 gap-[.75em]">
                   <label htmlFor="waist">Waist (cm)</label>
                   <input
                     placeholder="Waist"
@@ -129,11 +129,11 @@ function EmailForm({
               </div>
 
               <div className="flex gap-4">
-                <fieldset className="flex-1">
+                <fieldset className="flex-1 gap-[.75em]">
                   <label htmlFor="bust">Hips (cm)</label>
                   <input placeholder="Hips" type="text" name="hips" required />
                 </fieldset>
-                <fieldset className="flex-1">
+                <fieldset className="flex-1 gap-[.75em]">
                   <label htmlFor="waist">Height (cm)</label>
                   <input
                     placeholder="Height"
@@ -152,12 +152,12 @@ function EmailForm({
       <Disclosure>
         {({open}) => (
           <>
-            <Disclosure.Button className="flex gap-4">
+            <Disclosure.Button className=" hover:opacity-50 flex gap-4">
               <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
               <h4>Shipping Details</h4>
             </Disclosure.Button>
-            <Disclosure.Panel className="flex flex-col gap-4 pb-8">
-              <fieldset>
+            <Disclosure.Panel className="flex flex-col gap-4 pb-8 pt-4">
+              <fieldset className='gap-[.75em]'>
                 <label htmlFor="country">Country</label>
                 <input
                   placeholder="Country"
@@ -167,7 +167,7 @@ function EmailForm({
                 />
               </fieldset>
               <div className="flex gap-4">
-                <fieldset className="flex-1">
+                <fieldset className="flex-1 gap-[.75em]">
                   <label htmlFor="firstName">First name</label>
                   <input
                     placeholder="First name"
@@ -176,7 +176,7 @@ function EmailForm({
                     required
                   />
                 </fieldset>
-                <fieldset className="flex-1">
+                <fieldset className="flex-1 gap-[.75em]">
                   <label htmlFor="lastName">Last name</label>
                   <input
                     placeholder="Last name"
@@ -186,7 +186,7 @@ function EmailForm({
                   />
                 </fieldset>
               </div>
-              <fieldset>
+              <fieldset className='gap-[.75em]'>
                 <label htmlFor="address">Address</label>
                 <input
                   placeholder="Address Line 1"
@@ -195,7 +195,7 @@ function EmailForm({
                   required
                 />
               </fieldset>
-              <fieldset>
+              <fieldset className='gap-[.75em]'>
                 <label htmlFor="address">
                   Apartment, Suite, Etc. (Optional)
                 </label>
@@ -207,11 +207,11 @@ function EmailForm({
               </fieldset>
 
               <div className="flex gap-4">
-                <fieldset className="flex-1">
+                <fieldset className="flex-1 gap-[.75em]">
                   <label htmlFor="firstName">City</label>
                   <input placeholder="City" type="text" name="city" required />
                 </fieldset>
-                <fieldset className="flex-1">
+                <fieldset className="flex-1 gap-[.75em]">
                   <label htmlFor="postal">Postal/Zip Code</label>
                   <input
                     placeholder="Postal/Zip Code"
@@ -230,8 +230,8 @@ function EmailForm({
         {({open}) => (
           <>
             <div className="flex gap-4">
-              <fieldset className="flex-1">
-                <Disclosure.Button className="flex gap-4">
+              <fieldset className="flex-1 gap-[.75em]">
+                <Disclosure.Button className=" hover:opacity-50 flex gap-4">
                   <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
                   <label htmlFor="postal">
                     Please specify your delivery date
@@ -251,7 +251,7 @@ function EmailForm({
         )}
       </Disclosure>
 
-      {/* <fieldset>
+      {/* <fieldset className='gap-[.75em]'>
         <label htmlFor="subject">Subject</label>
         <input type="subject" name="subject" required />
       </fieldset> */}
