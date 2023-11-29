@@ -120,24 +120,24 @@ module.exports = {
         },
       ],
       rteTablet: [
-        '0.837520938vw',
+        '1.005vw',
         {
           letterSpacing: '.0875em',
-          lineHeight: '1.4',
+          lineHeight: '1.416',
         },
       ],
       rteLaptop: [
-        '0.7352vw',
-        {
-          letterSpacing: '.0875em',
-          lineHeight: '1.38',
-        },
-      ],
-      rteDesktop: [
-        '0.625vw',
+        '0.9259vw',
         {
           letterSpacing: '.0875em',
           lineHeight: '1.375',
+        },
+      ],
+      rteDesktop: [
+        '0.78125vw',
+        {
+          letterSpacing: '.0875em',
+          lineHeight: '1.35',
         },
       ],
       // Index
