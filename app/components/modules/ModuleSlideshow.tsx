@@ -38,7 +38,7 @@ export const getImageLayout = (module, detached = false) => {
     default:
       // default styles
       let styles =
-        'flex flex-col items-center justify-center object-contain px-mobile md:px-0 pt-[3.4vw]';
+        'flex flex-col items-center justify-center object-contain px-mobile md:px-tablet xl:px-laptop 2xl:px-desktop pt-[3.4vw]';
 
       if (detached) {
         styles +=
@@ -47,7 +47,7 @@ export const getImageLayout = (module, detached = false) => {
         if (module.caption) {
           // if there is a caption add symmetrical padding top and bottom
           styles +=
-            ' pb-[13vw] md:pb-[7vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]';
+            ' pb-[13vw] md:pb-[7vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw] md:pt-[7vw] xl:pt-[5.5vw] 2xl:pt-[5.203125vw]';
         } else {
           // if there is no caption make image extend further down
           styles +=
