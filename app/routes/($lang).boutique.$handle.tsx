@@ -156,9 +156,9 @@ export default function Collection() {
   );
 }
 
-function EmptyMessage({children}) {
+export const EmptyMessage = ({children}) => {
   return (
-    <div className="fixed pointer-events-none left-0 top-0 flex h-screen w-full flex-1 flex-col items-center justify-center text-center">
+    <div className="fixed left-0 top-0 flex h-screen w-full flex-1 flex-col items-center justify-center text-center">
       <Container type="preOrder" asChild>
         <div className="m-auto mx-mobile md:mx-tablet xl:mx-laptop 2xl:mx-desktop">
           {children}

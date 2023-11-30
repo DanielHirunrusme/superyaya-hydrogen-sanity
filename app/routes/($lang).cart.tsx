@@ -16,6 +16,7 @@ import {Container} from '~/components/global/Container';
 import {Typography} from '~/components/global/Typography';
 import SpinnerIcon from '~/components/icons/Spinner';
 import {isLocalPath} from '~/lib/utils';
+import { EmptyMessage } from './($lang).boutique.$handle';
 
 const seo: SeoHandleFunction = () => ({
   title: 'Cart',
@@ -156,14 +157,16 @@ export default function Cart() {
                   </ul>
                 </Container>
               ) : (
+                <EmptyMessage>
                 <Container type="cart">
                   <ul>
                     <li className="text-center">
-                      You cart is empty.{' '}
-                      <Link to="/boutique/all">Continue shopping</Link>
+                      You cart is currently empty.<br />
+                      <Link to="/boutique/all">Continue Shopping?</Link>
                     </li>
                   </ul>
                 </Container>
+                </EmptyMessage>
               )}
             </StaggerIndexList>
             </div>
