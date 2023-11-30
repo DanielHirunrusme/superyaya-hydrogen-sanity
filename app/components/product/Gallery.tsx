@@ -128,7 +128,7 @@ export default function ProductGallery({
   return (
     <>
       {/* Mobile slideshow */}
-      <div className="md:hidden">
+      <div className="md:hidden -mx-mobile">
         <div className="h-full overflow-hidden" ref={emblaRef}>
           <div className="flex h-full">
             {/* Slides */}
@@ -158,7 +158,7 @@ export default function ProductGallery({
 
               return (
                 <MediaFile
-                  className="relative flex w-full shrink-0 grow-0 select-none object-cover"
+                  className="relative px-mobile flex w-full shrink-0 grow-0 select-none object-cover"
                   data={data}
                   draggable={false}
                   key={med.id}
