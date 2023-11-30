@@ -47,12 +47,6 @@ export default function RadioPopup() {
 
     setVisibility();
     winResize();
-    // const handleResizedThrottle = throttle(winResize, 1000);
-    // window.addEventListener('resize', handleResizedThrottle);
-    // winResize();
-    // return () => {
-    //   window.removeEventListener('resize', winResize);
-    // };
   }, []);
 
   if (!navVisible) return null;
@@ -62,7 +56,7 @@ export default function RadioPopup() {
       {!isPlaying && (
         <motion.div
           className={clsx(
-            'fixed z-40 text-black outline-none right-12 bottom-16',
+            'fixed bottom-16 right-12 z-40 text-black outline-none',
             // !visible && 'pointer-events-none opacity-0',
           )}
           data-radio-cat
@@ -81,23 +75,16 @@ export default function RadioPopup() {
           <div
             className={clsx(
               'relative aspect-square',
-              'w-[20vw] md:w-[8vw] xl:w-[6vw]'
+              'w-[20vw] md:w-[8vw] xl:w-[6vw]',
             )}
           >
             <button
               type="button"
               aria-label="Open radio"
               onClick={() => !dragging && setOpen(true)}
-              className=" cursor-pointer absolute z-10 aspect-square w-full"
+              className=" absolute z-10 aspect-square w-full cursor-pointer"
             />
             <RadioCat1 />
-            {/* <img
-              src="/images/cat-popup.gif"
-              width="100%"
-              alt="SUPER YAYA Radio"
-              style={{mixBlendMode: 'multiply'}}
-              className="pointer-events-none"
-            /> */}
           </div>
         </motion.div>
       )}

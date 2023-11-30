@@ -1,32 +1,50 @@
 import {Image} from '@shopify/hydrogen';
 import clsx from 'clsx';
 import {useAnimate} from 'framer-motion';
-import {useEffect} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {CAT_SIZE} from '~/lib/constants';
 import {useTheme, Theme} from '../context/ThemeProvider';
+import {useLocation} from '@remix-run/react';
 
 export default function RadioCat1() {
   const [scope, animate] = useAnimate();
+  const [visible, setVisible] = useState(false);
   const [theme] = useTheme();
+  const timer = useRef();
+  const location = useLocation();
 
   useEffect(() => {
-    if (scope.current) {
-      const sequence = [
-        ['.frame-1', {opacity: 1}, {duration: 0.001}],
-        ['.frame-1', {opacity: 0}, {duration: 0.001, delay: 1}],
-        // frame 2
-        ['.frame-2', {opacity: 1}, {duration: 0.001}],
-        ['.frame-2', {opacity: 0}, {duration: 0.001, delay: 1}],
-        // frame 3
-        ['.frame-3', {opacity: 1}, {duration: 0.001}],
-        ['.frame-3', {opacity: 0}, {duration: 0.001, delay: 1}],
-        // frame 4
-        ['.frame-4', {opacity: 1}, {duration: 0.001}],
-        ['.frame-4', {opacity: 0}, {duration: 0.001, delay: 1}],
-      ];
-      animate(sequence, {repeat: 10000});
+    if (scope.current && visible) {
+      const animateCat = async () => {
+        const sequence = [
+          ['.frame-1', {opacity: 1}, {duration: 0.001}],
+          ['.frame-1', {opacity: 0}, {duration: 0.001, delay: 1}],
+          // frame 2
+          ['.frame-2', {opacity: 1}, {duration: 0.001}],
+          ['.frame-2', {opacity: 0}, {duration: 0.001, delay: 1}],
+          // frame 3
+          ['.frame-3', {opacity: 1}, {duration: 0.001}],
+          ['.frame-3', {opacity: 0}, {duration: 0.001, delay: 1}],
+          // frame 4
+          ['.frame-4', {opacity: 1}, {duration: 0.001}],
+          ['.frame-4', {opacity: 0}, {duration: 0.001, delay: 1}],
+        ];
+        await animate(sequence, {repeat: 2});
+      };
+      animateCat();
     }
-  }, [scope]);
+  }, [scope, visible, location]);
+
+  useEffect(() => {
+    setVisible(false);
+    clearTimeout(timer.current);
+    setTimeout(() => {
+      setVisible(true);
+    }, Math.random() * 3000 + 3000);
+  }, [location]);
+
+  if (!visible) return null;
+
   return (
     <ul
       className={clsx(
