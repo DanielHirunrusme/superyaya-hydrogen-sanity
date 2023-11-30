@@ -7,7 +7,12 @@ import StaggerIndexList from '../framer/StaggerIndexList';
 import {Link} from '~/components/Link';
 import {Theme, useTheme} from '../context/ThemeProvider';
 import {Container} from '../global/Container';
-import {HEADER_TOP, SITE_MARGINS_X, SITE_MARGINS_Y} from '~/lib/constants';
+import {
+  HEADER_TOP,
+  NAV_GAP_Y,
+  SITE_MARGINS_X,
+  SITE_MARGINS_Y,
+} from '~/lib/constants';
 import {Typography} from '../global/Typography';
 
 import {useMatches} from '@remix-run/react';
@@ -16,7 +21,7 @@ import SanityImage from '~/components/media/SanityImage';
 import ProductHotspot from '~/components/product/Hotspot';
 import ProductTag from '~/components/product/Tag';
 import {motion} from 'framer-motion';
-import {SlideshowCaption} from '../modules/ModuleSlideshow';
+import {SlideshowCaption, getImageLayout} from '../modules/ModuleSlideshow';
 
 type Props = {
   modules: any[];
@@ -97,18 +102,18 @@ export default function CollectionSlideshow(props) {
 
   useEffect(() => {
     if (indexVisible) {
-      setTheme(Theme.LIGHT);
+      // setTheme(Theme.LIGHT);
     } else {
-      setTheme(Theme.DARK);
+      // setTheme(Theme.DARK);
     }
   }, [indexVisible, setTheme]);
 
   useEffect(() => {
     if (!indexVisible) {
       if (index === modules?.length) {
-        setTheme('light');
+        // setTheme('light');
       } else {
-        setTheme('dark');
+        // setTheme('dark');
       }
     }
     return () => {
@@ -132,6 +137,7 @@ export default function CollectionSlideshow(props) {
       <Link
         as={Link}
         to="/collections"
+        onClick={(e) => e.stopPropagation()}
         className={clsx(
           'fixed right-0 z-40 hover:opacity-50 active:opacity-50',
           SITE_MARGINS_X,
@@ -156,37 +162,36 @@ export default function CollectionSlideshow(props) {
             <div
               className={clsx(
                 'flex h-full w-full flex-shrink-0 flex-grow-0',
-                'flex flex-col items-center justify-center object-contain px-mobile ',
-                'py-[15.897vw] md:py-[4vw] xl:py-[3.25vw] 2xl:py-[3vw] 2xl:pb-[3.5vw]',
+                'flex flex-col items-center justify-center object-contain  ',
+                // 'py-[15.897vw] md:py-[4vw] xl:py-[3.25vw] 2xl:py-[3vw] 2xl:pb-[3.5vw]',
               )}
               key={module._key}
             >
               <div
                 className={clsx(
-                  'flex-0 relative bg-white px-[1em] py-[1em] text-black',
-                  'aspect-[938/1276] portrait:w-full landscape:h-full',
-                  // w?.innerWidth > w?.innerHeight ? 'h-full' : 'w-full',
+                  'flex-0 relative  text-black',
+                  ' portrait:w-full landscape:h-full',
+                  'flex items-center justify-center',
+                  getImageLayout(module, true),
+                  // aspect-[938/1276]
                 )}
-                // style={{
-                //   aspectRatio: `${
-                //     module.image.width / (module.image.height + 60)
-                //   }`,
-                // }}
               >
                 <CollectionModule
                   module={module}
                   mode={mode}
                   inSlideShow={true}
                 />
-                <div
-                  data-await-intro
-                  className={clsx(
-                    'text-center',
 
-                    'absolute bottom-[.875em] left-0 w-full select-none text-center xl:bottom-[.675em]',
-                  )}
+                <div
+                  data-await-intro="true"
+                  data-module-layout="small"
+                  class="mt-2 text-center md:hidden"
                 >
-                  <SlideshowCaption blocks={module.caption} />
+                  <div class="uppercase">
+                    <div class="caption">
+                     <SlideshowCaption blocks={module.caption} />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -195,7 +200,7 @@ export default function CollectionSlideshow(props) {
           {/* Text Slide */}
           <div
             className={clsx(
-              'flex h-full w-full flex-shrink-0 flex-grow-0 select-none',
+              'flex h-full w-full flex-shrink-0 flex-grow-0 select-none -mt-[1em] md:-mt-0',
               'flex-col items-center justify-center object-contain',
               'py-[15.897vw] md:py-[4vw] xl:py-[3.25vw] 2xl:py-[3vw] 2xl:pb-[3.5vw]',
               SITE_MARGINS_X,
@@ -255,10 +260,14 @@ export default function CollectionSlideshow(props) {
         <div
           data-await-intro
           className={clsx(
-            'absolute bottom-0 z-10 flex w-full  select-none items-center justify-center gap-4 text-center leading-none',
+            'absolute bottom-0 z-10 flex w-full flex-col items-center justify-center text-center leading-none',
             SITE_MARGINS_Y,
+            NAV_GAP_Y,
           )}
         >
+          <span className="hidden md:inline">
+            <SlideshowCaption blocks={modules[index]?.caption} />
+          </span>
           <span>
             {String(index + 1).padStart(2, '0')}/
             {String(modules!.length + 1).padStart(2, '0')}
@@ -354,9 +363,9 @@ const ImageContent = ({module, parentModule, mode, inSlideShow}: Props) => {
       className={clsx(
         'relative select-none',
         // image.width > image.height ? 'w-full' : 'w-full',
-        parentModule?._type === 'module.gallery' && 'h-full md:h-auto',
-        module.layout === 'full' && 'h-full',
-        'w-full',
+        // parentModule?._type === 'module.gallery' && 'h-full md:h-auto',
+        // module.layout === 'full' && 'h-full',
+        'w-full md:h-full md:w-auto',
       )}
       style={{
         aspectRatio: !applyAspectRatio ? image.width / image.height : 'auto',
@@ -426,7 +435,7 @@ function Intro({title, onIntroComplete}) {
       onAnimationComplete={onIntroComplete}
       className="pointer-events-none fixed z-10 flex h-screen w-screen items-center justify-center bg-black text-white"
     >
-      <div className="large-title pointer-events-none">
+      <div className="large-title">
         <div className="collection-title">
           <Typography type="collection">{title}</Typography>
         </div>

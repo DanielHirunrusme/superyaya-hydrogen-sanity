@@ -65,10 +65,11 @@ export default function Page() {
   const [theme, setTheme, navVisible] = useTheme();
 
   useEffect(() => {
+    setTheme('light');
     if (index === page.modules?.length) {
-      setTheme('light');
+      
     } else {
-      setTheme('dark');
+      // setTheme('dark');
     }
     return () => {
       setTheme('light');
@@ -79,7 +80,7 @@ export default function Page() {
     <ColorTheme value={page.colorTheme}>
       <Suspense>
         <Await resolve={gids}>
-          {navVisible && (
+          
             <CollectionSlideshow
               modules={page.modules}
               zoom={zoom}
@@ -108,7 +109,7 @@ export default function Page() {
                 </div>
               </Container>
             </CollectionSlideshow>
-          )}
+    
           
         </Await>
       </Suspense>
