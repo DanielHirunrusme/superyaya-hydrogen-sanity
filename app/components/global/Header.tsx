@@ -18,9 +18,10 @@ import {HEADER_TOP, NAV_GAP, NAV_GAP_Y} from '~/lib/constants';
 export default function Header() {
   const [root] = useMatches();
   const layout = root.data?.layout;
-  const {menuLinks} = layout || {};
+  const {menuLinks, assistance} = layout || {};
   const [scope, animate] = useAnimate();
   const [logoVisible, setLogoVisible] = useState<boolean>(false);
+
 
   useEffect(() => {
     const fadeIn = async () => {
@@ -34,7 +35,8 @@ export default function Header() {
       <header
         id="Header"
         className={clsx(
-          ' absolute z-50 flex  w-full flex-col items-center justify-center text-center',
+          'z-50 flex  w-full flex-col items-center justify-center text-center',
+          assistance.links.some((e) => e.slug === location.pathname) ? 'relative md:absolute pb-mobile md:pb-0' : 'absolute',
           NAV_GAP_Y,
           HEADER_TOP,
         )}
@@ -48,10 +50,10 @@ export default function Header() {
           SUPER YAYA
         </Link>
         {/* Accounts, country selector + cart toggle */}
-        <HeaderActions logoVisible={logoVisible} menuLinks={menuLinks} />
+        <HeaderActions logoVisible={logoVisible} menuLinks={menuLinks} assistance={assistance} />
 
         {menuLinks && (
-          <Navigation logoVisible={logoVisible} menuLinks={menuLinks} />
+          <Navigation logoVisible={logoVisible} menuLinks={menuLinks} assistance={assistance} />
         )}
       </header>
     </>

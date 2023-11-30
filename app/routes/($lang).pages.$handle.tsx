@@ -21,6 +21,7 @@ import StaggerIndexList from '~/components/framer/StaggerIndexList';
 
 import SanityImage from '~/components/media/SanityImage';
 import {motion, useAnimate} from 'framer-motion';
+import { useTheme } from '~/components/context/ThemeProvider';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
   title: data?.page?.seo?.title,
@@ -69,6 +70,7 @@ export default function Page() {
   const {assistance} = layout || {};
   const {page, gids} = useLoaderData<typeof loader>();
   const [menuVisible, setMenuVisible] = useState(false);
+  const [theme, setTheme, navVisible] = useTheme();
 
   const renderLinks = assistance?.links.map((link: SanityLink) => {
     if (link._type === 'linkExternal') {
@@ -154,21 +156,21 @@ export default function Page() {
             {/* Page hero */}
             {/* <PageHero fallbackTitle={page.title} hero={page.hero} /> */}
             <Container type="assistance" asChild>
-              <div className={clsx('mx-auto w-full pb-24 font-index')}>
-                <Typography type="index">
-                  {page.displayAssistanceMenu && assistance && (
+              <div className={clsx('mx-auto w-full pb-24 !uppercase page-rte ')}>
+                
+                  {/* {page.displayAssistanceMenu && assistance && (
                     <StaggerIndexList target="ol li" onComplete={onComplete}>
                       <ol className="rte mb-6 flex list-inside list-alpha flex-col !uppercase">
                         {renderLinks}
                       </ol>
                     </StaggerIndexList>
-                  )}
+                  )} */}
 
                   {/* Body */}
-                  {page.body && menuVisible && (
+                  {page.body && navVisible && (
                     <PortableText blocks={page.body} centered />
                   )}
-                </Typography>
+                
               </div>
             </Container>
           </Await>

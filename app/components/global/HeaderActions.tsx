@@ -1,4 +1,4 @@
-import {useMatches} from '@remix-run/react';
+import {useLocation, useMatches} from '@remix-run/react';
 import {CartForm} from '@shopify/hydrogen';
 import clsx from 'clsx';
 import {useEffect} from 'react';
@@ -13,18 +13,21 @@ import MobileNavigation from './MobileNavigation';
 import {stagger, useAnimate} from 'framer-motion';
 import {HEADER_TOP, NAV_GAP, STAGGER_SPEED} from '~/lib/constants';
 import {Typography} from './Typography';
+import {SanityMenuLink} from '~/lib/sanity';
 
 type Props = {
-  menuLinks: any;
+  menuLinks: SanityMenuLink[];
+  assistance: SanityMenuLink[];
   logoVisible: boolean;
 };
 
 export default function HeaderActions(props: Props) {
-  const {menuLinks, logoVisible} = props;
+  const {menuLinks, assistance, logoVisible} = props;
   const {isOpen, openDrawer, closeDrawer} = useDrawer();
   const [root] = useMatches();
   const cart = root.data?.cart;
   const [scope, animate] = useAnimate();
+  const location = useLocation();
 
   useEffect(() => {
     const fadeIn = async () => {
@@ -58,7 +61,7 @@ export default function HeaderActions(props: Props) {
       <ul
         ref={scope}
         className={clsx(
-          'fixed right-0 top-0 mt-[1px] flex  items-center gap-[1em] px-mobile md:gap-[1.5em] md:px-tablet xl:px-laptop 2xl:px-desktop',
+          'fixed z-50 right-0 top-0 mt-[1px] flex  items-center gap-[1em] px-mobile md:gap-[1.5em] md:px-tablet xl:px-laptop 2xl:px-desktop',
           HEADER_TOP,
         )}
       >
@@ -86,7 +89,7 @@ export default function HeaderActions(props: Props) {
         <li className="opacity-0">
           <Link
             to="/pages/faq"
-            className="linkTextNavigation hidden  md:inline "
+            className={clsx('linkTextNavigation hidden md:inline', assistance.links.some((e) => e.slug === location.pathname) && 'linkTextNavigationActive')}
           >
             <Typography type="body" size="sm">
               Assistance

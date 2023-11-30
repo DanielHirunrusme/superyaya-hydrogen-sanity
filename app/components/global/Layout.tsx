@@ -5,7 +5,12 @@ import Header from '~/components/global/Header';
 import {PreviewBanner} from '~/components/preview/PreviewBanner';
 import RadioPopup from '../radio/RadioPopup';
 import clsx from 'clsx';
-import {SITE_CONTENT_OFFSET, SITE_MARGINS_X} from '~/lib/constants';
+import {
+  ASSISTANCE_CONTENT_OFFSET,
+  SITE_CONTENT_OFFSET,
+  SITE_MARGINS_X,
+} from '~/lib/constants';
+import {useLocation, useMatches} from '@remix-run/react';
 
 type LayoutProps = {
   backgroundColor?: string;
@@ -14,7 +19,8 @@ type LayoutProps = {
 
 export function Layout({backgroundColor, children}: LayoutProps) {
   const isPreview = Boolean(usePreviewContext());
-
+  const [root] = useMatches();
+  const location = useLocation();
   return (
     <>
       <div className="absolute left-0 top-0">
@@ -37,7 +43,11 @@ export function Layout({backgroundColor, children}: LayoutProps) {
           role="main"
           className={clsx(
             'flex grow flex-col',
-            SITE_CONTENT_OFFSET,
+            root?.data?.layout?.assistance?.links.some(
+              (e) => e.slug === location.pathname,
+            )
+              ? ASSISTANCE_CONTENT_OFFSET
+              : SITE_CONTENT_OFFSET,
             SITE_MARGINS_X,
           )}
         >

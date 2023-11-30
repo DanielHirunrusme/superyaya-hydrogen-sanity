@@ -39,7 +39,6 @@ export default function PortableText({
   variant = 'rte',
 }: Props) {
 
-  console.log('blocks', blocks)
 
   const components: PortableTextComponents = {
     list: {

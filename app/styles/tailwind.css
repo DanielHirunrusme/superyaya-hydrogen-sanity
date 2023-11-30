@@ -318,6 +318,15 @@ textarea {
   @apply !normal-case;
 }
 
+.page-rte,
+.page-rte * {
+  @apply !uppercase;
+}
+
+p:empty {
+  @apply hidden;
+}
+
 /* Intro */
 [data-await-intro] {
   @apply invisible;

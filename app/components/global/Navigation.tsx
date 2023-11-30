@@ -16,6 +16,7 @@ import {motion} from 'framer-motion';
 
 type Props = {
   menuLinks: SanityMenuLink[];
+  assistance: SanityMenuLink[];
   logoVisible: boolean;
 };
 
@@ -73,7 +74,11 @@ const listVariant = {
   },
 };
 
-export default function Navigation({menuLinks, logoVisible}: Props) {
+export default function Navigation({
+  menuLinks,
+  logoVisible,
+  assistance,
+}: Props) {
   const location = useLocation();
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
@@ -180,7 +185,6 @@ export default function Navigation({menuLinks, logoVisible}: Props) {
       }
       return null;
     });
-
 
     if (hasChildren === 0) {
       return (
@@ -364,6 +368,56 @@ export default function Navigation({menuLinks, logoVisible}: Props) {
     }
   }, [menuLinks, location]);
 
+  const renderAssistanceLinks = useCallback(() => {
+    // console.log(location, assistance)
+    if (assistance.links.some((e) => e.slug === location.pathname)) {
+      return (
+        <motion.ul
+          // key={`link-${link._key}`}
+          className={clsx('flex flex-col items-center md:items-start text-center md:text-left md:flex-row gap-0 md:gap-[2em]')}
+          variants={boxVariant}
+          animate={navVisible ? 'visible' : 'hidden'}
+          initial={!navVisible ? 'hidden' : 'visible'}
+        >
+          {assistance.links.map((subLink) => {
+            let hasChildChildActive = false;
+            const isActive = location.pathname.includes(subLink.slug);
+            if (subLink.links?.length) {
+              subLink.links.map((subSubLink) => {
+                if (location.pathname.includes(subSubLink.slug)) {
+                  hasChildChildActive = true;
+                }
+              });
+            }
+            return (
+              <motion.li
+                variants={listVariant}
+                className="flex items-center opacity-0"
+                key={subLink._key}
+              >
+                <Link
+                  className={clsx(
+                    'linkTextNavigation',
+                    (hasChildChildActive || isActive) &&
+                      'linkTextNavigationActive',
+                  )}
+                  to={subLink.slug}
+                >
+                  {subLink.title}
+                </Link>
+              </motion.li>
+            );
+          })}
+        </motion.ul>
+      );
+      /* vendors contains the element we're looking for */
+    } else {
+      console.log('no match');
+    }
+
+    // console.log('match?', match);
+  }, [assistance, location]);
+
   useEffect(() => {
     const showNav = async () => {
       const sequence = [
@@ -396,6 +450,7 @@ export default function Navigation({menuLinks, logoVisible}: Props) {
       <>{renderLinks()}</>
       <>{renderSubLinks()}</>
       <>{renderSubSubLinks()}</>
+      <>{renderAssistanceLinks()}</>
     </nav>
   );
 }

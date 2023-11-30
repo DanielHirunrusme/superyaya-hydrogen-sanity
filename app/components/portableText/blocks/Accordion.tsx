@@ -39,7 +39,7 @@ export default function AccordionBlock({value}: Props) {
                     {group.title}
                   </div>
                 </Disclosure.Button>
-                <Disclosure.Panel className="pb-[2em]">
+                <Disclosure.Panel className="pt-[1em] pb-[2em]">
                   <PortableText blocks={group.body} />
                 </Disclosure.Panel>
               </li>
