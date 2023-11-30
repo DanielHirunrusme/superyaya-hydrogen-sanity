@@ -20,6 +20,7 @@ export default function Radio({open, setOpen, setIsPlaying}) {
 
   const afterEnter = () => {
     setRootOpen(true);
+    onCatComplete();
   };
 
   const beforeLeave = () => {
@@ -49,11 +50,14 @@ export default function Radio({open, setOpen, setIsPlaying}) {
   };
 
   const onCatComplete = () => {
+    /*
+     // ['.brand', {opacity: 1}, {duration: 0.001}],
+        // ['.brand', {opacity: 0}, {delay: 1, duration: 0.001}],
+        // [frame1Ref.current, {opacity: 0}, {at: 1, duration: 0.001}],
+        */
+    setRootOpen(true);
     const showTitles = async () => {
       const sequence = [
-        ['.brand', {opacity: 1}, {duration: 0.001}],
-        ['.brand', {opacity: 0}, {delay: 1, duration: 0.001}],
-        [frame1Ref.current, {opacity: 0}, {at: 1, duration: 0.001}],
         ['.date', {opacity: 1}, {delay: 0.5, duration: 0.001}],
         ['.brand', {opacity: 1}, {delay: 0.5, duration: 0.001}],
         ['.episode', {opacity: 1}, {delay: 0.5, duration: 0.001}],
@@ -66,11 +70,9 @@ export default function Radio({open, setOpen, setIsPlaying}) {
 
     showTitles().then(() => {
       timer.current = setTimeout(() => {
-        if (rootOpen) {
-          setOpen(false);
-          setRootOpen(false);
-          setIsPlaying(true);
-        }
+        setOpen(false);
+        setRootOpen(false);
+        setIsPlaying(true);
       }, 2000);
     });
   };
@@ -95,15 +97,13 @@ export default function Radio({open, setOpen, setIsPlaying}) {
         className="absolute right-0 top-0 z-50 p-4"
         onClick={() => setOpen(false)}
       >
-        <Typography type="body">
-        Close
-        </Typography>
+        <Typography type="body">Close</Typography>
       </Button>
       <Typography type="radio">
         <div ref={scope} className=" bottom-0 h-screen w-full bg-yellow">
           <div className="flex h-full w-full flex-col items-center justify-center">
             {/* Frame 1 */}
-            <div
+            {/* <div
               ref={frame1Ref}
               className={clsx(initialClasses, 'opacity-100')}
               style={{mixBlendMode: 'multiply'}}
@@ -111,7 +111,7 @@ export default function Radio({open, setOpen, setIsPlaying}) {
               <div className={clsx("relative aspect-square", CAT_SIZE)}>
               {rootOpen && <RadioCat2 onComplete={onCatComplete} />}
               </div>
-            </div>
+            </div> */}
             {/* Frame 2 */}
             <div ref={frame2Ref} className={initialClasses}>
               <ul className="frame2Ul my-auto flex h-screen w-full flex-1 flex-col items-center justify-evenly text-center md:h-auto  md:flex-row">
