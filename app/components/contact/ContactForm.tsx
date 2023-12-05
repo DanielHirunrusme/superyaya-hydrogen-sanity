@@ -258,7 +258,7 @@ function EmailForm({
       <input type="text" hidden name="date" defaultValue={yyyyMmDd} />
 
       <Container type="pdpForm">
-        <div className="mt-4 flex gap-4">
+        <div className="mt-7 flex gap-4">
           <Button className="flex-1" type="submit">
             Submit
           </Button>
