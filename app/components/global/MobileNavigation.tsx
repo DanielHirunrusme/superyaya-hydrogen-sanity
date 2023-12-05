@@ -247,7 +247,7 @@ export default function MobileNavigation({menuLinks}: Props) {
 
   useEffect(() => {
     if (open) {
-      document.body.classList.add('no-scroll')
+      document.body.classList.add('no-scroll');
       const sequence = [
         [
           'nav > div ul li',
@@ -267,7 +267,7 @@ export default function MobileNavigation({menuLinks}: Props) {
       ];
       animate(sequence);
     } else {
-      document.body.classList.remove('no-scroll')
+      document.body.classList.remove('no-scroll');
 
       const sequence = [
         ['nav > div ul li', {opacity: 0}],
@@ -280,12 +280,28 @@ export default function MobileNavigation({menuLinks}: Props) {
 
   return (
     <>
-      <button
-        onClick={handleOpen}
-        className="-mb-1 aspect-[1.214] w-[4.358vw] md:hidden"
+      <div
+        className={clsx(
+          'fixed left-0 top-[4.6153vw]  px-mobile py-[1.1vw]  md:hidden',
+          !open ? 'z-50' : 'z-[99999]',
+        )}
       >
-        <MenuIcon />
-      </button>
+        {!open ? (
+          <button
+            onClick={handleOpen}
+            className=" -mb-1 aspect-[1.214] w-[4.358vw]"
+          >
+            <MenuIcon />
+          </button>
+        ) : (
+          <button
+            className=" aspect-[1.214] w-[4.358vw]"
+            onClick={handleClose}
+          >
+            <CloseIcon />
+          </button>
+        )}
+      </div>
 
       <div
         className={clsx(
@@ -299,13 +315,6 @@ export default function MobileNavigation({menuLinks}: Props) {
           <Link className="linkTextNavigation !no-underline" to="/">
             SUPER YAYA
           </Link>
-          <Button
-            mode="text"
-            className=" absolute right-0 px-4"
-            onClick={handleClose}
-          >
-            <CloseIcon />
-          </Button>
         </header>
 
         <br />

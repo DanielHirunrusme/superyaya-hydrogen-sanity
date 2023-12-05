@@ -58,6 +58,8 @@ export default function HeaderActions(props: Props) {
 
   return (
     <>
+        {menuLinks && <MobileNavigation menuLinks={menuLinks} />}
+
       <ul
         ref={scope}
         className={clsx(
@@ -103,7 +105,7 @@ export default function HeaderActions(props: Props) {
 
         {/* <Link to="/pages/studio" className="linkTextNavigation hidden md:inline">Studio</Link> */}
 
-        {menuLinks && <MobileNavigation menuLinks={menuLinks} />}
+        
       </ul>
 
       <CartDrawer cart={cart} open={isOpen} onClose={closeDrawer} />
