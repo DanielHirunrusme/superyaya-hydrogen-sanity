@@ -62,7 +62,7 @@ export default function Radio({open, setOpen, setIsPlaying}) {
         ['.brand', {opacity: 1}, {delay: 0.5, duration: 0.001}],
         ['.episode', {opacity: 1}, {delay: 0.5, duration: 0.001}],
         [frame2Ref.current, {opacity: 0}, {delay: 1, duration: 0.001}],
-        ['.frame3Ul li', {opacity: 1}, {delay: stagger(0.25), duration: 0.001}],
+        ['.frame3Ul li', {opacity: 1}, {delay: stagger(0.5), duration: 0.001}],
       ];
 
       await animate(sequence);

@@ -14,14 +14,21 @@ type Props = {
 export default function RadioPlayer(props: Props) {
   const {isPlaying, setIsPlaying} = props;
   const [blur, setBlur] = useState(false);
+  const [ww, setWw] = useState(0);
 
   useEffect(() => {
     const winClick = () => {
       setBlur(true);
     };
+    const winResize = () => {
+      setWw(window.innerWidth);
+    };
+    winResize();
+    window.addEventListener('resize', winResize);
     window.addEventListener('click', winClick);
     return () => {
       window.removeEventListener('click', winClick);
+      window.removeEventListener('resize', winResize);
     };
   }, []);
 
@@ -36,7 +43,7 @@ export default function RadioPlayer(props: Props) {
   };
 
   if (isPlaying) {
-    if (!blur) {
+    if (!blur || ww > 768) {
       return (
         <motion.div
           drag

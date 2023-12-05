@@ -1,11 +1,10 @@
 import {useEffect, useRef, useState} from 'react';
 import Radio from './Radio';
-import {motion, useDragControls} from 'framer-motion';
+import {motion} from 'framer-motion';
 import clsx from 'clsx';
 import RadioPlayer from './RadioPlayer';
 import RadioCat1 from './RadioCat1';
 import {useTheme, Theme} from '../context/ThemeProvider';
-import {throttle} from '~/lib/utils';
 
 export default function RadioPopup() {
   const [open, setOpen] = useState(false);
@@ -56,7 +55,7 @@ export default function RadioPopup() {
       {!isPlaying && (
         <motion.div
           className={clsx(
-            'fixed bottom-16 right-14 md:bottom-[4vw] md:right-[4vw] z-40 text-black outline-none',
+            'fixed bottom-16 right-14 z-40 text-black outline-none md:bottom-[4vw] md:right-[4vw]',
             // !visible && 'pointer-events-none opacity-0',
           )}
           data-radio-cat
