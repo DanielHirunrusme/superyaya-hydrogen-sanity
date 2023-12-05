@@ -104,7 +104,7 @@ export default function IndexPage() {
         accessorKey: 'id',
         header: 'No.',
         cell: (cell) => {
-          return <div>{String(cell.getValue()).padStart(3, '0')}</div>;
+          return <div>{String(cell.getValue() + 1).padStart(3, '0')}</div>;
         },
       },
       {
@@ -144,7 +144,7 @@ export default function IndexPage() {
     debugTable: true,
   });
 
-  console.log(colors);
+ 
 
   useEffect(() => {
     if (page) {

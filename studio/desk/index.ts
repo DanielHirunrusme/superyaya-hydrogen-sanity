@@ -57,7 +57,7 @@ export const structure: StructureResolver = (S, context) =>
       S.divider(),
       pages(S, context),
       project(S, context),
-      collaboration(S, context),
+      // collaboration(S, context),
       ...S.documentTypeListItems().filter(hiddenDocTypes),
       S.divider(),
       settings(S, context),

@@ -49,6 +49,14 @@ export default defineField({
       },
       validation: (Rule) => Rule.required(),
     }),
+    // Kind
+    defineField({
+      name: 'category',
+      title: 'Category',
+      type: 'reference',
+      to: [{type: 'category'}],
+      validation: (Rule) => Rule.required(),
+    }),
     // Modules
     defineField({
       name: 'modules',

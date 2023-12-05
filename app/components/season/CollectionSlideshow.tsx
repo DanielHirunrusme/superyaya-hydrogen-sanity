@@ -225,7 +225,7 @@ export default function CollectionSlideshow(props) {
             {/* Table */}
             <StaggerIndexList>
               <ul className="relative mx-auto w-full">
-                <li className="text-center">
+                <li className="text-center opacity-0">
                   {title}
                   <br />
                   <br />
@@ -236,7 +236,7 @@ export default function CollectionSlideshow(props) {
                       setIndexVisible(false);
                       setIndex(index);
                     }}
-                    className="block cursor-pointer"
+                    className="block cursor-pointer opacity-0"
                     key={`table-${module._key}`}
                   >
                     <div className="leaders hover:opacity-50 active:opacity-50">

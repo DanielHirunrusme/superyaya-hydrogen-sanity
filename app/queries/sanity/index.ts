@@ -1,7 +1,7 @@
 import groq from 'groq';
 import {MODULES} from './fragments/modules';
 export const INDEX_QUERY = groq`
-  *[(_type == "product" && !store.isDeleted) || _type == "season" || _type == "collaboration" || _type == "archive" || _type == "project"] | order(_type asc){
+  *[(_type == "product" && !store.isDeleted) || _type == "season" || _type == "collaboration" || _type == "archive" || _type == "project" && !(_id in path("drafts.**"))] | order(_type asc){
     _type,
     _id,
     // Product
@@ -35,7 +35,7 @@ export const INDEX_QUERY = groq`
       "slug": '/collaborations/' + slug.current,
       title,
       "category": category->title,
-      "kind": "Collaboration",
+      "kind": "Project",
       "year": date,
       "description": body,
       modules[] {

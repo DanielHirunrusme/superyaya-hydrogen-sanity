@@ -369,7 +369,6 @@ export default function Navigation({
   }, [menuLinks, location]);
 
   const renderAssistanceLinks = useCallback(() => {
-    // console.log(location, assistance)
     if (assistance.links.some((e) => e.slug === location.pathname)) {
       return (
         <motion.ul
@@ -411,9 +410,7 @@ export default function Navigation({
         </motion.ul>
       );
       /* vendors contains the element we're looking for */
-    } else {
-      console.log('no match');
-    }
+    } 
 
     // console.log('match?', match);
   }, [assistance, location]);
