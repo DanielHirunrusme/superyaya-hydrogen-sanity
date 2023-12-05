@@ -242,7 +242,7 @@ module.exports = {
       none: '1',
       field: '1.25',
       caption: '1.25',
-      paragraph: '1.4',
+      paragraph: '1.35',
     },
     extend: {
       colors: {

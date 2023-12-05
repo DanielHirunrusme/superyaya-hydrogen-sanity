@@ -173,7 +173,7 @@ export default function CollectionSlideshow(props) {
                   ' portrait:w-full landscape:h-full',
                   'flex items-center justify-center',
                   getImageLayout(module, true),
-                  // aspect-[938/1276]
+             
                 )}
               >
                 <CollectionModule
@@ -209,7 +209,8 @@ export default function CollectionSlideshow(props) {
             <div
               className={clsx(
                 'flex-0 relative bg-black py-[1em] text-white md:py-[4em]',
-                'aspect-[938/1276] portrait:w-full landscape:h-full',
+                'w-full md:w-auto md:h-full',
+                'md:px-[4.355vw] xl:px-[4.1666vw] 2xl:px-[3.203125vw]'
               )}
             >
               {children}
