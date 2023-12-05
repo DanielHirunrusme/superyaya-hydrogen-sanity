@@ -85,7 +85,7 @@ export default function CollectionSlideshow(props) {
 
   const onClick = (e) => {
     if (indexVisible) return;
-    e.clientX < window.innerWidth / 2
+    e.clientX < window.innerWidth / 3
       ? emblaApi?.scrollPrev()
       : emblaApi?.scrollNext();
   };
@@ -173,7 +173,6 @@ export default function CollectionSlideshow(props) {
                   ' portrait:w-full landscape:h-full',
                   'flex items-center justify-center',
                   getImageLayout(module, true),
-             
                 )}
               >
                 <CollectionModule
@@ -189,7 +188,7 @@ export default function CollectionSlideshow(props) {
                 >
                   <div class="uppercase">
                     <div class="caption">
-                     <SlideshowCaption blocks={module.caption} />
+                      <SlideshowCaption blocks={module.caption} />
                     </div>
                   </div>
                 </div>
@@ -200,7 +199,7 @@ export default function CollectionSlideshow(props) {
           {/* Text Slide */}
           <div
             className={clsx(
-              'flex h-full w-full flex-shrink-0 flex-grow-0 select-none -mt-[1em] md:-mt-0',
+              '-mt-[1em] flex h-full w-full flex-shrink-0 flex-grow-0 select-none md:-mt-0',
               'flex-col items-center justify-center object-contain',
               'py-[15.897vw] md:py-[4vw] xl:py-[3.25vw] 2xl:py-[3vw] 2xl:pb-[3.5vw]',
               SITE_MARGINS_X,
@@ -209,8 +208,8 @@ export default function CollectionSlideshow(props) {
             <div
               className={clsx(
                 'flex-0 relative bg-black py-[1em] text-white md:py-[4em]',
-                'w-full md:w-auto md:h-full',
-                'md:px-[4.355vw] xl:px-[4.1666vw] 2xl:px-[3.203125vw]'
+                'w-full md:h-full md:w-auto',
+                'md:px-[4.355vw] xl:px-[4.1666vw] 2xl:px-[3.203125vw]',
               )}
             >
               {children}
@@ -432,15 +431,24 @@ function Intro({title, onIntroComplete}) {
   return (
     <motion.div
       animate={{opacity: 0}}
-      transition={{delay: 1, duration: 1}}
+      transition={{delay: 2, duration: 1}}
       onAnimationComplete={onIntroComplete}
-      className="pointer-events-none fixed z-10 flex h-screen w-screen items-center justify-center bg-black text-white"
+      className="pointer-events-none fixed z-50 flex h-screen w-screen items-center justify-center bg-white"
     >
-      <div className="large-title">
+      <motion.div
+        animate={{color: 'rgba(0, 0, 0, 1)'}}
+        transition={{delay: 1, duration: 1}}
+        className="large-title text-white relative z-50"
+      >
         <div className="collection-title">
           <Typography type="collection">{title}</Typography>
         </div>
-      </div>
+      </motion.div>
+      <motion.div
+        transition={{delay: 1, duration: 1}}
+        animate={{background: 'rgba(255, 255, 255, 1)'}}
+        className="fixed left-0 top-0 z-10 h-screen w-screen bg-black"
+      />
     </motion.div>
   );
 }
