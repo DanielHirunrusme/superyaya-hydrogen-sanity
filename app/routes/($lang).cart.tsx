@@ -161,8 +161,8 @@ export default function Cart() {
                 <Container type="cart">
                   <ul>
                     <li className="text-center">
-                      You cart is currently empty.<br />
-                      <Link to="/boutique/all">Continue Shopping?</Link>
+                      You cart is currently empty.
+                      {/* <Link to="/boutique/all">Continue Shopping?</Link> */}
                     </li>
                   </ul>
                 </Container>
