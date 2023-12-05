@@ -274,6 +274,7 @@ export default function CollectionSlideshow(props) {
           </span>
         </div>
       )}
+      
       {/* Footer */}
 
       <div>

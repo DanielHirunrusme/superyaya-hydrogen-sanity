@@ -38,7 +38,7 @@ export const getImageLayout = (module, detached = false) => {
     default:
       // default styles
       let styles =
-        'flex flex-col items-center justify-center object-contain px-mobile md:px-tablet xl:px-laptop 2xl:px-desktop pt-[3.4vw]';
+        'flex flex-col items-center justify-center object-contain px-mobile md:px-tablet xl:px-laptop 2xl:px-desktop pt-[3.1vw]';
 
       if (detached) {
         if (!module.caption) {

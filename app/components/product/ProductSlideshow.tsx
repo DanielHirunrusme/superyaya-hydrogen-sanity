@@ -10,7 +10,13 @@ import clsx from 'clsx';
 import Button from '../elements/Button';
 import MinimalHeader from '../global/MinimalHeader';
 import {Typography} from '../global/Typography';
-import {SITE_MARGINS_X, HEADER_TOP, SITE_MARGINS_Y} from '~/lib/constants';
+import {
+  SITE_MARGINS_X,
+  HEADER_TOP,
+  SITE_MARGINS_Y,
+  SLIDESHOW_WITH_CAPTIONS_MARGINS,
+} from '~/lib/constants';
+import {getImageLayout} from '../modules/ModuleSlideshow';
 
 type Props = {
   storefrontProduct: ProductWithNodes;
@@ -44,6 +50,7 @@ export default function ProductSlideshow({
     loop: true,
     skipSnaps: true,
     speed: 100,
+    
   });
 
   const onSelect = useCallback(() => {
@@ -54,7 +61,9 @@ export default function ProductSlideshow({
   useEffect(() => {
     if (!emblaApi) return;
     onSelect();
+    
     emblaApi.on('select', onSelect);
+    emblaApi.scrollTo(selectedIndex, true);
   }, [emblaApi, onSelect]);
 
   const onEmblaClick = (e) => {
@@ -151,20 +160,41 @@ export default function ProductSlideshow({
             } as MediaImage;
 
             return (
-              <MediaFile
+              <div
                 className={clsx(
-                  'relative flex w-full shrink-0 grow-0 select-none object-contain px-mobile md:px-0 mx-auto',
-                  'py-[13vw] md:pb-[7vw] md:pt-[3.25vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]', //extend image further up
+                  'flex h-full w-screen flex-shrink-0 flex-grow-0',
+                  'flex flex-col items-center justify-center object-contain  ',
                 )}
-                data={data}
-                draggable={false}
                 key={med.id}
-                tabIndex={0}
-                mediaOptions={{
-                  image: {crop: 'center', sizes: '100vw', loading: 'eager'},
-                }}
-                {...extraProps}
-              />
+              >
+                <div
+                  className={clsx(
+                    'relative flex-1  text-black',
+                    ' portrait:w-screen landscape:h-full',
+                    'relative flex items-center justify-center',
+                    getImageLayout(med, true),
+                    'pb-[3.4vw] md:pb-[7vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]'
+                  )}
+                >
+                  <div className='h-full flex-1 relative md:w-screen' style={{ width: "90.7694vw"}}>
+                  <MediaFile
+                    className={clsx(
+                      'absolute h-full w-full select-none object-contain',
+
+                      // 'py-[13vw] md:pb-[7vw] md:pt-[3.25vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]', //extend image further up
+                    )}
+                    data={data}
+                    draggable={false}
+                    style={{aspectRatio: '866 / 1300'}}
+                    tabIndex={0}
+                    mediaOptions={{
+                      image: {crop: 'center', sizes: '100vw', loading: 'eager'},
+                    }}
+                    {...extraProps}
+                  />
+                  </div>
+                </div>
+              </div>
             );
           })}
         </div>

@@ -120,7 +120,8 @@ export default function ModuleGrid({
 }: Props) {
   const [zoom, setZoom] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const onClick = () => {
+  const onClick = (index) => {
+    setSelectedIndex(index);
     setZoom(true);
   };
   return (
@@ -147,7 +148,7 @@ export default function ModuleGrid({
                   stagger && 'opacity-0',
                   ' cursor-pointer',
                 )}
-                onClick={onClick}
+                onClick={()=>onClick(index)}
               >
                 <div>
                   <Module

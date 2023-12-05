@@ -144,8 +144,6 @@ export default function IndexPage() {
     debugTable: true,
   });
 
- 
-
   useEffect(() => {
     if (page) {
       const d = page?.map((item: any, index: number) => {
@@ -192,13 +190,13 @@ export default function IndexPage() {
   };
 
   const getRowColor = (item: any) => {
-    console.log(item)
+    console.log(item);
     switch (item.original.kind) {
       case 'collection':
         return colors.collectionColor;
       case 'Archive':
       case 'Project':
-        case 'Collaboration':
+      case 'Collaboration':
         return colors.projectColor;
       case 'Garment':
         return colors.garmentColor;
@@ -271,21 +269,19 @@ export default function IndexPage() {
                               {({open}) => (
                                 <li
                                   className={clsx(
-                                    'flex-1 overflow-hidden border-b opacity-0 2xl:border-b border-black',
+                                    'flex-1 overflow-hidden border-b border-black opacity-0 2xl:border-b',
                                   )}
                                   key={row.id}
                                   style={{
                                     color: getRowColor(row),
                                   }}
-                                  
                                 >
                                   <Disclosure.Button
                                     className={clsx(
-                                      'flex w-full flex-1 grid-cols-3 justify-between overflow-hidden text-left md:grid md:grid-cols-12 text-black hover:text-inherit active:text-inherit',
+                                      'flex w-full flex-1 grid-cols-3 justify-between overflow-hidden text-left text-black hover:text-inherit active:text-inherit md:grid md:grid-cols-12',
 
-                                      open && "hover:text-black",
+                                      open && 'hover:text-black',
                                     )}
-                                    
                                   >
                                     {row
                                       .getVisibleCells()
@@ -343,7 +339,12 @@ export default function IndexPage() {
                                         )}
                                       ></div>
                                       {/* Description */}
-                                      <div className={clsx(COLUMN_SIZES[1], "text-black")}>
+                                      <div
+                                        className={clsx(
+                                          COLUMN_SIZES[1],
+                                          'text-black',
+                                        )}
+                                      >
                                         {row.original._type ==
                                         'productWithVariant' ? (
                                           <Typography type="index">
