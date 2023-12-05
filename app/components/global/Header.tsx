@@ -1,4 +1,4 @@
-import {useMatches} from '@remix-run/react';
+import {useLocation, useMatches} from '@remix-run/react';
 // import clsx from 'clsx';
 import {useAnimate} from 'framer-motion';
 import {useEffect} from 'react';
@@ -21,6 +21,7 @@ export default function Header() {
   const {menuLinks, assistance} = layout || {};
   const [scope, animate] = useAnimate();
   const [logoVisible, setLogoVisible] = useState<boolean>(false);
+  const location = useLocation();
 
 
   useEffect(() => {
@@ -36,7 +37,7 @@ export default function Header() {
         id="Header"
         className={clsx(
           'z-50 flex  w-full flex-col items-center justify-center text-center',
-          assistance.links.some((e) => e.slug === location.pathname) ? 'relative md:absolute pb-mobile md:pb-0' : 'absolute',
+          assistance.links.some((e) => e.slug === location?.pathname) ? 'relative md:absolute pb-mobile md:pb-0' : 'absolute',
           NAV_GAP_Y,
           HEADER_TOP,
         )}

@@ -176,7 +176,7 @@ html {
 
 .leaders::before {
   content: '................................................................................................................................................................................................................................................................';
-  @apply pointer-events-none absolute bottom-0 select-none;
+  @apply pointer-events-none absolute bottom-0 select-none leading-paragraph;
 }
 
 /* Collections */
