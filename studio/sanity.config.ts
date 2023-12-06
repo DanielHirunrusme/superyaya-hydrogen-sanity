@@ -12,6 +12,8 @@ import {customDocumentActions} from './plugins/customDocumentActions'
 import {table} from '@sanity/table'
 const devOnlyPlugins = [visionTool()]
 
+import {muxInput} from 'sanity-plugin-mux-input'
+
 export default defineConfig({
   name: 'default',
   title: 'SUPER YAYA',
@@ -25,6 +27,7 @@ export default defineConfig({
     customDocumentActions(),
     media(),
     table(),
+    muxInput({mp4_support: 'standard'}),
     ...(isDev ? devOnlyPlugins : []),
   ],
 

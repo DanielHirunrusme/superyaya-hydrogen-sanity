@@ -362,3 +362,46 @@ progress[value]::-webkit-progress-value {
 .cart .cell {
   @apply py-[1em];
 }
+
+
+/* Mux Player */
+mux-player {
+  /* --dialog: none;
+  --live-button: none;
+  --seek-backward-button: none;
+  --seek-forward-button: none;
+  --captions-button: none;
+  --airplay-button: none;
+  --pip-button: none;
+  --fullscreen-button: none;
+  --cast-button: none;
+  --playback-rate-button: none;
+  --rendition-selectmenu: none;
+  --bottom-play-button: bottom; */
+  /* --center-controls: none; */
+}
+
+.volume-range  {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.volume-range:hover {
+  opacity: 1;
+}
+
+.volume-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1em;
+  height: 1em;
+  border-radius: 40em;
+  background: black;
+  cursor: pointer;
+}

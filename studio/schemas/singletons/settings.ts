@@ -18,6 +18,10 @@ export default defineType({
       title: 'Navigation',
     },
     {
+      name: 'radioEpisode',
+      title: 'Radio Episode',
+    },
+    {
       name: 'productOptions',
       title: 'Product options',
     },
@@ -51,6 +55,13 @@ export default defineType({
       title: 'Footer',
       type: 'footerSettings',
       group: 'navigation',
+    }),
+    // Radio Episode
+    defineField({
+      name: 'radioEpisode',
+      title: 'Radio Episode',
+      type: 'mux.video',
+      group: 'radioEpisode',
     }),
     // Custom product options
     defineField({
