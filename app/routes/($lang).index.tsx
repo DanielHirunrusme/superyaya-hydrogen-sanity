@@ -374,7 +374,7 @@ export default function IndexPage() {
                                     <div className="mb-4 mt-2 md:grid md:grid-cols-12">
                                       <div className="col-span-1 hidden md:block" />
                                       <div className="md:col-span-11">
-                                        <IndexImages item={row.original} />
+                                        <IndexImages item={row.original} title={row.original.title} />
                                       </div>
                                     </div>
                                   </Disclosure.Panel>
@@ -395,7 +395,7 @@ export default function IndexPage() {
   );
 }
 
-function IndexImages({item}: {item: any}) {
+function IndexImages({item, title}: {item: any; title?: string}) {
   switch (item._type) {
     case 'productWithVariant':
       return (
@@ -408,6 +408,7 @@ function IndexImages({item}: {item: any}) {
         <ModuleGrid
           items={item.modules}
           className="relative grid grid-cols-3 md:grid-cols-12"
+          title={title}
         />
       );
   }
