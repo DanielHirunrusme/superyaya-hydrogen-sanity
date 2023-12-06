@@ -31,7 +31,7 @@ export const UI_FORM_ELEMENT_HEIGHT =
   'h-[11.7948vw] md:h-[3.015vw] xl:h-[2.719vw] 2xl:h-[2.578125vw]'; // need laptop size
 export const NAV_GAP = 'gap-[2em]';
 
-export const CAT_SIZE = 'w-[60vw] md:w-[24vw] xl:w-[18vw]  2xl:w-[18vw]';
+export const CAT_SIZE = 'w-[57vw] md:w-[23.8vw] xl:w-[17vw] 2xl:w-[17vw]';
 
 export const SLIDESHOW_WITH_CAPTIONS_MARGINS =
   'px-mobile md:px-tablet xl:px-laptop 2xl:px-desktop pt-[3.1vw] pb-[3.4vw] md:pb-[7vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]';
