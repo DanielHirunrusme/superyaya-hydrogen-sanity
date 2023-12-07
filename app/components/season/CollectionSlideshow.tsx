@@ -210,6 +210,7 @@ export default function CollectionSlideshow(props) {
                 'flex-0 relative bg-black py-[1em] text-white md:py-[4em]',
                 'w-full md:h-full md:w-auto',
                 'md:px-[4.355vw] xl:px-[4.1666vw] 2xl:px-[3.203125vw]',
+                'aspect-[354/486] md:aspect-auto'
               )}
             >
               {children}
