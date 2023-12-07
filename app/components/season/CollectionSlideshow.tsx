@@ -240,13 +240,14 @@ export default function CollectionSlideshow(props) {
                     className="block cursor-pointer opacity-0"
                     key={`table-${module._key}`}
                   >
-                    <div className="leaders hover:opacity-50 active:opacity-50">
+                    <div className="leaders hover:opacity-50 active:opacity-50  leading-paragraph">
                       <span>
-                        {module.caption ? (
+                        {String(module.caption)}
+                        {/* {module.caption ? (
                           <SlideshowCaption blocks={module.caption} />
                         ) : (
                           'Figure'
-                        )}
+                        )} */}
                       </span>
                       <span>{String(index + 1).padStart(2, '0')}</span>
                     </div>
@@ -266,8 +267,9 @@ export default function CollectionSlideshow(props) {
             NAV_GAP_Y,
           )}
         >
-          <span className="hidden md:inline">
-            <SlideshowCaption blocks={modules[index]?.caption} />
+          <span className="hidden md:inline leading-paragraph">
+            {String(modules[index]?.caption)}
+            {/* <SlideshowCaption blocks={modules[index]?.caption} /> */}
           </span>
           <span>
             {String(index + 1).padStart(2, '0')}/

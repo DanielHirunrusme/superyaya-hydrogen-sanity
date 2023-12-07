@@ -15,6 +15,7 @@ import {
   HEADER_TOP,
   SITE_MARGINS_Y,
   SLIDESHOW_WITH_CAPTIONS_MARGINS,
+  NAV_GAP_Y,
 } from '~/lib/constants';
 import {getImageLayout} from '../modules/ModuleSlideshow';
 
@@ -173,7 +174,7 @@ export default function ProductSlideshow({
                     ' portrait:w-screen landscape:h-full',
                     'relative flex items-center justify-center',
                     getImageLayout(med, true),
-                    'pb-[3.4vw] md:pb-[7vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]'
+                    'pb-[3.4vw] md:pb-[6vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]'
                   )}
                 >
                   <div className='h-full flex-1 relative md:w-screen' style={{ width: "90.7694vw"}}>
@@ -181,7 +182,7 @@ export default function ProductSlideshow({
                     className={clsx(
                       'absolute h-full w-full select-none object-contain',
 
-                      // 'py-[13vw] md:pb-[7vw] md:pt-[3.25vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]', //extend image further up
+                      // 'py-[13vw] md:pb-[6vw] md:pt-[3.25vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]', //extend image further up
                     )}
                     data={data}
                     draggable={false}
@@ -200,14 +201,18 @@ export default function ProductSlideshow({
         </div>
       </button>
       <div
+        data-await-intro
         className={clsx(
-          'absolute bottom-0 z-10 flex w-full flex-col items-center justify-center gap-[1em] text-center leading-label',
+          'absolute bottom-0 z-10 flex w-full flex-col items-center justify-center text-center leading-none',
           SITE_MARGINS_Y,
+          NAV_GAP_Y,
         )}
       >
-        <span>{storefrontProduct.title}</span>
+        <span className="hidden md:inline leading-paragraph">{storefrontProduct.title}</span>
         <span>
-          {selectedIndex + 1}/{media!.length}
+        {String(selectedIndex + 1).padStart(2, '0')}/
+            {String(media!.length + 1).padStart(2, '0')}
+          {/* {selectedIndex + 1}/{media!.length} */}
         </span>
       </div>
     </div>

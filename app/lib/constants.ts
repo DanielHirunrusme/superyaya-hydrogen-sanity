@@ -34,4 +34,4 @@ export const NAV_GAP = 'gap-[2em]';
 export const CAT_SIZE = 'w-[57vw] md:w-[23.8vw] xl:w-[17vw] 2xl:w-[17vw]';
 
 export const SLIDESHOW_WITH_CAPTIONS_MARGINS =
-  'px-mobile md:px-tablet xl:px-laptop 2xl:px-desktop pt-[3.1vw] pb-[3.4vw] md:pb-[7vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]';
+  'px-mobile md:px-tablet xl:px-laptop 2xl:px-desktop md:pt-[4vw] xl:pt-[3.242vw] pb-[3.4vw] md:pb-[6vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]';

@@ -86,7 +86,7 @@ export default function ProjectSlideshow(props) {
             <div
               className={clsx(
                 'relative h-full w-full flex-shrink-0 flex-grow-0',
-                getImageLayout(module, false),
+                getImageLayout(module, true),
               )}
               key={module._key}
               onClick={onClick}
