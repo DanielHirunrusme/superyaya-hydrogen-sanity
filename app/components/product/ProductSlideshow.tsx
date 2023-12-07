@@ -67,7 +67,7 @@ export default function ProductSlideshow({
   }, [emblaApi, onSelect]);
 
   const onEmblaClick = (e) => {
-    if (e.clientX > window.innerWidth / 2) {
+    if (e.clientX > window.innerWidth / 3) {
       handleNext();
     } else {
       handlePrevious();

@@ -103,7 +103,7 @@ export default function ModuleSlideshow(props) {
   }, [emblaApi, onSelect]);
 
   const onClick = (e) => {
-    if (e.clientX < window.innerWidth / 2) {
+    if (e.clientX < window.innerWidth / 3) {
       emblaApi.scrollPrev();
     } else {
       emblaApi.scrollNext();
