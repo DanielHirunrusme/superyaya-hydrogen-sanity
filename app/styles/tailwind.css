@@ -144,7 +144,7 @@ body.no-scroll {
   @apply border-white;
 }
 
-.theme-dark rect,
+.theme-dark rect:not(.ignore-theme),
 .theme-dark path:not(.ignore-theme) {
   @apply stroke-white;
 }

@@ -14,6 +14,7 @@ export default function PauseIcon() {
         fill="black"
         stroke="black"
         strokeWidth="2"
+        className="ignore-theme"
       />
       <rect
         x="6.76953"
@@ -21,6 +22,7 @@ export default function PauseIcon() {
         width="3.38462"
         height="8.46154"
         fill="#FFF500"
+        className="ignore-theme"
       />
       <rect
         x="11.8467"
@@ -28,6 +30,7 @@ export default function PauseIcon() {
         width="3.38462"
         height="8.46154"
         fill="#FFF500"
+        className="ignore-theme"
       />
     </svg>
   );
