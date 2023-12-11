@@ -51,6 +51,7 @@ export default function CollectionSlideshow(props) {
     outboundLink,
     outboundLinkText,
     mode,
+    closeTo = '/collections',
   } = props;
   const [indexVisible, setIndexVisible] = useState(false);
   const [theme, setTheme] = useTheme();
@@ -136,10 +137,14 @@ export default function CollectionSlideshow(props) {
       <MinimalHeader />
       <Link
         as={Link}
-        to="/collections"
-        onClick={(e) => e.stopPropagation()}
+        to={closeTo}
+        onClick={(e) => {
+          if(closeTo === '#') e.preventDefault();
+          e.stopPropagation();
+          setZoom(false);
+        }}
         className={clsx(
-          'fixed right-0 z-40 hover:opacity-50 active:opacity-50',
+          'fixed right-0 z-40 text-black no-underline hover:opacity-50 active:opacity-50',
           SITE_MARGINS_X,
           HEADER_TOP,
         )}
@@ -210,7 +215,7 @@ export default function CollectionSlideshow(props) {
                 'flex-0 relative bg-black py-[1em] text-white md:py-[4em]',
                 'w-full md:h-full md:w-auto',
                 'md:px-[4.355vw] xl:px-[4.1666vw] 2xl:px-[3.203125vw]',
-                'aspect-[354/486] md:aspect-auto'
+                'aspect-[354/486] md:aspect-auto',
               )}
             >
               {children}
@@ -221,7 +226,7 @@ export default function CollectionSlideshow(props) {
       </div>
 
       {indexVisible && (
-        <div className="flex min-h-screen w-full justify-center text-center md:items-center">
+        <div className="flex min-h-screen w-full justify-center text-center text-black md:items-center">
           <Container type="slideshowIndex" asChild>
             {/* Table */}
             <StaggerIndexList>
@@ -240,7 +245,7 @@ export default function CollectionSlideshow(props) {
                     className="block cursor-pointer opacity-0"
                     key={`table-${module._key}`}
                   >
-                    <div className="leaders hover:opacity-50 active:opacity-50  leading-paragraph">
+                    <div className="leaders leading-paragraph hover:opacity-50  active:opacity-50">
                       <span>
                         {String(module.caption)}
                         {/* {module.caption ? (
@@ -262,12 +267,12 @@ export default function CollectionSlideshow(props) {
         <div
           data-await-intro
           className={clsx(
-            'absolute bottom-0 z-10 flex w-full flex-col items-center justify-center text-center leading-none',
+            'absolute bottom-0 z-10 flex w-full flex-col items-center justify-center text-center leading-none text-black',
             SITE_MARGINS_Y,
             NAV_GAP_Y,
           )}
         >
-          <span className="hidden md:inline leading-paragraph">
+          <span className="hidden leading-paragraph md:inline">
             {String(modules[index]?.caption)}
             {/* <SlideshowCaption blocks={modules[index]?.caption} /> */}
           </span>
@@ -277,7 +282,7 @@ export default function CollectionSlideshow(props) {
           </span>
         </div>
       )}
-      
+
       {/* Footer */}
 
       <div>
@@ -286,7 +291,7 @@ export default function CollectionSlideshow(props) {
             to={`/products/${modules[index]?.reference?.store?.slug.current}`}
             data-await-intro
             className={clsx(
-              'linkTextNavigation fixed bottom-0 left-0 z-50 flex items-center leading-none !no-underline',
+              'linkTextNavigation fixed bottom-0 left-0 z-50 flex items-center leading-none text-black !no-underline',
               SITE_MARGINS_X,
               SITE_MARGINS_Y,
             )}
@@ -300,7 +305,7 @@ export default function CollectionSlideshow(props) {
           mode="text"
           onClick={toggleIndexVisible}
           className={clsx(
-            'linkTextNavigation  fixed bottom-0 right-0 z-50 flex items-center leading-none !no-underline',
+            'linkTextNavigation fixed bottom-0 right-0 z-50 flex items-center leading-none text-black !no-underline',
             SITE_MARGINS_X,
             SITE_MARGINS_Y,
           )}
@@ -442,7 +447,7 @@ function Intro({title, onIntroComplete}) {
       <motion.div
         animate={{color: 'rgba(0, 0, 0, 1)'}}
         transition={{delay: 1, duration: 1}}
-        className="large-title text-white relative z-50"
+        className="large-title relative z-50 text-white"
       >
         <div className="collection-title">
           <Typography type="collection">{title}</Typography>

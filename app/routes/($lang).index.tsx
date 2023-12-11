@@ -373,8 +373,8 @@ export default function IndexPage() {
                                     {/* <div className={clsx(COLUMN_SIZES[0], "hidden md:block")}> </div> */}
                                     <div className="mb-4 mt-2 md:grid md:grid-cols-12">
                                       <div className="col-span-1 hidden md:block" />
-                                      <div className="md:col-span-11">
-                                        <IndexImages item={row.original} title={row.original.title} />
+                                      <div data-row={row.original._type} className="md:col-span-11">
+                                        <IndexImages type={row.original._type} description={row.original.description} item={row.original} title={row.original.title} />
                                       </div>
                                     </div>
                                   </Disclosure.Panel>
@@ -395,7 +395,7 @@ export default function IndexPage() {
   );
 }
 
-function IndexImages({item, title}: {item: any; title?: string}) {
+function IndexImages({item, title, type, description}: {item: any; title?: string; type?: string; description?: any}) {
   switch (item._type) {
     case 'productWithVariant':
       return (
@@ -409,6 +409,9 @@ function IndexImages({item, title}: {item: any; title?: string}) {
           items={item.modules}
           className="relative grid grid-cols-3 md:grid-cols-12"
           title={title}
+          type={type}
+          closeTo="#"
+          description={description}
         />
       );
   }

@@ -289,7 +289,7 @@ type SlideshowCaptionProps = {
 export const SlideshowCaption = (props: SlideshowCaptionProps) => {
   const {blocks} = props;
   return (
-    <div className="uppercase">
+    <div className="uppercase text-black">
       <PortableText blocks={blocks} variant="caption" />
     </div>
   );

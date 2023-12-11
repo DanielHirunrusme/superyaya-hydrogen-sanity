@@ -7,7 +7,7 @@ export default function MinimalHeader() {
     <header
       id="Header"
       className={clsx(
-        ' absolute flex  w-full flex-col items-center justify-center text-center z-20',
+        ' absolute flex  w-full flex-col items-center justify-center text-center z-20 text-black',
         NAV_GAP_Y,
         HEADER_TOP,
       )}

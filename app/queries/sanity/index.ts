@@ -26,6 +26,13 @@ export const INDEX_QUERY = groq`
       "kind": "collection",
       "year": date,
       "description": body,
+      collection,
+      "preOrder": preOrder->{
+        "slug": "/boutique/" + store.slug.current,
+      },
+      titleSvg,
+      'slug': '/collections/' + slug.current,
+      body,
       modules[] {
         ${MODULES}
       },
@@ -69,7 +76,6 @@ export const INDEX_QUERY = groq`
  
   }
 `;
- 
 
 export const INDEX_COLOR_QUERY = groq`{
     "collectionColor": *[_type == "colorTheme" && _id == "9fa0e6d8-deb7-4764-b57a-b017ce1d6fdd"][0].text.hex,

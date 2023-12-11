@@ -9,6 +9,9 @@ import ModuleSlideshow from './ModuleSlideshow';
 import {useState} from 'react';
 import {Theme} from '../context/ThemeProvider';
 import {Typography} from '../global/Typography';
+import CollectionSlideshow from '../season/CollectionSlideshow';
+import {Container} from '../global/Container';
+import PortableText from '../portableText/PortableText';
 
 // Sanity modules to render in full width (across all grid columns)
 const FULL_WIDTH_MODULE_TYPES: SanityModule['_type'][] = [
@@ -104,6 +107,7 @@ type Props = {
   outboundLinkText?: string;
   theme?: Theme.DARK | Theme.LIGHT;
   children?: React.ReactNode;
+  description?: any;
 };
 
 export default function ModuleGrid({
@@ -116,7 +120,11 @@ export default function ModuleGrid({
   outboundLink = '',
   outboundLinkText = '',
   theme = Theme.LIGHT,
-  children
+  type = '',
+  closeTo = '',
+  children,
+  description,
+  collection = '',
 }: Props) {
   const [zoom, setZoom] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -144,11 +152,8 @@ export default function ModuleGrid({
             return (
               <li
                 key={item._key}
-                className={clsx(
-                  stagger && 'opacity-0',
-                  ' cursor-pointer',
-                )}
-                onClick={()=>onClick(index)}
+                className={clsx(stagger && 'opacity-0', ' cursor-pointer')}
+                onClick={() => onClick(index)}
               >
                 <div>
                   <Module
@@ -181,19 +186,52 @@ export default function ModuleGrid({
         })}
       </ul>
       {zoom && (
-        <ModuleSlideshow
-          modules={items}
-          zoom={zoom}
-          setZoom={setZoom}
-          index={selectedIndex}
-          setIndex={setSelectedIndex}
-          detached
-          showIndex={showIndex}
-          title={title}
-          outboundLink={outboundLink}
-          outboundLinkText={outboundLinkText}
-          mode={theme}
-        />
+        <>
+          {type !== 'season' ? (
+            <ModuleSlideshow
+              modules={items}
+              zoom={zoom}
+              setZoom={setZoom}
+              index={selectedIndex}
+              setIndex={setSelectedIndex}
+              detached
+              showIndex={showIndex}
+              title={title}
+              outboundLink={outboundLink}
+              outboundLinkText={outboundLinkText}
+              mode={theme}
+            />
+          ) : (
+            <CollectionSlideshow
+              modules={items}
+              zoom={zoom}
+              setZoom={setZoom}
+              index={selectedIndex}
+              setIndex={setSelectedIndex}
+              detached
+              showIndex={showIndex}
+              title={title}
+              outboundLink={outboundLink}
+              outboundLinkText={outboundLinkText}
+              closeTo={closeTo}
+              mode={theme}
+            >
+              <Container type="pageDescription" asChild>
+                <div className="mx-auto mb-[36.92vw] text-center md:mb-[7.035vw] xl:mb-[9.4328vw] 2xl:mb-[13.28125vw]">
+                  <Typography type="rte">
+                    <div className=" !uppercase !tracking-widest">
+                      {collection}&nbsp;{title}
+                    </div>
+                    <br />
+                    <div className="mx-auto text-left !normal-case">
+                      <PortableText blocks={description} />
+                    </div>
+                  </Typography>
+                </div>
+              </Container>
+            </CollectionSlideshow>
+          )}
+        </>
       )}
     </>
   );
