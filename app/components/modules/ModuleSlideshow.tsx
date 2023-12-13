@@ -13,6 +13,8 @@ import {Typography} from '../global/Typography';
 import PortableText from '../portableText/PortableText';
 import {PortableTextBlock} from '@sanity/types';
 import {NAV_GAP_Y} from '~/lib/constants';
+import Leader from '../global/Leader';
+import blocksToText from 'studio/utils/blocksToText';
 
 type Props = {
   modules: any[];
@@ -42,8 +44,7 @@ export const getImageLayout = (module, detached = false) => {
 
       if (detached) {
         if (!module.caption) {
-        styles +=
-            ' pb-[13vw] md:pb-[3.25vw]  md:pt-[4vw] xl:pt-[3.242vw]';
+          styles += ' pb-[13vw] md:pb-[3.25vw]  md:pt-[4vw] xl:pt-[3.242vw]';
         } else {
           styles +=
             ' pb-[3.4vw] md:pb-[7vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]  md:pt-[4vw] xl:pt-[3.242vw]';
@@ -63,7 +64,6 @@ export const getImageLayout = (module, detached = false) => {
       return styles;
   }
 };
-
 
 export default function ModuleSlideshow(props) {
   const {
@@ -136,8 +136,6 @@ export default function ModuleSlideshow(props) {
       setTheme(Theme.LIGHT);
     };
   }, [indexVisible, emblaApi]);
-
- 
 
   return (
     <div
@@ -214,16 +212,12 @@ export default function ModuleSlideshow(props) {
                     className="cursor-pointer opacity-0"
                     key={`table-${module._key}`}
                   >
-                    <div className="leaders hover:opacity-50 active:opacity-50">
-                      <span>
-                        {module.caption ? (
-                          <SlideshowCaption blocks={module.caption} />
-                        ) : (
-                          'Figure'
-                        )}
-                      </span>
-                      <span>{String(index + 1).padStart(2, '0')}</span>
-                    </div>
+                    <Leader
+                      title={
+                        module.caption ? blocksToText(module.caption) : 'Figure'
+                      }
+                      index={String(index + 1).padStart(2, '0')}
+                    />
                   </li>
                 ))}
               </ul>

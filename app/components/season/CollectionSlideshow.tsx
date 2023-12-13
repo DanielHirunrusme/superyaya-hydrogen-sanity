@@ -22,6 +22,7 @@ import ProductHotspot from '~/components/product/Hotspot';
 import ProductTag from '~/components/product/Tag';
 import {motion} from 'framer-motion';
 import {SlideshowCaption, getImageLayout} from '../modules/ModuleSlideshow';
+import Leader from '../global/Leader';
 
 type Props = {
   modules: any[];
@@ -139,7 +140,7 @@ export default function CollectionSlideshow(props) {
         as={Link}
         to={closeTo}
         onClick={(e) => {
-          if(closeTo === '#') e.preventDefault();
+          if (closeTo === '#') e.preventDefault();
           e.stopPropagation();
           setZoom(false);
         }}
@@ -212,7 +213,7 @@ export default function CollectionSlideshow(props) {
           >
             <div
               className={clsx(
-                'md:mx-0 flex-0 relative bg-black py-[1em] text-white md:py-[4em]',
+                'flex-0 relative bg-black py-[1em] text-white md:mx-0 md:py-[4em]',
                 'w-full md:h-full md:w-auto',
                 'md:px-[4.355vw] xl:px-[4.1666vw] 2xl:px-[3.203125vw]',
                 'aspect-[4/5]',
@@ -245,17 +246,7 @@ export default function CollectionSlideshow(props) {
                     className="block cursor-pointer opacity-0"
                     key={`table-${module._key}`}
                   >
-                    <div className="leaders leading-paragraph hover:opacity-50  active:opacity-50">
-                      <span>
-                        {String(module.caption)}
-                        {/* {module.caption ? (
-                          <SlideshowCaption blocks={module.caption} />
-                        ) : (
-                          'Figure'
-                        )} */}
-                      </span>
-                      <span>{String(index + 1).padStart(2, '0')}</span>
-                    </div>
+                    <Leader title={String(module.caption)} index={String(index + 1).padStart(2, '0')} />
                   </li>
                 ))}
               </ul>
@@ -273,7 +264,7 @@ export default function CollectionSlideshow(props) {
           )}
         >
           <span className="hidden leading-paragraph md:inline">
-            {index < modules.length  ? String(modules[index]?.caption) : null}
+            {index < modules.length ? String(modules[index]?.caption) : null}
             {/* <SlideshowCaption blocks={modules[index]?.caption} /> */}
           </span>
           <span>

@@ -18,6 +18,7 @@ import clsx from 'clsx';
 import ProjectSlideshow from '~/components/project/ProjectSlideshow';
 import {useState} from 'react';
 import {blockContentToPlainText} from 'react-portable-text';
+import Leader from '~/components/global/Leader';
 
 const seo: SeoHandleFunction = ({data}) => ({
   title: data?.page?.seo?.title || 'Sanity x Hydrogen',
@@ -76,7 +77,7 @@ export default function Project() {
     <SanityPreview data={page} query={PROJECT_PAGE_QUERY}>
       {(page) => (
         <Suspense>
-          <Await resolve={gids}> 
+          <Await resolve={gids}>
             <>
               <div className="absolute left-0 top-0 flex min-h-screen w-full justify-center text-center md:items-center">
                 <div className="relative mx-auto w-full">
@@ -105,19 +106,17 @@ export default function Project() {
                                           moduleIndex,
                                         )
                                       }
-                                      className="leaders text-left"
+                                      className="overflow-hidden w-full text-left"
                                     >
-                                      <span>
-                                        {blockContentToPlainText(
+                                      <Leader
+                                        title={blockContentToPlainText(
                                           module.caption,
                                         )}
-                                      </span>
-                                      <span>
-                                        {String(moduleIndex + 1).padStart(
+                                        index={String(moduleIndex + 1).padStart(
                                           2,
                                           '0',
                                         )}
-                                      </span>
+                                      />
                                     </button>
                                   </li>
                                 ))}

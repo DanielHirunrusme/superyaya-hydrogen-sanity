@@ -11,6 +11,7 @@ import {fetchGids, notFound, validateLocale} from '~/lib/utils';
 import {PROJECT_PAGE_QUERY} from '~/queries/sanity/project';
 
 import ModuleGrid from '~/components/modules/ModuleGrid';
+import Leader from '~/components/global/Leader';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
   title: data?.page?.seo?.title,
@@ -72,9 +73,11 @@ export default function Page() {
               {/* Table */}
               <ul className="mx-auto w-full  max-w-2xl">
                 {page.modules?.map((module, index) => (
-                  <li className="leaders" key={`table-${module._key}`}>
-                    <span>title</span>
-                    <span>{String(index + 1).padStart(2, '0')}</span>
+                  <li key={`table-${module._key}`}>
+                    <Leader
+                      title={title}
+                      index={String(index + 1).padStart(2, '0')}
+                    />
                   </li>
                 ))}
               </ul>
