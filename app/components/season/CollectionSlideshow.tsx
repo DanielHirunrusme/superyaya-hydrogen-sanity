@@ -212,10 +212,10 @@ export default function CollectionSlideshow(props) {
           >
             <div
               className={clsx(
-                'flex-0 relative bg-black py-[1em] text-white md:py-[4em]',
+                'md:mx-0 flex-0 relative bg-black py-[1em] text-white md:py-[4em]',
                 'w-full md:h-full md:w-auto',
                 'md:px-[4.355vw] xl:px-[4.1666vw] 2xl:px-[3.203125vw]',
-                'aspect-[354/486] md:aspect-auto',
+                'aspect-[4/5]',
               )}
             >
               {children}
@@ -273,7 +273,7 @@ export default function CollectionSlideshow(props) {
           )}
         >
           <span className="hidden leading-paragraph md:inline">
-            {String(modules[index]?.caption)}
+            {index < modules.length  ? String(modules[index]?.caption) : null}
             {/* <SlideshowCaption blocks={modules[index]?.caption} /> */}
           </span>
           <span>

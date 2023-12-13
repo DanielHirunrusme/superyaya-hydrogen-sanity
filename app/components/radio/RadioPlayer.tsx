@@ -19,6 +19,7 @@ export default function RadioPlayer(props: Props) {
   const {isPlaying, setIsPlaying} = props;
   const [blur, setBlur] = useState(false);
   const [ww, setWw] = useState(0);
+  const [wh, setWh] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
   const muxPlayerRef = useRef();
   const [paused, setPaused] = useState(false); // [1
@@ -30,12 +31,45 @@ export default function RadioPlayer(props: Props) {
     duration: '00:00:00',
   });
   const [root] = useMatches();
+  const [dragConstraints, setDragConstraints] = useState({
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  });
 
   useEffect(() => {
     const winClick = () => {
       setBlur(true);
     };
     const winResize = () => {
+      if (window.innerWidth > 768) {
+        setDragConstraints({
+          top:
+            -window.innerHeight +
+            document.getElementById('RadioPlayer')?.getBoundingClientRect()
+              .height +
+            150,
+          left:
+            -window.innerWidth +
+            document.getElementById('RadioPlayer')?.getBoundingClientRect()
+              .width,
+          right: 0,
+          bottom: 0,
+        });
+      } else {
+        setDragConstraints({
+          top:
+            -window.innerHeight +
+            document.getElementById('RadioPlayer')?.getBoundingClientRect()
+              .height +
+            250,
+          left: -window.innerWidth / 2,
+          right: 0,
+          bottom: 0,
+        });
+      }
+
       setWw(window.innerWidth);
     };
     winResize();
@@ -87,6 +121,35 @@ export default function RadioPlayer(props: Props) {
     !paused ? muxPlayerRef.current?.play() : muxPlayerRef.current?.pause();
   }, [paused]);
 
+  useEffect(() => {
+    if (window.innerWidth > 768) {
+      setDragConstraints({
+        top:
+          -window.innerHeight +
+          document.getElementById('RadioPlayer')?.getBoundingClientRect()
+            .height +
+          150,
+        left:
+          -window.innerWidth +
+          document.getElementById('RadioPlayer')?.getBoundingClientRect().width,
+        right: 0,
+        bottom: 0,
+      });
+    } else {
+      setDragConstraints({
+        top:
+          -window.innerHeight +
+          document.getElementById('RadioPlayer')?.getBoundingClientRect()
+            .height +
+          100,
+        left: -document.getElementById('RadioPlayer')?.getBoundingClientRect()
+          .width,
+        right: 0,
+        bottom: 0,
+      });
+    }
+  }, [blur]);
+
   const toggleMute = () => {
     setIsMuted(!isMuted);
     // console.log(muxPlayerRef.current?.volume)
@@ -134,6 +197,7 @@ export default function RadioPlayer(props: Props) {
               dragTransition={{timeConstant: 100000, power: 0.1}}
               id="RadioPlayer"
               onClick={onPlayerClick}
+              dragConstraints={dragConstraints}
               className={clsx(
                 'fixed right-0 z-40 w-1/2 text-black md:w-auto',
                 RADIO_PLAYER,
@@ -216,6 +280,9 @@ export default function RadioPlayer(props: Props) {
               style={{touchAction: 'none'}}
               dragMomentum={false}
               dragTransition={{timeConstant: 100000, power: 0.1}}
+              dragConstraints={
+                !blur ? dragConstraints : {top: 0, left: 0, right: 0, bottom: 0}
+              }
               onClick={onMinPlayerClick}
               onMouseOver={onMinPlayerClick}
               className={clsx(
