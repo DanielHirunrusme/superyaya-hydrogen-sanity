@@ -96,7 +96,7 @@ export default function Page() {
               mode={theme}
             >
               <Container type="pageDescription" asChild>
-                <div className="mx-auto mb-[36.92vw] text-center md:mb-[7.035vw] xl:mb-[9.4328vw] 2xl:mb-[13.28125vw]">
+                <div className="-mx-mobile md:mx-auto mb-[36.92vw] text-center md:mb-[7.035vw] xl:mb-[9.4328vw] 2xl:mb-[13.28125vw]">
                   <Typography type="rte">
                     <div className=" !uppercase !tracking-widest">
                       {page.collection}&nbsp;{page.title}

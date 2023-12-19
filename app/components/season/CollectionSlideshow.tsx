@@ -10,6 +10,7 @@ import {Container} from '../global/Container';
 import {
   HEADER_TOP,
   NAV_GAP_Y,
+  SITE_CONTENT_OFFSET,
   SITE_MARGINS_X,
   SITE_MARGINS_Y,
 } from '~/lib/constants';
@@ -205,20 +206,14 @@ export default function CollectionSlideshow(props) {
           {/* Text Slide */}
           <div
             className={clsx(
-              '-mt-[1em] flex h-full w-full flex-shrink-0 flex-grow-0 select-none md:-mt-0',
+              ' flex w-full flex-shrink-0 flex-grow-0 select-none',
               'flex-col items-center justify-center object-contain',
-              'py-[15.897vw] md:py-[4vw] xl:py-[3.25vw] 2xl:py-[3vw] 2xl:pb-[3.5vw]',
+              // 'py-[15.897vw] md:py-[4vw] xl:py-[3.25vw] 2xl:py-[3vw] 2xl:pb-[3.5vw]',
               SITE_MARGINS_X,
+              SITE_CONTENT_OFFSET,
             )}
           >
-            <div
-              className={clsx(
-                'flex-0 relative bg-black py-[1em] text-white md:mx-0 md:py-[4em]',
-                'w-full md:h-full md:w-auto',
-                'md:px-[4.355vw] xl:px-[4.1666vw] 2xl:px-[3.203125vw]',
-                'aspect-[4/5]',
-              )}
-            >
+            <div className="flex-0 relative w-full md:mx-0 md:h-full md:w-auto">
               {children}
             </div>
           </div>
@@ -246,7 +241,10 @@ export default function CollectionSlideshow(props) {
                     className="block cursor-pointer opacity-0"
                     key={`table-${module._key}`}
                   >
-                    <Leader title={String(module.caption)} index={String(index + 1).padStart(2, '0')} />
+                    <Leader
+                      title={String(module.caption)}
+                      index={String(index + 1).padStart(2, '0')}
+                    />
                   </li>
                 ))}
               </ul>

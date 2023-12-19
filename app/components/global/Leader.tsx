@@ -48,7 +48,7 @@ export default function Leader(props: Props) {
           ref={spaceRef}
           className="flex flex-1 overflow-hidden whitespace-nowrap"
         ></span>
-        <span className="z-1 absolute right-0 flex-grow-0 bg-white pl-[1px]">
+        <span className="z-1 absolute right-0 flex-grow-0 bg-white pl-[.15em]">
           {index}
         </span>
       </div>
