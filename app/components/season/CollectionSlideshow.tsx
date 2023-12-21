@@ -191,10 +191,10 @@ export default function CollectionSlideshow(props) {
                 <div
                   data-await-intro="true"
                   data-module-layout="small"
-                  class="mt-2 text-center md:hidden"
+                  className="mt-2 text-center md:hidden"
                 >
-                  <div class="uppercase">
-                    <div class="caption">
+                  <div className="uppercase">
+                    <div className="caption">
                       <SlideshowCaption blocks={module.caption} />
                     </div>
                   </div>
