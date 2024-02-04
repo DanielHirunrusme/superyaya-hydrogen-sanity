@@ -68,10 +68,14 @@ function EmailForm({
                 <textarea
                   name="message"
                   required
-                  className="w-full"
+                  className="w-full focus:outline-none"
                   placeholder="Specify any special requirements"
                   rows={10}
                 />
+                <div className="flex flex-col gap-[.75em]">
+                  <label htmlFor="name">Upload an image (optional)</label>
+                  <input type="file" name="file" className="h-auto p-[.6645vw]" />
+                </div>
               </Disclosure.Panel>
             </fieldset>
           </>
@@ -256,8 +260,6 @@ function EmailForm({
         <input type="subject" name="subject" required />
       </fieldset> */}
       <input type="text" hidden name="date" defaultValue={yyyyMmDd} />
-
-      <input type="file" name="file" />
 
       {/*  add hidden Honeypot input to prevent spams */}
       <input
