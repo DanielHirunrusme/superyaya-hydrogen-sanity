@@ -55,7 +55,7 @@ function EmailForm({
 }) {
   const yyyyMmDd = new Date().toISOString().split('T')[0];
   return (
-    <Form action="/api/contact" method="post" className="gap-0 pt-[1em]">
+    <Form action="/api/custom-request" method="post" className="gap-0 pt-[1em]">
       <Disclosure defaultOpen>
         {({open}) => (
           <>
@@ -256,6 +256,15 @@ function EmailForm({
         <input type="subject" name="subject" required />
       </fieldset> */}
       <input type="text" hidden name="date" defaultValue={yyyyMmDd} />
+
+      <input type="file" name="file" />
+
+      {/*  add hidden Honeypot input to prevent spams */}
+      <input
+        type="hidden"
+        name="_gotcha"
+        style={{display: 'none !important'}}
+      />
 
       <Container type="pdpForm">
         <div className="mt-7 flex gap-4">
