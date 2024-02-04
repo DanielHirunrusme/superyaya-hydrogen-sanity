@@ -54,8 +54,30 @@ function EmailForm({
   setOpen: (boolean) => void;
 }) {
   const yyyyMmDd = new Date().toISOString().split('T')[0];
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    fetch('https://getform.io/f/c3520d34-5135-449b-8d7e-fa61ef182790', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Accept: 'application/json',
+      },
+    })
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+  };
+
   return (
-    <Form action="/api/custom-request" method="post" className="gap-0 pt-[1em]">
+    <form
+      action="/api/custom-request"
+      acceptCharset="UTF-8"
+      id="form"
+      onSubmit={onSubmit}
+      className="gap-0 pt-[1em]"
+    >
       <Disclosure defaultOpen>
         {({open}) => (
           <>
@@ -74,7 +96,11 @@ function EmailForm({
                 />
                 <div className="flex flex-col gap-[.75em]">
                   <label htmlFor="name">Upload an image (optional)</label>
-                  <input type="file" name="file" className="h-auto p-[.6645vw]" />
+                  <input
+                    type="file"
+                    name="file"
+                    className="h-auto p-[.6645vw]"
+                  />
                 </div>
               </Disclosure.Panel>
             </fieldset>
@@ -161,15 +187,6 @@ function EmailForm({
               <h4>Shipping Details</h4>
             </Disclosure.Button>
             <Disclosure.Panel className="flex flex-col gap-4 pb-8 pt-4">
-              <fieldset className="gap-[.75em]">
-                <label htmlFor="country">Country</label>
-                <input
-                  placeholder="Country"
-                  type="text"
-                  name="country"
-                  required
-                />
-              </fieldset>
               <div className="flex gap-4">
                 <fieldset className="flex-1 gap-[.75em]">
                   <label htmlFor="firstName">First name</label>
@@ -225,6 +242,16 @@ function EmailForm({
                   />
                 </fieldset>
               </div>
+
+              <fieldset className="gap-[.75em]">
+                <label htmlFor="country">Country</label>
+                <input
+                  placeholder="Country"
+                  type="text"
+                  name="country"
+                  required
+                />
+              </fieldset>
             </Disclosure.Panel>
           </>
         )}
@@ -275,6 +302,6 @@ function EmailForm({
           </Button>
         </div>
       </Container>
-    </Form>
+    </form>
   );
 }
