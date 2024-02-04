@@ -82,12 +82,19 @@ function EmailForm({
 
   if (!success) {
     return (
+      <>
+      <p>
+          PLEASE ENTER YOUR CUSTOM REQUESTS USING THE FORM BELOW, ONCE WE’VE
+          RECEIVED YOUR REQUEST WE WILL GET BACK TO YOU WITH A QUOTE. PLEASE
+          NOTE CUSTOM REQUESTS ARE SUBJECT TO LONGER PRODUCTION AND DELIVERY
+          TIME.
+        </p>
       <form
         action="/api/custom-request"
         acceptCharset="UTF-8"
         id="form"
         onSubmit={onSubmit}
-        className="gap-0 pt-[1em]"
+        className="gap-0 pt-[1em] w-full"
       >
         <Disclosure defaultOpen>
           {({open}) => (
@@ -334,6 +341,7 @@ function EmailForm({
           </div>
         </Container>
       </form>
+      </>
     );
   } else {
     return (
