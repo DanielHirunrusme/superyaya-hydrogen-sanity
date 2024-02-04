@@ -67,7 +67,6 @@ export default function Page() {
   useEffect(() => {
     setTheme('light');
     if (index === page.modules?.length) {
-      
     } else {
       // setTheme('dark');
     }
@@ -80,8 +79,35 @@ export default function Page() {
     <ColorTheme value={page.colorTheme}>
       <Suspense>
         <Await resolve={gids}>
-          
-            <CollectionSlideshow
+          <Container type="pageDescription" asChild>
+            <div className="mx-auto mb-[36.92vw] text-center md:mb-[7.035vw] xl:mb-[9.4328vw] 2xl:mb-[13.28125vw]">
+              <Typography type="rte">
+                <div className=" !uppercase !tracking-widest">
+                  {page.collection}&nbsp;{page.title}
+                </div>
+                <br />
+                <div className="mx-auto text-left !normal-case">
+                  <PortableText blocks={page.body} />
+                </div>
+              </Typography>
+            </div>
+          </Container>
+
+          {page.modules && (
+            <StaggerIndexList>
+              <CollectionGrid
+                items={page.modules}
+                title={`${page.collection} ${page.title}`}
+                showCount
+                showIndex
+                outboundLink={page.preOrder?.slug}
+                outboundLinkText={'Pre-Order'}
+                theme={Theme.DARK}
+              />
+            </StaggerIndexList>
+          )}
+
+          {/* <CollectionSlideshow
               modules={page.modules}
               zoom={zoom}
               setZoom={setZoom}
@@ -108,9 +134,7 @@ export default function Page() {
                   </Typography>
                 </div>
               </Container>
-            </CollectionSlideshow>
-    
-          
+            </CollectionSlideshow> */}
         </Await>
       </Suspense>
     </ColorTheme>
