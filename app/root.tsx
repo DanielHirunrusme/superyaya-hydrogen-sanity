@@ -151,14 +151,14 @@ function App() {
           href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversEF-Roman.woff2?v=1697635125"
           as="font"
           type="font/woff2"
-          crossorigin
+          
         />
         <link
           rel="preload"
           href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversEF-Roman.woff?v=1697635125"
           as="font"
           type="font/woff"
-          crossorigin
+          
         />
         {/* Snell */}
         <link
@@ -166,14 +166,14 @@ function App() {
           href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellBT-Regular.woff2?v=1697635125"
           as="font"
           type="font/woff2"
-          crossorigin
+          
         />
         <link
           rel="preload"
           href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellBT-Regular.woff?v=1697635125"
           as="font"
           type="font/woff"
-          crossorigin
+          
         />
         {/* Engravers Gotchis */}
         <link
@@ -181,14 +181,14 @@ function App() {
           href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff2?v=1697635125"
           as="font"
           type="font/woff2"
-          crossorigin
+          
         />
         <link
           rel="preload"
           href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff?v=1697635125"
           as="font"
           type="font/woff"
-          crossorigin
+          
         />
         {/* Eurostile */}
         <link
@@ -196,14 +196,14 @@ function App() {
           href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EurostileMonoEF-Regular.woff2?v=1697635125"
           as="font"
           type="font/woff2"
-          crossorigin
+          
         />
         <link
           rel="preload"
           href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EurostileMonoEF-Regular.woff?v=1697635125"
           as="font"
           type="font/woff"
-          crossorigin
+          
         />
       </head>
       <body>
