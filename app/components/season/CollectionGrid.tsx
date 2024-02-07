@@ -110,7 +110,7 @@ export default function CollectionGrid({
   items,
   showCount,
   stagger,
-  className = `grid ${COLLECTION_GRID}`,
+  className = `grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5`,
   showIndex = 'false',
   title = '',
   outboundLink = '',
