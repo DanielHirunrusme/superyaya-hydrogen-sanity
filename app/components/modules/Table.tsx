@@ -1,3 +1,4 @@
+import cn from "classnames";
 export default function ModuleTable(props) {
   const {value} = props;
   return (
@@ -9,8 +10,8 @@ export default function ModuleTable(props) {
         {value.table.rows.map((row, index) => (
           <tr key={row._key}>
             {row.cells.map((cell, index) => (
-              <td key={`${row._key}-${index}`} className={index < row.cells.length - 1 ? "pr-[1em] sm:pr-[2em]" : ""}>
-                {cell}
+              <td key={`${row._key}-${index}`} className={cn(index < row.cells.length - 1 ? "pr-[1em] sm:pr-[2em]" : "", "")}>
+                <span className="min-h-[1em] block">{cell}</span>
               </td>
             ))}
           </tr>
