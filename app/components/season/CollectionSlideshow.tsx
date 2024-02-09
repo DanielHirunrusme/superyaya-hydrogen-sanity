@@ -21,7 +21,6 @@ import {useMatches} from '@remix-run/react';
 import SanityImage from '~/components/media/SanityImage';
 import ProductHotspot from '~/components/product/Hotspot';
 import ProductTag from '~/components/product/Tag';
-import {motion} from 'framer-motion';
 import {SlideshowCaption, getImageLayout} from '../modules/ModuleSlideshow';
 import Leader from '../global/Leader';
 
@@ -57,7 +56,6 @@ export default function CollectionSlideshow(props) {
   } = props;
   const [indexVisible, setIndexVisible] = useState(false);
   const [theme, setTheme] = useTheme();
-  const [introComplete, setIntroComplete] = useState(false);
   const [w, setW] = useState<any>(null);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -124,10 +122,6 @@ export default function CollectionSlideshow(props) {
     };
   }, [index, indexVisible]);
 
-  const onIntroComplete = () => {
-    setIntroComplete(true);
-  };
-
   return (
     <div
       onClick={onClick}
@@ -137,9 +131,8 @@ export default function CollectionSlideshow(props) {
       )}
     >
       <MinimalHeader />
-      <Link
-        as={Link}
-        to={closeTo}
+      <button
+        // to={closeTo}
         onClick={(e) => {
           if (closeTo === '#') e.preventDefault();
           e.stopPropagation();
@@ -153,9 +146,7 @@ export default function CollectionSlideshow(props) {
         // onClick={onClose}
       >
         <Typography type="body">Close</Typography>
-      </Link>
-
-      <Intro onIntroComplete={onIntroComplete} title={title} />
+      </button>
 
       <div
         className={clsx(
@@ -167,11 +158,9 @@ export default function CollectionSlideshow(props) {
         <div className="flex h-full">
           {modules?.map((module) => (
             <div
-              className={clsx(
-                'flex h-full w-full flex-shrink-0 flex-grow-0',
-                'flex flex-col items-center justify-center object-contain  ',
-                // 'py-[15.897vw] md:py-[4vw] xl:py-[3.25vw] 2xl:py-[3vw] 2xl:pb-[3.5vw]',
-              )}
+              className={
+                'flex h-full w-full flex-shrink-0 flex-grow-0 flex-col items-center justify-center object-contain'
+              }
               key={module._key}
             >
               <div
@@ -187,7 +176,7 @@ export default function CollectionSlideshow(props) {
                   mode={mode}
                   inSlideShow={true}
                 />
-
+ 
                 <div
                   data-await-intro="true"
                   data-module-layout="small"
@@ -424,29 +413,3 @@ const ImageContent = ({module, parentModule, mode, inSlideShow}: Props) => {
     </div>
   );
 };
-
-function Intro({title, onIntroComplete}) {
-  return (
-    <motion.div
-      animate={{opacity: 0}}
-      transition={{delay: 2, duration: 1}}
-      onAnimationComplete={onIntroComplete}
-      className="pointer-events-none fixed z-50 flex h-screen w-screen items-center justify-center bg-white"
-    >
-      <motion.div
-        animate={{color: 'rgba(0, 0, 0, 1)'}}
-        transition={{delay: 1, duration: 1}}
-        className="large-title relative z-50 text-white"
-      >
-        <div className="collection-title">
-          <Typography type="collection">{title}</Typography>
-        </div>
-      </motion.div>
-      <motion.div
-        transition={{delay: 1, duration: 1}}
-        animate={{background: 'rgba(255, 255, 255, 1)'}}
-        className="fixed left-0 top-0 z-10 h-screen w-screen bg-black"
-      />
-    </motion.div>
-  );
-}

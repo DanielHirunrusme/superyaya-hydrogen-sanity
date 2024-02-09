@@ -16,6 +16,7 @@ import {Container} from '~/components/global/Container';
 import {Typography} from '~/components/global/Typography';
 import CollectionGrid from '~/components/season/CollectionGrid';
 import CollectionSlideshow from '~/components/season/CollectionSlideshow';
+import {motion} from 'framer-motion';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
   title: data?.page?.seo?.title,
@@ -57,11 +58,38 @@ export async function loader({params, context}: LoaderArgs) {
   return defer({page, gids});
 }
 
+function Intro({title, onIntroComplete}) {
+  return (
+    <motion.div
+      animate={{opacity: 0}}
+      transition={{delay: 2, duration: 1}}
+      onAnimationComplete={onIntroComplete}
+      className="pointer-events-none fixed top-0 left-0 z-50 flex h-screen w-screen items-center justify-center bg-white"
+    >
+      <motion.div
+        animate={{color: 'rgba(0, 0, 0, 1)'}}
+        transition={{delay: 1, duration: 1}}
+        className="large-title relative z-50 text-white"
+      >
+        <div className="collection-title">
+          <Typography type="collection">{title}</Typography>
+        </div>
+      </motion.div>
+      <motion.div
+        transition={{delay: 1, duration: 1}}
+        animate={{background: 'rgba(255, 255, 255, 1)'}}
+        className="fixed left-0 top-0 z-10 h-screen w-screen bg-black"
+      />
+    </motion.div>
+  );
+}
+
 export default function Page() {
   const {page, gids} = useLoaderData<typeof loader>();
   const [showIndex, setShowIndex] = useState(false);
   const [zoom, setZoom] = useState(false);
   const [index, setIndex] = useState(0);
+  const [introComplete, setIntroComplete] = useState(true);
   const [theme, setTheme, navVisible] = useTheme();
 
   useEffect(() => {
@@ -74,6 +102,10 @@ export default function Page() {
       setTheme('light');
     };
   }, []);
+
+  const onIntroComplete = () => {
+    setIntroComplete(true);
+  };
 
   return (
     <ColorTheme value={page.colorTheme}>
@@ -92,6 +124,8 @@ export default function Page() {
               </Typography>
             </div>
           </Container>
+
+          <Intro onIntroComplete={onIntroComplete} title={page.title} />
 
           {page.modules && (
             <StaggerIndexList>

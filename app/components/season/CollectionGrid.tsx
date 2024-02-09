@@ -147,7 +147,11 @@ export default function CollectionGrid({
                   stagger && 'opacity-0',
                   ' cursor-pointer',
                 )}
-                onClick={onClick}
+                onClick={()=>{
+                  setSelectedIndex(index);
+                  onClick();
+
+                }}
               >
                 <div>
                   <Module
