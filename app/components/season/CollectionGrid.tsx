@@ -116,7 +116,7 @@ export default function CollectionGrid({
   outboundLink = '',
   outboundLinkText = '',
   theme = Theme.LIGHT,
-  children
+  children,
 }: Props) {
   const [zoom, setZoom] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -143,14 +143,10 @@ export default function CollectionGrid({
             return (
               <li
                 key={item._key}
-                className={clsx(
-                  stagger && 'opacity-0',
-                  ' cursor-pointer',
-                )}
-                onClick={()=>{
+                className={clsx(stagger && 'opacity-0', ' cursor-pointer')}
+                onClick={() => {
                   setSelectedIndex(index);
                   onClick();
-
                 }}
               >
                 <div>

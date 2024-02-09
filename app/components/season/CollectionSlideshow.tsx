@@ -102,21 +102,6 @@ export default function CollectionSlideshow(props) {
   }, [indexVisible, emblaApi]);
 
   useEffect(() => {
-    if (indexVisible) {
-      // setTheme(Theme.LIGHT);
-    } else {
-      // setTheme(Theme.DARK);
-    }
-  }, [indexVisible, setTheme]);
-
-  useEffect(() => {
-    if (!indexVisible) {
-      if (index === modules?.length) {
-        // setTheme('light');
-      } else {
-        // setTheme('dark');
-      }
-    }
     return () => {
       setTheme('light');
     };
@@ -176,7 +161,7 @@ export default function CollectionSlideshow(props) {
                   mode={mode}
                   inSlideShow={true}
                 />
- 
+
                 <div
                   data-await-intro="true"
                   data-module-layout="small"
@@ -193,7 +178,7 @@ export default function CollectionSlideshow(props) {
           ))}
 
           {/* Text Slide */}
-          <div
+          {/* <div
             className={clsx(
               ' flex w-full flex-shrink-0 flex-grow-0 select-none',
               'flex-col items-center justify-center object-contain',
@@ -205,7 +190,7 @@ export default function CollectionSlideshow(props) {
             <div className="flex-0 relative w-full md:mx-0 md:h-full md:w-auto">
               {children}
             </div>
-          </div>
+          </div> */}
           {/* End Text Slide */}
         </div>
       </div>
@@ -245,7 +230,7 @@ export default function CollectionSlideshow(props) {
         <div
           data-await-intro
           className={clsx(
-            'absolute bottom-0 z-10 flex w-full flex-col items-center justify-center text-center leading-none text-black',
+            'absolute bottom-0 z-10 flex w-full flex-col items-center justify-center text-center leading-none text-black select-none',
             SITE_MARGINS_Y,
             NAV_GAP_Y,
           )}
@@ -256,7 +241,7 @@ export default function CollectionSlideshow(props) {
           </span>
           <span>
             {String(index + 1).padStart(2, '0')}/
-            {String(modules!.length + 1).padStart(2, '0')}
+            {String(modules!.length).padStart(2, '0')}
           </span>
         </div>
       )}
