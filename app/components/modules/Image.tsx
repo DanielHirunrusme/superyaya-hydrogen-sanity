@@ -85,11 +85,11 @@ const ImageContent = ({module, parentModule, mode, inSlideShow}: Props) => {
           crop={image?.crop}
           dataset={sanityDataset}
           hotspot={image?.hotspot}
-          layout="responsive"
+          // layout="responsive"
           projectId={sanityProjectID}
           sizes={['50vw, 100vw']}
           src={image?.asset?._ref}
-          // layout="fill"
+          layout="fill"
           objectFit={module.layout !== 'full' ? 'contain' : 'cover'}
           className={clsx(
             module.layout === 'full' && 'object-center',

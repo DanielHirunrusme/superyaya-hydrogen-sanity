@@ -39,8 +39,15 @@ export default defineField({
       // @ts-ignore - TODO - fix this TS error
       validation: validateSlug,
     }),
-    // Date
+    // Body
     defineField({
+      name: 'body',
+      title: 'Body',
+      type: 'body',
+      group: 'editorial',
+    }),
+    // Date
+    defineField({ 
       name: 'date',
       title: 'Date',
       type: 'date',

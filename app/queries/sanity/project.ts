@@ -5,6 +5,7 @@ export const PROJECT_PAGE_QUERY = groq`
   *[_type == 'project'] | order(_updatedAt desc){
     title,
     slug,
+    body,
     _id,
     ${HOME_PAGE}
   }

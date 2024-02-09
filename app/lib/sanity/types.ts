@@ -164,6 +164,7 @@ export type SanityModuleCallToAction = {
   layout: 'left' | 'right';
   link: SanityLink;
   title: string;
+  mobileImage?: SanityModuleImage;
 };
 
 export type SanityModuleCollection = {
@@ -205,6 +206,8 @@ export type SanityModuleImageBase = {
 
 export interface SanityModuleImageCallToAction extends SanityModuleImageBase {
   _key?: string;
+  layout?: string;
+  mobileImage?: SanityModuleImage;
   callToAction?: {
     link: SanityLink;
     title?: string;
@@ -215,19 +218,25 @@ export interface SanityModuleImageCallToAction extends SanityModuleImageBase {
 export interface SanityModuleImageCaption extends SanityModuleImageBase {
   _key?: string;
   caption?: string;
+  layout?: string;
   variant: 'caption';
+  mobileImage?: SanityModuleImage;
 }
 export interface SanityModuleImageProductHotspots
   extends SanityModuleImageBase {
   _key?: string;
   productHotspots?: SanityProductHotspot[];
   variant: 'productHotspots';
+  layout?: string;
+  mobileImage?: SanityModuleImage;
 }
 
 export interface SanityModuleImageProductTags extends SanityModuleImageBase {
   _key?: string;
   productTags?: SanityProductWithVariant[];
   variant: 'productTags';
+  layout?: string;
+  mobileImage?: SanityModuleImage;
 }
 
 export type SanityModuleImages = {

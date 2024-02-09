@@ -92,7 +92,16 @@ export default function Project() {
                         >
                           <ul>
                             <li className="mb-2 opacity-0">
-                              <h2>{project.title}</h2>
+                              <h2>
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    onProjectModuleClick(projectIndex, 0)
+                                  }
+                                >
+                                  {project.title}
+                                </button>
+                              </h2>
                             </li>
                             <li>
                               <ul>
@@ -106,7 +115,7 @@ export default function Project() {
                                           moduleIndex,
                                         )
                                       }
-                                      className="overflow-hidden w-full text-left"
+                                      className="w-full overflow-hidden text-left"
                                     >
                                       <Leader
                                         title={blockContentToPlainText(
@@ -138,6 +147,8 @@ export default function Project() {
                       setZoom={setZoom}
                       modules={project.modules}
                       index={activeModuleIndex}
+                      title={project.title}
+                      body={project.body}
                     />
                   );
                 }

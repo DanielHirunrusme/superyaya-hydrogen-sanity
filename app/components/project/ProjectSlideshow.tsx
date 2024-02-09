@@ -11,9 +11,21 @@ import {Typography} from '../global/Typography';
 import {NAV_GAP_Y} from '~/lib/constants';
 import {SlideshowCaption} from '../modules/ModuleSlideshow';
 import {getImageLayout} from '../modules/ModuleSlideshow';
+import {Container} from '../global/Container';
+import PortableText from '~/components/portableText/PortableText';
 
-export default function ProjectSlideshow(props) {
-  const {modules, setZoom, index, detached, mode} = props;
+type Props = {
+  modules: any;
+  setZoom: any;
+  index: number;
+  detached: boolean;
+  mode: Theme.DARK | Theme.LIGHT;
+  title: string;
+  body: any;
+};
+
+export default function ProjectSlideshow(props: Props) {
+  const {modules, setZoom, index, detached, mode, title, body} = props;
   const [selectedIndex, setSelectedIndex] = useState(index || 0);
   const [indexVisible, setIndexVisible] = useState(false);
   const [theme, setTheme] = useTheme();
@@ -82,6 +94,26 @@ export default function ProjectSlideshow(props) {
 
       <div className="h-full w-screen overflow-hidden" ref={emblaRef}>
         <div className="flex h-full">
+          <div
+            className={clsx(
+              'relative flex h-full w-full flex-shrink-0 flex-grow-0 items-center',
+            )}
+            onClick={onClick}
+          >
+            <Container type="pageDescription" asChild>
+              <div className="mx-auto mb-[36.92vw] text-center md:mb-[7.035vw] xl:mb-[9.4328vw] 2xl:mb-[13.28125vw]">
+                <Typography type="rte">
+                  <div className=" !uppercase !tracking-widest">{title}</div>
+                  <br />
+                  {body && (
+                    <div className="mx-auto text-left !normal-case">
+                      <PortableText blocks={body} />
+                    </div>
+                  )}
+                </Typography>
+              </div>
+            </Container>
+          </div>
           {modules?.map((module) => (
             <div
               className={clsx(
@@ -118,13 +150,15 @@ export default function ProjectSlideshow(props) {
           NAV_GAP_Y,
         )}
       >
-        <span className="hidden md:inline">
-          <SlideshowCaption blocks={modules[selectedIndex]?.caption} />
-        </span>
-        <span>
-          {String(selectedIndex + 1).padStart(2, '0')}/
+        {selectedIndex > 0 && (
+          <span className="hidden select-none md:inline">
+            <SlideshowCaption blocks={modules[selectedIndex - 1]?.caption} />
+          </span>
+        )}
+        {selectedIndex > 0 && <span>
+          {String(selectedIndex).padStart(2, '0')}/
           {String(modules!.length).padStart(2, '0')}
-        </span>
+        </span>}
       </div>
     </div>
   );
