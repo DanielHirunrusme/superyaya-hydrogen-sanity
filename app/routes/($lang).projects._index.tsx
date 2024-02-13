@@ -119,7 +119,7 @@ export default function Project() {
                                     >
                                       <Leader
                                         title={blockContentToPlainText(
-                                          module.caption,
+                                          module.caption || [],
                                         )}
                                         index={String(moduleIndex + 1).padStart(
                                           2,
