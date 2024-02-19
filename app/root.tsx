@@ -148,14 +148,14 @@ function App() {
         {/* Engravers */}
         <link
           rel="preload"
-          href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversEF-Roman.woff2?v=1697635125"
+          href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversEF-Roman_fd958985-d0ef-4793-805d-dd949c942b86.woff2?v=1708322770"
           as="font"
           type="font/woff2"
           
         />
         <link
           rel="preload"
-          href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversEF-Roman.woff?v=1697635125"
+          href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversEF-Roman_96a32e28-3243-4330-8069-21e7f9c3b635.woff?v=1708322770"
           as="font"
           type="font/woff"
           
@@ -163,14 +163,14 @@ function App() {
         {/* Snell */}
         <link
           rel="preload"
-          href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellBT-Regular.woff2?v=1697635125"
+          href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellRoundhandLTStd-Scr.woff2?v=1708322499"
           as="font"
           type="font/woff2"
           
         />
         <link
           rel="preload"
-          href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellBT-Regular.woff?v=1697635125"
+          href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellRoundhandLTStd-Scr.woff?v=1708322499"
           as="font"
           type="font/woff"
           

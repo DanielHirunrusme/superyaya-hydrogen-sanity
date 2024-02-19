@@ -14,23 +14,25 @@ export default function Leader(props: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const indexRef = useRef<HTMLSpanElement>(null);
   const dummyTitleRef = useRef<HTMLSpanElement>(null);
-  const [newTitleWidth, setNewTitleWidth] = useState(0);
+  // const [newTitleWidth, setNewTitleWidth] = useState(0);
   const dummySpaceeRef = useRef<HTMLSpanElement>(null);
   const middleSpaceRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    const winReisze = () => {
+    const winResize = () => {
 
       const space = middleSpaceRef.current!.getBoundingClientRect().width;
       const dots = space / dotRef.current!.offsetWidth;
       spaceRef.current!.innerHTML = '.'.repeat(dots + 10);
 
-      console.log( middleSpaceRef.current!.getBoundingClientRect().width)
+      console.log('space', space, 'dots', dots)
+
+      // console.log( middleSpaceRef.current!.getBoundingClientRect().width)
     };
-    winReisze();
-    window.addEventListener('resize', winReisze);
+    winResize();
+    window.addEventListener('resize', winResize);
     return () => {
-      window.removeEventListener('resize', winReisze);
+      window.removeEventListener('resize', winResize);
     };
   }, [spaceRef, dotRef, dummyTitleRef, titleRef, containerRef, indexRef, middleSpaceRef]);
 
