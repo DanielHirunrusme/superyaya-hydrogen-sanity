@@ -21,6 +21,7 @@ import {useState} from 'react';
 import {blockContentToPlainText} from 'react-portable-text';
 import Leader from '~/components/global/Leader';
 import {SITE_CONTENT_OFFSET} from '~/lib/constants';
+import LeaderWrap from '~/components/global/LeaderWrap';
 
 const seo: SeoHandleFunction = ({data}) => ({
   title: data?.page?.seo?.title || 'Sanity x Hydrogen',
@@ -82,7 +83,7 @@ export default function Project() {
           <Await resolve={gids}>
             <>
               <div className="absolute left-0 top-0 flex min-h-screen w-full justify-center text-center md:items-center">
-                <div className={cn('relative mx-auto w-full', 'md:my-[8em]')}>
+                <div className={cn('relative mx-auto w-full', 'mb-[4em] md:my-[8em]')}>
                   <Container type="slideshowIndex">
                     <StaggerIndexList className="left-0 flex h-full w-full flex-col justify-center gap-8 text-center md:top-0 md:items-center">
                       {page.map((project, projectIndex) => (
@@ -119,7 +120,7 @@ export default function Project() {
                                       }
                                       className="w-full overflow-hidden text-left"
                                     >
-                                      <Leader
+                                      <LeaderWrap
                                         title={blockContentToPlainText(
                                           module.caption || [],
                                         )}

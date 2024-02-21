@@ -4,10 +4,11 @@ interface Props {
   className?: string;
   title: string;
   index: string;
+  noWrap?: boolean;
 }
 
 export default function Leader(props: Props) {
-  const {className, title, index} = props;
+  const {className, title, index, noWrap = true} = props;
   const spaceRef = useRef<HTMLSpanElement>(null);
   const dotRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLSpanElement>(null);
@@ -20,14 +21,9 @@ export default function Leader(props: Props) {
 
   useEffect(() => {
     const winResize = () => {
-
       const space = middleSpaceRef.current!.getBoundingClientRect().width;
       const dots = space / dotRef.current!.offsetWidth;
       spaceRef.current!.innerHTML = '.'.repeat(dots + 10);
-
-      console.log('space', space, 'dots', dots)
-
-      // console.log( middleSpaceRef.current!.getBoundingClientRect().width)
     };
     winResize();
     window.addEventListener('resize', winResize);
