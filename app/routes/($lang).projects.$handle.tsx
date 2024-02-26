@@ -1,17 +1,23 @@
-import {Await, useLoaderData} from '@remix-run/react';
+import {Await, Link, useLoaderData} from '@remix-run/react';
 import type {SeoHandleFunction} from '@shopify/hydrogen';
 import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
 import {Suspense} from 'react';
 import invariant from 'tiny-invariant';
 
-import PortableText from '~/components/portableText/PortableText';
+// import PortableText from '~/components/portableText/PortableText';
 import type {SanityPage} from '~/lib/sanity';
 import {ColorTheme} from '~/lib/theme';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
 import {PROJECT_PAGE_QUERY} from '~/queries/sanity/project';
+import ProjectSlideshow from '~/components/project/ProjectSlideshow';
 
-import ModuleGrid from '~/components/modules/ModuleGrid';
-import Leader from '~/components/global/Leader';
+// import ModuleGrid from '~/components/modules/ModuleGrid';
+// import Leader from '~/components/global/Leader';
+
+import {SITE_MARGINS_X, SITE_MARGINS_Y} from '~/lib/constants';
+import clsx from 'clsx';
+// import ModuleSlideshow from '~/components/modules/ModuleSlideshow';
+// import {useTheme} from '~/components/context/ThemeProvider';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
   title: data?.page?.seo?.title,
@@ -55,34 +61,32 @@ export async function loader({params, context}: LoaderArgs) {
 
 export default function Page() {
   const {page, gids} = useLoaderData<typeof loader>();
+  // const [theme] = useTheme();
+  console.log(page);
+
   return (
     <ColorTheme value={page.colorTheme}>
       <Suspense>
         <Await resolve={gids}>
-          THIS SHOULD JUST GO STRAIGHT INTO A SLIDESHOW
-          <div className="mb-32 mt-24 text-center font-serif">
-            <div>{page.title}</div>
-            <div className="mx-auto max-w-lg text-left">
-              <PortableText blocks={page.body} />
-            </div>
-          </div>
-          {page.modules && <ModuleGrid items={page.modules} />}
-          <div className="flex min-h-screen w-full items-center justify-center text-center">
-            <div className="mx-auto my-24 w-[500px] text-center">
-              <div className="text-center">{page.title}</div>
-              {/* Table */}
-              <ul className="mx-auto w-full  max-w-2xl">
-                {page.modules?.map((module, index) => (
-                  <li key={`table-${module._key}`}>
-                    <Leader
-                      title={title}
-                      index={String(index + 1).padStart(2, '0')}
-                    />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          <ProjectSlideshow
+            key={page._id}
+            modules={page.modules}
+            index={0}
+            title={page.title}
+            body={page.body}
+          />
+          <Link
+            to="/projects"
+            title="Projects Index"
+            onClick={(e) => e.stopPropagation()}
+            className={clsx(
+              'linkTextNavigation fixed bottom-0 right-0 z-50 flex items-center leading-none text-black !no-underline',
+              SITE_MARGINS_X,
+              SITE_MARGINS_Y,
+            )}
+          >
+            Index
+          </Link>
         </Await>
       </Suspense>
     </ColorTheme>

@@ -1,4 +1,4 @@
-import {Await, useLoaderData} from '@remix-run/react';
+import {Await, Link, useLoaderData} from '@remix-run/react';
 import {AnalyticsPageType, type SeoHandleFunction} from '@shopify/hydrogen';
 import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
 
@@ -6,12 +6,12 @@ import {SanityPreview} from 'hydrogen-sanity';
 import {Suspense} from 'react';
 import cn from 'classnames';
 
-import ModuleSlideshow, {
-  SlideshowCaption,
-} from '~/components/modules/ModuleSlideshow';
+// import ModuleSlideshow, {
+//   SlideshowCaption,
+// } from '~/components/modules/ModuleSlideshow';
 import type {SanityHomePage} from '~/lib/sanity';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
-import {PROJECT_PAGE_QUERY} from '~/queries/sanity/project';
+import {PROJECTS_PAGE_QUERY} from '~/queries/sanity/project';
 import {Container} from '~/components/global/Container';
 import StaggerIndexList from '~/components/framer/StaggerIndexList';
 // import Link from '~/components/elements/Link';
@@ -19,8 +19,8 @@ import clsx from 'clsx';
 import ProjectSlideshow from '~/components/project/ProjectSlideshow';
 import {useState} from 'react';
 import {blockContentToPlainText} from 'react-portable-text';
-import Leader from '~/components/global/Leader';
-import {SITE_CONTENT_OFFSET} from '~/lib/constants';
+// import Leader from '~/components/global/Leader';
+// import {SITE_CONTENT_OFFSET} from '~/lib/constants';
 import LeaderWrap from '~/components/global/LeaderWrap';
 
 const seo: SeoHandleFunction = ({data}) => ({
@@ -44,7 +44,7 @@ export async function loader({context, params}: LoaderArgs) {
   });
 
   const page = await context.sanity.query<SanityHomePage>({
-    query: PROJECT_PAGE_QUERY,
+    query: PROJECTS_PAGE_QUERY,
     cache,
   });
 
@@ -77,36 +77,40 @@ export default function Project() {
   };
 
   return (
-    <SanityPreview data={page} query={PROJECT_PAGE_QUERY}>
+    <SanityPreview data={page} query={PROJECTS_PAGE_QUERY}>
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
             <>
-              <div className="absolute left-0 top-0 flex min-h-screen w-full justify-center text-center md:items-center">
-                <div className={cn('relative mx-auto w-full', 'mb-[4em] md:my-[8em]')}>
+              <div className="w-full">
+                <div className={cn('relative mx-auto w-full', 'mb-[4em]')}>
                   <Container type="slideshowIndex">
-                    <StaggerIndexList className="left-0 flex h-full w-full flex-col justify-center gap-8 text-center md:top-0 md:items-center">
+                    <StaggerIndexList className="left-0 flex h-full w-full flex-col justify-center text-center md:top-0 md:items-center">
                       {page.map((project, projectIndex) => (
                         <div
                           className={clsx(
-                            'mx-auto -mt-[.5em] flex w-full flex-col gap-2 md:mt-0',
+                            'mx-auto   flex w-full flex-col gap-2  ',
                           )}
                           key={project._id}
                         >
                           <ul>
-                            <li className="mb-2 opacity-0">
+                            <li className="opacity-0">
                               <h2>
-                                <button
-                                  type="button"
-                                  onClick={() =>
-                                    onProjectModuleClick(projectIndex, 0)
-                                  }
+                                <Link
+                                  to={`/projects/${project.slug.current}`}
+                                  className="w-full overflow-hidden text-left"
                                 >
-                                  {project.title}
-                                </button>
+                                  <LeaderWrap
+                                    title={project.title}
+                                    index={String(projectIndex + 1).padStart(
+                                      2,
+                                      '0',
+                                    )}
+                                  />
+                                </Link>
                               </h2>
                             </li>
-                            <li>
+                            {/* <li>
                               <ul>
                                 {project.modules?.map((module, moduleIndex) => (
                                   <li className="opacity-0" key={module._id}>
@@ -133,7 +137,7 @@ export default function Project() {
                                   </li>
                                 ))}
                               </ul>
-                            </li>
+                            </li> */}
                           </ul>
                         </div>
                       ))}
@@ -141,7 +145,7 @@ export default function Project() {
                   </Container>
                 </div>
               </div>
-              {page?.map((project, projectIndex) => {
+              {/* {page?.map((project, projectIndex) => {
                 if (activeProjectIndex === projectIndex && zoom) {
                   return (
                     <ProjectSlideshow
@@ -155,7 +159,7 @@ export default function Project() {
                     />
                   );
                 }
-              })}
+              })} */}
             </>
           </Await>
         </Suspense>
