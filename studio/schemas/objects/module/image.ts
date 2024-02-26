@@ -113,7 +113,7 @@ export default defineField({
   ],
   preview: {
     select: {
-      fileName: 'image.asset.originalFilename',
+      fileName: 'image.asset.url',
       image: 'image',
       variant: 'variant',
     },

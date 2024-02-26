@@ -47,25 +47,28 @@ export default defineField({
       // Paragraphs
       type: 'block',
     },
+    {
+      type: 'module.image',
+    },
     // Custom blocks
-    {
-      type: 'module.accordion',
-    },
-    {
-      type: 'module.callout',
-    },
-    {
-      type: 'module.grid',
-    },
-    {
-      type: 'module.images',
-    },
-    {
-      type: 'module.instagram',
-    },
-    {
-      type: 'module.products',
-    },
+    // {
+    //   type: 'module.accordion',
+    // },
+    // {
+    //   type: 'module.callout',
+    // },
+    // {
+    //   type: 'module.grid',
+    // },
+    // {
+    //   type: 'module.images',
+    // },
+    // {
+    //   type: 'module.instagram',
+    // },
+    // {
+    //   type: 'module.products',
+    // },
     {
       type: 'module.newsletter',
     },

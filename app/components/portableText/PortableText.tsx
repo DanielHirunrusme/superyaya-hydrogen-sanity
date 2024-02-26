@@ -19,6 +19,7 @@ import InstagramBlock from '~/components/portableText/blocks/Instagram';
 import ProductsBlock from '~/components/portableText/blocks/Products';
 import NewsletterModule from '../modules/Newsletter';
 import ModuleTable from '../modules/Table';
+import ImageModule from '../modules/Image';
 
 const SHARED_LIST_CLASSES = clsx(
   'first:mt-0 last:mb-0', //
@@ -65,6 +66,11 @@ export default function PortableText({
       'module.images': (props: any) => (
         <ImagesBlock centered={centered} {...props} />
       ),
+      'module.image': (props: any) => {
+        return <div className='flex items-center justify-center mb-[2em]'><ImageModule module={props.value} inSlideShow={false} /></div>
+        // console.log(props)
+        // return <></>
+      },
       'module.instagram': InstagramBlock,
       'module.products': ProductsBlock,
       'module.table': (props: any) => <ModuleTable {...props} />,

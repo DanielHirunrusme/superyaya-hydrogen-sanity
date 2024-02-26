@@ -54,14 +54,14 @@ export default defineField({
       initialValue: false,
     }),
     // Show hero
-    defineField({
-      name: 'showHero',
-      title: 'Show hero',
-      type: 'boolean',
-      description: 'If disabled, page title will be displayed instead',
-      initialValue: false,
-      group: 'editorial',
-    }),
+    // defineField({
+    //   name: 'showHero',
+    //   title: 'Show hero',
+    //   type: 'boolean',
+    //   description: 'If disabled, page title will be displayed instead',
+    //   initialValue: false,
+    //   group: 'editorial',
+    // }),
     // Hero
     defineField({
       name: 'hero',

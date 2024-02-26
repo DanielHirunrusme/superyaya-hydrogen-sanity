@@ -6,7 +6,7 @@ export default function ModuleTable(props) {
        
       {value.title && <p className="text-center uppercase !tracking-widest">{value.title || ''}</p>}
  
-      <table className="mx-auto">
+      <table className="mt-[1em]">
         {value.table.rows.map((row, index) => (
           <tr key={row._key}>
             {row.cells.map((cell, index) => (
