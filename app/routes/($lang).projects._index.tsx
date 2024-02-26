@@ -115,7 +115,7 @@ export default function Project() {
                                       onClick={() =>
                                         onProjectModuleClick(
                                           projectIndex,
-                                          moduleIndex,
+                                          moduleIndex + 1,
                                         )
                                       }
                                       className="w-full overflow-hidden text-left"
@@ -141,7 +141,7 @@ export default function Project() {
                   </Container>
                 </div>
               </div>
-              {page.map((project, projectIndex) => {
+              {page?.map((project, projectIndex) => {
                 if (activeProjectIndex === projectIndex && zoom) {
                   return (
                     <ProjectSlideshow

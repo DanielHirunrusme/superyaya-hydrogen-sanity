@@ -405,3 +405,8 @@ mux-player {
   background: black;
   cursor: pointer;
 }
+
+.collection-grid-item img {
+  object-position: top center;
+
+}

@@ -112,7 +112,7 @@ export default function Page() {
 
   if (page.slug?.current.includes('studio')) {
     return (
-      <Cardwrapper>
+ 
         <ColorTheme value={page.colorTheme}>
           <Suspense>
             <Await resolve={gids}>
@@ -146,7 +146,7 @@ export default function Page() {
             </Await>
           </Suspense>
         </ColorTheme>
-      </Cardwrapper>
+ 
     );
   } else {
     return (

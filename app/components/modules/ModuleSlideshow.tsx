@@ -10,7 +10,7 @@ import {useTheme, Theme} from '../context/ThemeProvider';
 import {Container} from '../global/Container';
 import {HEADER_TOP, SITE_MARGINS_X, SITE_MARGINS_Y} from '~/lib/constants';
 import {Typography} from '../global/Typography';
-import PortableText from '../portableText/PortableText';
+// import PortableText from '../portableText/PortableText';
 import {PortableTextBlock} from '@sanity/types';
 import {NAV_GAP_Y} from '~/lib/constants';
 import Leader from '../global/Leader';
@@ -78,6 +78,7 @@ export default function ModuleSlideshow(props) {
     outboundLink,
     outboundLinkText,
     mode,
+    showCount = true,
   } = props;
   const [selectedIndex, setSelectedIndex] = useState(index || 0);
   const [indexVisible, setIndexVisible] = useState(false);
@@ -90,6 +91,12 @@ export default function ModuleSlideshow(props) {
     skipSnaps: true,
     speed: 100,
   });
+
+  useEffect(() => {
+    if(!emblaApi) return;
+    // alert(`index ${index}`)
+    emblaApi.scrollTo(index);
+  }, [index, emblaApi]);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
@@ -142,6 +149,7 @@ export default function ModuleSlideshow(props) {
       className={clsx(
         'fixed left-0 top-0 h-screen w-screen',
         detached ? 'z-50' : 'z-40',
+        !zoom && detached && 'opacity-0 pointer-events-none',
         theme === Theme.DARK && !indexVisible
           ? 'bg-black'
           : 'bg-white text-black',
@@ -225,7 +233,7 @@ export default function ModuleSlideshow(props) {
           </Container>
         </div>
       )}
-      {!indexVisible && (
+      {!indexVisible && showCount && (
         <div
           data-await-intro
           className={clsx(
@@ -284,7 +292,7 @@ export const SlideshowCaption = (props: SlideshowCaptionProps) => {
   const {blocks} = props;
   return (
     <div className="uppercase text-black">
-      <PortableText blocks={blocks} variant="caption" />
+      {/* <PortableText blocks={blocks} variant="caption" /> */}
     </div>
   );
 };

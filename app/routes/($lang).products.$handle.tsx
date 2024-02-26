@@ -15,7 +15,7 @@ import type {
 import {AnalyticsPageType} from '@shopify/hydrogen-react';
 import {defer, type LoaderArgs, redirect} from '@shopify/remix-oxygen';
 import clsx from 'clsx';
-import {Suspense} from 'react';
+import {Suspense, useEffect} from 'react';
 import invariant from 'tiny-invariant';
 
 import PortableText from '~/components/portableText/PortableText';
@@ -187,6 +187,7 @@ export default function ProductHandle() {
   const [zoom, setZoom] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [sizeChartVisible, setSizeChartVisible] = useState(false);
+
   return (
     <>
       <ColorTheme value={page.colorTheme}>
@@ -268,18 +269,15 @@ export default function ProductHandle() {
           </Await>
         </Suspense>
       </ColorTheme>
-      <Suspense fallback={<></>}>
-        {zoom && (
-          <ProductSlideshow
-            storefrontProduct={product}
-            selectedVariant={selectedVariant}
-            zoom={zoom}
-            setZoom={setZoom}
-            selectedIndex={selectedIndex}
-            setSelectedIndex={setSelectedIndex}
-          />
-        )}
-      </Suspense>
+
+      <ProductSlideshow
+        storefrontProduct={product}
+        selectedVariant={selectedVariant}
+        zoom={zoom}
+        setZoom={setZoom}
+        selectedIndex={selectedIndex}
+        setSelectedIndex={setSelectedIndex}
+      />
     </>
   );
 }

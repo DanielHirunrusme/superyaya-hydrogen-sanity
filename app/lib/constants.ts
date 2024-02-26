@@ -1,5 +1,5 @@
 export const GRID_GAP =
-  'gap-[2.3076vw] md:gap-[0.67vw] xl:gap-[0.5787vw] 2xl:gap-[.703125vw]';
+  'gap-[4.6153vw] md:gap-[1.34vw] xl:gap-[1.1574vw] 2xl:gap-[1.3671vw]';
 
 export const COLLECTION_GRID = `grid-cols-2 md:grid-cols-8 2xl:grid-cols-10`;
 

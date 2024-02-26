@@ -51,18 +51,17 @@ export default function ProductSlideshow({
     loop: true,
     skipSnaps: true,
     speed: 100,
-    
   });
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
     setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi, setSelectedIndex]);
+  }, [emblaApi, setSelectedIndex, selectedIndex]);
 
   useEffect(() => {
     if (!emblaApi) return;
     onSelect();
-    
+
     emblaApi.on('select', onSelect);
     emblaApi.scrollTo(selectedIndex, true);
   }, [emblaApi, onSelect]);
@@ -86,6 +85,12 @@ export default function ProductSlideshow({
       emblaApi.scrollPrev();
     }
   };
+
+  useEffect(() => {
+    if (emblaApi) {
+      emblaApi.scrollTo(selectedIndex);
+    }
+  }, [emblaApi, selectedIndex]);
 
   useEffect(() => {
     if (!selectedVariant) {
@@ -113,12 +118,17 @@ export default function ProductSlideshow({
     setZoom(false);
   };
 
-  if (!media?.length || !zoom) {
+  if (!media?.length) {
     return null;
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 top-0 z-50 bg-white text-black">
+    <div
+      className={clsx(
+        'fixed bottom-0 left-0 right-0 top-0 z-50 bg-white text-black',
+        !zoom && 'pointer-events-none opacity-0',
+      )}
+    >
       <MinimalHeader />
       <Button
         mode="text"
@@ -174,25 +184,32 @@ export default function ProductSlideshow({
                     ' portrait:w-screen landscape:h-full',
                     'relative flex items-center justify-center',
                     getImageLayout(med, true),
-                    'pb-[3.4vw] md:pb-[6vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]'
+                    'pb-[3.4vw] md:pb-[6vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]',
                   )}
                 >
-                  <div className='h-full flex-1 relative md:w-screen' style={{ width: "90.7694vw"}}>
-                  <MediaFile
-                    className={clsx(
-                      'absolute h-full w-full select-none object-contain',
+                  <div
+                    className="relative h-full flex-1 md:w-screen"
+                    style={{width: '90.7694vw'}}
+                  >
+                    <MediaFile
+                      className={clsx(
+                        'absolute h-full w-full select-none object-contain',
 
-                      // 'py-[13vw] md:pb-[6vw] md:pt-[3.25vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]', //extend image further up
-                    )}
-                    data={data}
-                    draggable={false}
-                    style={{aspectRatio: '866 / 1300'}}
-                    tabIndex={0}
-                    mediaOptions={{
-                      image: {crop: 'center', sizes: '100vw', loading: 'eager'},
-                    }}
-                    {...extraProps}
-                  />
+                        // 'py-[13vw] md:pb-[6vw] md:pt-[3.25vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]', //extend image further up
+                      )}
+                      data={data}
+                      draggable={false}
+                      style={{aspectRatio: '866 / 1300'}}
+                      tabIndex={0}
+                      mediaOptions={{
+                        image: {
+                          crop: 'center',
+                          sizes: '100vw',
+                          loading: 'eager',
+                        },
+                      }}
+                      {...extraProps}
+                    />
                   </div>
                 </div>
               </div>
@@ -208,10 +225,12 @@ export default function ProductSlideshow({
           NAV_GAP_Y,
         )}
       >
-        <span className="hidden md:inline leading-paragraph">{storefrontProduct.title}</span>
+        <span className="hidden leading-paragraph md:inline">
+          {storefrontProduct.title}
+        </span>
         <span>
-        {String(selectedIndex + 1).padStart(2, '0')}/
-            {String(media!.length + 1).padStart(2, '0')}
+          {String(selectedIndex + 1).padStart(2, '0')}/
+          {String(media!.length + 1).padStart(2, '0')}
           {/* {selectedIndex + 1}/{media!.length} */}
         </span>
       </div>

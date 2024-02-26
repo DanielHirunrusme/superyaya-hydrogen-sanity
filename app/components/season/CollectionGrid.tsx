@@ -11,10 +11,10 @@ import {Theme} from '../context/ThemeProvider';
 import {Typography} from '../global/Typography';
 
 // Sanity modules to render in full width (across all grid columns)
-const FULL_WIDTH_MODULE_TYPES: SanityModule['_type'][] = [
-  'module.callout',
-  'module.callToAction',
-];
+// const FULL_WIDTH_MODULE_TYPES: SanityModule['_type'][] = [
+//   'module.callout',
+//   'module.callToAction',
+// ];
 
 // Tailwind class map
 const CLASSES = {
@@ -129,12 +129,12 @@ export default function CollectionGrid({
         {items.map((item, index) => {
           const productLayout = PRODUCT_LAYOUT[index % PRODUCT_LAYOUT.length];
           const productImageAspect = CLASSES.imageAspect[productLayout.aspect];
-          const productWidth = CLASSES.width[productLayout.width];
-          const productLayoutClasses = clsx([
-            CLASSES.flexAlign[productLayout.flex.align],
-            CLASSES.flexJustify[productLayout.flex.justify],
-            productLayout.offsetY ? 'md:mt-[5vw]' : 'mt-0',
-          ]);
+          // const productWidth = CLASSES.width[productLayout.width];
+          // const productLayoutClasses = clsx([
+          //   CLASSES.flexAlign[productLayout.flex.align],
+          //   CLASSES.flexJustify[productLayout.flex.justify],
+          //   productLayout.offsetY ? 'md:mt-[5vw]' : 'mt-0',
+          // ]);
 
           if (isModule(item)) {
             const isProductModule = item._type === 'module.product';
@@ -143,23 +143,25 @@ export default function CollectionGrid({
             return (
               <li
                 key={item._key}
-                className={clsx(stagger && 'opacity-0', ' cursor-pointer')}
+                className={clsx(stagger && 'opacity-0', ' cursor-pointer collection-grid-item group')}
                 onClick={() => {
                   setSelectedIndex(index);
                   onClick();
                 }}
               >
-                <div>
+                <div className='h-full flex flex-col'>
                   <Module
                     imageAspectClassName={productImageAspect}
                     module={item}
                   />
                   {showCount && (
+                    <div className='mt-auto'>
                     <Typography type="body" size="sm">
-                      <div className="mb-2 mt-1 text-center  ">
+                      <div className="mb-2 mt-1 text-center group-hover:opacity-50  ">
                         {String(index + 1).padStart(2, '0')}
                       </div>
                     </Typography>
+                    </div>
                   )}
                 </div>
               </li>
@@ -179,7 +181,7 @@ export default function CollectionGrid({
           }
         })}
       </ul>
-      {zoom && (
+ 
         <CollectionSlideshow
           modules={items}
           zoom={zoom}
@@ -193,7 +195,7 @@ export default function CollectionGrid({
           outboundLinkText={outboundLinkText}
           mode={theme}
         />
-      )}
+ 
     </>
   );
 }

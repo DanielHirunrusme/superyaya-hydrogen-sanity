@@ -91,21 +91,21 @@ module.exports = {
         },
       ],
       collectionTablet: [
-        '6.5vw',
+        '4.25vw',
         {
           letterSpacing: '0',
           lineHeight: '1',
         },
       ],
       collectionLaptop: [
-        '6.5vw',
+        '4.25vw',
         {
           letterSpacing: '0',
           lineHeight: '1',
         },
       ],
       collectionDesktop: [
-        '6.5vw',
+        '4.25vw',
         {
           letterSpacing: '0',
           lineHeight: '1',

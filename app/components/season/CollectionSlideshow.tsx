@@ -1,7 +1,7 @@
 import useEmblaCarousel from 'embla-carousel-react';
 import {useCallback, useEffect, useState} from 'react';
 import clsx from 'clsx';
-import Button from '../elements/Button';
+// import Button from '../elements/Button';
 import MinimalHeader from '../global/MinimalHeader';
 import StaggerIndexList from '../framer/StaggerIndexList';
 import {Link} from '~/components/Link';
@@ -10,7 +10,7 @@ import {Container} from '../global/Container';
 import {
   HEADER_TOP,
   NAV_GAP_Y,
-  SITE_CONTENT_OFFSET,
+  // SITE_CONTENT_OFFSET,
   SITE_MARGINS_X,
   SITE_MARGINS_Y,
 } from '~/lib/constants';
@@ -41,16 +41,16 @@ type Props = {
 export default function CollectionSlideshow(props) {
   const {
     modules,
-    children,
+    // children,
     zoom,
     setZoom,
     index,
     setIndex,
-    detached,
-    showIndex,
+    // detached,
+    // showIndex,
     title,
-    outboundLink,
-    outboundLinkText,
+    // outboundLink,
+    // outboundLinkText,
     mode,
     closeTo = '/collections',
   } = props;
@@ -91,15 +91,15 @@ export default function CollectionSlideshow(props) {
       : emblaApi?.scrollNext();
   };
 
-  const toggleIndexVisible = () => {
-    setIndexVisible(!indexVisible);
-  };
+  // const toggleIndexVisible = () => {
+  //   setIndexVisible(!indexVisible);
+  // };
 
   useEffect(() => {
     if (!indexVisible && emblaApi) {
       emblaApi.scrollTo(index);
     }
-  }, [indexVisible, emblaApi]);
+  }, [indexVisible, emblaApi, index]);
 
   useEffect(() => {
     return () => {
@@ -113,6 +113,7 @@ export default function CollectionSlideshow(props) {
       className={clsx(
         'fixed left-0 top-0 z-50 h-screen w-screen',
         theme === 'dark' ? 'bg-black' : 'bg-white',
+        !zoom && 'opacity-0 pointer-events-none',
       )}
     >
       <MinimalHeader />
@@ -230,14 +231,15 @@ export default function CollectionSlideshow(props) {
         <div
           data-await-intro
           className={clsx(
-            'absolute bottom-0 z-10 flex w-full flex-col items-center justify-center text-center leading-none text-black select-none',
+            'absolute bottom-0 z-10 flex w-full select-none flex-col items-center justify-center text-center leading-none text-black',
             SITE_MARGINS_Y,
             NAV_GAP_Y,
           )}
         >
           <span className="hidden leading-paragraph md:inline">
-            {index < modules.length ? String(modules[index]?.caption) : null}
-            {/* <SlideshowCaption blocks={modules[index]?.caption} /> */}
+            {index < modules.length
+              ? String(modules[index]?.caption || '')
+              : ''}
           </span>
           <span>
             {String(index + 1).padStart(2, '0')}/
@@ -263,7 +265,20 @@ export default function CollectionSlideshow(props) {
           </Link>
         )}
 
-        <Button
+        <Link
+          to="/collections"
+          title="Collections"
+          onClick={(e) => e.stopPropagation()}
+          className={clsx(
+            'linkTextNavigation fixed bottom-0 right-0 z-50 flex items-center leading-none text-black !no-underline',
+            SITE_MARGINS_X,
+            SITE_MARGINS_Y,
+          )}
+        >
+          Index
+        </Link>
+
+        {/* <Button
           data-await-intro
           mode="text"
           onClick={toggleIndexVisible}
@@ -274,7 +289,7 @@ export default function CollectionSlideshow(props) {
           )}
         >
           {!indexVisible ? 'Index' : 'Slideshow'}
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

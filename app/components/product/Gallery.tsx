@@ -58,7 +58,7 @@ export default function ProductGallery({
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
     setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi, setSelectedIndex]);
+  }, [emblaApi, setSelectedIndex, selectedIndex]);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -74,13 +74,13 @@ export default function ProductGallery({
       );
   }, [sizeChartVisible, location]);
 
-  const onEmblaClick = (e) => {
-    if (e.clientX > window.innerWidth / 3) {
-      handleNext();
-    } else {
-      handlePrevious();
-    }
-  };
+  // const onEmblaClick = (e) => {
+  //   if (e.clientX > window.innerWidth / 3) {
+  //     handleNext();
+  //   } else {
+  //     handlePrevious();
+  //   }
+  // };
 
   const handleNext = () => {
     if (emblaApi) {
@@ -121,14 +121,15 @@ export default function ProductGallery({
   }
 
   const onMediaClick = (index: number) => {
-    setZoom(true);
+
     setSelectedIndex(index);
+    setZoom(true);
   };
 
   return (
     <>
       {/* Mobile slideshow */}
-      <div className="md:hidden -mx-mobile">
+      <div className="-mx-mobile md:hidden">
         <div className="h-full overflow-hidden" ref={emblaRef}>
           <div className="flex h-full">
             {/* Slides */}
@@ -158,7 +159,7 @@ export default function ProductGallery({
 
               return (
                 <MediaFile
-                  className="relative px-mobile flex w-full shrink-0 grow-0 select-none object-cover"
+                  className="relative flex w-full shrink-0 grow-0 select-none object-cover px-mobile"
                   data={data}
                   draggable={false}
                   key={med.id}

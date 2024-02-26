@@ -128,7 +128,7 @@ export default function ModuleGrid({
 }: Props) {
   const [zoom, setZoom] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const onClick = (index) => {
+  const onClick = (index: number) => {
     setSelectedIndex(index);
     setZoom(true);
   };
@@ -138,15 +138,15 @@ export default function ModuleGrid({
         {items.map((item, index) => {
           const productLayout = PRODUCT_LAYOUT[index % PRODUCT_LAYOUT.length];
           const productImageAspect = CLASSES.imageAspect[productLayout.aspect];
-          const productWidth = CLASSES.width[productLayout.width];
-          const productLayoutClasses = clsx([
-            CLASSES.flexAlign[productLayout.flex.align],
-            CLASSES.flexJustify[productLayout.flex.justify],
-            productLayout.offsetY ? 'md:mt-[5vw]' : 'mt-0',
-          ]);
+          // const productWidth = CLASSES.width[productLayout.width];
+          // const productLayoutClasses = clsx([
+          //   CLASSES.flexAlign[productLayout.flex.align],
+          //   CLASSES.flexJustify[productLayout.flex.justify],
+          //   productLayout.offsetY ? 'md:mt-[5vw]' : 'mt-0',
+          // ]);
 
           if (isModule(item)) {
-            const isProductModule = item._type === 'module.product';
+            // const isProductModule = item._type === 'module.product';
 
             // Render modules
             return (
@@ -185,7 +185,7 @@ export default function ModuleGrid({
           }
         })}
       </ul>
-      {zoom && (
+ 
         <>
           {type !== 'season' ? (
             <ModuleSlideshow
@@ -232,7 +232,7 @@ export default function ModuleGrid({
             </CollectionSlideshow>
           )}
         </>
-      )}
+  
     </>
   );
 }
