@@ -129,7 +129,7 @@ export default function Collection() {
             )} */}
 
           {/* No results */}
-          {products.length === 0 && <EmptyMessage>No products.</EmptyMessage>}
+          {/* {products.length === 0 && <EmptyMessage>No products.</EmptyMessage>}
 
           <CollectionBreadcrumb collection={collection} />
 
@@ -149,7 +149,13 @@ export default function Collection() {
                 key={`${collection.handle}-${sort}`}
               />
             </PreorderCollection>
-          )}
+          )} */}
+
+          <EmptyMessage>
+            <div>Coming soon. Subscribe for updates.</div>
+            <br />
+            <Newsletter />
+          </EmptyMessage>
         </Await>
       </Suspense>
     </ColorTheme>
@@ -166,7 +172,7 @@ export const EmptyMessage = ({children}) => {
       </Container>
     </div>
   );
-}
+};
 
 function PreorderCollection({collection, children}) {
   const [theme, setTheme] = useTheme();
