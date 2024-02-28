@@ -1,13 +1,13 @@
 import groq from 'groq';
 import {MODULES} from './fragments/modules';
 export const INDEX_QUERY = groq`
-  *[(_type == "product" && !store.isDeleted) || _type == "season" || _type == "collaboration" || _type == "archive" || _type == "project" && !(_id in path("drafts.**"))] | order(_type asc){
+  *[(_type == "product" && !store.isDeleted && store.status != "draft") || _type == "season" || _type == "collaboration" || _type == "archive" || _type == "project" && !(_id in path("drafts.**"))] | order(_type asc){
     _type,
     _id,
     // Product
     // Utilizes the fetchGID function in utils.ts
     // _type needs to be productWithVariant to work
-    _type == "product" => {
+    _type == "product"  => {
       "_type": "productWithVariant",
       "slug": '/products/' + store.slug.current,
       "title": store.title,
