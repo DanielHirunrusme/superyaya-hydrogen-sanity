@@ -55,7 +55,7 @@ export function Layout({backgroundColor, children}: LayoutProps) {
         </main>
       </div>
 
-      <RadioPopup />
+      {/* <RadioPopup /> */}
 
       <Footer />
 
