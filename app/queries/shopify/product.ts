@@ -81,6 +81,10 @@ export const PRODUCT_FIELDS = `
         width
       }
     }
+    washing_instructions: metafield(key: "washing_instructions", namespace: "descriptors") {
+      id
+      value
+    }
     details: metafield(key: "details", namespace: "descriptors") {
       id
       value

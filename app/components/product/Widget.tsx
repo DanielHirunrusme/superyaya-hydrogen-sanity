@@ -5,6 +5,7 @@ import ProductForm from '~/components/product/Form';
 import type {SanityProductPage} from '~/lib/sanity';
 import {Disclosure} from '@headlessui/react';
 import {Typography} from '../global/Typography';
+import { RichText } from '../global/RichText';
 
 type Props = {
   sanityProduct: SanityProductPage;
@@ -62,6 +63,9 @@ export default function ProductWidget({
     });
   };
 
+
+  console.log('storefrontProduct', storefrontProduct);
+
   return (
     <div>
       {/* Sold out */}
@@ -98,6 +102,31 @@ export default function ProductWidget({
       />
 
       <div className="mt-mobile md:mt-tablet xl:mt-laptop 2xl:mt-desktop">
+
+        {/* Washing Instructions */}
+        {storefrontProduct.washing_instructions && (
+          <div>
+
+              <Disclosure>
+                {({open}) => (
+                  <>
+                    <Disclosure.Button className="flex gap-[.5em] hover:opacity-50">
+                      <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
+                     Washing Instructions
+                    </Disclosure.Button>
+                    <Disclosure.Panel>
+                      <div className="mb-4">
+                        <RichText data={storefrontProduct.washing_instructions.value} />
+                      </div>
+                    </Disclosure.Panel>
+                  </>
+                )}
+              </Disclosure>
+
+          </div>
+        )}
+
+
         {/* Details */}
         {storefrontProduct.details && (
           <div>
