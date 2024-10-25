@@ -129,7 +129,7 @@ export default function Collection() {
             )} */}
 
           {/* No results */}
-          {/* {products.length === 0 && <EmptyMessage>No products.</EmptyMessage>}
+          {products.length === 0 && <EmptyMessage>No products.</EmptyMessage>}
 
           <CollectionBreadcrumb collection={collection} />
 
@@ -149,13 +149,13 @@ export default function Collection() {
                 key={`${collection.handle}-${sort}`}
               />
             </PreorderCollection>
-          )} */}
+          )}
 
-          <EmptyMessage>
+          {/* <EmptyMessage>
             <div>Coming soon. Subscribe for updates.</div>
             <br />
             <Newsletter />
-          </EmptyMessage>
+          </EmptyMessage> */}
         </Await>
       </Suspense>
     </ColorTheme>

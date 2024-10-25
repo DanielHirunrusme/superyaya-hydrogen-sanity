@@ -104,15 +104,21 @@ export default function ProductGrid({
       {nextPage && (
         <div className="flex h-30 items-center justify-center">
           {fetcher.state !== 'idle' ? (
-            <SpinnerIcon />
-          ) : (
             <Button
-              className={clsx(fetcher.state !== 'idle' && 'opacity-50')}
-              disabled={fetcher.state !== 'idle'}
-              onClick={fetchMoreProducts}
-            >
-              Load more
-            </Button>
+
+            disabled
+
+          >
+            Loading...
+          </Button>
+          ) : (
+            <div><Button
+            className={clsx(fetcher.state !== 'idle' && 'opacity-50')}
+            disabled={fetcher.state !== 'idle'}
+            onClick={fetchMoreProducts}
+          >
+            Load more
+          </Button></div>
           )}
         </div>
       )}

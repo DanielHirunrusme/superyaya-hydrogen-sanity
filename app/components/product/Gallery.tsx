@@ -213,7 +213,7 @@ export default function ProductGallery({
           } as MediaImage;
 
           return (
-            <li key={med.id} className="aspect-[866/1300] bg-gray opacity-0">
+            <li key={med.id} className="aspect-[1556/1944] bg-gray opacity-0">
               <MediaFile
                 className="relative flex w-full shrink-0 grow-0 cursor-pointer select-none object-cover"
                 data={data}
@@ -221,7 +221,7 @@ export default function ProductGallery({
                 tabIndex={0}
                 onClick={() => onMediaClick(index)}
                 mediaOptions={{
-                  image: {crop: 'center', sizes: '100vw', loading: 'eager'},
+                  image: {crop: 'center', sizes: '33vw, 50vw, 100vw', loading: 'eager'},
                 }}
                 {...extraProps}
               />

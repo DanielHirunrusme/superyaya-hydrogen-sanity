@@ -5,7 +5,7 @@ export const COLLECTION_GRID = `grid-cols-2 md:grid-cols-8 2xl:grid-cols-10`;
 
 export const COLLECTION_GRID_GAP = `${GRID_GAP} gap-y-[4.6153vw] md:gap-y-[1.34vw] xl:gap-y-[1.1574vw] 2xl:gap-y-[1.3671vw]`;
 
-export const PRODUCT_IMAGE_RATIO = 'aspect-[866/1300]';
+export const PRODUCT_IMAGE_RATIO = 'aspect-[1556/1944]';
 export const STAGGER_SPEED = 0.0675;
 
 export const SITE_MARGINS_X =

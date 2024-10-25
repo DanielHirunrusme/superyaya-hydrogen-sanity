@@ -21,7 +21,7 @@ type Props = {
 };
 
 export default function ProductCard({
-  imageAspectClassName = 'aspect-[866/1300]',
+  imageAspectClassName = 'aspect-[1556/1944]',
   storefrontProduct,
   variantGid,
 }: Props) {

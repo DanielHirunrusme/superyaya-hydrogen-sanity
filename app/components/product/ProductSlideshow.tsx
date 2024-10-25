@@ -230,7 +230,7 @@ export default function ProductSlideshow({
         </span>
         <span>
           {String(selectedIndex + 1).padStart(2, '0')}/
-          {String(media!.length + 1).padStart(2, '0')}
+          {String(media!.length).padStart(2, '0')}
           {/* {selectedIndex + 1}/{media!.length} */}
         </span>
       </div>
