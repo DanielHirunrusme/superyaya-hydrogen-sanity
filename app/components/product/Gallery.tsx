@@ -221,7 +221,7 @@ export default function ProductGallery({
                 tabIndex={0}
                 onClick={() => onMediaClick(index)}
                 mediaOptions={{
-                  image: {crop: 'center', sizes: '33vw, 50vw, 100vw', loading: 'eager'},
+                  image: {crop: 'center', sizes: '100vw', loading: 'eager'},
                 }}
                 {...extraProps}
               />
