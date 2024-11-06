@@ -91,26 +91,7 @@ export default function ProjectSlideshow(props: Props) {
 
       <div className="h-full w-screen overflow-hidden" ref={emblaRef}>
         <div className="flex h-full">
-          <div
-            className={clsx(
-              'relative flex h-full w-full flex-shrink-0 flex-grow-0 items-center',
-            )}
-            onClick={onClick}
-          >
-            <Container type="pageDescription" asChild>
-              <div className="mx-auto mb-[36.92vw] text-center md:mb-[7.035vw] xl:mb-[9.4328vw] 2xl:mb-[13.28125vw]">
-                <Typography type="rte">
-                  <div className=" !uppercase !tracking-widest">{title}</div>
-                  <br />
-                  {body && (
-                    <div className="mx-auto text-left !normal-case">
-                      <PortableText blocks={body} />
-                    </div>
-                  )}
-                </Typography>
-              </div>
-            </Container>
-          </div>
+
           {modules?.map((module) => (
             <div
               className={clsx(
@@ -136,6 +117,28 @@ export default function ProjectSlideshow(props: Props) {
               </div>
             </div>
           ))}
+
+          {/* Description */}
+          <div
+            className={clsx(
+              'relative flex h-full w-full flex-shrink-0 flex-grow-0 items-center select-none',
+            )}
+            onClick={onClick}
+          >
+            <Container type="pageDescription" asChild>
+              <div className="mx-auto mb-[36.92vw] text-center md:mb-[7.035vw] xl:mb-[9.4328vw] 2xl:mb-[13.28125vw]">
+                <Typography type="rte">
+                  <div className=" !uppercase !tracking-widest">{title}</div>
+                  <br />
+                  {body && (
+                    <div className="mx-auto text-left !normal-case">
+                      <PortableText blocks={body} />
+                    </div>
+                  )}
+                </Typography>
+              </div>
+            </Container>
+          </div>
         </div>
       </div>
 
@@ -147,17 +150,17 @@ export default function ProjectSlideshow(props: Props) {
           NAV_GAP_Y,
         )}
       >
-        {selectedIndex > 0 && (
+
           <span className="hidden select-none md:inline">
             <SlideshowCaption blocks={modules[selectedIndex - 1]?.caption} />
           </span>
-        )}
-        {selectedIndex > 0 && (
+
+
           <span>
-            {String(selectedIndex).padStart(2, '0')}/
-            {String(modules!.length).padStart(2, '0')}
+            {String(selectedIndex + 1).padStart(2, '0')}/
+            {String(modules!.length + 1).padStart(2, '0')}
           </span>
-        )}
+
       </div>
     </div>
   );
