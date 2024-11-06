@@ -146,7 +146,7 @@ export default function ProductSlideshow({
       >
         <div className="flex h-full">
           {/* Slides */}
-          {media.map((med) => {
+          {media.slice(1, media.length).map((med) => {
             let extraProps: Record<string, any> = {};
 
             if (med.mediaContentType === 'MODEL_3D') {

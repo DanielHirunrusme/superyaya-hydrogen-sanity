@@ -133,7 +133,7 @@ export default function ProductGallery({
         <div className="h-full overflow-hidden" ref={emblaRef}>
           <div className="flex h-full">
             {/* Slides */}
-            {media.map((med) => {
+            {media.slice(1, media.length).map((med) => {
               let extraProps: Record<string, any> = {};
 
               if (med.mediaContentType === 'MODEL_3D') {
@@ -174,7 +174,7 @@ export default function ProductGallery({
           </div>
         </div>
         <div className="pt-4 text-center">
-          {selectedIndex + 1}/{media!.length}
+          {selectedIndex + 1}/{media!.length - 1}
         </div>
       </div>
 
