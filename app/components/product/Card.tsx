@@ -74,6 +74,7 @@ export default function ProductCard({
             'relative flex items-center justify-center overflow-hidden bg-lightGray object-cover  duration-500 ease-out',
           )}
         >
+          {/* Hover image */}
           <Link
             className="group absolute left-0 top-0 h-full w-full"
             to={`/products/${storefrontProduct.handle}`}
@@ -87,6 +88,7 @@ export default function ProductCard({
                 sizes="100%"
               />
             )}
+
 
             {/* Second image */}
             {/* @ts-ignore */}
