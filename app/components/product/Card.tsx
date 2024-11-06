@@ -51,20 +51,6 @@ export default function ProductCard({
     quantity: 1,
   };
 
-  console.log('firstVariant', firstVariant);
-
-  {
-    /*
-    {
-    "id": "gid://shopify/ImageSource/39779858415919",
-    "url": "https://cdn.shopify.com/s/files/1/0831/2474/8591/files/240521000034660019.jpg?v=1728060825",
-    "altText": null,
-    "width": 1369,
-    "height": 1711
-}
-    */
-  }
-
   return (
     <div className="group relative">
       <Typography type="body" size="sm">
