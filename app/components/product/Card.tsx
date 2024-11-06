@@ -51,6 +51,20 @@ export default function ProductCard({
     quantity: 1,
   };
 
+  console.log('firstVariant', firstVariant);
+
+  {
+    /*
+    {
+    "id": "gid://shopify/ImageSource/39779858415919",
+    "url": "https://cdn.shopify.com/s/files/1/0831/2474/8591/files/240521000034660019.jpg?v=1728060825",
+    "altText": null,
+    "width": 1369,
+    "height": 1711
+}
+    */
+  }
+
   return (
     <div className="group relative">
       <Typography type="body" size="sm">
@@ -61,13 +75,25 @@ export default function ProductCard({
           )}
         >
           <Link
-            className="absolute left-0 top-0 h-full w-full"
+            className="group absolute left-0 top-0 h-full w-full"
             to={`/products/${storefrontProduct.handle}`}
           >
+            {/* First image */}
             {firstVariant.image && (
               <Image
-                className="absolute h-full w-full transform bg-cover bg-center object-cover object-center ease-in-out"
+                className="absolute opacity-0 md:group-hover:opacity-100 z-10 h-full w-full transform bg-cover bg-center object-cover object-center ease-in-out"
                 data={firstVariant.image}
+                crop="center"
+                sizes="100%"
+              />
+            )}
+
+            {/* Second image */}
+            {/* @ts-ignore */}
+            {storefrontProduct.media?.nodes?.[1]?.image && (
+              <Image
+                className="absolute  h-full w-full transform bg-cover bg-center object-cover object-center ease-in-out"
+                data={storefrontProduct.media.nodes[1].image}
                 crop="center"
                 sizes="100%"
               />

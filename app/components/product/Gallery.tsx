@@ -188,7 +188,7 @@ export default function ProductGallery({
         )}
       >
         {/* Slides */}
-        {media.map((med, index) => {
+        {media.slice(1, media.length).map((med, index) => {
           let extraProps: Record<string, any> = {};
 
           if (med.mediaContentType === 'MODEL_3D') {
