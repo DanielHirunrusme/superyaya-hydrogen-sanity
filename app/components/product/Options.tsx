@@ -42,7 +42,7 @@ const getSwatch = (variants, selectOption) => {
 
   return (
     <div
-      className={clsx('aspect-square bg-gray', UI_FORM_ELEMENT_HEIGHT)}
+      className={clsx('aspect-square bg-gray ', UI_FORM_ELEMENT_HEIGHT)}
     ></div>
   );
 };
