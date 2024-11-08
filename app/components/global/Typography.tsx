@@ -15,6 +15,7 @@ export const Typography = styled('div', {
     },
     size: {
       sm: 'text-sm',
+      md: 'text-md'
     },
   },
   compoundVariants: [

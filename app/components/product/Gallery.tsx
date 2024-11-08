@@ -57,7 +57,7 @@ export default function ProductGallery({
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
+    if(window.innerWidth < 768) setSelectedIndex(emblaApi.selectedScrollSnap());
   }, [emblaApi, setSelectedIndex, selectedIndex]);
 
   useEffect(() => {
@@ -74,13 +74,13 @@ export default function ProductGallery({
       );
   }, [sizeChartVisible, location]);
 
-  // const onEmblaClick = (e) => {
-  //   if (e.clientX > window.innerWidth / 3) {
-  //     handleNext();
-  //   } else {
-  //     handlePrevious();
-  //   }
-  // };
+  const onEmblaClick = (e) => {
+    if (e.clientX > window.innerWidth / 3) {
+      handleNext();
+    } else {
+      handlePrevious();
+    }
+  };
 
   const handleNext = () => {
     if (emblaApi) {
@@ -122,8 +122,9 @@ export default function ProductGallery({
 
   const onMediaClick = (index: number) => {
 
-    setSelectedIndex(index);
+
     setZoom(true);
+    setSelectedIndex(index);
   };
 
   return (
@@ -213,9 +214,9 @@ export default function ProductGallery({
           } as MediaImage;
 
           return (
-            <li key={med.id} className="aspect-[1556/1944] bg-gray opacity-0">
+            <li data-index={index} key={med.id} className="aspect-[1556/1944] bg-gray opacity-0 ">
               <MediaFile
-                className="relative flex w-full shrink-0 grow-0 cursor-pointer select-none object-cover"
+                className="relative flex w-full shrink-0 grow-0 cursor-zoom-in select-none object-cover"
                 data={data}
                 draggable={false}
                 tabIndex={0}

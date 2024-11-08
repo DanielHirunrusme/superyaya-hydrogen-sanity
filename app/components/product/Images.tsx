@@ -34,7 +34,7 @@ export default function ProductImages({
   }
 
   const onClick = (index) => {
-    setSelectedIndex(index);
+    // setSelectedIndex(index);
     setZoom(true);
   };
 

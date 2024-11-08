@@ -181,7 +181,7 @@ export default function CollectionGrid({
           }
         })}
       </ul>
- 
+
         <CollectionSlideshow
           modules={items}
           zoom={zoom}
@@ -195,7 +195,7 @@ export default function CollectionGrid({
           outboundLinkText={outboundLinkText}
           mode={theme}
         />
- 
+
     </>
   );
 }

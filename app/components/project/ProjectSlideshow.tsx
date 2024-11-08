@@ -39,44 +39,44 @@ export default function ProjectSlideshow(props: Props) {
     speed: 100,
   });
 
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi, setSelectedIndex]);
+  // const onSelect = useCallback(() => {
+  //   if (!emblaApi) return;
+  //   setSelectedIndex(emblaApi.selectedScrollSnap());
+  // }, [emblaApi, setSelectedIndex]);
 
-  useEffect(() => {
-    if (!emblaApi) return;
-    onSelect();
-    emblaApi.on('select', onSelect);
-  }, [emblaApi, onSelect]);
+  // useEffect(() => {
+  //   if (!emblaApi) return;
+  //   onSelect();
+  //   emblaApi.on('select', onSelect);
+  // }, [emblaApi, onSelect]);
 
-  const onClick = (e) => {
-    if (!emblaApi) return;
-    if (e.clientX < window.innerWidth / 3) {
-      emblaApi.scrollPrev();
-    } else {
-      emblaApi.scrollNext();
-    }
-  };
+  // const onClick = (e) => {
+  //   if (!emblaApi) return;
+  //   if (e.clientX < window.innerWidth / 3) {
+  //     emblaApi.scrollPrev();
+  //   } else {
+  //     emblaApi.scrollNext();
+  //   }
+  // };
 
-  useEffect(() => {
-    if (!indexVisible && emblaApi) {
-      emblaApi.scrollTo(selectedIndex);
-      setTheme(mode);
-    } else {
-      setTheme(mode);
-    }
+  // useEffect(() => {
+  //   if (!indexVisible && emblaApi) {
+  //     emblaApi.scrollTo(selectedIndex);
+  //     setTheme(mode);
+  //   } else {
+  //     setTheme(mode);
+  //   }
 
-    if (indexVisible && mode === Theme.DARK) {
-      setTheme(Theme.LIGHT);
-    } else {
-      setTheme(mode);
-    }
+  //   if (indexVisible && mode === Theme.DARK) {
+  //     setTheme(Theme.LIGHT);
+  //   } else {
+  //     setTheme(mode);
+  //   }
 
-    return () => {
-      setTheme(Theme.LIGHT);
-    };
-  }, [indexVisible, emblaApi]);
+  //   return () => {
+  //     setTheme(Theme.LIGHT);
+  //   };
+  // }, [indexVisible, emblaApi]);
 
   return (
     <div className={clsx('fixed left-0 top-0 z-50 h-screen w-screen bg-white')}>
