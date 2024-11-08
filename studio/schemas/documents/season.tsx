@@ -32,6 +32,11 @@ export default defineField({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'orderRank',
+      title: 'Order',
+      type: 'string'
+    }),
+    defineField({
       name: 'collection',
       title: 'Collection',
       type: 'string',
@@ -95,13 +100,15 @@ export default defineField({
       active: 'active',
       seoImage: 'seo.image',
       title: 'title',
+      date: 'date',
     },
     prepare(selection) {
-      const {seoImage, title} = selection
+      const {seoImage, title, date} = selection
 
       return {
         media: seoImage,
         title,
+        subtitle: date?.split('T')[0]
       }
     },
   },

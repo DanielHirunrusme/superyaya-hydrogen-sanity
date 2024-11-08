@@ -2,7 +2,7 @@ import groq from 'groq';
 import {HOME_PAGE} from './fragments/pages/home';
 
 export const PROJECTS_PAGE_QUERY = groq`
-  *[_type == 'project'] | order(_updatedAt desc){
+  *[_type == 'project'] | order(orderRank){
     title,
     slug,
     body,

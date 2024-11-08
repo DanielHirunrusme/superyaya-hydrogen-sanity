@@ -31,6 +31,11 @@ export default defineField({
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: 'orderRank',
+      title: 'Order',
+      type: 'string'
+    }),
     // Slug
     defineField({
       name: 'slug',
@@ -47,7 +52,7 @@ export default defineField({
       group: 'editorial',
     }),
     // Date
-    defineField({ 
+    defineField({
       name: 'date',
       title: 'Date',
       type: 'date',
