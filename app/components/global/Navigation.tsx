@@ -1,13 +1,13 @@
 'use client';
-import {useCallback, useEffect, useState} from 'react';
-import {useLocation, useNavigation} from '@remix-run/react';
+import {useCallback, useEffect } from 'react';
+import {useLocation } from '@remix-run/react';
 import CollectionGroup from '~/components/global/collectionGroup/CollectionGroup';
 import {Link} from '~/components/Link';
 import type {SanityMenuLink} from '~/lib/sanity';
 import clsx from 'clsx';
 import {useAnimate, stagger, useInView} from 'framer-motion';
 import {NAV_GAP, NAV_GAP_Y, STAGGER_SPEED} from '~/lib/constants';
-import {Theme, useTheme} from '../context/ThemeProvider';
+import {  useTheme} from '../context/ThemeProvider';
 import {motion} from 'framer-motion';
 
 /**

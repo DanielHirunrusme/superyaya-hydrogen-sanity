@@ -61,7 +61,7 @@ export async function loader({params, context}: LoaderArgs) {
 
 export default function Page() {
   const {page, gids} = useLoaderData<typeof loader>();
-  // const [theme] = useTheme();
+
   console.log(page);
 
   return (
@@ -72,7 +72,7 @@ export default function Page() {
             key={page._id}
             modules={page.modules}
             index={0}
-            title={page.title}
+            title={page.title || ""}
             body={page.body}
           />
           <Link
