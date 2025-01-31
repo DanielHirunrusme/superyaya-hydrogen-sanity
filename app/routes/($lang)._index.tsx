@@ -61,8 +61,7 @@ export default function Index() {
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
-            {/* Page hero */}
-            {/* {page?.hero && <HomeHero hero={page.hero} />} */}
+
 
             {page?.modules && (
               <ModuleSlideshow modules={page.modules} detached={false} showCount={false} />

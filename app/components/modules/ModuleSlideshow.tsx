@@ -1,5 +1,5 @@
 import useEmblaCarousel from 'embla-carousel-react';
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import Module from './Module';
 import clsx from 'clsx';
 import Button from '../elements/Button';
@@ -83,6 +83,7 @@ export default function ModuleSlideshow(props) {
   const [selectedIndex, setSelectedIndex] = useState(index || 0);
   const [indexVisible, setIndexVisible] = useState(false);
   const [theme, setTheme] = useTheme();
+  const slideshowContainerRef = useRef<HTMLDivElement>(null);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: 'start',
@@ -144,6 +145,22 @@ export default function ModuleSlideshow(props) {
     };
   }, [indexVisible, emblaApi]);
 
+  useEffect(() => {
+    console.log('slideshowContainerRef', slideshowContainerRef);
+    if (!slideshowContainerRef?.current) return;
+
+    const mouseMove = (e) => {
+      document.body.style.cursor = e.clientX < window.innerWidth / 2 ? 'w-resize' : 'e-resize';
+    };
+
+    slideshowContainerRef.current.addEventListener('mousemove', mouseMove);
+
+    return () => {
+      document.body.style.cursor = 'auto';
+      slideshowContainerRef.current?.removeEventListener('mousemove', mouseMove);
+    };
+}, [slideshowContainerRef]);
+
   return (
     <div
       className={clsx(
@@ -171,7 +188,7 @@ export default function ModuleSlideshow(props) {
       )}
       {!indexVisible && (
         <div className="h-full w-screen overflow-hidden" ref={emblaRef}>
-          <div className="flex h-full">
+          <div className="flex h-full" ref={slideshowContainerRef}>
             {modules?.map((module) => (
               <div
                 className={clsx(

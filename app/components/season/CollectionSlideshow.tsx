@@ -1,5 +1,5 @@
 import useEmblaCarousel from 'embla-carousel-react';
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import clsx from 'clsx';
 // import Button from '../elements/Button';
 import MinimalHeader from '../global/MinimalHeader';
@@ -58,6 +58,8 @@ export default function CollectionSlideshow(props) {
   const [theme, setTheme] = useTheme();
   const [w, setW] = useState<any>(null);
 
+  const slideshowContainerRef = useRef<HTMLDivElement>(null);
+
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: 'start',
     draggable: modules && modules.length > 1,
@@ -84,6 +86,8 @@ export default function CollectionSlideshow(props) {
     });
   }, []);
 
+
+
   const onClick = (e) => {
     if (indexVisible) return;
     e.clientX < window.innerWidth / 3
@@ -106,6 +110,22 @@ export default function CollectionSlideshow(props) {
       setTheme('light');
     };
   }, [index, indexVisible]);
+
+  useEffect(() => {
+    console.log('slideshowContainerRef', slideshowContainerRef);
+    if (!slideshowContainerRef?.current) return;
+
+    const mouseMove = (e: MouseEvent) => {
+      document.body.style.cursor = e.clientX < window.innerWidth / 2 ? 'w-resize' : 'e-resize';
+    };
+
+    slideshowContainerRef.current.addEventListener('mousemove', mouseMove);
+
+    return () => {
+      document.body.style.cursor = 'auto';
+      slideshowContainerRef.current?.removeEventListener('mousemove', mouseMove);
+    };
+}, [slideshowContainerRef]);
 
   return (
     <div
@@ -141,7 +161,7 @@ export default function CollectionSlideshow(props) {
         )}
         ref={emblaRef}
       >
-        <div className="flex h-full">
+        <div className="flex h-full" ref={slideshowContainerRef}>
           {modules?.map((module) => (
             <div
               className={
