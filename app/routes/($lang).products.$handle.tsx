@@ -24,7 +24,7 @@ import RelatedProducts from '~/components/product/RelatedProducts';
 import type {SanityProductPage} from '~/lib/sanity';
 import {ColorTheme} from '~/lib/theme';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
-import {PRODUCT_PAGE_QUERY, SIZE_GUIDE_QUERY} from '~/queries/sanity/product';
+import {PRODUCT_PAGE_GID_QUERY, PRODUCT_PAGE_QUERY, SIZE_GUIDE_QUERY} from '~/queries/sanity/product';
 import {
   PRODUCT_QUERY,
   RECOMMENDED_PRODUCTS_QUERY,
@@ -103,6 +103,44 @@ export async function loader({params, context, request}: LoaderArgs) {
 
   if (!product.selectedVariant) {
     return redirectToFirstVariant({product, request});
+  }
+
+  // If product has metafield color_variants fetch the products
+  // console.log('product loader:', product)
+  if (product.color_variants?.references?.nodes?.length > 0) {
+    // Map and resolve all references concurrently
+    const updatedNodes = await Promise.all(
+      product.color_variants.references.nodes.map(async (node: any) => {
+        try {
+          // Extract the product GID
+          const productField = node.fields.find((field: any) => field.key === 'product');
+          const productGid = productField?.value;
+
+          if (!productGid) {
+            throw new Error('Product GID not found for node');
+          }
+
+          // Query Sanity for the product
+          const sanityProduct = await context.sanity.query<SanityProductPage>({
+            query: PRODUCT_PAGE_GID_QUERY,
+            params: { gid: productGid },
+            cache
+          });
+
+          // Return the updated node with the queried product
+          return {
+            ...node,
+            sanityProduct
+          };
+        } catch (error) {
+          console.error(`Error fetching product for node ${node.id}:`, error);
+          return { ...node, sanityProduct: null }; // Return node with null product on failure
+        }
+      })
+    );
+
+    // Override the original nodes with the updated nodes
+    product.color_variants.references.nodes = updatedNodes;
   }
 
   // Resolve any references to products on the Storefront API

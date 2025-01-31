@@ -18,6 +18,7 @@ import ContactFormModal from '../contact/ContactForm';
 import {Container} from '../global/Container';
 import clsx from 'clsx';
 import {GRID_GAP} from '~/lib/constants';
+import ProductCustomColorOptions from './CustomColorOptions';
 
 export default function ProductForm({
   product,
@@ -50,6 +51,9 @@ export default function ProductForm({
     quantity: 1,
   };
 
+
+
+
   return (
     <Container type="pdpForm">
       <div
@@ -69,6 +73,8 @@ export default function ProductForm({
             />
           </>
         )}
+
+        <ProductCustomColorOptions product={product} />
 
         <div className="flex flex-col">
           <AddToCartButton

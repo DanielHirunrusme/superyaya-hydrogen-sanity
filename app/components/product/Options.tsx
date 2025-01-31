@@ -47,6 +47,31 @@ const getSwatch = (variants, selectOption) => {
   );
 };
 
+function findMatchingColor(product, references) {
+  // Check if options contain an object with name 'Color'
+  const colorOption = product.options?.find(
+    (option) => option.name === 'Color',
+  );
+
+  if (!colorOption) {
+    console.log("No 'Color' option found in product options.");
+    return null;
+  }
+
+  // Get the value of the color option (e.g., "Green/Black")
+  const colorValue = colorOption.values?.[0];
+
+console.log(colorValue)
+
+  // Find a match in the color_variants references
+  const matchingNode = references.nodes.find((node) => {
+    const colorField = node.fields.find((field) => field.key === 'color');
+    return colorField && colorField.value === colorValue;
+  });
+
+  return matchingNode || null;
+}
+
 export default function ProductOptions({
   product,
   variants,
@@ -60,6 +85,16 @@ export default function ProductOptions({
   selectedVariant: ProductVariant;
   customProductOptions?: SanityCustomProductOption[];
 }) {
+  // console.log('product', product.color_variants?.references);
+
+  const matchingNode = findMatchingColor(product, product.color_variants?.references);
+
+  if (matchingNode) {
+    console.log('Match found:', matchingNode);
+  } else {
+    console.log('No match found.');
+  }
+
   const [selected, setSelected] = useState(selectedVariant.selectedOptions);
 
   const [optionsSelected, setOptionsSelected] = useState([
@@ -112,7 +147,6 @@ export default function ProductOptions({
             (selectedOption) => selectedOption.name === option.name,
           );
 
-
           const swatch = match?.[0]?.value ? (
             getSwatch(variants, match[0].value)
           ) : (
@@ -148,7 +182,8 @@ export default function ProductOptions({
                         <span
                           className={clsx(
                             'block flex items-center text-left',
-                            option.name === 'Color' && 'gap-[1em] h-full relative',
+                            option.name === 'Color' &&
+                              'relative h-full gap-[1em]',
                           )}
                         >
                           {label()}
@@ -257,7 +292,7 @@ export default function ProductOptions({
                                       isActive
                                         ? 'underline'
                                         : 'text-black hover:text-opacity-50',
-                                      'flex  overflow-hidden items-center decoration-1 underline-offset-4',
+                                      'flex  items-center overflow-hidden decoration-1 underline-offset-4',
                                     )}
                                     key={id}
                                     onClick={() =>
@@ -265,9 +300,7 @@ export default function ProductOptions({
                                     }
                                   >
                                     {swatch}
-                                    <span className="px-[1em]">
-                                      {value}
-                                    </span>
+                                    <span className="px-[1em]">{value}</span>
                                   </Listbox.Option>
                                 );
                             }

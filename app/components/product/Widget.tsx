@@ -64,7 +64,7 @@ export default function ProductWidget({
   };
 
 
-  console.log('storefrontProduct', storefrontProduct);
+
 
   return (
     <div>

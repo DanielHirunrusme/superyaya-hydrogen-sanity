@@ -11,6 +11,16 @@ export const PRODUCT_PAGE_QUERY = groq`
   }
 `;
 
+export const PRODUCT_PAGE_GID_QUERY = groq`
+  *[
+    _type == 'product'
+    && store.gid == $gid
+  ] | order(_updatedAt desc) [0]{
+    ${PRODUCT_PAGE}
+  }
+`;
+
+
 export const SIZE_GUIDE_QUERY = groq`
   {
     "frenchCm": *[_type == 'sizeChart' && slug.current == "french-sizes-cm"][0]{

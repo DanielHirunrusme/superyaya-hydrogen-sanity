@@ -22,7 +22,7 @@ export default function IntroWrapper(props: any) {
       return w;
     };
     const exitAnimation = async () => {
-      await animate(scope.current, {opacity: 0}, {duration: 1, delay: 0.25});
+      await animate(scope.current, {opacity: 0}, {duration: 1, delay: 1});
     };
     const safeToRemove = () => {
       setIntroDone(true);

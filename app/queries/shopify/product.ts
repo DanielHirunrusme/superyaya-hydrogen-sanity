@@ -97,6 +97,33 @@ export const PRODUCT_FIELDS = `
       id
       value
     }
+    color_variants: metafield(key: "color_variants", namespace: "descriptors") {
+      id
+      references(first: 10) { # Adjust the limit as needed
+        nodes {
+          ... on Metaobject {
+            id
+            type
+            fields {
+              key
+              value
+              reference {
+                ... on MediaImage {
+                  id
+                  image {
+                    id
+                    url
+                    altText
+                    width
+                    height
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 `;
 
