@@ -190,7 +190,6 @@ export default function IndexPage() {
   };
 
   const getRowColor = (item: any) => {
-    console.log(item);
     switch (item.original.kind) {
       case 'collection':
         return colors.collectionColor;

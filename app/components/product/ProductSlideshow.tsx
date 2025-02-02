@@ -18,6 +18,7 @@ import {
   NAV_GAP_Y,
 } from '~/lib/constants';
 import {getImageLayout} from '../modules/ModuleSlideshow';
+import { useLocation } from '@remix-run/react';
 
 type Props = {
   storefrontProduct: ProductWithNodes;
@@ -38,6 +39,10 @@ export default function ProductSlideshow({
 }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mediaRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const location = useLocation();
+
+  console.log('location', location);
+
   const typeNameMap = {
     MODEL_3D: 'Model3d',
     VIDEO: 'Video',
@@ -151,6 +156,8 @@ export default function ProductSlideshow({
     return null;
   }
 
+  const filteredMedia = location.pathname.includes('index') ? media : [...media.slice(0, 1), ...media.slice(2)];
+
   return (
     <section
       ref={containerRef} // Ref to the scrolling container
@@ -171,7 +178,8 @@ export default function ProductSlideshow({
         </Typography>
       </Button>
       {/* Slides */}
-      {media.slice(1, media.length).map((med, index) => {
+
+      {filteredMedia?.map((med, index) => {
         let extraProps: Record<string, any> = {};
 
         if (med.mediaContentType === 'MODEL_3D') {

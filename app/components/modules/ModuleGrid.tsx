@@ -185,7 +185,7 @@ export default function ModuleGrid({
           }
         })}
       </ul>
- 
+
         <>
           {type !== 'season' ? (
             <ModuleSlideshow
@@ -232,7 +232,7 @@ export default function ModuleGrid({
             </CollectionSlideshow>
           )}
         </>
-  
+
     </>
   );
 }
