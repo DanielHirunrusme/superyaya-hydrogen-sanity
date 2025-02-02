@@ -71,7 +71,7 @@ export default function ProductCard({
                 className="absolute opacity-0 md:group-hover:opacity-100 z-10 h-full w-full transform bg-cover bg-center object-cover object-center ease-in-out"
                 data={firstVariant.image}
                 crop="center"
-                sizes="100%"
+                 sizes="(min-width: 768px) 50vw, 100vw"
               />
             )}
 
@@ -83,7 +83,7 @@ export default function ProductCard({
                 className="absolute  h-full w-full transform bg-cover bg-center object-cover object-center ease-in-out"
                 data={storefrontProduct.media.nodes[1].image}
                 crop="center"
-                sizes="100%"
+                 sizes="(min-width: 768px) 25vw, 50vw"
               />
             )}
 

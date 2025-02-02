@@ -39,6 +39,13 @@ module.exports = {
           lineHeight: '1.5',
         },
       ],
+      bodyTabletXL: [
+        '1vw',
+        {
+          letterSpacing: '0.14em',
+          lineHeight: '1.5',
+        },
+      ],
       bodyLaptop: [
         '0.9259vw',
         {

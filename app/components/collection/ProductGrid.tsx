@@ -1,17 +1,17 @@
-import {useFetcher, useSearchParams} from '@remix-run/react';
-import type {Collection} from '@shopify/hydrogen/storefront-api-types';
+import { useFetcher, useSearchParams } from '@remix-run/react';
+import type { Collection } from '@shopify/hydrogen/storefront-api-types';
 import clsx from 'clsx';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 
 import Button from '~/components/elements/Button';
 import SpinnerIcon from '~/components/icons/Spinner';
 import ModuleGrid from '~/components/modules/ModuleGrid';
-import type {SanityModule} from '~/lib/sanity';
-import {combineProductsAndModules} from '~/lib/utils';
+import type { SanityModule } from '~/lib/sanity';
+import { combineProductsAndModules } from '~/lib/utils';
 import StaggerIndexList from '../framer/StaggerIndexList';
-import {stagger, useAnimate} from 'framer-motion';
-import {STAGGER_SPEED} from '~/lib/constants';
-import {useTheme} from '../context/ThemeProvider';
+import { stagger, useAnimate } from 'framer-motion';
+import { STAGGER_SPEED } from '~/lib/constants';
+import { useTheme } from '../context/ThemeProvider';
 
 import CollectionGrid from './CollectionGrid';
 export default function ProductGrid({
@@ -75,8 +75,8 @@ export default function ProductGrid({
       const sequence = [
         [
           'ul li',
-          {opacity: 1},
-          {delay: stagger(STAGGER_SPEED), duration: 0.01},
+          { opacity: 1 },
+          { delay: stagger(STAGGER_SPEED), duration: 0.01 },
         ],
       ];
       await animate(sequence);
@@ -91,7 +91,7 @@ export default function ProductGrid({
 
   useEffect(() => {
     if (!fetcher.data) return;
-    const {collection} = fetcher.data;
+    const { collection } = fetcher.data;
 
     setItems((prev) => [...prev, ...collection.products.nodes]);
     setNextPage(collection.products.pageInfo.hasNextPage);
@@ -104,21 +104,21 @@ export default function ProductGrid({
       {nextPage && (
         <div className="flex h-30 items-center justify-center">
           {fetcher.state !== 'idle' ? (
-            <Button
-
-            disabled
-
-          >
-            Loading...
-          </Button>
+            <div><Button
+              disabled
+              className='text-indent-[.5em]'
+            >
+              <span style={{ textIndent: '.1em'}}>Loading...</span>
+            </Button></div>
           ) : (
             <div><Button
-            className={clsx(fetcher.state !== 'idle' && 'opacity-50')}
-            disabled={fetcher.state !== 'idle'}
-            onClick={fetchMoreProducts}
-          >
-            Load more
-          </Button></div>
+              className={clsx(fetcher.state !== 'idle' && 'opacity-50')}
+              disabled={fetcher.state !== 'idle'}
+              onClick={fetchMoreProducts}
+
+            >
+              <span style={{ textIndent: '.1em'}}>Load more</span>
+            </Button></div>
           )}
         </div>
       )}

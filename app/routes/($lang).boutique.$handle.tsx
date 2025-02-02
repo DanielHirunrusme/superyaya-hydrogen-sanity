@@ -40,7 +40,7 @@ export type SortParam =
   | 'title-a-z'
   | 'title-z-a';
 
-const PAGINATION_SIZE = 50;
+const PAGINATION_SIZE = 20;
 
 export async function loader({params, context, request}: LoaderArgs) {
   validateLocale({context, params});
