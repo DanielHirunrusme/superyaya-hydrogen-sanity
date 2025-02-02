@@ -16,7 +16,8 @@ export const Container = styled('article', {
         'md:max-w-[38.324vw] xl:max-w-[38.773vw] 2xl:max-w-[34.2578125vw]',
       customRequest:
         'md:max-w-[41.373vw] xl:max-w-[36.22vw] 2xl:max-w-[41.25vw]',
-      sizeChart: 'md:max-w-[56.7vw] xl:max-w-[49.71vw] 2xl:max-w-[65vw]', // note: manually adjusted from design to fit new content
+        sizeChart: 'w-full'
+      // sizeChart: 'md:max-w-[56.7vw] xl:max-w-[49.71vw] 2xl:max-w-[65vw]', // note: manually adjusted from design to fit new content
     },
   },
 });
