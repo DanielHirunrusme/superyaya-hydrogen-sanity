@@ -174,6 +174,7 @@ export default function CollectionGrid({
                   <ProductCard
                     imageAspectClassName={productImageAspect}
                     storefrontProduct={item}
+                    index={index}
                   />
                 </div>
               </li>

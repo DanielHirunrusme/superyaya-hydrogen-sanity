@@ -1,29 +1,31 @@
-import {Image, Money, type ShopifyAnalyticsProduct} from '@shopify/hydrogen';
-import type {ProductVariant} from '@shopify/hydrogen/storefront-api-types';
+import { Image, Money, type ShopifyAnalyticsProduct } from '@shopify/hydrogen';
+import type { ProductVariant } from '@shopify/hydrogen/storefront-api-types';
 import clsx from 'clsx';
 
 import Badge from '~/components/elements/Badge';
-import {Link} from '~/components/Link';
+import { Link } from '~/components/Link';
 import AddToCartButton from '~/components/product/buttons/AddToCartButton';
-import {PRODUCT_IMAGE_RATIO} from '~/lib/constants';
+import { PRODUCT_IMAGE_RATIO } from '~/lib/constants';
 import {
   getProductOptionString,
   hasMultipleProductOptions,
   useGid,
 } from '~/lib/utils';
-import type {ProductWithNodes} from '~/types/shopify';
-import {Typography} from '../global/Typography';
+import type { ProductWithNodes } from '~/types/shopify';
+import { Typography } from '../global/Typography';
 
 type Props = {
   imageAspectClassName?: string;
   storefrontProduct: ProductWithNodes;
   variantGid?: string;
+  index?: number
 };
 
 export default function ProductCard({
   imageAspectClassName = 'aspect-[1556/1944]',
   storefrontProduct,
   variantGid,
+  index = 5
 }: Props) {
   const firstVariant =
     useGid<ProductVariant>(variantGid) ??
@@ -52,18 +54,20 @@ export default function ProductCard({
   };
 
   return (
-    <div className="group relative">
+    <Link to={`/products/${storefrontProduct.handle}`} className="group relative">
       <Typography type="body" size="sm">
         <div
+
           className={clsx(
             PRODUCT_IMAGE_RATIO,
             'relative flex items-center justify-center overflow-hidden bg-lightGray object-cover  duration-500 ease-out',
           )}
         >
           {/* Hover image */}
-          <Link
+          <div
             className="group absolute left-0 top-0 h-full w-full"
-            to={`/products/${storefrontProduct.handle}`}
+
+
           >
             {/* First image */}
             {firstVariant.image && (
@@ -71,7 +75,8 @@ export default function ProductCard({
                 className="absolute opacity-0 md:group-hover:opacity-100 z-10 h-full w-full transform bg-cover bg-center object-cover object-center ease-in-out"
                 data={firstVariant.image}
                 crop="center"
-                 sizes="(min-width: 768px) 50vw, 100vw"
+                sizes="(min-width: 768px) 25vw, 100vw"
+                loading="lazy"
               />
             )}
 
@@ -83,7 +88,9 @@ export default function ProductCard({
                 className="absolute  h-full w-full transform bg-cover bg-center object-cover object-center ease-in-out"
                 data={storefrontProduct.media.nodes[1].image}
                 crop="center"
-                 sizes="(min-width: 768px) 25vw, 50vw"
+                sizes="(min-width: 768px) 25vw, 100vw"
+
+                loading={index < 4 ? 'eager' : 'lazy'}
               />
             )}
 
@@ -97,7 +104,7 @@ export default function ProductCard({
               {/* Sold out */}
               {!firstVariant?.availableForSale && <Badge label="Sold out" />}
             </div>
-          </Link>
+          </div>
 
           {/* Quick add to cart */}
           {/* {firstVariant.availableForSale && (
@@ -126,18 +133,29 @@ export default function ProductCard({
         )} */}
         </div>
 
-        <div className="mt-2 group-hover:opacity-50 group-active:opacity-50">
-          <div className="space-y-1 truncate">
+        <div className="mt-2 ">
+          <div className="space-y-1 truncate flex">
             {/* Title */}
-            <Link
+            <div
               className={clsx(
-                '', //
+                'group-hover:opacity-50 group-active:opacity-50', //
                 '',
               )}
-              to={`/products/${storefrontProduct.handle}`}
+
             >
               {storefrontProduct.title}
-            </Link>
+              <div className="flex">
+                {firstVariant.compareAtPrice && (
+                  <span className="">
+                    <Money
+                      data={firstVariant.compareAtPrice}
+                      className="mr-2.5 line-through decoration-red"
+                    />
+                  </span>
+                )}
+                {firstVariant.price && <Money data={firstVariant.price} />}
+              </div>
+            </div>
 
             {/* Vendor */}
             {/* {storefrontProduct.vendor && (
@@ -151,19 +169,9 @@ export default function ProductCard({
           </div>
 
           {/* Price / compare at price */}
-          <div className="flex">
-            {firstVariant.compareAtPrice && (
-              <span className="">
-                <Money
-                  data={firstVariant.compareAtPrice}
-                  className="mr-2.5 line-through decoration-red"
-                />
-              </span>
-            )}
-            {firstVariant.price && <Money data={firstVariant.price} />}
-          </div>
+
         </div>
       </Typography>
-    </div>
+    </Link>
   );
 }

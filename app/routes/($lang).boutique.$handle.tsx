@@ -105,10 +105,15 @@ export default function Collection() {
   const {collection, page, gids} = useLoaderData<typeof loader>();
   const [params] = useSearchParams();
   const sort = params.get('sort');
+  const [theme, setTheme] = useTheme();
 
   const products = collection.products.nodes;
 
   const isPreorderCollection = collection.handle === 'pre-orders';
+
+  useEffect(() => {
+     setTheme(Theme.LIGHT);
+  }, []);
 
   return (
     <ColorTheme value={page.colorTheme}>

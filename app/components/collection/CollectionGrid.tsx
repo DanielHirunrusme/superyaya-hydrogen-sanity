@@ -125,6 +125,7 @@ export default function ModuleGrid({
                 <ProductCard
                   imageAspectClassName={productImageAspect}
                   storefrontProduct={item}
+                  index={index}
                 />
               </div>
             </li>
