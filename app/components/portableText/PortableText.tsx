@@ -23,7 +23,7 @@ import ImageModule from '../modules/Image';
 
 const SHARED_LIST_CLASSES = clsx(
   'first:mt-0 last:mb-0', //
-  'my-8 space-y-0.5 leading-paragraph list-outside ml-8',
+  'my-8 space-y-0.5 leading-paragraph list-outside ml-8 text-pretty',
 );
 
 type Props = {

@@ -4,6 +4,7 @@ import {HOME_PAGE} from './fragments/pages/home';
 export const PROJECTS_PAGE_QUERY = groq`
   *[_type == 'project'] | order(orderRank){
     title,
+    year,
     slug,
     body,
     _id,
@@ -14,6 +15,7 @@ export const PROJECTS_PAGE_QUERY = groq`
 export const PROJECT_PAGE_QUERY = groq`
   *[_type == 'project' && slug.current == $slug] | order(_updatedAt desc){
     title,
+    year,
     slug,
     body,
     _id,

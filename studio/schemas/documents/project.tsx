@@ -8,21 +8,6 @@ export default defineField({
   title: 'Project',
   type: 'document',
   icon: DocumentIcon,
-  groups: [
-    {
-      name: 'theme',
-      title: 'Theme',
-    },
-    {
-      default: true,
-      name: 'editorial',
-      title: 'Editorial',
-    },
-    {
-      name: 'seo',
-      title: 'SEO',
-    },
-  ],
   fields: [
     // Title
     defineField({
@@ -32,9 +17,15 @@ export default defineField({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'year',
+      title: 'Year(s)',
+      type: 'string'
+    }),
+    defineField({
       name: 'orderRank',
       title: 'Order',
-      type: 'string'
+      type: 'string',
+      hidden: true
     }),
     // Slug
     defineField({
@@ -49,17 +40,7 @@ export default defineField({
       name: 'body',
       title: 'Body',
       type: 'body',
-      group: 'editorial',
-    }),
-    // Date
-    defineField({
-      name: 'date',
-      title: 'Date',
-      type: 'date',
-      options: {
-        dateFormat: 'MMMM YYYY',
-      },
-      validation: (Rule) => Rule.required(),
+      
     }),
     // Kind
     defineField({
@@ -75,14 +56,14 @@ export default defineField({
       title: 'Modules',
       type: 'array',
       of: [{type: 'module.image'}, {type: 'module.gallery'}],
-      group: 'editorial',
+      
     }),
     // SEO
     defineField({
       name: 'seo',
       title: 'SEO',
       type: 'seo.page',
-      group: 'seo',
+      
     }),
   ],
   preview: {

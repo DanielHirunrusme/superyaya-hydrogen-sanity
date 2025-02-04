@@ -11,7 +11,7 @@ export const Container = styled('article', {
       index:
         'md:max-w-[84.589vw] xl:max-w-[85.4166vw] 2xl:max-w-[71.2109375vw]',
       slideshowIndex:
-        'md:max-w-[38.324vw] xl:max-w-[42.592vw] 2xl:max-w-[39.0625vw]   mx-auto w-full', //Archive & Collection leader index of images
+        'md:max-w-[44vw] xl:max-w-[42.592vw] 2xl:max-w-[39.0625vw]   mx-auto w-full', //Archive & Collection leader index of images
       preOrder:
         'md:max-w-[38.324vw] xl:max-w-[38.773vw] 2xl:max-w-[34.2578125vw]',
       customRequest:
