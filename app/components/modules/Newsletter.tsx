@@ -25,7 +25,6 @@ export default function Newsletter(props: Props) {
   useEffect(() => {
     // Split on '-'
     const parts = message?.split("-");
-
     // The text after the dash is the second element (index 1)
     const textAfterDash = parts?.[1]?.trim(); // "Please enter a value"
     setTrimmedMessage(textAfterDash)
