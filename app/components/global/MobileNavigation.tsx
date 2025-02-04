@@ -280,28 +280,29 @@ export default function MobileNavigation({menuLinks}: Props) {
 
   return (
     <>
-      <div
+      <button
         className={clsx(
-          'fixed left-0 top-[4.6153vw]  px-mobile py-[1.1vw]  md:hidden',
+          'fixed left-0 top-0 py-[5.7153vw] px-mobile md:hidden',
           !open ? 'z-50' : 'z-[99999]',
         )}
+        aria-label='Mobile menu'
       >
         {!open ? (
-          <button
+          <div
             onClick={handleOpen}
-            className=" -mb-1 aspect-[1.214] w-[4.358vw]"
+            className="  aspect-[1.214] w-[4.358vw]"
           >
             <MenuIcon />
-          </button>
+          </div>
         ) : (
-          <button
+          <div
             className=" aspect-[1.214] w-[4.358vw]"
             onClick={handleClose}
           >
             <CloseIcon />
-          </button>
+          </div>
         )}
-      </div>
+      </button>
 
       <div
         className={clsx(

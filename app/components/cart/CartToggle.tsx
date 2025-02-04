@@ -26,11 +26,14 @@ export default function CartToggle({cart, isOpen, openDrawer}: Props) {
                 Cart ({data?.totalQuantity || 0})
               </span>
 
-              <div className="relative aspect-[0.8] w-[4.1025vw] md:hidden">
+              <div className="fixed top-0 py-[4.8vw] right-0 px-mobile   md:hidden">
+                <div className='relative w-[4.1025vw] aspect-[0.8]'>
                 <CartIcon />
-                <span className="absolute bottom-[.1875em] left-[.5px]  w-full text-center leading-none">
+                <span className="absolute select-none bottom-[.1875em] left-[.5px]  w-full text-center leading-none">
                   {data?.totalQuantity > 0 ? data?.totalQuantity : ""}
                 </span>
+                </div>
+                
               </div>
             </Typography>
           </Link>
@@ -39,16 +42,3 @@ export default function CartToggle({cart, isOpen, openDrawer}: Props) {
     </Suspense>
   );
 }
-
-/*
-<button
-            aria-expanded={isOpen}
-            aria-controls="cart"
-            onClick={() => {
-              openDrawer();
-            }}
-            className="linkTextNavigation"
-          >
-            Cart ({data?.totalQuantity || 0})
-          </button>
-          */
