@@ -45,6 +45,7 @@
     "pluralize-esm": "^9.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^5.4.0",
     "react-intersection-observer": "^9.4.3",
     "react-portable-text": "^0.6.0",
     "react-social-media-embed": "^2.3.5",

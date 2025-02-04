@@ -8,7 +8,7 @@ export default function ModuleTable(props) {
  
       <table className="mt-[1em]">
         {value.table.rows.map((row, index) => (
-          <tr key={row._key}>
+          <tr className="align-top" key={row._key}>
             {row.cells.map((cell, index) => (
               <td key={`${row._key}-${index}`} className={cn(index < row.cells.length - 1 ? "pr-[1em] sm:pr-[2em]" : "", "")}>
                 <span className="min-h-[1em] block">{cell}</span>

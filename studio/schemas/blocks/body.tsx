@@ -1,4 +1,11 @@
 import {defineField} from 'sanity'
+import {GrSubscript, GrSuperscript} from 'react-icons/gr'
+const SuperscriptDecorator = (props:any) => (
+  <sup>{props.children}</sup>
+)
+const SubscriptDecorator = (props:any) => (
+  <sub>{props.children}</sub>
+)
 
 export default defineField({
   name: 'body',
@@ -19,6 +26,12 @@ export default defineField({
           {
             title: 'Strong',
             value: 'strong',
+          },
+          {
+            title: 'Superscript',
+            value: 'sup',
+            icon: GrSuperscript, 
+            component: SuperscriptDecorator
           },
         ],
         annotations: [
@@ -75,5 +88,8 @@ export default defineField({
     {
       type: 'module.table',
     },
+    {
+      type: 'module.textBlock'
+    }
   ],
 })

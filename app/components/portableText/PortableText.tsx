@@ -20,6 +20,7 @@ import ProductsBlock from '~/components/portableText/blocks/Products';
 import NewsletterModule from '../modules/Newsletter';
 import ModuleTable from '../modules/Table';
 import ImageModule from '../modules/Image';
+import ModuleTextBlock from '../modules/TextBlock';
 
 const SHARED_LIST_CLASSES = clsx(
   'first:mt-0 last:mb-0', //
@@ -40,6 +41,8 @@ export default function PortableText({
   variant = 'rte',
 }: Props) {
 
+
+  console.log(blocks)
 
   const components: PortableTextComponents = {
     list: {
@@ -74,6 +77,7 @@ export default function PortableText({
       'module.instagram': InstagramBlock,
       'module.products': ProductsBlock,
       'module.table': (props: any) => <ModuleTable {...props} />,
+      'module.textBlock': (props: any) => <ModuleTextBlock {...props?.value} />,
       'module.newsletter': (props: any) => <NewsletterModule {...props} />,
     },
   };
