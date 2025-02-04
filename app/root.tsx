@@ -151,6 +151,7 @@ function App() {
           href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversEF-Roman_fd958985-d0ef-4793-805d-dd949c942b86.woff2?v=1708322770"
           as="font"
           type="font/woff2"
+          crossOrigin="anonymous"
           
         />
         <link
@@ -158,7 +159,7 @@ function App() {
           href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversEF-Roman_96a32e28-3243-4330-8069-21e7f9c3b635.woff?v=1708322770"
           as="font"
           type="font/woff"
-          
+          crossOrigin="anonymous"
         />
         {/* Snell */}
         <link
@@ -166,14 +167,14 @@ function App() {
           href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellRoundhandLTStd-Scr.woff2?v=1708322499"
           as="font"
           type="font/woff2"
-          
+          crossOrigin="anonymous"
         />
         <link
           rel="preload"
           href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/SnellRoundhandLTStd-Scr.woff?v=1708322499"
           as="font"
           type="font/woff"
-          
+          crossOrigin="anonymous"
         />
         {/* Engravers Gotchis */}
         <link
@@ -181,14 +182,14 @@ function App() {
           href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff2?v=1697635125"
           as="font"
           type="font/woff2"
-          
+          crossOrigin="anonymous"
         />
         <link
           rel="preload"
           href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff?v=1697635125"
           as="font"
           type="font/woff"
-          
+          crossOrigin="anonymous"
         />
         {/* Eurostile */}
         <link
@@ -196,14 +197,14 @@ function App() {
           href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EurostileMonoEF-Regular.woff2?v=1697635125"
           as="font"
           type="font/woff2"
-          
+          crossOrigin="anonymous"
         />
         <link
           rel="preload"
           href="https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EurostileMonoEF-Regular.woff?v=1697635125"
           as="font"
           type="font/woff"
-          
+          crossOrigin="anonymous"
         />
       </head>
       <body>
