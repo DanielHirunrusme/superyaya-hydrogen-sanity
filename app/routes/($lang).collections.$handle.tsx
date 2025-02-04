@@ -4,6 +4,7 @@ import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
 import {Suspense, useEffect, useState} from 'react';
 import invariant from 'tiny-invariant';
 
+ 
 import PortableText from '~/components/portableText/PortableText';
 import type {SanityPage} from '~/lib/sanity';
 import {ColorTheme} from '~/lib/theme';
@@ -86,20 +87,18 @@ function Intro({title, onIntroComplete}) {
 
 export default function Page() {
   const {page, gids} = useLoaderData<typeof loader>();
-  const [showIndex, setShowIndex] = useState(false);
-  const [zoom, setZoom] = useState(false);
   const [index, setIndex] = useState(0);
   const [introComplete, setIntroComplete] = useState(true);
-  const [theme, setTheme, navVisible] = useTheme();
+  const {setTheme} = useTheme();
 
   useEffect(() => {
-    setTheme('light');
+    setTheme(Theme.LIGHT);
     if (index === page.modules?.length) {
     } else {
       // setTheme('dark');
     }
     return () => {
-      setTheme('light');
+      setTheme(Theme.LIGHT);
     };
   }, []);
 

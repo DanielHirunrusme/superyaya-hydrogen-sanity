@@ -70,7 +70,7 @@ export default function Page() {
   const {assistance} = layout || {};
   const {page, gids} = useLoaderData<typeof loader>();
   const [menuVisible, setMenuVisible] = useState(false);
-  const [theme, setTheme, navVisible] = useTheme();
+  const {navVisible} = useTheme();
 
   const renderLinks = assistance?.links.map((link: SanityLink) => {
     if (link._type === 'linkExternal') {

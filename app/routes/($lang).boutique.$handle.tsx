@@ -105,7 +105,7 @@ export default function Collection() {
   const {collection, page, gids} = useLoaderData<typeof loader>();
   const [params] = useSearchParams();
   const sort = params.get('sort');
-  const [theme, setTheme] = useTheme();
+  const {theme, setTheme} = useTheme();
 
   const products = collection.products.nodes;
 
@@ -116,7 +116,7 @@ export default function Collection() {
   }, []);
 
   return (
-    <ColorTheme value={page.colorTheme}>
+    <div>
       <Suspense>
         <Await resolve={gids}>
           {/* Hero */}
@@ -163,7 +163,7 @@ export default function Collection() {
           </EmptyMessage> */}
         </Await>
       </Suspense>
-    </ColorTheme>
+    </div>
   );
 }
 
@@ -180,7 +180,7 @@ export const EmptyMessage = ({children}) => {
 };
 
 function PreorderCollection({collection, children}) {
-  const [theme, setTheme] = useTheme();
+  const {theme, setTheme} = useTheme();
   const [scope, animate] = useAnimate();
   const [showProducts, setShowProducts] = useState<boolean>(false);
 

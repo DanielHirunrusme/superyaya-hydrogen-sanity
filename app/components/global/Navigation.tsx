@@ -82,14 +82,11 @@ export default function Navigation({
   const location = useLocation();
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
-  const [
-    theme,
-    setTheme,
+  const {
     navVisible,
     setNavVisible,
-    plpVisible,
-    setPlpVisible,
-  ] = useTheme();
+  
+   } = useTheme();
 
   const renderLinks = useCallback(() => {
     if (menuLinks?.length === 0) return null;

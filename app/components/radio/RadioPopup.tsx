@@ -14,7 +14,7 @@ export default function RadioPopup() {
   const timer = useRef();
   const visibleTimer = useRef();
   const [randomPosition, setRandomPosition] = useState({x: 0, y: 0});
-  const [theme, setTheme, navVisible, setNavVisible] = useTheme();
+  const {theme, navVisible} = useTheme();
 
   const onPointerDown = () => {
     setDragging(true);

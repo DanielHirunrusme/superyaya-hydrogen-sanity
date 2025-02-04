@@ -23,6 +23,7 @@ export default function ProductGrid({
   modules: SanityModule[];
   url: string;
 }) {
+  const {plpVisible, navVisible} = useTheme();
   const products = collection?.products?.nodes || [];
   const combinedItems = combineProductsAndModules({
     modules,
@@ -61,14 +62,7 @@ export default function ProductGrid({
   }
 
   const [scope, animate] = useAnimate();
-  const [
-    theme,
-    setTheme,
-    navVisible,
-    setNavVisible,
-    plpVisible,
-    setPlpVisible,
-  ] = useTheme();
+  const { setPlpVisible } = useTheme();
 
   useEffect(() => {
     const play = async () => {
@@ -108,7 +102,7 @@ export default function ProductGrid({
               disabled
               className='text-indent-[.5em]'
             >
-              <span style={{ textIndent: '.1em'}}>Loading...</span>
+              <span style={{ textIndent: '.1em' }}>Loading...</span>
             </Button></div>
           ) : (
             <div><Button
@@ -117,7 +111,7 @@ export default function ProductGrid({
               onClick={fetchMoreProducts}
 
             >
-              <span style={{ textIndent: '.1em'}}>Load more</span>
+              <span style={{ textIndent: '.1em' }}>Load more</span>
             </Button></div>
           )}
         </div>

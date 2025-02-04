@@ -127,7 +127,7 @@ function App() {
   const locale = data.selectedLocale ?? DEFAULT_LOCALE;
   const hasUserConsent = true;
   const nonce = useNonce();
-  const [theme, setTheme, navVisible] = useTheme();
+  const {theme, navVisible} = useTheme();
 
   useAnalytics(hasUserConsent, locale);
 

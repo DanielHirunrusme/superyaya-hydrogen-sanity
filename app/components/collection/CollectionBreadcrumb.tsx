@@ -23,7 +23,7 @@ export default function CollectionBreadcrumb(props) {
   const isInView = useInView(scope);
   const [open, setOpen] = useState(false);
 
-  const [theme, settheme, navVisible] = useTheme();
+  const { navVisible} = useTheme();
 
   const renderSubLinks = useCallback(() => {
     return menuLinks?.map((link) => {

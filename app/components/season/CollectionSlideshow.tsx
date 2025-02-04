@@ -55,7 +55,7 @@ export default function CollectionSlideshow(props) {
     closeTo = '/collections',
   } = props;
   const [indexVisible, setIndexVisible] = useState(false);
-  const [theme, setTheme] = useTheme();
+  const {theme, setTheme} = useTheme();
   const [w, setW] = useState<any>(null);
 
   const slideshowContainerRef = useRef<HTMLDivElement>(null);
@@ -112,7 +112,6 @@ export default function CollectionSlideshow(props) {
   }, [index, indexVisible]);
 
   useEffect(() => {
-    console.log('slideshowContainerRef', slideshowContainerRef);
     if (!slideshowContainerRef?.current) return;
 
     const mouseMove = (e: MouseEvent) => {

@@ -9,7 +9,7 @@ import {useLocation} from '@remix-run/react';
 export default function RadioCat1() {
   const [scope, animate] = useAnimate();
   const [visible, setVisible] = useState(false);
-  const [theme] = useTheme();
+  const {theme} = useTheme();
   const timer = useRef();
   const location = useLocation();
 

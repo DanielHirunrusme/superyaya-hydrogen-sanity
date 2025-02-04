@@ -61,7 +61,7 @@ export async function loader({context, params}: LoaderArgs) {
 
 export default function Index() {
   const {page, gids} = useLoaderData<typeof loader>();
-  const [theme, setTheme] = useTheme();
+  const {theme, setTheme} = useTheme();
 
   useEffect(() => {
     setTheme('dark');

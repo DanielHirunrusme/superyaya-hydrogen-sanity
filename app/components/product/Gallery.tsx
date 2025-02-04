@@ -1,18 +1,18 @@
-import {MediaFile} from '@shopify/hydrogen';
+import { MediaFile } from '@shopify/hydrogen';
 import {
   MediaImage,
   ProductVariant,
 } from '@shopify/hydrogen/storefront-api-types';
 import useEmblaCarousel from 'embla-carousel-react';
-import {useCallback, useEffect, useState} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 // import CircleButton from '~/components/elements/CircleButton';
 // import { ArrowRightIcon } from '~/components/icons/ArrowRight';
-import {GRID_GAP, STAGGER_SPEED} from '~/lib/constants';
-import type {ProductWithNodes} from '~/types/shopify';
+import { GRID_GAP, STAGGER_SPEED } from '~/lib/constants';
+import type { ProductWithNodes } from '~/types/shopify';
 import clsx from 'clsx';
-import {stagger, useAnimate} from 'framer-motion';
-import {useLocation} from '@remix-run/react';
+import { stagger, useAnimate } from 'framer-motion';
+import { useLocation } from '@remix-run/react';
 
 /**
  * A client component that defines a media gallery for hosting images, 3D models, and videos of products
@@ -57,7 +57,7 @@ export default function ProductGallery({
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
-    if(window.innerWidth < 768) setSelectedIndex(emblaApi.selectedScrollSnap());
+    if (window.innerWidth < 768) setSelectedIndex(emblaApi.selectedScrollSnap());
   }, [emblaApi, setSelectedIndex, selectedIndex]);
 
   useEffect(() => {
@@ -69,12 +69,12 @@ export default function ProductGallery({
     if (!sizeChartVisible)
       animate(
         'li',
-        {opacity: 1},
-        {delay: stagger(STAGGER_SPEED), duration: 0.01},
+        { opacity: 1 },
+        { delay: stagger(STAGGER_SPEED), duration: 0.01 },
       );
   }, [sizeChartVisible, location]);
 
-  const onEmblaClick = (e) => {
+  const onEmblaClick = (e: MouseEvent) => {
     if (e.clientX > window.innerWidth / 3) {
       handleNext();
     } else {
@@ -84,13 +84,13 @@ export default function ProductGallery({
 
   const handleNext = () => {
     if (emblaApi) {
-      // emblaApi.scrollNext();
+      emblaApi.scrollNext();
     }
   };
 
   const handlePrevious = () => {
     if (emblaApi) {
-      // emblaApi.scrollPrev();
+      emblaApi.scrollPrev();
     }
   };
 
@@ -131,10 +131,10 @@ export default function ProductGallery({
     <>
       {/* Mobile slideshow */}
       <div className="-mx-mobile md:hidden">
-        <div className="h-full overflow-hidden" ref={emblaRef}>
+        <div className="h-full overflow-hidden" ref={emblaRef} onClick={(e) => onEmblaClick(e)}>
           <div className="flex h-full">
             {/* Slides */}
-            {media.slice(1, media.length).map((med) => {
+            {media?.slice(1, media.length).map((med) => {
               let extraProps: Record<string, any> = {};
 
               if (med.mediaContentType === 'MODEL_3D') {
@@ -143,7 +143,7 @@ export default function ProductGallery({
                   ar: true,
                   loading: 'eager',
                   disableZoom: true,
-                  style: {height: '100%', margin: '0 auto'},
+                  style: { height: '100%', margin: '0 auto' },
                 };
               }
 
@@ -166,7 +166,7 @@ export default function ProductGallery({
                   key={med.id}
                   tabIndex={0}
                   mediaOptions={{
-                    image: {crop: 'center', sizes: '100vw', loading: 'eager'},
+                    image: { crop: 'center', sizes: '100vw', loading: 'eager' },
                   }}
                   {...extraProps}
                 />
@@ -198,7 +198,7 @@ export default function ProductGallery({
               ar: true,
               loading: 'eager',
               disableZoom: true,
-              style: {height: '100%', margin: '0 auto'},
+              style: { height: '100%', margin: '0 auto' },
             };
           }
 
@@ -222,7 +222,7 @@ export default function ProductGallery({
                 tabIndex={0}
                 onClick={() => onMediaClick(index)}
                 mediaOptions={{
-                  image: {crop: 'center', sizes: '100vw', loading: 'eager'},
+                  image: { crop: 'center', sizes: '100vw', loading: 'eager' },
                 }}
                 {...extraProps}
               />

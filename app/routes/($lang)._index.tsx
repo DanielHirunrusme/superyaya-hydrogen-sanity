@@ -61,8 +61,6 @@ export default function Index() {
       {(page) => (
         <Suspense>
           <Await resolve={gids}>
-
-
             {page?.modules && (
               <ModuleSlideshow modules={page.modules} detached={false} showCount={false} />
             )}

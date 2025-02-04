@@ -82,7 +82,7 @@ export default function ModuleSlideshow(props) {
   } = props;
   const [selectedIndex, setSelectedIndex] = useState(index || 0);
   const [indexVisible, setIndexVisible] = useState(false);
-  const [theme, setTheme] = useTheme();
+  const {theme, setTheme} = useTheme();
   const slideshowContainerRef = useRef<HTMLDivElement>(null);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({

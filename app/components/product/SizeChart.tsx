@@ -55,19 +55,19 @@ function Chart({table}: any) {
                 <div className="cell">
                   {cell}
                   <div>
-                    {table?.sizeChart.rows?.[1]?.cells?.[0]}:
+                    {table?.sizeChart.rows?.[1]?.cells?.[0]}:{" "}
                     {table?.sizeChart.rows?.[1]?.cells?.[index + 1]}
                   </div>
                   {table?.sizeChart.rows?.[2]?.cells?.[index + 1] && (
                     <div>
-                      {table?.sizeChart.rows?.[2]?.cells?.[0]}:
+                      {table?.sizeChart.rows?.[2]?.cells?.[0]}:{" "}
                       {table?.sizeChart.rows?.[2]?.cells?.[index + 1]}
                     </div>
                   )}
 
                   {table?.sizeChart.rows?.[3]?.cells?.[index + 1] && (
                     <div>
-                      {table?.sizeChart.rows?.[3]?.cells?.[0]}:
+                      {table?.sizeChart.rows?.[3]?.cells?.[0]}:{" "}
                       {table?.sizeChart.rows?.[3]?.cells?.[index + 1]}
                     </div>
                   )}

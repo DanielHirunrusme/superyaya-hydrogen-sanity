@@ -15,7 +15,7 @@ export default function StaggerIndexList(props: Props) {
   const {children, className, speed = STAGGER_SPEED, target = 'ul li', onComplete} = props;
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
-  const [theme, setTheme, navVisible] = useTheme();
+  const { navVisible } = useTheme();
   useEffect(() => {
     if (!isInView || !navVisible) return;
     const staggerIn = async () => {

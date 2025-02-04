@@ -6,34 +6,41 @@ enum Theme {
   LIGHT = 'light',
 }
 
-type ThemeContextType = [Theme | null, Dispatch<SetStateAction<Theme | null>>];
+export interface ThemeContextType {
+  theme: Theme;
+  setTheme: Dispatch<SetStateAction<Theme>>;
+  navVisible: boolean;
+  setNavVisible: Dispatch<SetStateAction<boolean>>;
+  plpVisible: boolean;
+  setPlpVisible: Dispatch<SetStateAction<boolean>>;
+}
 
 const defaultContext = {
   theme: Theme.LIGHT,
-  setTheme: () => {},
+  setTheme: (theme: Theme)=> {},
   navVisible: false,
-  setNavVisible: () => {},
+  setNavVisible: (navVisible: boolean) => {},
   plpVisible: false,
-  setPlpVisible: () => {},
+  setPlpVisible: (plpVisible: boolean) => {},
 };
 
 const ThemeContext = createContext(defaultContext);
 
 function ThemeProvider({children}: {children: ReactNode}) {
-  const [theme, setTheme] = useState<Theme | null>(Theme.LIGHT);
+  const [theme, setTheme] = useState<Theme>(Theme.LIGHT);
   const [navVisible, setNavVisible] = useState<boolean>(false);
   const [plpVisible, setPlpVisible] = useState<boolean>(false);
 
   return (
     <ThemeContext.Provider
-      value={[
+      value={{
         theme,
         setTheme,
         navVisible,
         setNavVisible,
         plpVisible,
         setPlpVisible,
-      ]}
+      }}
     >
       {children}
     </ThemeContext.Provider>
