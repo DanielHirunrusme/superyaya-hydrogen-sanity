@@ -63,7 +63,7 @@ export default function ProductForm({
         )}
       >
         {multipleProductOptions && (
-          <>
+          
             <ProductOptions
               product={product}
               variants={variants}
@@ -71,7 +71,7 @@ export default function ProductForm({
               selectedVariant={selectedVariant}
               customProductOptions={customProductOptions}
             />
-          </>
+          
         )}
 
         <ProductCustomColorOptions product={product} />

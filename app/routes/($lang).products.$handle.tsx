@@ -277,7 +277,7 @@ export default function ProductHandle() {
               'lg:w-[calc(100%-315px)]',
             )}
           >
-            {/* Body */}
+     
             {page?.body && (
               <Suspense>
                 <Await resolve={gids}>

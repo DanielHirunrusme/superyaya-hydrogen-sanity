@@ -59,13 +59,11 @@ function findMatchingColor(product, references) {
   }
 
   // Get the value of the color option (e.g., "Green/Black")
-  const colorValue = colorOption.values?.[0];
-
-console.log(colorValue)
+  const colorValue = colorOption?.values?.[0];
 
   // Find a match in the color_variants references
-  const matchingNode = references.nodes.find((node) => {
-    const colorField = node.fields.find((field) => field.key === 'color');
+  const matchingNode = references?.nodes?.find((node) => {
+    const colorField = node.fields?.find((field) => field?.key === 'color');
     return colorField && colorField.value === colorValue;
   });
 
@@ -85,7 +83,8 @@ export default function ProductOptions({
   selectedVariant: ProductVariant;
   customProductOptions?: SanityCustomProductOption[];
 }) {
-  // console.log('product', product.color_variants?.references);
+ 
+  
 
   const matchingNode = findMatchingColor(product, product.color_variants?.references);
 
@@ -94,8 +93,11 @@ export default function ProductOptions({
   } else {
     console.log('No match found.');
   }
+ 
 
   const [selected, setSelected] = useState(selectedVariant.selectedOptions);
+
+
 
   const [optionsSelected, setOptionsSelected] = useState([
     {name: 'Size', value: ''},
@@ -104,8 +106,8 @@ export default function ProductOptions({
 
   useEffect(() => {
     if (
-      selectedVariant.selectedOptions[0].value &&
-      selectedVariant.selectedOptions[1].value
+      selectedVariant.selectedOptions?.[0]?.value &&
+      selectedVariant.selectedOptions?.[1]?.value
     ) {
       setOptionsSelected([
         {name: 'Size', value: selectedVariant.selectedOptions[0].value},

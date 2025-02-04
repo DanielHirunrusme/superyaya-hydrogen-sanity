@@ -88,16 +88,7 @@ export default function ProductDetails({
           />
         </div>
 
-        {/* Widget (mobile) */}
-        {/* <div className="mb-8 lg:hidden">
-        <ProductWidget
-          sanityProduct={sanityProduct}
-          storefrontProduct={storefrontProduct}
-          storefrontVariants={storefrontVariants}
-          selectedVariant={selectedVariant}
-          analytics={analytics}
-        />
-      </div> */}
+        
       </div>
     </>
   );
