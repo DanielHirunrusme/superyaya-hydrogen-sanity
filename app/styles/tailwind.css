@@ -52,7 +52,13 @@
   }
 
   body {
+    width: 100%;
     @apply bg-white font-sans text-bodyMobile font-medium uppercase text-black md:text-bodyTablet lg:text-bodyTabletXL xl:text-bodyLaptop 2xl:text-bodyDesktop;
+  }
+
+  body.zoomed {
+    position: fixed;
+    overflow: hidden; 
   }
 
   html,

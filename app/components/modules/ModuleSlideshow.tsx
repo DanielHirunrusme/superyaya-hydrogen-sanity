@@ -95,7 +95,6 @@ export default function ModuleSlideshow(props) {
 
   useEffect(() => {
     if(!emblaApi) return;
-    // alert(`index ${index}`)
     emblaApi.scrollTo(index);
   }, [index, emblaApi]);
 

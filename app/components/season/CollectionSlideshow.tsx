@@ -1,12 +1,12 @@
 import useEmblaCarousel from 'embla-carousel-react';
-import {useCallback, useEffect, useRef, useState} from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 // import Button from '../elements/Button';
 import MinimalHeader from '../global/MinimalHeader';
 import StaggerIndexList from '../framer/StaggerIndexList';
-import {Link} from '~/components/Link';
-import {Theme, useTheme} from '../context/ThemeProvider';
-import {Container} from '../global/Container';
+import { Link } from '~/components/Link';
+import { Theme, useTheme } from '../context/ThemeProvider';
+import { Container } from '../global/Container';
 import {
   HEADER_TOP,
   NAV_GAP_Y,
@@ -14,14 +14,14 @@ import {
   SITE_MARGINS_X,
   SITE_MARGINS_Y,
 } from '~/lib/constants';
-import {Typography} from '../global/Typography';
+import { Typography } from '../global/Typography';
 
-import {useMatches} from '@remix-run/react';
+import { useMatches } from '@remix-run/react';
 
 import SanityImage from '~/components/media/SanityImage';
 import ProductHotspot from '~/components/product/Hotspot';
 import ProductTag from '~/components/product/Tag';
-import {SlideshowCaption, getImageLayout} from '../modules/ModuleSlideshow';
+import { SlideshowCaption, getImageLayout } from '../modules/ModuleSlideshow';
 import Leader from '../global/Leader';
 
 type Props = {
@@ -29,33 +29,30 @@ type Props = {
   children?: never;
   zoom?: boolean;
   setZoom?: (zoom: boolean) => void;
-  index?: number;
-  setIndex?: (index: number) => void;
+  index: number;
+  setIndex: (index: number) => {};
   detached?: boolean;
   showIndex?: boolean;
   title?: string;
   outboundLink?: string;
   outboundLinkText?: string;
+  mode: any;
+  closeTo?: string;
 };
 
-export default function CollectionSlideshow(props) {
+export default function CollectionSlideshow(props: Props) {
   const {
     modules,
-    // children,
     zoom,
     setZoom,
     index,
     setIndex,
-    // detached,
-    // showIndex,
     title,
-    // outboundLink,
-    // outboundLinkText,
     mode,
     closeTo = '/collections',
   } = props;
   const [indexVisible, setIndexVisible] = useState(false);
-  const {theme, setTheme} = useTheme();
+  const { theme, setTheme } = useTheme();
   const [w, setW] = useState<any>(null);
 
   const slideshowContainerRef = useRef<HTMLDivElement>(null);
@@ -66,11 +63,12 @@ export default function CollectionSlideshow(props) {
     loop: true,
     skipSnaps: true,
     speed: 100,
+    startIndex: index
   });
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
-    setIndex(emblaApi.selectedScrollSnap());
+    // setIndex(emblaApi.selectedScrollSnap());
   }, [emblaApi, setIndex]);
 
   useEffect(() => {
@@ -80,13 +78,16 @@ export default function CollectionSlideshow(props) {
   }, [emblaApi, onSelect]);
 
   useEffect(() => {
-    setW(window);
-    window.addEventListener('resize', () => {
+    const winResizeCollectionSlideshow = () => {
       setW(window);
-    });
+    }
+
+    window.addEventListener('resize', winResizeCollectionSlideshow);
+
+    return () => {
+      window.removeEventListener('resize', winResizeCollectionSlideshow)
+    }
   }, []);
-
-
 
   const onClick = (e) => {
     if (indexVisible) return;
@@ -95,19 +96,15 @@ export default function CollectionSlideshow(props) {
       : emblaApi?.scrollNext();
   };
 
-  // const toggleIndexVisible = () => {
-  //   setIndexVisible(!indexVisible);
-  // };
-
-  useEffect(() => {
-    if (!indexVisible && emblaApi) {
-      emblaApi.scrollTo(index);
-    }
-  }, [indexVisible, emblaApi, index]);
+  // useEffect(() => {
+  //   if (!indexVisible && emblaApi) {
+  //     emblaApi.scrollTo(index);
+  //   }
+  // }, [indexVisible, emblaApi, index]);
 
   useEffect(() => {
     return () => {
-      setTheme('light');
+      setTheme(Theme.LIGHT);
     };
   }, [index, indexVisible]);
 
@@ -124,7 +121,7 @@ export default function CollectionSlideshow(props) {
       document.body.style.cursor = 'auto';
       slideshowContainerRef.current?.removeEventListener('mousemove', mouseMove);
     };
-}, [slideshowContainerRef]);
+  }, [slideshowContainerRef]);
 
   return (
     <div
@@ -148,7 +145,7 @@ export default function CollectionSlideshow(props) {
           SITE_MARGINS_X,
           HEADER_TOP,
         )}
-        // onClick={onClose}
+      // onClick={onClose}
       >
         <Typography type="body">Close</Typography>
       </button>
@@ -230,7 +227,7 @@ export default function CollectionSlideshow(props) {
                   <li
                     onClick={() => {
                       setIndexVisible(false);
-                      setIndex(index);
+                      // setIndex(index);
                     }}
                     className="block cursor-pointer opacity-0"
                     key={`table-${module._key}`}
@@ -314,7 +311,7 @@ export default function CollectionSlideshow(props) {
   );
 }
 
-function CollectionModule({module, parentModule, mode, inSlideShow}: Props) {
+function CollectionModule({ module, parentModule, mode, inSlideShow }: Props) {
   if (!module.image) {
     return null;
   }
@@ -357,11 +354,11 @@ function CollectionModule({module, parentModule, mode, inSlideShow}: Props) {
   );
 }
 
-const ImageContent = ({module, parentModule, mode, inSlideShow}: Props) => {
+const ImageContent = ({ module, parentModule, mode, inSlideShow }: Props) => {
   const image = module.image;
   const mobileImage = module.mobileImage;
   const [root] = useMatches();
-  const {sanityDataset, sanityProjectID} = root.data;
+  const { sanityDataset, sanityProjectID } = root.data;
   const applyAspectRatio = parentModule?._type === 'module.gallery';
 
   return (

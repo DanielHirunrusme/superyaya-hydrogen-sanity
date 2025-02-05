@@ -2,19 +2,14 @@ import clsx from 'clsx';
 
 import Module from '~/components/modules/Module';
 import ProductCard from '~/components/product/Card';
-import {COLLECTION_GRID, GRID_GAP} from '~/lib/constants';
-import type {SanityModule} from '~/lib/sanity';
-import type {ProductWithNodes} from '~/types/shopify';
+import { GRID_GAP } from '~/lib/constants';
+import type { SanityModule } from '~/lib/sanity';
+import type { ProductWithNodes } from '~/types/shopify';
 import CollectionSlideshow from './CollectionSlideshow';
-import {useState} from 'react';
-import {Theme} from '../context/ThemeProvider';
-import {Typography} from '../global/Typography';
-
-// Sanity modules to render in full width (across all grid columns)
-// const FULL_WIDTH_MODULE_TYPES: SanityModule['_type'][] = [
-//   'module.callout',
-//   'module.callToAction',
-// ];
+import { useEffect, useState } from 'react';
+import { Theme } from '../context/ThemeProvider';
+import { Typography } from '../global/Typography';
+import { useBodyScrollFreeze } from '~/hooks/useBodyScrollFreeze';
 
 // Tailwind class map
 const CLASSES = {
@@ -45,49 +40,49 @@ const CLASSES = {
 const PRODUCT_LAYOUT = [
   {
     aspect: 'square',
-    flex: {align: 'start', justify: 'start'},
+    flex: { align: 'start', justify: 'start' },
     offsetY: false,
     width: 'md',
   },
   {
     aspect: 'square',
-    flex: {align: 'start', justify: 'end'},
+    flex: { align: 'start', justify: 'end' },
     offsetY: false,
     width: 'lg',
   },
   {
     aspect: 'square',
-    flex: {align: 'start', justify: 'start'},
+    flex: { align: 'start', justify: 'start' },
     offsetY: false,
     width: 'lg',
   },
   {
     aspect: 'square',
-    flex: {align: 'center', justify: 'start'},
+    flex: { align: 'center', justify: 'start' },
     offsetY: false,
     width: 'sm',
   },
   {
     aspect: 'square',
-    flex: {align: 'start', justify: 'end'},
+    flex: { align: 'start', justify: 'end' },
     offsetY: false,
     width: 'md',
   },
   {
     aspect: 'square',
-    flex: {align: 'start', justify: 'end'},
+    flex: { align: 'start', justify: 'end' },
     offsetY: true,
     width: 'md',
   },
   {
     aspect: 'square',
-    flex: {align: 'start', justify: 'start'},
+    flex: { align: 'start', justify: 'start' },
     offsetY: false,
     width: 'lg',
   },
   {
     aspect: 'landscape',
-    flex: {align: 'center', justify: 'end'},
+    flex: { align: 'center', justify: 'end' },
     offsetY: false,
     width: 'lg',
   },
@@ -119,10 +114,14 @@ export default function CollectionGrid({
   children,
 }: Props) {
   const [zoom, setZoom] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const onClick = () => {
     setZoom(true);
   };
+
+  useBodyScrollFreeze(zoom);
+
+
   return (
     <>
       <ul className={clsx(className, GRID_GAP)}>
@@ -156,11 +155,11 @@ export default function CollectionGrid({
                   />
                   {showCount && (
                     <div className='mt-auto'>
-                    <Typography type="body" size="sm">
-                      <div className="mb-2 mt-1 text-center group-hover:opacity-50  ">
-                        {String(index + 1).padStart(2, '0')}
-                      </div>
-                    </Typography>
+                      <Typography type="body" size="sm">
+                        <div className="mb-2 mt-1 text-center group-hover:opacity-50  ">
+                          {String(index + 1).padStart(2, '0')}
+                        </div>
+                      </Typography>
                     </div>
                   )}
                 </div>
@@ -183,19 +182,21 @@ export default function CollectionGrid({
         })}
       </ul>
 
-        <CollectionSlideshow
-          modules={items}
-          zoom={zoom}
-          setZoom={setZoom}
-          index={selectedIndex}
-          setIndex={setSelectedIndex}
-          detached
-          showIndex={showIndex}
-          title={title}
-          outboundLink={outboundLink}
-          outboundLinkText={outboundLinkText}
-          mode={theme}
-        />
+      <CollectionSlideshow
+        modules={items}
+        zoom={zoom}
+        setZoom={setZoom}
+        index={selectedIndex}
+        setIndex={setSelectedIndex}
+        detached
+        showIndex={showIndex}
+        title={title}
+        outboundLink={outboundLink}
+        outboundLinkText={outboundLinkText}
+        mode={theme}
+      />
+
+       
 
     </>
   );
