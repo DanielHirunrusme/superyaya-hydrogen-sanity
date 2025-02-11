@@ -89,7 +89,7 @@ export default defineField({
       type: 'module.table',
     },
     {
-      type: 'module.textBlock'
+      type: 'module.portableTable'
     }
   ],
 })

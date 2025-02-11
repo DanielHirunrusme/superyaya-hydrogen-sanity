@@ -105,6 +105,7 @@ import shopifyCollection from './objects/shopify/shopifyCollection'
 import shopifyCollectionRule from './objects/shopify/shopifyCollectionRule'
 import shopifyProduct from './objects/shopify/shopifyProduct'
 import shopifyProductVariant from './objects/shopify/shopifyProductVariant'
+import tableCell from './blocks/tableCell'
 
 // Collections
 import collectionGroup from './objects/collection/group'
@@ -163,6 +164,7 @@ const objects = [
   shopifyProductVariant,
   collectionGroup,
   collectionLinks,
+  tableCell
 ]
 
 export const schemaTypes = [...annotations, ...singletons, ...objects, ...blocks, ...documents]

@@ -329,6 +329,9 @@ textarea {
   @apply !uppercase;
 }
 
+.page-rte p + .portableTable {
+  padding-top: 1em;
+}
  
 
 p:empty {

@@ -10,6 +10,7 @@ import {imageHotspotArrayPlugin} from 'sanity-plugin-hotspot-array'
 import {media, mediaAssetSource} from 'sanity-plugin-media'
 import {customDocumentActions} from './plugins/customDocumentActions'
 import {table} from '@sanity/table'
+import {portableTable} from '@bitfo/sanity-plugin-portable-table'
 import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
 
 const devOnlyPlugins = [visionTool()]
@@ -69,6 +70,25 @@ export default defineConfig({
     customDocumentActions(),
     media(),
     table(),
+    portableTable({
+      // Optional: default name is "table"
+      name: "sanityTable",
+
+      // Optional: default title is "Table"
+      title: "Portable Table",
+
+      // Required: must provide a block definition
+      cellSchema: {
+        name: "block",
+        type: "block",
+        styles: [],
+        lists: [],
+        marks: {
+          decorators: [{ title: "Strong", value: "strong" }],
+          annotations: [],
+        },
+      },
+    }),
     muxInput({mp4_support: 'standard'}),
     ...(isDev ? devOnlyPlugins : []),
   ],

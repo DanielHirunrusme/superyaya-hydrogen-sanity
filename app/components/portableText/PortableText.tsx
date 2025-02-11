@@ -21,6 +21,7 @@ import NewsletterModule from '../modules/Newsletter';
 import ModuleTable from '../modules/Table';
 import ImageModule from '../modules/Image';
 import ModuleTextBlock from '../modules/TextBlock';
+import ModulePortableTable from '../modules/ModulePortableTable';
 
 const SHARED_LIST_CLASSES = clsx(
   'first:mt-0 last:mb-0', //
@@ -79,6 +80,7 @@ export default function PortableText({
       'module.table': (props: any) => <ModuleTable {...props} />,
       'module.textBlock': (props: any) => <ModuleTextBlock {...props?.value} />,
       'module.newsletter': (props: any) => <NewsletterModule {...props} />,
+      'module.portableTable': (props: any) => <ModulePortableTable {...props?.value} />
     },
   };
 

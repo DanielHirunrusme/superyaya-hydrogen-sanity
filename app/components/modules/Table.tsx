@@ -9,10 +9,10 @@ export default function ModuleTable(props:any) {
       <table className="mt-[1em]">
         <tbody>
         {value.table.rows.map((row:any) => (
-          <tr className="align-top" key={row._key}>
+          <tr className="flex flex-col md:table-row align-top" key={row._key}>
             {row.cells.map((cell:any, index:number) => (
               <td key={`${row._key}-${index}`} className={cn(index < row.cells.length - 1 ? "pr-[1em] sm:pr-[2em]" : "", "")}>
-                <span className="min-h-[1em] block">{cell}</span>
+                <span className="empty:hidden md:empty:block min-h-[1em] block">{cell}</span>
               </td>
             ))}
           </tr>
