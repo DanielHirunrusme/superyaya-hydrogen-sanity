@@ -220,7 +220,9 @@ export default function Navigation({
                     className={clsx('hidden md:flex', NAV_GAP)}
                     variants={boxVariant}
                     animate={navVisible ? 'visible' : 'hidden'}
-                    initial={!navVisible ? 'hidden' : 'visible'}
+                    // initial={!navVisible ? 'hidden' : 'visible'}
+                    initial='hidden'
+             
                   >
                     {link.links.map((subLink) => {
                       let hasChildChildActive = false;
@@ -331,7 +333,8 @@ export default function Navigation({
                         className={clsx('hidden md:flex', NAV_GAP)}
                         variants={boxVariant}
                         animate={navVisible ? 'visible' : 'hidden'}
-                        initial={!navVisible ? 'hidden' : 'visible'}
+                        // initial={!navVisible ? 'hidden' : 'visible'}
+                        initial="hidden"
                       >
                         {subLink.links.map((subSubLink) => {
                           return (
