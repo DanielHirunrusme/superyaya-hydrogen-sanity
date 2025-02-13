@@ -13,10 +13,12 @@ import type { ProductWithNodes } from '~/types/shopify';
 import clsx from 'clsx';
 import { stagger, useAnimate } from 'framer-motion';
 import { useLocation } from '@remix-run/react';
+import {motion} from 'framer-motion'
 
 /**
  * A client component that defines a media gallery for hosting images, 3D models, and videos of products
  */
+
 
 type Props = {
   storefrontProduct: ProductWithNodes;
@@ -37,15 +39,6 @@ export default function ProductGallery({
   setSelectedIndex,
   sizeChartVisible,
 }: Props) {
-  const [scope, animate] = useAnimate();
-  const location = useLocation();
-  const typeNameMap = {
-    MODEL_3D: 'Model3d',
-    VIDEO: 'Video',
-    IMAGE: 'MediaImage',
-    EXTERNAL_VIDEO: 'ExternalVideo',
-  };
-
   const media = storefrontProduct?.media?.nodes;
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: 'start',
@@ -55,70 +48,29 @@ export default function ProductGallery({
     speed: 7,
   });
 
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    if (window.innerWidth < 768) setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi, setSelectedIndex, selectedIndex]);
-
   useEffect(() => {
     if (!emblaApi) return;
-    onSelect();
-    emblaApi.on('select', onSelect);
-  }, [emblaApi, onSelect]);
-  useEffect(() => {
-    if (!sizeChartVisible)
-      animate(
-        'li',
-        { opacity: 1 },
-        { delay: stagger(STAGGER_SPEED), duration: 0.01 },
-      );
-  }, [sizeChartVisible, location]);
+    emblaApi.on('select', () => {
+      if (window.innerWidth < 768) setSelectedIndex(emblaApi.selectedScrollSnap());
+    });
+  }, [emblaApi, setSelectedIndex]);
 
-  const onEmblaClick = (e: MouseEvent) => {
-    if (e.clientX > window.innerWidth / 3) {
-      handleNext();
-    } else {
-      handlePrevious();
-    }
-  };
+  const [pendingImages, setPendingImages] = useState<Set<number>>(new Set());
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
+  const [nextIndex, setNextIndex] = useState(0);
 
-  const handleNext = () => {
-    if (emblaApi) {
-      emblaApi.scrollNext();
-    }
-  };
-
-  const handlePrevious = () => {
-    if (emblaApi) {
-      emblaApi.scrollPrev();
-    }
+  const handleImageLoad = (index: number) => {
+    setPendingImages((prev) => new Set(prev).add(index));
   };
 
   useEffect(() => {
-    if (!selectedVariant) {
-      return;
+    if (pendingImages.has(nextIndex)) {
+      setLoadedImages((prev) => new Set(prev).add(nextIndex));
+      setNextIndex((prev) => prev + 1);
     }
+  }, [pendingImages, nextIndex]);
 
-    const variantImageUrl = selectedVariant?.image?.url?.split('?')[0];
-    const galleryIndex =
-      media?.findIndex((mediaItem) => {
-        if (mediaItem.mediaContentType === 'IMAGE') {
-          return (
-            (mediaItem as MediaImage)?.image?.url.split('?')[0] ===
-            variantImageUrl
-          );
-        }
-        return false;
-      }) ?? -1;
-
-    if (emblaApi && galleryIndex >= 0) {
-      emblaApi.scrollTo(galleryIndex, true); // instantly scroll
-    }
-  }, [emblaApi, media, selectedVariant]);
-
-  if (!media?.length) {
-    return null;
-  }
+  if (!media?.length) return null;
 
   const onMediaClick = (index: number) => {
 
@@ -129,30 +81,15 @@ export default function ProductGallery({
 
   return (
     <>
-      {/* Mobile slideshow */}
+      {/* Mobile Slideshow */}
       <div className="-mx-mobile md:hidden">
-        <div className="h-full overflow-hidden" ref={emblaRef} onClick={(e) => onEmblaClick(e)}>
+        <div className="h-full overflow-hidden" ref={emblaRef}>
           <div className="flex h-full">
-            {/* Slides */}
-            {media?.slice(1, media.length).map((med) => {
-              let extraProps: Record<string, any> = {};
-
-              if (med.mediaContentType === 'MODEL_3D') {
-                extraProps = {
-                  interactionPromptThreshold: '0',
-                  ar: true,
-                  loading: 'eager',
-                  disableZoom: true,
-                  style: { height: '100%', margin: '0 auto' },
-                };
-              }
-
+            {media?.slice(1).map((med) => {
               const data = {
                 ...med,
-                __typename:
-                  typeNameMap[med.mediaContentType] || typeNameMap['IMAGE'],
+                __typename: 'MediaImage',
                 image: {
-                  // @ts-ignore
                   ...med.image,
                   altText: med.alt || 'Product image',
                 },
@@ -160,15 +97,14 @@ export default function ProductGallery({
 
               return (
                 <MediaFile
+                  key={med.id}
                   className="relative flex w-full shrink-0 grow-0 select-none object-cover px-mobile"
                   data={data}
                   draggable={false}
-                  key={med.id}
                   tabIndex={0}
                   mediaOptions={{
                     image: { crop: 'center', sizes: '100vw', loading: 'eager' },
                   }}
-                  {...extraProps}
                 />
               );
             })}
@@ -181,52 +117,45 @@ export default function ProductGallery({
 
       {/* Desktop Gallery */}
       <ul
-        ref={scope}
         className={clsx(
           'hidden md:grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4',
           sizeChartVisible && 'opacity-0',
-          GRID_GAP,
+          GRID_GAP
         )}
       >
-        {/* Slides */}
         {media.slice(0, 1).concat(media.slice(2)).map((med, index) => {
-          let extraProps: Record<string, any> = {};
-
-          if (med.mediaContentType === 'MODEL_3D') {
-            extraProps = {
-              interactionPromptThreshold: '0',
-              ar: true,
-              loading: 'eager',
-              disableZoom: true,
-              style: { height: '100%', margin: '0 auto' },
-            };
-          }
-
           const data = {
             ...med,
-            __typename:
-              typeNameMap[med.mediaContentType] || typeNameMap['IMAGE'],
+            __typename: 'MediaImage',
             image: {
-              // @ts-ignore
               ...med.image,
               altText: med.alt || 'Product image',
             },
           } as MediaImage;
 
           return (
-            <li data-index={index} key={med.id} className="aspect-[1556/1944] bg-gray opacity-0 ">
+            <motion.li
+              key={med.id}
+              className={clsx(
+                'aspect-[1556/1944] ',
+              
+              )}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: loadedImages.has(index) ? 1 : 0}}
+              transition={{ duration: 0, delay: index * 0.1 }}
+            >
               <MediaFile
                 className="relative flex w-full shrink-0 grow-0 cursor-zoom-in select-none object-cover"
                 data={data}
+                onClick={() => onMediaClick(index)}
                 draggable={false}
                 tabIndex={0}
-                onClick={() => onMediaClick(index)}
+                onLoad={() => handleImageLoad(index)}
                 mediaOptions={{
                   image: { crop: 'center', sizes: '100vw', loading: 'eager' },
                 }}
-                {...extraProps}
               />
-            </li>
+            </motion.li>
           );
         })}
       </ul>

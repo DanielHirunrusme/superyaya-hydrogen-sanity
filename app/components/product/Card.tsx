@@ -13,19 +13,22 @@ import {
 } from '~/lib/utils';
 import type { ProductWithNodes } from '~/types/shopify';
 import { Typography } from '../global/Typography';
+import type {SanityModule} from '~/lib/sanity';
 
 type Props = {
   imageAspectClassName?: string;
-  storefrontProduct: ProductWithNodes;
+  storefrontProduct: (SanityModule | ProductWithNodes);
   variantGid?: string;
-  index?: number
+  index?: number;
+  onImageLoad?: () => void;  // New prop to signal when an image has loaded
 };
 
 export default function ProductCard({
   imageAspectClassName = 'aspect-[1556/1944]',
   storefrontProduct,
   variantGid,
-  index = 5
+  index = 5,
+  onImageLoad
 }: Props) {
   const firstVariant =
     useGid<ProductVariant>(variantGid) ??
@@ -53,6 +56,8 @@ export default function ProductCard({
     quantity: 1,
   };
 
+  console.log(firstVariant)
+
   return (
     <Link to={`/products/${storefrontProduct.handle}`} className="group relative">
       <Typography type="body" size="sm">
@@ -77,6 +82,7 @@ export default function ProductCard({
                 crop="center"
                 sizes="(min-width: 768px) 25vw, 100vw"
                 loading="lazy"
+                onLoad={onImageLoad} // Call when loaded
               />
             )}
 
@@ -89,7 +95,7 @@ export default function ProductCard({
                 data={storefrontProduct.media.nodes[1].image}
                 crop="center"
                 sizes="(min-width: 768px) 25vw, 100vw"
-
+                onLoad={onImageLoad} // Call when loaded
                 loading={index < 4 ? 'eager' : 'lazy'}
               />
             )}

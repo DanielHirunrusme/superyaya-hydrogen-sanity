@@ -1,143 +1,57 @@
 import clsx from 'clsx';
-
-import Module from '~/components/modules/Module';
+import { useEffect, useState } from 'react';
 import ProductCard from '~/components/product/Card';
-import {COLLECTION_GRID, COLLECTION_GRID_GAP, GRID_GAP} from '~/lib/constants';
-import type {SanityModule} from '~/lib/sanity';
-import type {ProductWithNodes} from '~/types/shopify';
-import ModuleSlideshow from './ModuleSlideshow';
-import {useState} from 'react';
-import {Theme} from '../context/ThemeProvider';
-import {Typography} from '../global/Typography';
-
-// Sanity modules to render in full width (across all grid columns)
-const FULL_WIDTH_MODULE_TYPES: SanityModule['_type'][] = [
-  'module.callout',
-  'module.callToAction',
-];
-
-// Tailwind class map
-const CLASSES = {
-  flexAlign: {
-    center: 'items-center',
-    end: 'items-end',
-    start: 'items-start',
-  },
-  flexJustify: {
-    center: 'justify-center',
-    end: 'justify-end',
-    start: 'justify-start',
-  },
-  imageAspect: {
-    landscape: 'aspect-square md:aspect-[16/9]',
-    square: 'aspect-square',
-  },
-  width: {
-    sm: 'w-full md:w-[55%]',
-    md: 'w-full md:w-[65%]',
-    lg: 'w-full md:w-full',
-  },
-};
-
-// Layout rules for grid children.
-// Each child iterates (and loops) through this array of rules.
-// These layout rules only apply to both product modules and non-module products.
-const PRODUCT_LAYOUT = [
-  {
-    aspect: 'square',
-    flex: {align: 'start', justify: 'start'},
-    offsetY: false,
-    width: 'md',
-  },
-  {
-    aspect: 'square',
-    flex: {align: 'start', justify: 'end'},
-    offsetY: false,
-    width: 'lg',
-  },
-  {
-    aspect: 'square',
-    flex: {align: 'start', justify: 'start'},
-    offsetY: false,
-    width: 'lg',
-  },
-  {
-    aspect: 'square',
-    flex: {align: 'center', justify: 'start'},
-    offsetY: false,
-    width: 'sm',
-  },
-  {
-    aspect: 'square',
-    flex: {align: 'start', justify: 'end'},
-    offsetY: false,
-    width: 'md',
-  },
-  {
-    aspect: 'square',
-    flex: {align: 'start', justify: 'end'},
-    offsetY: true,
-    width: 'md',
-  },
-  {
-    aspect: 'square',
-    flex: {align: 'start', justify: 'start'},
-    offsetY: false,
-    width: 'lg',
-  },
-  {
-    aspect: 'landscape',
-    flex: {align: 'center', justify: 'end'},
-    offsetY: false,
-    width: 'lg',
-  },
-] as const;
+import { COLLECTION_GRID, COLLECTION_GRID_GAP } from '~/lib/constants';
+import type { SanityModule } from '~/lib/sanity';
+import type { ProductWithNodes } from '~/types/shopify';
+import { motion } from "framer-motion";
 
 type Props = {
   items: (SanityModule | ProductWithNodes)[];
-  showCount?: boolean;
   stagger?: boolean;
   className?: string;
 };
 
 export default function ModuleGrid({
   items,
-  showCount,
   stagger,
   className = `grid ${COLLECTION_GRID}`,
 }: Props) {
-  const [zoom, setZoom] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const onClick = () => {
-    setZoom(true);
-  };
-  return (
-    <>
-      <ul className={clsx(className, COLLECTION_GRID_GAP)}>
-        {items.map((item, index) => {
-          const productLayout = PRODUCT_LAYOUT[index % PRODUCT_LAYOUT.length];
-          const productImageAspect = CLASSES.imageAspect[productLayout.aspect];
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set()); // Controls which images are visible
+  const [pendingImages, setPendingImages] = useState<Set<number>>(new Set()); // Stores all loaded images
+  const [nextIndex, setNextIndex] = useState(0); // Tracks the next expected index to reveal
 
-          // Render product cards
-          return (
-            <li key={item.id} className={clsx(stagger && 'opacity-0', 'col-span-1 md:col-span-2')}>
-              <div>
-                <ProductCard
-                  imageAspectClassName={productImageAspect}
-                  storefrontProduct={item}
-                  index={index}
-                />
-              </div>
-            </li>
-          );
-        })}
-      </ul>
-    </>
+  const handleImageLoad = (index: number) => {
+    setPendingImages((prev) => new Set(prev).add(index)); // Track all loaded images
+  };
+
+  // Use `useEffect` to process pending images in sequential order
+  useEffect(() => {
+    if (pendingImages.has(nextIndex)) {
+      setLoadedImages((prev) => new Set(prev).add(nextIndex)); // Add only sequential images
+      setNextIndex((prev) => prev + 1); // Move to next expected index
+    }
+  }, [pendingImages, nextIndex]);
+
+  return (
+    <ul className={clsx(className, COLLECTION_GRID_GAP)}>
+      {items.map((item, index) => {
+        return (
+          <motion.li
+            key={item.id}
+            className="col-span-1 md:col-span-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: stagger && loadedImages.has(index) ? 1 : 0 }}
+            transition={{ duration: 0.05, delay: index * 0.1 }}
+          >
+            <ProductCard
+              storefrontProduct={item}
+              index={index}
+              onImageLoad={() => handleImageLoad(index)}
+            />
+          </motion.li>
+        );
+      })}
+    </ul>
   );
 }
-
-const isModule = (
-  item: SanityModule | ProductWithNodes,
-): item is SanityModule => {
-  return (item as SanityModule)._type?.startsWith('module');
-};

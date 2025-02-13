@@ -65,21 +65,8 @@ export default function ProductGrid({
   const { setPlpVisible } = useTheme();
 
   useEffect(() => {
-    const play = async () => {
-      const sequence = [
-        [
-          'ul li',
-          { opacity: 1 },
-          { delay: stagger(STAGGER_SPEED), duration: 0.01 },
-        ],
-      ];
-      await animate(sequence);
-    };
-
-    if (navVisible) {
-      play().then(() => {
-        setPlpVisible(true);
-      });
+    if(navVisible){
+      setPlpVisible(true);
     }
   }, [navVisible]);
 
@@ -94,7 +81,7 @@ export default function ProductGrid({
 
   return (
     <ul ref={scope}>
-      <CollectionGrid items={items} stagger={!plpVisible} />
+      <CollectionGrid items={items} stagger={plpVisible} />
       {nextPage && (
         <div className="flex h-30 items-center justify-center">
           {fetcher.state !== 'idle' ? (
