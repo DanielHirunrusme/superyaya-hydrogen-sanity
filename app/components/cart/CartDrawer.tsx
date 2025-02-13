@@ -7,6 +7,7 @@ import {Fragment, Suspense, useState} from 'react';
 import {CartActions, CartLineItems, CartSummary} from '~/components/cart/Cart';
 import Button from '~/components/elements/Button';
 import CloseIcon from '~/components/icons/Close';
+import { Typography } from '../global/Typography';
 
 /**
  * A Drawer component that opens on user click.
@@ -119,10 +120,12 @@ function CartHeader({
         '',
       )}
     >
+      <Typography type="body" size="sm">
       <div className="">Cart {numLines > 0 && `(${numLines})`}</div>
       <button type="button" onClick={onClose}>
         <CloseIcon />
       </button>
+      </Typography>
     </header>
   );
 }
