@@ -25,7 +25,7 @@ export const Typography = styled('div', {
         size: 'sm',
       },
       className:
-        '2xl:text-utilityDesktop xl:text-utilityLaptop md:text-utilityTablet text-utilityMobile',
+        '2xl:text-utilityDesktop xl:text-utilityLaptop md:text-utilityTablet lg:text-utilityTabletXL text-utilityMobile',
     },
   ],
 });

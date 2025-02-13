@@ -69,6 +69,13 @@ module.exports = {
         },
       ],
       utilityTablet: [
+        '1.005vw',
+        {
+          letterSpacing: '0.14em',
+          lineHeight: '1.5',
+        },
+      ],
+      utilityTabletXL: [
         '0.8375vw',
         {
           letterSpacing: '0.14em',
