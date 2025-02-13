@@ -20,7 +20,7 @@ export default function CartToggle({cart, isOpen, openDrawer}: Props) {
     <Suspense fallback={<button>Cart (0)</button>}>
       <Await resolve={cart}>
         {(data) => (
-          <Link to="/cart" className="linkTextNavigation">
+          <Link to="/cart" >
             <Typography type="body" size="sm">
               <span className="lead hidden md:inline  ">
                 Cart ({data?.totalQuantity || 0})
