@@ -73,11 +73,15 @@ export default function ProductGallery({
   if (!media?.length) return null;
 
   const onMediaClick = (index: number) => {
-
-
     setZoom(true);
     setSelectedIndex(index);
   };
+
+  useEffect(()=>{
+    return() => {
+      setLoadedImages(new Set())
+    }
+  }, [])
 
   return (
     <>
@@ -152,7 +156,7 @@ export default function ProductGallery({
                 tabIndex={0}
                 onLoad={() => handleImageLoad(index)}
                 mediaOptions={{
-                  image: { crop: 'center', sizes: '100vw', loading: 'eager' },
+                  image: { crop: 'center', sizes: '25vw, 100vw', loading: 'eager' },
                 }}
               />
             </motion.li>
