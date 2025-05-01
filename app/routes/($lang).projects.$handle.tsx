@@ -80,7 +80,7 @@ export default function Page() {
             title="Projects Index"
             onClick={(e) => e.stopPropagation()}
             className={clsx(
-              'linkTextNavigation fixed bottom-0 right-0 z-50 flex items-center leading-none text-black !no-underline',
+              'linkTextNavigation select-none fixed bottom-0 right-0 z-50 flex items-center leading-none text-black !no-underline',
               SITE_MARGINS_X,
               SITE_MARGINS_Y,
             )}
