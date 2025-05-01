@@ -109,6 +109,28 @@ export default function ProjectSlideshow(props: Props) {
       <div className="h-full w-screen overflow-hidden" ref={emblaRef}>
         <div className="flex h-full" ref={slideshowContainerRef}>
 
+{/* Description */}
+<div
+            className={clsx(
+              'relative flex h-full w-full flex-shrink-0 flex-grow-0 items-center select-none',
+            )}
+            onClick={onClick}
+          >
+            <Container type="pageDescription" asChild>
+              <div className="mx-auto mb-[36.92vw] text-center md:mb-[7.035vw] xl:mb-[9.4328vw] 2xl:mb-[13.28125vw]">
+                <Typography type="rte">
+                  <div className=" !uppercase !tracking-widest">{title}</div>
+                  <br />
+                  {body && (
+                    <div className="mx-auto text-left !normal-case">
+                      <PortableText blocks={body} />
+                    </div>
+                  )}
+                </Typography>
+              </div>
+            </Container>
+          </div>
+          
           {modules?.map((module) => (
             <div
               className={clsx(
@@ -135,27 +157,7 @@ export default function ProjectSlideshow(props: Props) {
             </div>
           ))}
 
-          {/* Description */}
-          <div
-            className={clsx(
-              'relative flex h-full w-full flex-shrink-0 flex-grow-0 items-center select-none',
-            )}
-            onClick={onClick}
-          >
-            <Container type="pageDescription" asChild>
-              <div className="mx-auto mb-[36.92vw] text-center md:mb-[7.035vw] xl:mb-[9.4328vw] 2xl:mb-[13.28125vw]">
-                <Typography type="rte">
-                  <div className=" !uppercase !tracking-widest">{title}</div>
-                  <br />
-                  {body && (
-                    <div className="mx-auto text-left !normal-case">
-                      <PortableText blocks={body} />
-                    </div>
-                  )}
-                </Typography>
-              </div>
-            </Container>
-          </div>
+          
         </div>
       </div>
 
