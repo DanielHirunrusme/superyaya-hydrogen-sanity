@@ -9,7 +9,7 @@ interface ModuleTextBlockProps {
 }
 
 export default function ModuleTextBlock(props: ModuleTextBlockProps) {
-    console.log(props)
+ 
     const { title, body, noPadding } = props;
     return (
         <div className={clsx("mx-auto", !noPadding ? 'mb-[1em]' : 'mb-0' )}>

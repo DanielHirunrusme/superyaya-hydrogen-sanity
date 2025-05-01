@@ -88,6 +88,7 @@ export default function ProductWidget({
       {/* Description */}
       {storefrontProduct?.descriptionHtml && (
         <div
+        className='product-rte'
           dangerouslySetInnerHTML={{__html: storefrontProduct.descriptionHtml}}
         />
       )}

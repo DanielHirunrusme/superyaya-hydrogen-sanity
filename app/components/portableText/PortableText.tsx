@@ -43,7 +43,7 @@ export default function PortableText({
 }: Props) {
 
 
-  console.log(blocks)
+ 
 
   const components: PortableTextComponents = {
     list: {

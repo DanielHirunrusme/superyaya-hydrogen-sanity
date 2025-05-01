@@ -75,7 +75,7 @@ export default function CollectionBreadcrumb(props) {
                     }
                   });
                 }
-                console.log(subLink);
+        
                 return (
                   <li
                     className="flex flex-col items-center text-center opacity-0"

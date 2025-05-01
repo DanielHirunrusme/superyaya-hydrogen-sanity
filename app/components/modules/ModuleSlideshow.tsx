@@ -145,7 +145,7 @@ export default function ModuleSlideshow(props) {
   }, [indexVisible, emblaApi]);
 
   useEffect(() => {
-    console.log('slideshowContainerRef', slideshowContainerRef);
+ 
     if (!slideshowContainerRef?.current) return;
 
     const mouseMove = (e) => {

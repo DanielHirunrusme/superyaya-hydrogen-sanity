@@ -11,13 +11,13 @@ import invariant from 'tiny-invariant';
 import AddToCartButton from '~/components/product/buttons/AddToCartButton';
 import BuyNowButton from '~/components/product/buttons/BuyNowButton';
 import ProductOptions from '~/components/product/Options';
-import type {SanityCustomProductOption} from '~/lib/sanity';
-import {hasMultipleProductOptions} from '~/lib/utils';
+import type { SanityCustomProductOption } from '~/lib/sanity';
+import { hasMultipleProductOptions } from '~/lib/utils';
 import Button from '../elements/Button';
 import ContactFormModal from '../contact/ContactForm';
-import {Container} from '../global/Container';
+import { Container } from '../global/Container';
 import clsx from 'clsx';
-import {GRID_GAP} from '~/lib/constants';
+import { GRID_GAP } from '~/lib/constants';
 import ProductCustomColorOptions from './CustomColorOptions';
 
 export default function ProductForm({
@@ -62,17 +62,15 @@ export default function ProductForm({
           'gap-mobile md:gap-tablet xl:gap-laptop 2xl:gap-desktop',
         )}
       >
-        {multipleProductOptions && (
-          
-            <ProductOptions
-              product={product}
-              variants={variants}
-              options={product.options}
-              selectedVariant={selectedVariant}
-              customProductOptions={customProductOptions}
-            />
-          
-        )}
+
+
+        <ProductOptions
+          product={product}
+          variants={variants}
+          options={product.options}
+          selectedVariant={selectedVariant}
+          customProductOptions={customProductOptions}
+        />
 
         <ProductCustomColorOptions product={product} />
 

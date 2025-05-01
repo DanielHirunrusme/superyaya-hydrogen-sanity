@@ -421,3 +421,7 @@ mux-player {
   object-position: top center;
 
 }
+
+.product-rte p:not(:last-child) {
+  margin-bottom: 1em;
+}

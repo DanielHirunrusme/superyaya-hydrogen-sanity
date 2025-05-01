@@ -61,7 +61,7 @@ function EmailForm({
   const [files, setFiles] = useState(0);
 
   const onInputFileChange = (e) => {
-    console.log(e.target.files.length);
+ 
     setFiles(e.target.files.length);
     // console.log('Input File Change', e.target.files.length);
   };

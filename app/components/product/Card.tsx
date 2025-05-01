@@ -56,7 +56,6 @@ export default function ProductCard({
     quantity: 1,
   };
 
-  console.log(firstVariant)
 
   return (
     <Link to={`/products/${storefrontProduct.handle}`} className="group relative">

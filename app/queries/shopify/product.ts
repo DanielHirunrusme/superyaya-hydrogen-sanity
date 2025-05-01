@@ -97,6 +97,93 @@ export const PRODUCT_FIELDS = `
       id
       value
     }
+    swatch: metafield(key: "swatch", namespace: "descriptors") {
+      id
+      reference {
+        # for an image-type swatch
+        ... on MediaImage {
+          id
+          image {
+            url
+            altText
+            width
+            height
+          }
+        }
+        # if it’s actually a Metaobject:
+        ... on Metaobject {
+          id
+          type
+          fields {
+            key
+            value
+            reference {
+              # nested image inside your metaobject
+              ... on MediaImage {
+                id
+                image {
+                  url
+                  altText
+                  width
+                  height
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    product_colors: metafield(key: "product_colors", namespace: "descriptors") {
+      id
+      references(first: 10) { # Adjust the limit as needed
+        nodes {
+          ... on Product {
+            id
+            handle
+            options {
+              name
+              values
+            }
+            swatch: metafield(key: "swatch", namespace: "descriptors") {
+              id
+              reference {
+                # for an image-type swatch
+                ... on MediaImage {
+                  id
+                  image {
+                    url
+                    altText
+                    width
+                    height
+                  }
+                }
+                # if it’s actually a Metaobject:
+                ... on Metaobject {
+                  id
+                  type
+                  fields {
+                    key
+                    value
+                    reference {
+                      # nested image inside your metaobject
+                      ... on MediaImage {
+                        id
+                        image {
+                          url
+                          altText
+                          width
+                          height
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
     color_variants: metafield(key: "color_variants", namespace: "descriptors") {
       id
       references(first: 10) { # Adjust the limit as needed

@@ -2,7 +2,6 @@ import {defineConfig, isDev} from 'sanity'
 
 import {structureTool} from 'sanity/structure'
 import {schemaTypes} from './schemas'
-import {structure} from './desk'
 
 import {visionTool} from '@sanity/vision'
 import {colorInput} from '@sanity/color-input'

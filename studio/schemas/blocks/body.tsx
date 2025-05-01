@@ -64,9 +64,9 @@ export default defineField({
       type: 'module.image',
     },
     // Custom blocks
-    // {
-    //   type: 'module.accordion',
-    // },
+    {
+      type: 'module.accordion',
+    },
     // {
     //   type: 'module.callout',
     // },

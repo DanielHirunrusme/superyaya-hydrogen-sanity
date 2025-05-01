@@ -41,7 +41,7 @@ export default function ProductSlideshow({
   const mediaRefs = useRef<(HTMLDivElement | null)[]>([]);
   const location = useLocation();
 
-  console.log('location', location);
+ 
 
   const typeNameMap = {
     MODEL_3D: 'Model3d',
@@ -137,7 +137,7 @@ export default function ProductSlideshow({
       // Calculate offset by the product image ratio
       const offsetTop = window.innerWidth * (1944 / 1556) * selectedIndex;
 
-      console.log('selectedIndex', selectedIndex);
+ 
 
       // Scroll the container to the calculated position
       container.scrollTo({

@@ -80,7 +80,7 @@ export default function ProjectSlideshow(props: Props) {
   }, [indexVisible, emblaApi]);
 
   useEffect(() => {
-    console.log('slideshowContainerRef', slideshowContainerRef);
+ 
     if (!slideshowContainerRef?.current) return;
 
     const mouseMove = (e: MouseEvent) => {

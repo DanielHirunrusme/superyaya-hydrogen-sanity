@@ -11,7 +11,6 @@ export function useBodyScrollFreeze(shouldFreeze: boolean) {
       setScrollY(window.scrollY);
       document.body.classList.add('zoomed')
     } else {
-      console.log(scrollY);
       document.body.classList.remove('zoomed')
       window.scrollTo(0, scrollY);
     }

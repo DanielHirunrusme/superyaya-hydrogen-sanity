@@ -90,7 +90,7 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
   const hasDefaultVariantOnly =
     firstVariant.name === 'Title' && firstVariant.value === 'Default Title';
 
-    console.log('merchandise', merchandise)
+
 
   return (
     <li

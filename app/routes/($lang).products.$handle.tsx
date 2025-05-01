@@ -226,6 +226,8 @@ export default function ProductHandle() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [sizeChartVisible, setSizeChartVisible] = useState(false);
 
+  console.log(product)
+
   return (
     <>
       <ColorTheme value={page.colorTheme}>

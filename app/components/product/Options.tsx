@@ -1,51 +1,88 @@
-import {Link} from '@remix-run/react';
-import {Image, VariantSelector} from '@shopify/hydrogen';
+import { Link } from '@remix-run/react';
+import { Image, VariantSelector } from '@shopify/hydrogen';
 import {
   Product,
   ProductOption,
   ProductVariant,
 } from '@shopify/hydrogen/storefront-api-types';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 
 import Tooltip from '~/components/elements/Tooltip';
-import type {SanityCustomProductOption} from '~/lib/sanity';
-import {Fragment, useState} from 'react';
-import {Listbox, Transition} from '@headlessui/react';
+import type { SanityCustomProductOption } from '~/lib/sanity';
+import { Fragment, useState } from 'react';
+import { Listbox, Transition } from '@headlessui/react';
 import MinusIcon from '../icons/Minus';
 import PlusIcon from '../icons/Plus';
 import clsx from 'clsx';
-import {UI_FORM_ELEMENT_HEIGHT} from '~/lib/constants';
+import { UI_FORM_ELEMENT_HEIGHT } from '~/lib/constants';
 
-const getSwatch = (variants, selectOption) => {
-  let swatch;
-  variants.forEach((variant) => {
-    variant.selectedOptions?.forEach((option) => {
-      if (option.name === 'Color' && option.value === selectOption) {
-        if (variant.swatch) {
-          swatch = variant.swatch;
-        }
-      }
-    });
-  });
+/**
+ * @param {{ color_variants?: { references?: { nodes: Array } } }} product
+ * @param {string} optionName    // e.g. "Color" or "Size"
+ * @param {string} optionValue   // e.g. "Green/Black"
+ */
+export const getSwatch = (product, optionName, optionValue) => {
+  // Only do the metafield lookup for “Color”
+  if (optionName === 'Color') {
+    const nodes = product.color_variants?.references?.nodes || [];
 
-  if (swatch?.reference?.image?.originalSrc) {
-    return (
-      <div className={clsx('relative aspect-square h-full')}>
-        <Image
-          className="absolute h-full w-full object-cover"
-          alt="color"
-          src={swatch.reference?.image?.originalSrc}
-        />
-      </div>
+    // find the metaobject node whose fields include { key: 'color', value: optionValue }
+    const match = nodes.find((node) =>
+      node.fields.some((f) => f.key === 'color' && f.value === optionValue)
     );
+
+    // from that node, find the swatch field and grab its reference.image.originalSrc
+    const swatchRef = match
+      ?.fields.find((f) => f.key === 'swatch')
+      ?.reference;
+
+    const src = swatchRef?.image?.url;
+
+    if (src) {
+      return (
+        <div className={clsx('relative aspect-square h-full')}>
+          <Image
+            className="absolute h-full w-full object-cover"
+            src={src}
+            alt={`${optionValue} swatch`}
+            width={24}
+            height={24}
+          />
+        </div>
+      );
+    }
   }
 
+  // fallback for Size or missing swatch
   return (
     <div
-      className={clsx('aspect-square bg-gray ', UI_FORM_ELEMENT_HEIGHT)}
-    ></div>
+      className={clsx(
+        'aspect-square bg-gray-200', 
+        UI_FORM_ELEMENT_HEIGHT
+      )}
+    />
   );
 };
+
+/**
+ * Takes your product object and returns a new product
+ * with Color values alphabetized (everything else untouched).
+ */
+function sortColorOptionValues(product) {
+  return {
+    ...product,
+    options: product.options.map(option =>
+      option.name === 'Color'
+        ? {
+            ...option,
+            values: [...option.values].sort((a, b) =>
+              a.localeCompare(b, undefined, { sensitivity: 'base' })
+            ),
+          }
+        : option
+    ),
+  };
+}
 
 function findMatchingColor(product, references) {
   // Check if options contain an object with name 'Color'
@@ -83,25 +120,16 @@ export default function ProductOptions({
   selectedVariant: ProductVariant;
   customProductOptions?: SanityCustomProductOption[];
 }) {
- 
-  
 
-  const matchingNode = findMatchingColor(product, product.color_variants?.references);
 
-  if (matchingNode) {
-    console.log('Match found:', matchingNode);
-  } else {
-    console.log('No match found.');
-  }
- 
+  console.log(product)
 
   const [selected, setSelected] = useState(selectedVariant.selectedOptions);
 
 
-
   const [optionsSelected, setOptionsSelected] = useState([
-    {name: 'Size', value: ''},
-    {name: 'Color', value: ''},
+    { name: 'Size', value: '' },
+    { name: 'Color', value: '' },
   ]);
 
   useEffect(() => {
@@ -110,8 +138,8 @@ export default function ProductOptions({
       selectedVariant.selectedOptions?.[1]?.value
     ) {
       setOptionsSelected([
-        {name: 'Size', value: selectedVariant.selectedOptions[0].value},
-        {name: 'Color', value: selectedVariant.selectedOptions[1].value},
+        { name: 'Size', value: selectedVariant.selectedOptions[0].value },
+        { name: 'Color', value: selectedVariant.selectedOptions[1].value },
       ]);
     }
   }, [selectedVariant]);
@@ -119,13 +147,13 @@ export default function ProductOptions({
   const onListboxOptionClick = (optionName, value) => {
     if (optionName === 'Size') {
       setOptionsSelected([
-        {name: 'Size', value: value},
-        {name: 'Color', value: optionsSelected[1].value},
+        { name: 'Size', value: value },
+        { name: 'Color', value: optionsSelected[1].value },
       ]);
     } else {
       setOptionsSelected([
-        {name: 'Size', value: optionsSelected[0].value},
-        {name: 'Color', value: value},
+        { name: 'Size', value: optionsSelected[0].value },
+        { name: 'Color', value: value },
       ]);
     }
   };
@@ -137,8 +165,9 @@ export default function ProductOptions({
         options={options}
         variants={variants}
       >
-        {({option}) => {
+        {({ option }) => {
           const optionName = option.name;
+          const optionValue = option.value;
           // Check if current product has a valid custom option type.
           // If so, render a custom option component.
           const customProductOption = customProductOptions?.find(
@@ -149,11 +178,8 @@ export default function ProductOptions({
             (selectedOption) => selectedOption.name === option.name,
           );
 
-          const swatch = match?.[0]?.value ? (
-            getSwatch(variants, match[0].value)
-          ) : (
-            <></>
-          );
+          const swatch = getSwatch(product, optionName, optionValue);
+
           const label = () => {
             switch (option.name) {
               case 'Color':
@@ -168,11 +194,10 @@ export default function ProductOptions({
           return (
             <div>
               <Listbox value={selected} onChange={setSelected}>
-                {({open}) => (
+                {({ open }) => (
                   <div
-                    className={`${
-                      !open && 'hover:opacity-50'
-                    } relative border border-black`}
+                    className={`${!open && 'hover:opacity-50'
+                      } relative border border-black`}
                   >
                     <Listbox.Button
                       className={clsx(
@@ -185,7 +210,7 @@ export default function ProductOptions({
                           className={clsx(
                             'block flex items-center text-left',
                             option.name === 'Color' &&
-                              'relative h-full gap-[1em]',
+                            'relative h-full gap-[1em]',
                           )}
                         >
                           {label()}
@@ -223,63 +248,68 @@ export default function ProductOptions({
 
                         {/* Options liked: S, M, L, XL */}
                         {option.values.map(
-                          ({value, to, isActive, isAvailable}) => {
+                          ({ value, to, isActive, isAvailable }) => {
                             const id = `option-${option.name}-${value}`;
                             const swatch =
                               optionName === 'Color'
                                 ? getSwatch(variants, value)
                                 : null;
-                            switch (customProductOption?._type) {
-                              // case 'customProductOption.color': {
-                              //   const foundCustomOptionValue =
-                              //     customProductOption.colors.find(
-                              //       (color) => color.title === value,
-                              //     );
 
-                              //   return (
-                              //     <Listbox.Option
-                              //       as={Link}
-                              //       to={to}
-                              //       value={value}
-                              //       key={id}
-                              //     >
-                              //       <ColorButton
-                              //         to={to}
-                              //         isSelected={isActive}
-                              //         isAvailable={isAvailable}
-                              //         hex={
-                              //           foundCustomOptionValue?.hex || '#fff'
-                              //         }
-                              //       />
-                              //     </Listbox.Option>
-                              //   );
-                              // }
-                              // case 'customProductOption.size': {
-                              //   const foundCustomOptionValue =
-                              //     customProductOption.sizes.find(
-                              //       (size) => size.title === value,
-                              //     );
 
-                              //   return (
-                              //     <Listbox.Option value={value} key={id}>
-                              //       <div
-                              //         data-on-click
-                              //         onClick={() =>
-                              //           onListboxOptionClick(option.name, value)
-                              //         }
-                              //       >
-                              //         <OptionButton
-                              //           to={to}
-                              //           isSelected={isActive}
-                              //           isAvailable={isAvailable}
-                              //         >
-                              //           {value}
-                              //         </OptionButton>
-                              //       </div>
-                              //     </Listbox.Option>
-                              //   );
-                              // }
-                              default:
+
+                            switch (optionName) {
+                              // Custom integration using product metafields.
+                              // Using different color products instead of native color variants
+                              case "Color":
+                                console.log(value)
+                                // 1. Find the color_variant node whose `fields` include { key: 'color', value }
+                                const match = product.color_variants?.references?.nodes?.find(node =>
+                                  node.fields.some(f => f.key === "color" && f.value === value)
+                                );
+
+                                // 2. From that node, grab its swatch image URL (if any)
+                                const swatchField = match?.fields.find(f => f.key === "swatch")?.reference;
+                                const swatchUrl = swatchField?.image?.url;
+
+                                if(!match) {
+                                  return <>No match found</>
+                                }
+
+
+                                return (
+                                  <Listbox.Option
+                                    as={Link}
+                                    to={`/products/${match.sanityProduct.slug}`}
+                                    value={value}
+                                    preventScrollReset
+                                    replace
+                                    // data-isactive={isActive}
+                                    prefetch="intent"
+                                    className={clsx(
+                                      UI_FORM_ELEMENT_HEIGHT,
+                                      isActive
+                                        ? 'underline'
+                                        : 'text-black hover:text-opacity-50',
+                                      'flex  items-center overflow-hidden decoration-1 underline-offset-4',
+                                    )}
+                                    key={id}
+                                    onClick={() =>
+                                      onListboxOptionClick(option.name, value)
+                                    }
+                                  >
+                                    {/* 3. If we have a swatch URL, render it */}
+                                    {swatchUrl && (
+                                      <img
+                                        src={swatchUrl}
+                                        alt={`${value} swatch`}
+                                        className="h-full aspect-square mr-2 object-cover"
+                                      />
+                                    )}
+                                    <span className="px-[1em]">{value}</span>
+                                  </Listbox.Option>
+                                )
+
+                              case "Size":
                                 return (
                                   <Listbox.Option
                                     as={Link}
@@ -301,11 +331,90 @@ export default function ProductOptions({
                                       onListboxOptionClick(option.name, value)
                                     }
                                   >
-                                    {swatch}
+
                                     <span className="px-[1em]">{value}</span>
                                   </Listbox.Option>
-                                );
+                                )
                             }
+
+                            // switch (customProductOption?._type) {
+
+                            //   // case 'customProductOption.color': {
+                            //   //   const foundCustomOptionValue =
+                            //   //     customProductOption.colors.find(
+                            //   //       (color) => color.title === value,
+                            //   //     );
+
+                            //   //   return (
+                            //   //     <Listbox.Option
+                            //   //       as={Link}
+                            //   //       to={to}
+                            //   //       value={value}
+                            //   //       key={id}
+                            //   //     >
+                            //   //       <ColorButton
+                            //   //         to={to}
+                            //   //         isSelected={isActive}
+                            //   //         isAvailable={isAvailable}
+                            //   //         hex={
+                            //   //           foundCustomOptionValue?.hex || '#fff'
+                            //   //         }
+                            //   //       />
+                            //   //     </Listbox.Option>
+                            //   //   );
+                            //   // }
+                            //   // case 'customProductOption.size': {
+                            //   //   const foundCustomOptionValue =
+                            //   //     customProductOption.sizes.find(
+                            //   //       (size) => size.title === value,
+                            //   //     );
+
+                            //   //   return (
+                            //   //     <Listbox.Option value={value} key={id}>
+                            //   //       <div
+                            //   //         data-on-click
+                            //   //         onClick={() =>
+                            //   //           onListboxOptionClick(option.name, value)
+                            //   //         }
+                            //   //       >
+                            //   //         <OptionButton
+                            //   //           to={to}
+                            //   //           isSelected={isActive}
+                            //   //           isAvailable={isAvailable}
+                            //   //         >
+                            //   //           {value}
+                            //   //         </OptionButton>
+                            //   //       </div>
+                            //   //     </Listbox.Option>
+                            //   //   );
+                            //   // }
+                            //   default:
+                            //     return (
+                            //       <Listbox.Option
+                            //         as={Link}
+                            //         to={to}
+                            //         value={value}
+                            //         preventScrollReset
+                            //         replace
+                            //         // data-isactive={isActive}
+                            //         prefetch="intent"
+                            //         className={clsx(
+                            //           UI_FORM_ELEMENT_HEIGHT,
+                            //           isActive
+                            //             ? 'underline'
+                            //             : 'text-black hover:text-opacity-50',
+                            //           'flex  items-center overflow-hidden decoration-1 underline-offset-4',
+                            //         )}
+                            //         key={id}
+                            //         onClick={() =>
+                            //           onListboxOptionClick(option.name, value)
+                            //         }
+                            //       >
+                            //         {swatch}
+                            //         <span className="px-[1em]">{value}</span>
+                            //       </Listbox.Option>
+                            //     );
+                            // }
                           },
                         )}
 
