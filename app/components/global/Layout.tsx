@@ -23,6 +23,7 @@ export function Layout({ backgroundColor, children }: LayoutProps) {
   const isPreview = Boolean(usePreviewContext());
   const [root] = useMatches();
   const location = useLocation();
+ 
   return (
     <>
       <div className="absolute left-0 top-0">
@@ -54,12 +55,12 @@ export function Layout({ backgroundColor, children }: LayoutProps) {
           )}
         >
           <div className="mx-auto flex w-full flex-1 flex-col">{children}
-            <Link
+            {location.pathname?.includes("/boutique") && <Link
               className={clsx("linkTextNavigation !no-underline absolute bottom-0 transform left-1/2 -translate-x-1/2 z-10", SITE_MARGINS_Y)}
               to="/"
             >
               SUPER YAYA
-            </Link>
+            </Link>}
           </div>
         </main>
       </div>

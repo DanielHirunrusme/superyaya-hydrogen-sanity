@@ -14,7 +14,7 @@ export default function RadioCat1() {
   const location = useLocation();
 
   useEffect(() => {
-    if (scope.current && visible) {
+    if (scope.current) {
       const animateCat = async () => {
         const sequence = [
           ['.frame-1', {opacity: 1}, {duration: 0.001}],
@@ -29,14 +29,14 @@ export default function RadioCat1() {
           ['.frame-4', {opacity: 1}, {duration: 0.001}],
           ['.frame-4', {opacity: 0}, {duration: 0.001, delay: 1}],
         ];
-        await animate(sequence, {repeat: 2});
+        await animate(sequence, {repeat: 2000});
       };
       animateCat();
     }
-  }, [scope, visible]);
+  }, [scope]);
 
   useEffect(() => {
-    setVisible(false);
+    // setVisible(false);
     clearTimeout(timer.current);
     setTimeout(() => {
       setVisible(true);
