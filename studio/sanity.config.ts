@@ -46,19 +46,24 @@ export default defineConfig({
             // Minimum required configuration
             orderableDocumentListDeskItem({type: 'project', title: 'Projects', S, context}),
             orderableDocumentListDeskItem({type: 'season', title: 'Collection', S, context}),
-            S.divider(),
+           
             S.listItem().title('Category').schemaType('category').child(S.documentTypeList('category')),
             S.listItem().title('Size Chart').schemaType('sizeChart').child(S.documentTypeList('sizeChart')),
-            S.listItem()
-              .title('Color themes')
-              .schemaType('colorTheme')
-              .child(S.documentTypeList('colorTheme')),
+            
+              S.divider(),
+              S.listItem().title('Radio episodes').schemaType('radio').child(S.documentTypeList('radio')),
             S.divider(),
-            S.listItem().title('Route').schemaType('route').child(S.documentTypeList('route')),
             S.listItem()
               .title('Settings')
               .schemaType('settings')
               .child(S.editor().title('Settings').schemaType('settings').documentId('settings')),
+              S.divider(),
+            S.listItem().title('Route').schemaType('route').child(S.documentTypeList('route')),
+            S.listItem()
+              .title('Color themes')
+              .schemaType('colorTheme')
+              .child(S.documentTypeList('colorTheme')),
+            
 
             // ... all other desk items
           ])

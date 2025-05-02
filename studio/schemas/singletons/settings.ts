@@ -60,7 +60,8 @@ export default defineType({
     defineField({
       name: 'radioEpisode',
       title: 'Radio Episode',
-      type: 'mux.video',
+      type: 'reference',
+      to: [{type: 'radio'}],
       group: 'radioEpisode',
     }),
     // Custom product options

@@ -10,6 +10,7 @@ import project from './projectStructure'
 import collaboration from './collaborationStructure'
 import products from './productStructure'
 import settings from './settingStructure'
+import radio from './radioStructure'
 
 /**
  * Desk structure overrides
@@ -42,6 +43,7 @@ const hiddenDocTypes = (listItem: ListItemBuilder) => {
     'page',
     'product',
     'productVariant',
+        'radio',
     'settings',
   ].includes(id)
 }
@@ -57,7 +59,10 @@ export const structure: StructureResolver = (S, context) =>
       S.divider(),
       pages(S, context),
       project(S, context),
+      S.divider(),
+      radio(S, context),
       ...S.documentTypeListItems().filter(hiddenDocTypes),
+
       S.divider(),
       settings(S, context),
       S.divider(),

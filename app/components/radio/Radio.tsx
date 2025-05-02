@@ -1,19 +1,22 @@
-import {Transition} from '@headlessui/react';
+import { Transition } from '@headlessui/react';
 import Button from '../elements/Button';
-import {useRef, useState} from 'react';
-import {stagger, useAnimate} from 'framer-motion';
-import {Typography} from '../global/Typography';
-import clsx from 'clsx';
-import {CAT_SIZE} from '~/lib/constants';
-import RadioCat2 from './RadioCat2';
+import { useRef, useState } from 'react';
+import { stagger, useAnimate } from 'framer-motion';
+import { Typography } from '../global/Typography';
+// import clsx from 'clsx';
+// import {CAT_SIZE} from '~/lib/constants';
+// import RadioCat2 from './RadioCat2';
+import { useMatches } from '@remix-run/react';
+import { format } from "date-fns"
 
-export default function Radio({open, setOpen, setIsPlaying}) {
+export default function Radio({ open, setOpen, setIsPlaying }) {
   const frame1Ref = useRef(null);
   const frame2Ref = useRef(null);
   const frame3Ref = useRef(null);
   const [rootOpen, setRootOpen] = useState(false);
   const [scope, animate] = useAnimate();
   const timer = useRef();
+  const [root] = useMatches();
 
   const initialClasses =
     'absolute h-screen flex items-center justify-center w-full';
@@ -27,12 +30,12 @@ export default function Radio({open, setOpen, setIsPlaying}) {
     clearTimeout(timer.current);
     const hideTitles = async () => {
       const sequence = [
-        ['.brand', {opacity: 0}, {duration: 0}],
-        ['.date', {opacity: 0}, {duration: 0}],
-        ['.episode', {opacity: 0}, {duration: 0}],
+        ['.brand', { opacity: 0 }, { duration: 0 }],
+        ['.date', { opacity: 0 }, { duration: 0 }],
+        ['.episode', { opacity: 0 }, { duration: 0 }],
 
-        [frame3Ref.current, {opacity: 0}],
-        [frame2Ref.current, {opacity: 0, at: frame3Ref.current}],
+        [frame3Ref.current, { opacity: 0 }],
+        [frame2Ref.current, { opacity: 0, at: frame3Ref.current }],
       ];
 
       await animate(sequence);
@@ -58,11 +61,11 @@ export default function Radio({open, setOpen, setIsPlaying}) {
     setRootOpen(true);
     const showTitles = async () => {
       const sequence = [
-        ['.date', {opacity: 1}, {delay: 0.5, duration: 0.001}],
-        ['.brand', {opacity: 1}, {delay: 0.5, duration: 0.001}],
-        ['.episode', {opacity: 1}, {delay: 0.5, duration: 0.001}],
-        [frame2Ref.current, {opacity: 0}, {delay: 1, duration: 0.001}],
-        ['.frame3Ul li', {opacity: 1}, {delay: stagger(0.5), duration: 0.001}],
+        ['.date', { opacity: 1 }, { delay: 0.5, duration: 0.001 }],
+        ['.brand', { opacity: 1 }, { delay: 0.5, duration: 0.001 }],
+        ['.episode', { opacity: 1 }, { delay: 0.5, duration: 0.001 }],
+        [frame2Ref.current, { opacity: 0 }, { delay: 1, duration: 0.001 }],
+        ['.frame3Ul li', { opacity: 1 }, { delay: stagger(0.5), duration: 0.001 }],
       ];
 
       await animate(sequence);
@@ -76,6 +79,10 @@ export default function Radio({open, setOpen, setIsPlaying}) {
       }, 2000);
     });
   };
+
+  if(!root) {
+    return <></>
+  }
 
   return (
     <Transition
@@ -115,9 +122,9 @@ export default function Radio({open, setOpen, setIsPlaying}) {
             {/* Frame 2 */}
             <div ref={frame2Ref} className={initialClasses}>
               <ul className="frame2Ul my-auto flex h-screen w-full flex-1 flex-col items-center justify-evenly text-center md:h-auto  md:flex-row">
-                <li className="date opacity-0">22.10.2023</li>
+                {root?.data?.layout?.radioEpisode?.date && <li className="date opacity-0">{format(new Date(root.data.layout.radioEpisode.date), "dd.mm.yyyy")}</li>}
                 <li className="brand opacity-0">Radio Yaya</li>
-                <li className="episode opacity-0">Episode 1</li>
+                <li className="episode opacity-0">{root?.data?.layout?.radioEpisode?.title}</li>
               </ul>
             </div>
             {/* Frame 3 */}
@@ -128,10 +135,7 @@ export default function Radio({open, setOpen, setIsPlaying}) {
                   <br />
                   <br />
                 </li>
-                <li className="opacity-0">ALIM QASIMOV</li>
-                <li className="opacity-0">ELMAN</li>
-                <li className="opacity-0">MIRI YUSIFFIDAN HUSEYNOVA</li>
-                <li className="opacity-0">OKABER</li>
+                {root?.data?.layout?.radioEpisode?.contributors?.map((contributor: string) => <li className="opacity-0" key={contributor}>{contributor}</li>)}
               </ul>
             </div>
           </div>

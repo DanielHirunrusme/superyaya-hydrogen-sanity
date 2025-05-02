@@ -1,4 +1,4 @@
-import {DocumentIcon} from '@sanity/icons'
+import {ActivityIcon} from '@sanity/icons'
 import {defineField} from 'sanity'
 
 import {validateSlug} from '../../utils/validateSlug'
@@ -7,12 +7,12 @@ export default defineField({
   name: 'radio',
   title: 'Radio',
   type: 'document',
-  icon: DocumentIcon,
+  icon: ActivityIcon,
   groups: [
-    {
-      name: 'theme',
-      title: 'Theme',
-    },
+    // {
+    //   name: 'theme',
+    //   title: 'Theme',
+    // },
     {
       default: true,
       name: 'editorial',
@@ -39,21 +39,41 @@ export default defineField({
       // @ts-ignore - TODO - fix this TS error
       validation: validateSlug,
     }),
-    // Color theme
+    // Mux
+    // Slug
     defineField({
-      name: 'colorTheme',
-      title: 'Color theme',
-      type: 'reference',
-      to: [{type: 'colorTheme'}],
-      group: 'theme',
+      name: 'video',
+      type: 'mux.video',
+      validation: (Rule) => Rule.required(),
     }),
+    // Title
+    defineField({
+      name: 'date',
+      title: 'Date',
+      type: 'date',
+      validation: (Rule) => Rule.required(),
+    }),
+
+    // Contributors
+    defineField({
+      name: 'contributors',
+      title: 'Contributor(s)',
+      type: 'array',
+      of:[{
+        title: 'Name',
+        name: 'name',
+        type: 'string'
+      }],
+      validation: (Rule) => Rule.required(),
+    }),
+    
     // Body
-    defineField({
-      name: 'body',
-      title: 'Body',
-      type: 'body',
-      group: 'editorial',
-    }),
+    // defineField({
+    //   name: 'body',
+    //   title: 'Body',
+    //   type: 'body',
+    //   group: 'editorial',
+    // }),
     // SEO
     defineField({
       name: 'seo',

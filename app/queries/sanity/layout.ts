@@ -10,8 +10,13 @@ export const LAYOUT_QUERY = groq`
     "menuLinks": menu.links[] {
       ${LINKS}
     },
-    "radioEpisode": radioEpisode{
-      asset->
+    "radioEpisode": radioEpisode->{
+      ...,
+      video {
+        asset-> {
+          ...,
+        }
+      }
     },
     "introImage": *[_type == "home"][0].introImage.asset->{...,},
     assistance {

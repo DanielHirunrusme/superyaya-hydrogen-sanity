@@ -109,10 +109,10 @@ export default function RadioPlayer(props: Props) {
   }, [muxPlayerRef, isPlaying]);
 
   useEffect(() => {
-    if (root.data.layout?.radioEpisode?.asset?.data?.duration) {
+    if (root.data.layout?.radioEpisode?.video.asset?.data?.duration) {
       setTime({
         currentTime: '00:00:00',
-        duration: getTime(root.data.layout.radioEpisode.asset.data.duration),
+        duration: getTime(root.data.layout.radioEpisode.video.asset.data.duration),
       });
     }
   }, [root]);
@@ -181,7 +181,7 @@ export default function RadioPlayer(props: Props) {
   return (
     <>
       <MuxPlayer
-        playbackId={root.data.layout.radioEpisode.asset.playbackId}
+        playbackId={root.data.layout.radioEpisode.video.asset.playbackId}
         ref={muxPlayerRef}
         streamType="on-demand"
         onCanPlay={onCanPlay}
@@ -212,7 +212,7 @@ export default function RadioPlayer(props: Props) {
                 <Typography type="radioPlayer">
                   <div className="flex flex-col gap-[1em]">
                     <header className="flex justify-between  gap-[2em] text-center md:mx-0 md:gap-[6em]">
-                      <h4>Radio Yaya Episode&nbsp;1</h4>
+                      <h4>Radio Yaya {root.data.layout.radioEpisode.title}</h4>
                       <button
                         className="hidden md:block"
                         onClick={() => setIsPlaying(false)}
@@ -239,7 +239,7 @@ export default function RadioPlayer(props: Props) {
                           className="hidden w-[2em] md:inline md:w-[16em]"
                           value={time.currentTimeRaw}
                           max={
-                            root.data.layout?.radioEpisode?.asset?.data
+                            root.data.layout?.radioEpisode?.video?.asset?.data
                               ?.duration
                           }
                         />
