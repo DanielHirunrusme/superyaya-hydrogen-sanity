@@ -1,27 +1,28 @@
-import {Await, useLoaderData, useSearchParams} from '@remix-run/react';
-import {AnalyticsPageType, type SeoHandleFunction} from '@shopify/hydrogen';
-import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
+import { Await, useLoaderData, useSearchParams } from '@remix-run/react';
+import { AnalyticsPageType, type SeoHandleFunction } from '@shopify/hydrogen';
+import { defer, type LoaderArgs } from '@shopify/remix-oxygen';
 // import clsx from 'clsx';
-import {Suspense, useEffect, useState} from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import invariant from 'tiny-invariant';
 
 import ProductGrid from '~/components/collection/ProductGrid';
 // import SortOrder from '~/components/collection/SortOrder';
-import {SORT_OPTIONS} from '~/components/collection/SortOrder';
-import {useTheme, Theme} from '~/components/context/ThemeProvider';
+import { SORT_OPTIONS } from '~/components/collection/SortOrder';
+import { useTheme, Theme } from '~/components/context/ThemeProvider';
 // import CollectionHero from '~/components/heroes/Collection';
-import type {SanityCollectionPage} from '~/lib/sanity';
-import {ColorTheme} from '~/lib/theme';
-import {fetchGids, notFound, validateLocale} from '~/lib/utils';
-import {COLLECTION_PAGE_QUERY} from '~/queries/sanity/collection';
-import {COLLECTION_QUERY} from '~/queries/shopify/collection';
-import {isWithinDateRange} from '~/lib/utils';
-import {useAnimate} from 'framer-motion';
+import type { SanityCollectionPage } from '~/lib/sanity';
+import { ColorTheme } from '~/lib/theme';
+import { fetchGids, notFound, validateLocale } from '~/lib/utils';
+import { COLLECTION_PAGE_QUERY } from '~/queries/sanity/collection';
+import { COLLECTION_QUERY } from '~/queries/shopify/collection';
+import { isWithinDateRange } from '~/lib/utils';
+import { useAnimate } from 'framer-motion';
 import Newsletter from '~/components/modules/Newsletter';
-import {Container} from '~/components/global/Container';
+import { Container } from '~/components/global/Container';
 import CollectionBreadcrumb from '~/components/collection/CollectionBreadcrumb';
+import { Link } from '~/components/Link';
 
-const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
+const seo: SeoHandleFunction<typeof loader> = ({ data }) => ({
   title: data?.page?.seo?.title ?? data?.collection?.title,
   description: data?.page?.seo?.description ?? data?.collection?.description,
   media: data?.page?.seo?.image ?? data?.collection?.image,
@@ -42,12 +43,12 @@ export type SortParam =
 
 const PAGINATION_SIZE = 20;
 
-export async function loader({params, context, request}: LoaderArgs) {
-  validateLocale({context, params});
+export async function loader({ params, context, request }: LoaderArgs) {
+  validateLocale({ context, params });
 
-  const {handle} = params;
+  const { handle } = params;
   const searchParams = new URL(request.url).searchParams;
-  const {sortKey, reverse} = getSortValuesFromParam(
+  const { sortKey, reverse } = getSortValuesFromParam(
     searchParams.get('sort') as SortParam,
   );
   const cursor = searchParams.get('cursor');
@@ -61,7 +62,7 @@ export async function loader({params, context, request}: LoaderArgs) {
     staleWhileRevalidate: 60,
   });
 
-  const [page, {collection}] = await Promise.all([
+  const [page, { collection }] = await Promise.all([
     context.sanity.query<SanityCollectionPage>({
       query: COLLECTION_PAGE_QUERY,
       params: {
@@ -69,7 +70,7 @@ export async function loader({params, context, request}: LoaderArgs) {
       },
       cache,
     }),
-    context.storefront.query<{collection: any}>(COLLECTION_QUERY, {
+    context.storefront.query<{ collection: any }>(COLLECTION_QUERY, {
       variables: {
         handle,
         cursor,
@@ -86,7 +87,7 @@ export async function loader({params, context, request}: LoaderArgs) {
   }
 
   // Resolve any references to products on the Storefront API
-  const gids = fetchGids({page, context});
+  const gids = fetchGids({ page, context });
 
   return defer({
     page,
@@ -102,21 +103,21 @@ export async function loader({params, context, request}: LoaderArgs) {
 }
 
 export default function Collection() {
-  const {collection, page, gids} = useLoaderData<typeof loader>();
+  const { collection, page, gids } = useLoaderData<typeof loader>();
   const [params] = useSearchParams();
   const sort = params.get('sort');
-  const {theme, setTheme} = useTheme();
+  const { theme, setTheme } = useTheme();
 
   const products = collection.products.nodes;
 
   const isPreorderCollection = collection.handle === 'pre-orders';
 
   useEffect(() => {
-     setTheme(Theme.LIGHT);
+    setTheme(Theme.LIGHT);
   }, []);
 
   return (
-    <div>
+    <div className='relative'>
       <Suspense>
         <Await resolve={gids}>
           {/* Hero */}
@@ -156,6 +157,9 @@ export default function Collection() {
             </PreorderCollection>
           )}
 
+
+          
+
           {/* <EmptyMessage>
             <div>Coming soon. Subscribe for updates.</div>
             <br />
@@ -167,7 +171,7 @@ export default function Collection() {
   );
 }
 
-export const EmptyMessage = ({children}) => {
+export const EmptyMessage = ({ children }) => {
   return (
     <div className="fixed left-0 top-0 flex h-screen w-full flex-1 flex-col items-center justify-center text-center">
       <Container type="preOrder" asChild>
@@ -179,8 +183,8 @@ export const EmptyMessage = ({children}) => {
   );
 };
 
-function PreorderCollection({collection, children}) {
-  const {theme, setTheme} = useTheme();
+function PreorderCollection({ collection, children }) {
+  const { theme, setTheme } = useTheme();
   const [scope, animate] = useAnimate();
   const [showProducts, setShowProducts] = useState<boolean>(false);
 
@@ -207,7 +211,7 @@ function PreorderCollection({collection, children}) {
   useEffect(() => {
     if (scope.current) {
       const fadeOut = async () => {
-        await animate(scope.current, {opacity: 0}, {duration: 0.1, delay: 3});
+        await animate(scope.current, { opacity: 0 }, { duration: 0.1, delay: 3 });
         setShowProducts(true);
       };
       fadeOut();

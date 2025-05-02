@@ -9,8 +9,10 @@ import {
   ASSISTANCE_CONTENT_OFFSET,
   SITE_CONTENT_OFFSET,
   SITE_MARGINS_X,
+  SITE_MARGINS_Y,
 } from '~/lib/constants';
 import {useLocation, useMatches} from '@remix-run/react';
+import { Link } from '../Link';
 
 type LayoutProps = {
   backgroundColor?: string;
@@ -42,7 +44,7 @@ export function Layout({backgroundColor, children}: LayoutProps) {
           id="mainContent"
           role="main"
           className={clsx(
-            'flex grow flex-col',
+            'flex grow flex-col relative',
             root?.data?.layout?.assistance?.links.some(
               (e) => e.slug === location.pathname,
             )
@@ -51,7 +53,17 @@ export function Layout({backgroundColor, children}: LayoutProps) {
             SITE_MARGINS_X,
           )}
         >
-          <div className="mx-auto flex w-full flex-1 flex-col">{children}</div>
+          <div className="mx-auto flex w-full flex-1 flex-col">{children}
+          <Link
+
+className={clsx("linkTextNavigation !no-underline absolute bottom-0 transform left-1/2 -translate-x-1/2 z-10", SITE_MARGINS_Y)}
+to="/"
+>
+SUPER YAYA
+</Link>
+
+
+          </div>
         </main>
       </div>
 

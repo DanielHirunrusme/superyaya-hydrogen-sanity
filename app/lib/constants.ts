@@ -22,7 +22,7 @@ export const RADIO_PLAYER =
   'bottom-[12vw] md:bottom-[3.75vw] xl:bottom-[3.2vw] 2xl:bottom-[3.3203125vw]';
 
 export const SITE_CONTENT_OFFSET =
-  'my-[15.897vw] md:my-[10.5527vw] xl:my-[11.5162vw] 2xl:my-[13.28125vw]';
+  'py-[15.897vw] md:py-[10.5527vw] xl:py-[11.5162vw] 2xl:py-[13.28125vw]';
 
 export const ASSISTANCE_CONTENT_OFFSET =
   'my-mobile md:my-[10.5527vw] xl:my-[11.5162vw] 2xl:my-[13.28125vw]';
