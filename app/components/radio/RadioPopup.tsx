@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import RadioPlayer from './RadioPlayer';
 import RadioCat1 from './RadioCat1';
 import {useTheme, Theme} from '../context/ThemeProvider';
-import {useMatches} from '@remix-run/react';
 
 export default function RadioPopup() {
   const [open, setOpen] = useState(false);
@@ -17,9 +16,7 @@ export default function RadioPopup() {
   const [randomPosition, setRandomPosition] = useState({x: 0, y: 0});
   const {theme, navVisible} = useTheme();
 
-  const [root] = useMatches();
-  
-  console.log(root)
+   
 
   const onPointerDown = () => {
     setDragging(true);
@@ -53,11 +50,7 @@ export default function RadioPopup() {
     winResize();
   }, []);
 
-  if (!navVisible) return null;
-
-  if(!root.data?.layout?.radioEpisode) {
-    return <></>
-  }
+ 
 
   return (
     <>

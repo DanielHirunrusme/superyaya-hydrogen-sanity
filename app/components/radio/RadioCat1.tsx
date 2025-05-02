@@ -33,7 +33,7 @@ export default function RadioCat1() {
       };
       animateCat();
     }
-  }, [scope, visible, location]);
+  }, [scope, visible]);
 
   useEffect(() => {
     setVisible(false);
@@ -41,7 +41,7 @@ export default function RadioCat1() {
     setTimeout(() => {
       setVisible(true);
     }, Math.random() * 3000 + 3000);
-  }, [location]);
+  }, []);
 
   if (!visible) return null;
 
