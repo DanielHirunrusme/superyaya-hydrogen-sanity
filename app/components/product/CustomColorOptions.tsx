@@ -41,9 +41,9 @@ export default function ProductCustomColorOptions({ product }) {
     .filter(s => s.name && s.url)
     .sort((a, b) => a.name.localeCompare(b.name));
 
-  if(swatches.length <= 1) {
-    return <></>
-  }
+  // if(swatches.length <= 1) {
+  //   return <></>
+  // }
 
   return (
     <Listbox value={currentColor}>
