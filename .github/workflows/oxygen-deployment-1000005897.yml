@@ -38,12 +38,17 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Build and Publish to Oxygen
-        id: deploy
-        uses: shopify/oxygenctl-action@v4
-        with:
-          oxygen_deployment_token: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN_1000005897 }}
-          build_command: 'HYDROGEN_ASSET_BASE_URL=$OXYGEN_ASSET_BASE_URL npm run build'
+      - name: Clean build output
+        run: rm -rf build
+
+      - name: Build and Publish to Oxygen (Hydrogen CLI)
+        run: |
+          # Build the project
+          HYDROGEN_ASSET_BASE_URL=$OXYGEN_ASSET_BASE_URL npm run build
+          # Deploy using the Hydrogen CLI
+          npx shopify hydrogen deploy
+        env:
+          SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN_1000005897 }}
 
       # Create GitHub Deployment
       - name: Create GitHub Deployment
