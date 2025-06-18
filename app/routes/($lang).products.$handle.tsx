@@ -106,7 +106,7 @@ export async function loader({params, context, request}: LoaderArgs) {
   }
 
   // If product has metafield color_variants fetch the products
-  // console.log('product loader:', product)
+ 
   if (product.color_variants?.references?.nodes?.length > 0) {
     // Map and resolve all references concurrently
     const updatedNodes = await Promise.all(
@@ -226,7 +226,7 @@ export default function ProductHandle() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [sizeChartVisible, setSizeChartVisible] = useState(false);
 
-  console.log(product)
+ 
 
   return (
     <>

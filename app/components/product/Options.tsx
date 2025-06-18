@@ -122,7 +122,7 @@ export default function ProductOptions({
 }) {
 
 
-  console.log(product)
+ 
 
   const [selected, setSelected] = useState(selectedVariant.selectedOptions);
 
@@ -261,7 +261,7 @@ export default function ProductOptions({
                               // Custom integration using product metafields.
                               // Using different color products instead of native color variants
                               case "Color":
-                                console.log(value)
+                        
                                 // 1. Find the color_variant node whose `fields` include { key: 'color', value }
                                 const match = product.color_variants?.references?.nodes?.find(node =>
                                   node.fields.some(f => f.key === "color" && f.value === value)
