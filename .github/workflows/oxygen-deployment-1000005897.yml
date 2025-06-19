@@ -13,6 +13,8 @@ jobs:
     name: Deploy to Oxygen
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    env:
+      OXYGEN_STOREFRONT_ID: 1000005897
     steps:
       - uses: actions/checkout@v3
 
@@ -41,12 +43,13 @@ jobs:
       # - name: Clean build output
       #   run: rm -rf build
 
-      - name: Build and Publish to Oxygen
+      - name: Build and Publish to Oxygen (Hydrogen CLI)
         id: deploy
-        uses: shopify/oxygenctl-action@v4
-        with:
-          oxygen_deployment_token: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN_1000005897 }}
-          build_command: 'HYDROGEN_ASSET_BASE_URL=$OXYGEN_ASSET_BASE_URL npm run build'
+        run: |
+          # Build the project
+          HYDROGEN_ASSET_BASE_URL=$OXYGEN_ASSET_BASE_URL npm run build
+          # Deploy using the Hydrogen CLI
+          npx shopify hydrogen deploy --storefront-id $OXYGEN_STOREFRONT_ID
 
       # Create GitHub Deployment
       - name: Create GitHub Deployment
