@@ -3,7 +3,7 @@ import {useState} from 'react';
 
 import Button from '../elements/Button';
 import {Container} from '../global/Container';
-import {ArrowUpload} from '../icons/ArrowUpload';
+import {Disclosure} from '@headlessui/react';
 
 type CustomText = {text: string};
 
@@ -153,7 +153,7 @@ function EmailForm({
         >
           {/* Contact Details */}
           <div className="flex flex-col gap-4 pb-8">
-            <h4 className="text-center">Contact Details</h4>
+            <h4 className="">Contact Details</h4>
             <fieldset className="gap-[.75em]">
               <label htmlFor="email">E-mail Address*</label>
               <input
@@ -171,7 +171,7 @@ function EmailForm({
 
           {/* Shipping Details */}
           <div className="flex flex-col gap-4 pb-8">
-            <h4 className="text-center">Shipping Details</h4>
+            <h4 className="">Shipping Details</h4>
             <div className="flex gap-4">
               <fieldset className="flex-1 gap-[.75em]">
                 <label htmlFor="firstName">First name</label>
@@ -245,6 +245,88 @@ function EmailForm({
             name="_gotcha"
             style={{display: 'none !important'}}
           />
+
+           {/* Measurements */}
+           <Disclosure>
+            {({open}) => (
+              <>
+                <Disclosure.Button className=" flex gap-4 hover:opacity-50">
+                  <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
+                  <h4>Measurements</h4>
+                </Disclosure.Button>
+                <Disclosure.Panel className="flex flex-col gap-4 pb-8 pt-4">
+                  <div className="flex gap-4">
+                    <fieldset className="flex-1 gap-[.75em]">
+                      <label htmlFor="bust">Bust (cm)</label>
+                      <input
+                        placeholder="Bust"
+                        type="text"
+                        name="bust"
+                        required
+                      />
+                    </fieldset>
+                    <fieldset className="flex-1 gap-[.75em]">
+                      <label htmlFor="waist">Waist (cm)</label>
+                      <input
+                        placeholder="Waist"
+                        type="text"
+                        name="waist"
+                        required
+                      />
+                    </fieldset>
+                  </div>
+
+                  <div className="flex gap-4">
+                    <fieldset className="flex-1 gap-[.75em]">
+                      <label htmlFor="bust">Hips (cm)</label>
+                      <input
+                        placeholder="Hips"
+                        type="text"
+                        name="hips"
+                        required
+                      />
+                    </fieldset>
+                    <fieldset className="flex-1 gap-[.75em]">
+                      <label htmlFor="waist">Height (cm)</label>
+                      <input
+                        placeholder="Height"
+                        type="text"
+                        name="height"
+                        required
+                      />
+                    </fieldset>
+                  </div>
+                </Disclosure.Panel>
+              </>
+            )}
+          </Disclosure>
+
+          {/* Please specify your delivery date */}
+          <Disclosure>
+            {({open}) => (
+              <>
+                <div className="flex gap-4">
+                  <fieldset className="flex-1 gap-[.75em]">
+                    <Disclosure.Button className=" flex gap-4 hover:opacity-50">
+                      <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
+                      <label htmlFor="postal">
+                        Please specify your delivery date
+                      </label>
+                    </Disclosure.Button>
+                    <Disclosure.Panel className="flex flex-col gap-4 pb-8">
+                      <input
+                        placeholder="Delivery Date"
+                        type="text"
+                        name="postal"
+                        required
+                      />
+                      <p>Please allow 2–3 weeks for production. If you would like to request an earlier delivery date, please specify below and we will do our best to accommodate.</p>
+                    </Disclosure.Panel>
+                  </fieldset>
+                </div>
+              </>
+            )}
+          </Disclosure>
 
           <Container type="pdpForm">
             <div className="mt-7 flex gap-4">
