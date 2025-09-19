@@ -10,7 +10,6 @@ import clsx from 'clsx';
 import {useState} from 'react';
 import {Suspense} from 'react';
 import invariant from 'tiny-invariant';
-
 import {CartActions, CartLineItems, CartSummary} from '~/components/cart/Cart';
 import CartInquireForm from '~/components/cart/CartInquireForm';
 import StaggerIndexList from '~/components/framer/StaggerIndexList';
