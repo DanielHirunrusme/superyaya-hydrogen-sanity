@@ -45,10 +45,12 @@ jobs:
 
       - name: Build and Publish to Oxygen (Hydrogen CLI)
         id: deploy
+        env:
+          SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
         run: |
           # Build the project
-          HYDROGEN_ASSET_BASE_URL=$OXYGEN_ASSET_BASE_URL npm run build
-          # Deploy using the Hydrogen CLI
+          npm run build
+          # Deploy using the Hydrogen CLI with sales channel authentication
           npx shopify hydrogen deploy --storefront-id $OXYGEN_STOREFRONT_ID
 
       # Create GitHub Deployment
