@@ -90,7 +90,7 @@ export default function ProductForm({
             }}
             buttonClassName="w-full hover:opacity-50"
           >
-            {!isPreorder ? 'Add to Cart' : 'Pre-order'}
+            {!isPreorder ? 'Inquire to Purchase' : 'Pre-order'}
           </AddToCartButton>
           {/* <BuyNowButton
           lines={[{merchandiseId: selectedVariant.id, quantity: 1}]}

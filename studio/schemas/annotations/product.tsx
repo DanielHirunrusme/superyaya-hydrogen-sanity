@@ -48,7 +48,7 @@ export default defineField({
             value: 'link',
           },
           {
-            title: 'Add to cart',
+            title: 'Add to Inquiry',
             value: 'addToCart',
           },
           {

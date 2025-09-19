@@ -125,7 +125,7 @@ function ProductInlineLinkContent({
       placement="top"
       render={() => {
         if (linkAction === 'addToCart') {
-          return <Tooltip label={`Add to cart: ${title}`} tone="dark" />;
+          return <Tooltip label={`Add to Inquiry: ${title}`} tone="dark" />;
         }
         if (linkAction === 'buyNow') {
           return <Tooltip label={`Buy now: ${title}`} tone="dark" />;

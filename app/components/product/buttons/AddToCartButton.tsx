@@ -9,7 +9,7 @@ import SpinnerIcon from '~/components/icons/Spinner';
 type FormMode = 'default' | 'inline' | 'outline';
 
 export default function AddToCartButton({
-  children = 'Add to cart',
+  children = 'Add to Inquiry',
   lines,
   analytics,
   mode = 'default',
@@ -63,7 +63,7 @@ export default function AddToCartButton({
 }
 
 export function AddToCartLink({
-  children = 'Add to cart',
+  children = 'Add to Inquiry',
   lines,
   analytics,
   mode = 'default',

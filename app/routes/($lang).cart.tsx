@@ -1,22 +1,26 @@
+import type {ActionFunctionArgs} from '@remix-run/node';
 import {Await, useMatches} from '@remix-run/react';
 import {
   CartForm,
   type CartQueryData,
   type SeoHandleFunction,
 } from '@shopify/hydrogen';
-import {ActionArgs, json} from '@shopify/remix-oxygen';
+import {json} from '@shopify/remix-oxygen';
 import clsx from 'clsx';
+import {useState} from 'react';
 import {Suspense} from 'react';
 import invariant from 'tiny-invariant';
-import {Link} from '~/components/Link';
 
 import {CartActions, CartLineItems, CartSummary} from '~/components/cart/Cart';
+import CartInquireForm from '~/components/cart/CartInquireForm';
 import StaggerIndexList from '~/components/framer/StaggerIndexList';
 import {Container} from '~/components/global/Container';
 import {Typography} from '~/components/global/Typography';
 import SpinnerIcon from '~/components/icons/Spinner';
+import {Link} from '~/components/Link';
 import {isLocalPath} from '~/lib/utils';
-import { EmptyMessage } from './($lang).boutique.$handle';
+
+import {EmptyMessage} from './($lang).boutique.$handle';
 
 const seo: SeoHandleFunction = () => ({
   title: 'Cart',
@@ -27,7 +31,7 @@ export const handle = {
   seo,
 };
 
-export async function action({request, context}: ActionArgs) {
+export async function action({request, context}: ActionFunctionArgs) {
   const {session, cart} = context;
 
   const [formData, customerAccessToken] = await Promise.all([
@@ -102,6 +106,7 @@ export async function action({request, context}: ActionArgs) {
 
 export default function Cart() {
   const [root] = useMatches();
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   return (
     <section
@@ -117,31 +122,53 @@ export default function Cart() {
           </div>
         }
       >
-        <Await resolve={root.data?.cart}>
-          {(cart) => (
-            <div className='cart'>
-            <StaggerIndexList>
-              {cart && cart.lines?.edges?.length > 0 ? (
-                <Container type="cart">
-                  <ul>
-                    <li className="hidden grid-cols-8 border-b border-black opacity-0 md:grid">
-                      <span className="col-span-4">
-                        <span className="cell block leading-none ml-[7em] 2xl:ml-[5.07vw]">Item</span>
-                      </span>
-                      <span className="cell col-span-3 leading-none">
-                        Quantity
-                      </span>
-                      <span className=" cell col-span-1 flex justify-end text-right leading-none md:relative md:text-left">
-                        <span className="ml-auto block w-[5.5em] text-right leading-none leading-none md:relative md:text-left">
-                          Price
-                        </span>
-                      </span>
-                    </li>
-                    <li>
-                      <CartLineItems linesObj={cart?.lines} />
-                    </li>
-                    <li className="grid grid-cols-8 gap-6 border-t border-black opacity-0 2xl:grid-cols-3">
-                      <div className="cell col-span-4 hidden md:col-span-6 md:flex gap-[1em] 2xl:col-start-1 2xl:col-end-3">
+        <Await resolve={(root.data as any)?.cart}>
+          {(cart) => {
+            return (
+              <div className="cart">
+                <StaggerIndexList>
+                  {cart && cart.lines?.edges?.length > 0 ? (
+                    <Container type="cart">
+                      {!formSubmitted && <div className="mb-10 text-center">
+                        <h1>Inquire to Purchase</h1>
+                        <br />
+                        <p className="text-balance">
+                          PLEASE Review and complete YOUR CART INQUIRY USING THE
+                          FORM BELOW. ONCE WE&apos;VE RECEIVED YOUR INQUIRY WE
+                          WILL GET BACK TO YOU WITH A QUOTE.
+                        </p>
+                      </div>}
+                      <ul>
+                        {!formSubmitted && <li className="hidden grid-cols-8 border-b border-black opacity-0 md:grid">
+                          <span className="col-span-4">
+                            <span className="cell ml-[7em] block leading-none 2xl:ml-[5.07vw]">
+                              Item
+                            </span>
+                          </span>
+                          <span className="cell col-span-3 leading-none">
+                            Quantity
+                          </span>
+                          <span className="cell col-span-1 flex justify-end text-right leading-none md:relative md:text-left">
+                            <span className="ml-auto block w-[5.5em] text-right leading-none md:relative md:text-left">
+                              Price
+                            </span>
+                          </span>
+                        </li>}
+                        {!formSubmitted && (
+                          <li>
+                            <CartLineItems linesObj={cart?.lines} />
+                          </li>
+                        )}
+                        {/* grid grid-cols-8 gap-6 2xl:grid-cols-3  opacity-0 */}
+                        <li className={clsx(!formSubmitted && 'border-t border-black')}>
+                          <div className={clsx(!formSubmitted && 'pt-5')}>
+                            {' '}
+                            <CartInquireForm
+                              cartLines={cart?.lines}
+                              onFormSuccess={() => setFormSubmitted(true)}
+                            />
+                          </div>
+                          {/* <div className="cell col-span-4 hidden md:col-span-6 md:flex gap-[1em] 2xl:col-start-1 2xl:col-end-3">
                         <div className='w-[6em] flex-shrink-0  2xl:w-[5.07vw] aspect-[1556/1944]' />
                         <Typography type="body" size="sm">
                           Shipping &amp; taxes calculated at checkout
@@ -152,24 +179,25 @@ export default function Cart() {
                           <CartSummary cost={cart?.cost} />
                         </div>
                         <CartActions cart={cart} />
-                      </div>
-                    </li>
-                  </ul>
-                </Container>
-              ) : (
-                <EmptyMessage>
-                <Container type="cart">
-                  <ul>
-                    <li className="text-center">
-                      Your cart is currently empty.
-                    </li>
-                  </ul>
-                </Container>
-                </EmptyMessage>
-              )}
-            </StaggerIndexList>
-            </div>
-          )}
+                      </div> */}
+                        </li>
+                      </ul>
+                    </Container>
+                  ) : (
+                    <EmptyMessage>
+                      <Container type="cart">
+                        <ul>
+                          <li className="text-center">
+                            Your cart is currently empty.
+                          </li>
+                        </ul>
+                      </Container>
+                    </EmptyMessage>
+                  )}
+                </StaggerIndexList>
+              </div>
+            );
+          }}
         </Await>
       </Suspense>
     </section>
