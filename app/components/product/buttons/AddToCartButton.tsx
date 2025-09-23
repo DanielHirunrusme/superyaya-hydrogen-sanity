@@ -1,10 +1,10 @@
-import {type FetcherWithComponents, useFetcher} from '@remix-run/react';
+import {type FetcherWithComponents, useFetcher, useNavigate} from '@remix-run/react';
 import {CartForm} from '@shopify/hydrogen';
 import type {CartLineInput} from '@shopify/hydrogen/storefront-api-types';
 import {twMerge} from 'tailwind-merge';
-
 import {defaultButtonStyles} from '~/components/elements/Button';
 import SpinnerIcon from '~/components/icons/Spinner';
+import {useEffect, useRef} from 'react';
 
 type FormMode = 'default' | 'inline' | 'outline';
 
@@ -23,6 +23,8 @@ export default function AddToCartButton({
   buttonClassName?: string;
   [key: string]: any;
 }) {
+  const navigate = useNavigate();
+  const submittedRef = useRef(false);
   return (
     // We can't pass a className to CartForm, so we have to wrap it in a div with a className instead
     <div className={mode == 'inline' ? '[&>*]:inline' : ''}>
@@ -33,30 +35,43 @@ export default function AddToCartButton({
         }}
         action={CartForm.ACTIONS.LinesAdd}
       >
-        {(fetcher: FetcherWithComponents<any>) => (
-          <>
-            <input
-              type="hidden"
-              name="analytics"
-              value={JSON.stringify(analytics)}
-            />
-            <button
-              className={
-                mode == 'outline'
-                  ? twMerge(defaultButtonStyles(), buttonClassName)
-                  : buttonClassName
-              }
-              {...props}
-              disabled={fetcher.state !== 'idle' || props.disabled}
-            >
-              {fetcher.state !== 'idle' ? (
-                <SpinnerIcon width={24} height={24} />
-              ) : (
-                children
-              )}
-            </button>
-          </>
-        )}
+        {(fetcher: FetcherWithComponents<any>) => {
+          useEffect(() => {
+            if (submittedRef.current && fetcher.state === 'idle') {
+              submittedRef.current = false;
+              navigate('/cart');
+            }
+          }, [fetcher.state]);
+
+          return (
+            <>
+              <input
+                type="hidden"
+                name="analytics"
+                value={JSON.stringify(analytics)}
+              />
+              <button
+                className={
+                  mode == 'outline'
+                    ? twMerge(defaultButtonStyles(), buttonClassName)
+                    : buttonClassName
+                }
+                onClick={(event: any) => {
+                  submittedRef.current = true;
+                  props.onClick?.(event);
+                }}
+                {...props}
+                disabled={fetcher.state !== 'idle' || props.disabled}
+              >
+                {fetcher.state !== 'idle' ? (
+                  <SpinnerIcon width={24} height={24} />
+                ) : (
+                  children
+                )}
+              </button>
+            </>
+          );
+        }}
       </CartForm>
     </div>
   );
