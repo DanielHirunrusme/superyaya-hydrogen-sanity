@@ -1,5 +1,5 @@
 import type {ActionFunctionArgs} from '@remix-run/node';
-import {Await, useMatches} from '@remix-run/react';
+import {Await, useMatches, useNavigate} from '@remix-run/react';
 import {
   CartForm,
   type CartQueryData,
@@ -7,7 +7,7 @@ import {
 } from '@shopify/hydrogen';
 import {json} from '@shopify/remix-oxygen';
 import clsx from 'clsx';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Suspense} from 'react';
 import invariant from 'tiny-invariant';
 import {CartActions, CartLineItems, CartSummary} from '~/components/cart/Cart';
@@ -18,6 +18,8 @@ import {Typography} from '~/components/global/Typography';
 import SpinnerIcon from '~/components/icons/Spinner';
 import {Link} from '~/components/Link';
 import {isLocalPath} from '~/lib/utils';
+import {HEADER_TOP} from '~/lib/constants';
+import CloseIcon from '~/components/icons/Close';
 
 import {EmptyMessage} from './($lang).boutique.$handle';
 
@@ -106,6 +108,14 @@ export async function action({request, context}: ActionFunctionArgs) {
 export default function Cart() {
   const [root] = useMatches();
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [hasHistory, setHasHistory] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const idx = (window.history.state && (window.history.state as any).idx) ?? 0;
+    setHasHistory(idx > 0 || window.history.length > 1);
+  }, []);
 
   return (
     <section
@@ -114,6 +124,42 @@ export default function Cart() {
         '',
       )}
     >
+      {hasHistory && (
+        <div
+          className={clsx(
+            'fixed left-0 z-50 mt-[1px] px-mobile md:px-tablet xl:px-laptop 2xl:px-desktop',
+            HEADER_TOP,
+          )}
+        >
+          <button
+            className={clsx('linkTextNavigation hidden md:inline')}
+            onClick={() => navigate(-1)}
+          >
+            <Typography type="body" size="sm">
+              Back
+            </Typography>
+          </button>
+        </div>
+      )}
+
+      {hasHistory && (
+        <div
+          className={clsx(
+            'fixed left-0 z-[60] py-[3px] px-mobile md:px-tablet xl:px-laptop 2xl:px-desktop',
+            HEADER_TOP,
+          )}
+        >
+          <button
+            className={clsx(
+              'flex aspect-[1.214] w-[4.358vw] items-center justify-center md:hidden',
+            )}
+            aria-label="Go back"
+            onClick={() => navigate(-1)}
+          >
+            <CloseIcon />
+          </button>
+        </div>
+      )}
       <Suspense
         fallback={
           <div className="flex justify-center overflow-hidden">

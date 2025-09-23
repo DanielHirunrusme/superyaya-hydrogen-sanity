@@ -151,11 +151,11 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
 
           </div>
 
-          <div className="md:hidden">
+          <div className="md:hidden pt-3">
             <CartItemQuantity line={lineItem} submissionQuantity={updating} />
           </div>
 
-          <div role="cell" className="mt-3 self-start">
+          <div role="cell" className="mt-auto mb-1.5 md:mt-3 self-start">
             <ItemRemoveButton lineIds={[lineItem.id]} />
           </div>
         </div>
