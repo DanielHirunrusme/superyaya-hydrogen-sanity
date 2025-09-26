@@ -1,11 +1,11 @@
-import {type Form as FormType, useFetcher} from '@remix-run/react';
-import {useState} from 'react';
+import { type Form as FormType, useFetcher } from '@remix-run/react';
+import { useState } from 'react';
 
 import Button from '../elements/Button';
-import {Container} from '../global/Container';
-import {Disclosure} from '@headlessui/react';
+import { Container } from '../global/Container';
+import { Disclosure } from '@headlessui/react';
 
-type CustomText = {text: string};
+type CustomText = { text: string };
 
 type RenderLeafProps = {
   attributes: Record<string, any>;
@@ -47,10 +47,10 @@ type Props = {
 };
 
 export default function CartInquireForm(props: Props) {
-  const {label, cartLines, onFormSuccess} = props;
-  const {Form, ...fetcher} = useFetcher();
+  const { label, cartLines, onFormSuccess } = props;
+  const { Form, ...fetcher } = useFetcher();
   const data = fetcher?.data as
-    | {form?: boolean; error?: {message: string}}
+    | { form?: boolean; error?: { message: string } }
     | undefined;
   const formSubmitted = data?.form;
   const formError = data?.error;
@@ -101,8 +101,8 @@ function EmailForm({
     if (!cartLines?.edges) return '';
 
     return cartLines.edges
-      .map(({node}) => {
-        const {merchandise, quantity} = node;
+      .map(({ node }) => {
+        const { merchandise, quantity } = node;
         const options = merchandise.selectedOptions
           .map((option) => `${option.name}: ${option.value}`)
           .join(', ');
@@ -123,7 +123,7 @@ function EmailForm({
     }
 
     setSending(true);
-    fetch('https://getform.io/f/avrmpxra', {
+    fetch('https://getform.io/f/ajjrqvda', {
       method: 'POST',
       body: formData,
       headers: {
@@ -243,16 +243,16 @@ function EmailForm({
           <input
             type="hidden"
             name="_gotcha"
-            style={{display: 'none !important'}}
+            style={{ display: 'none !important' }}
           />
 
-           {/* Measurements */}
-           <Disclosure>
-            {({open}) => (
+          {/* Measurements */}
+          <Disclosure>
+            {({ open }) => (
               <>
                 <Disclosure.Button className=" flex gap-4 hover:opacity-50">
                   <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
-                  <h4>Measurements</h4>
+                  <h4>Measurements (Optional)</h4>
                 </Disclosure.Button>
                 <Disclosure.Panel className="flex flex-col gap-4 pb-8 pt-4">
                   <div className="flex gap-4">
@@ -262,7 +262,7 @@ function EmailForm({
                         placeholder="Bust"
                         type="text"
                         name="bust"
-                        required
+          
                       />
                     </fieldset>
                     <fieldset className="flex-1 gap-[.75em]">
@@ -271,7 +271,7 @@ function EmailForm({
                         placeholder="Waist"
                         type="text"
                         name="waist"
-                        required
+             
                       />
                     </fieldset>
                   </div>
@@ -283,7 +283,7 @@ function EmailForm({
                         placeholder="Hips"
                         type="text"
                         name="hips"
-                        required
+            
                       />
                     </fieldset>
                     <fieldset className="flex-1 gap-[.75em]">
@@ -292,7 +292,7 @@ function EmailForm({
                         placeholder="Height"
                         type="text"
                         name="height"
-                        required
+                     
                       />
                     </fieldset>
                   </div>
@@ -303,14 +303,14 @@ function EmailForm({
 
           {/* Please specify your delivery date */}
           <Disclosure>
-            {({open}) => (
+            {({ open }) => (
               <>
                 <div className="flex gap-4">
                   <fieldset className="flex-1 gap-[.75em]">
                     <Disclosure.Button className=" flex gap-4 hover:opacity-50">
                       <span className="w-3">{!open ? '+' : <>&ndash;</>}</span>
                       <label htmlFor="postal">
-                        Please specify your delivery date
+                        Delivery Date (Optional)
                       </label>
                     </Disclosure.Button>
                     <Disclosure.Panel className="flex flex-col gap-4 pb-8">
@@ -318,9 +318,9 @@ function EmailForm({
                         placeholder="Delivery Date"
                         type="text"
                         name="postal"
-                        required
+                        
                       />
-                      <p>Please allow 2–3 weeks for production. If you would like to request an earlier delivery date, please specify below and we will do our best to accommodate.</p>
+                      <p>PLEASE ALLOW 2–3 WEEKS FOR PRODUCTION. IF YOU WOULD LIKE TO REQUEST AN EARLIER DELIVERY DATE, PLEASE SPECIFY ABOVE AND WE WILL CONFIRM VIA EMAIL. </p>
                     </Disclosure.Panel>
                   </fieldset>
                 </div>

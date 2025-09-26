@@ -178,9 +178,7 @@ export default function Cart() {
                         <h1>Inquire to Purchase</h1>
                         <br />
                         <p className="text-balance">
-                          PLEASE Review and complete YOUR CART INQUIRY USING THE
-                          FORM BELOW. ONCE WE&apos;VE RECEIVED YOUR INQUIRY WE
-                          WILL GET BACK TO YOU WITH A QUOTE.
+                        PLEASE REVIEW AND COMPLETE YOUR ORDER INQUIRY USING THE FORM BELOW. ONCE SUBMITTED, YOU WILL RECEIVE AN ORDER CONFIRMATION AND INVOICE VIA EMAIL WITHIN 2 BUSINESS DAYS. 
                         </p>
                       </div>}
                       <ul>
