@@ -12,6 +12,11 @@
     font-weight: normal;
     font-style: normal;
     font-display: swap;
+    /* include Latin + combining marks to be safe */
+  unicode-range:
+  U+0000-00FF,      /* Basic Latin + Latin-1 */
+  U+0100-017F,      /* Latin Extended-A (nice to have) */
+  U+0300-036F;      /* Combining Diacritical Marks */
   }
 
   @font-face {
@@ -34,6 +39,11 @@
     font-weight: normal;
     font-style: normal;
     font-display: swap;
+    /* include Latin + combining marks to be safe */
+  unicode-range:
+  U+0000-00FF,      /* Basic Latin + Latin-1 */
+  U+0100-017F,      /* Latin Extended-A (nice to have) */
+  U+0300-036F;      /* Combining Diacritical Marks */
   }
 
   @font-face {
@@ -45,6 +55,11 @@
     font-weight: normal;
     font-style: normal;
     font-display: swap;
+    /* include Latin + combining marks to be safe */
+  unicode-range:
+  U+0000-00FF,      /* Basic Latin + Latin-1 */
+  U+0100-017F,      /* Latin Extended-A (nice to have) */
+  U+0300-036F;      /* Combining Diacritical Marks */
   }
 
   button {
