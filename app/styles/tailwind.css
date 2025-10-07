@@ -79,13 +79,13 @@
   .min-h-screen {
     min-height: 100vh !important;
     /* fallback */
-    min-height: 100dvh !important;
+    min-height: 100lvh !important;
   }
 
   .h-screen {
     height: 100vh !important;
     /* fallback */
-    height: 100dvh !important;
+    height: 100lvh !important;
   }
 
   button {
