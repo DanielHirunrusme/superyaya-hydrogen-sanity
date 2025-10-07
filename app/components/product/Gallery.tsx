@@ -45,15 +45,15 @@ export default function ProductGallery({
     draggable: media && media.length > 1,
     loop: true,
     skipSnaps: true,
-    speed: 7,
+    speed: 100,
   });
 
-  useEffect(() => {
-    if (!emblaApi) return;
-    emblaApi.on('select', () => {
-      if (window.innerWidth < 768) setSelectedIndex(emblaApi.selectedScrollSnap());
-    });
-  }, [emblaApi, setSelectedIndex]);
+  // useEffect(() => {
+  //   if (!emblaApi) return;
+  //   emblaApi.on('select', () => {
+  //     if (window.innerWidth < 768) setSelectedIndex(emblaApi.selectedScrollSnap());
+  //   });
+  // }, [emblaApi, setSelectedIndex]);
 
   const [pendingImages, setPendingImages] = useState<Set<number>>(new Set());
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
@@ -63,6 +63,17 @@ export default function ProductGallery({
     setPendingImages((prev) => new Set(prev).add(index));
   };
 
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi, setSelectedIndex]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on('select', onSelect);
+  }, [emblaApi, onSelect]);
+  
   useEffect(() => {
     if (pendingImages.has(nextIndex)) {
       setLoadedImages((prev) => new Set(prev).add(nextIndex));
