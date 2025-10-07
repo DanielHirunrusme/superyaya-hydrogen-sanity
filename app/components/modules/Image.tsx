@@ -190,7 +190,7 @@ function ImageContainer({image, parentModule, module, children}) {
         }
       case 'default':
       default:
-        return 'w-full md:h-full';
+        return 'w-full h-full';
     }
   };
 

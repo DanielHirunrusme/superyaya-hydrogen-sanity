@@ -101,7 +101,7 @@ export default function ProjectSlideshow(props: Props) {
       <Link
         to={'/projects'}
         type="button"
-        className={clsx('fixed right-0 z-20 hover:opacity-50', SITE_MARGINS_X, HEADER_TOP)}
+        className={clsx('fixed right-0 z-20 hover:opacity-50 select-none', SITE_MARGINS_X, HEADER_TOP)}
       >
         <Typography type="body">Close</Typography>
       </Link>

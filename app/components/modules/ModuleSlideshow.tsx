@@ -44,7 +44,7 @@ export const getImageLayout = (module, detached = false) => {
 
       if (detached) {
         if (!module.caption) {
-          styles += ' pb-[13vw] md:pb-[3.25vw]  md:pt-[4vw] xl:pt-[3.242vw]';
+          styles += ' py-[15.897vw] md:pb-[3.25vw]  md:pt-[4vw] xl:pt-[3.242vw]';
         } else {
           styles +=
             ' pb-[3.4vw] md:pb-[7vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]  md:pt-[4vw] xl:pt-[3.242vw]';
@@ -53,11 +53,11 @@ export const getImageLayout = (module, detached = false) => {
         if (module.caption) {
           // if there is a caption add symmetrical padding top and bottom
           styles +=
-            ' pb-[13vw] md:pb-[7vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw] md:pt-[7vw] xl:pt-[5.5vw] 2xl:pt-[5.203125vw]';
+            ' py-[15.897vw] md:pb-[7vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw] md:pt-[7vw] xl:pt-[5.5vw] 2xl:pt-[5.203125vw]';
         } else {
           // if there is no caption make image extend further down
           styles +=
-            ' pb-[13vw] md:pb-[3.25vw] md:pt-[7vw] xl:pt-[5.5vw] 2xl:pt-[5.203125vw]';
+            ' py-[15.897vw] md:pb-[3.25vw] md:pt-[7vw] xl:pt-[5.5vw] 2xl:pt-[5.203125vw] ';
         }
       }
 
@@ -163,7 +163,7 @@ export default function ModuleSlideshow(props) {
   return (
     <div
       className={clsx(
-        'fixed left-0 top-1/2 -translate-y-1/2 transform w-screen h-calc-padding',
+        'fixed left-0 top-1/2 -translate-y-1/2 transform w-screen h-full',
         detached ? 'z-50' : 'z-40',
         !zoom && detached && 'opacity-0 pointer-events-none',
         theme === Theme.DARK && !indexVisible
@@ -178,7 +178,7 @@ export default function ModuleSlideshow(props) {
           <Button
             mode="text"
             type="button"
-            className={clsx('fixed right-0 z-20', SITE_MARGINS_X, HEADER_TOP)}
+            className={clsx('fixed right-0 z-20 select-none', SITE_MARGINS_X, HEADER_TOP)}
             onClick={onClose}
           >
             <Typography type="body">Close</Typography>

@@ -141,7 +141,7 @@ export default function CollectionSlideshow(props: Props) {
           setZoom(false);
         }}
         className={clsx(
-          'fixed right-0 z-40 text-black no-underline hover:opacity-50 active:opacity-50',
+          'fixed right-0 z-40 text-black no-underline hover:opacity-50 active:opacity-50  select-none',
           SITE_MARGINS_X,
           HEADER_TOP,
         )}
@@ -363,13 +363,7 @@ const ImageContent = ({ module, parentModule, mode, inSlideShow }: Props) => {
 
   return (
     <div
-      className={clsx(
-        'relative select-none',
-        // image.width > image.height ? 'w-full' : 'w-full',
-        // parentModule?._type === 'module.gallery' && 'h-full md:h-auto',
-        // module.layout === 'full' && 'h-full',
-        'w-full md:h-full md:w-auto',
-      )}
+      className="relative select-none w-full h-full md:w-auto"
       style={{
         aspectRatio: !applyAspectRatio ? image.width / image.height : 'auto',
       }}

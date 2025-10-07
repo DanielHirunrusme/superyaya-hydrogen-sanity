@@ -113,7 +113,7 @@ export default function ProductSlideshow({
       <Button
         mode="text"
         type="button"
-        className={clsx('fixed right-0 z-50', SITE_MARGINS_X, HEADER_TOP)}
+        className={clsx('fixed right-0 z-50  select-none', SITE_MARGINS_X, HEADER_TOP)}
         onClick={onClose}
       >
         <Typography type="body">Close</Typography>
@@ -165,7 +165,7 @@ export default function ProductSlideshow({
                     ' portrait:w-screen landscape:h-full',
                     'relative flex items-center justify-center',
                     getImageLayout(med, true),
-                    'pb-[3.4vw] md:pb-[6vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]',
+                    ' md:pb-[6vw] xl:pb-[5.5vw] 2xl:pb-[5.203125vw]',
                   )}
                 >
                   <div
