@@ -79,17 +79,41 @@
   .min-h-screen {
     min-height: 100vh !important;
     /* fallback */
-    min-height: 100lvh !important;
+    min-height: 100dvh !important;
   }
 
   .h-screen {
     height: 100vh !important;
     /* fallback */
-    height: 100lvh !important;
+    height: 100dvh !important;
   }
 
   button {
     @apply uppercase;
+  }
+}
+
+@layer utilities {
+  .h-calc-padding {
+    height: calc(100dvh - 15.897vw);
+  }
+  
+  @screen md {
+    .h-calc-padding {
+      height: calc(100dvh - 10.5527vw);
+    }
+  }
+  
+  @screen xl {
+    .h-calc-padding {
+      height: calc(100dvh - 11.5162vw);
+    }
+  }
+  
+  @screen 2xl {
+    .h-calc-padding {
+      height: calc(100dvh - 13.28125vw);
+    }
   }
 }
 

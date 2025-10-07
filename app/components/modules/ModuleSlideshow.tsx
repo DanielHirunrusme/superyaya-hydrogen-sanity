@@ -163,7 +163,7 @@ export default function ModuleSlideshow(props) {
   return (
     <div
       className={clsx(
-        'fixed left-0 top-0 h-screen w-screen',
+        'fixed left-0 top-1/2 -translate-y-1/2 transform w-screen h-calc-padding',
         detached ? 'z-50' : 'z-40',
         !zoom && detached && 'opacity-0 pointer-events-none',
         theme === Theme.DARK && !indexVisible
