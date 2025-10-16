@@ -28,10 +28,25 @@ function ProductPrices({
     return null;
   }
 
+  const availableForSale = selectedVariant?.availableForSale;
+
+  if (!availableForSale) {
+    return (
+      <div className="flex items-baseline">
+        {selectedVariant.price && (
+          <span className="mr-3 line-through decoration-black">
+            <Money data={selectedVariant.price} withoutTrailingZeros />
+          </span>
+        )}
+        <span className="uppercase">Sold out</span>
+      </div>
+    );
+  }
+
   return (
     <div>
       {selectedVariant.compareAtPrice && (
-        <span className="mr-3  line-through decoration-red">
+        <span className="mr-3  line-through decoration-black">
           <Money data={selectedVariant.compareAtPrice} withoutTrailingZeros />
         </span>
       )}
@@ -68,8 +83,6 @@ export default function ProductWidget({
 
   return (
     <div>
-      {/* Sold out */}
-      {!availableForSale && <div className="mb-3   uppercase ">Sold out</div>}
       {/* Sale */}
       {availableForSale && selectedVariant?.compareAtPrice && (
         <div className="mb-3   uppercase text-red">Sale</div>

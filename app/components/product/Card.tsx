@@ -112,8 +112,6 @@ export default function ProductCard({
                 firstVariant?.compareAtPrice && (
                   <Badge label="Sale" tone="critical" />
                 )}
-              {/* Sold out */}
-              {!firstVariant?.availableForSale && <Badge label="Sold out" />}
             </div>
           </div>
 
@@ -155,17 +153,32 @@ export default function ProductCard({
 
             >
               {storefrontProduct.title}
-              <div className="flex">
-                {firstVariant.compareAtPrice && (
-                  <span className="">
-                    <Money
-                      data={firstVariant.compareAtPrice}
-                      className="mr-2.5 line-through decoration-red"
-                      withoutTrailingZeros
-                    />
-                  </span>
+              <div className="flex items-baseline">
+                {!firstVariant.availableForSale ? (
+                  <>
+                    {firstVariant.price && (
+                      <span className="mr-2.5 line-through decoration-black">
+                        <Money data={firstVariant.price} withoutTrailingZeros />
+                      </span>
+                    )}
+                    <span className="uppercase">Sold out</span>
+                  </>
+                ) : (
+                  <>
+                    {firstVariant.compareAtPrice && (
+                      <span className="">
+                        <Money
+                          data={firstVariant.compareAtPrice}
+                          className="mr-2.5 line-through decoration-black"
+                          withoutTrailingZeros
+                        />
+                      </span>
+                    )}
+                    {firstVariant.price && (
+                      <Money data={firstVariant.price} withoutTrailingZeros />
+                    )}
+                  </>
                 )}
-                {firstVariant.price && <Money data={firstVariant.price} withoutTrailingZeros />}
               </div>
             </div>
 

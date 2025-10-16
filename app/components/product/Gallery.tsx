@@ -101,12 +101,14 @@ export default function ProductGallery({
         <div className="h-full overflow-hidden" ref={emblaRef}>
           <div className="flex h-full">
             {media?.slice(1).map((med) => {
+              if (!('image' in med)) return null;
+              const imageMed = med as MediaImage;
               const data = {
-                ...med,
+                ...imageMed,
                 __typename: 'MediaImage',
                 image: {
-                  ...med.image,
-                  altText: med.alt || 'Product image',
+                  ...imageMed.image,
+                  altText: imageMed.alt || 'Product image',
                 },
               } as MediaImage;
 
@@ -139,12 +141,14 @@ export default function ProductGallery({
         )}
       >
         {media.slice(0, 1).concat(media.slice(2)).map((med, index) => {
+          if (!('image' in med)) return null;
+          const imageMed = med as MediaImage;
           const data = {
-            ...med,
+            ...imageMed,
             __typename: 'MediaImage',
             image: {
-              ...med.image,
-              altText: med.alt || 'Product image',
+              ...imageMed.image,
+              altText: imageMed.alt || 'Product image',
             },
           } as MediaImage;
 
@@ -155,9 +159,9 @@ export default function ProductGallery({
                 'aspect-[1556/1944] ',
               
               )}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: loadedImages.has(index) ? 1 : 0}}
-              transition={{ duration: 0, delay: index * 0.1 }}
+              initial={{ opacity: index === 0 ? 1 : 0 }}
+              animate={{ opacity: index === 0 ? 1 : (loadedImages.has(index) ? 1 : 0) }}
+              transition={{ duration: 0, delay: index === 0 ? 0 : index * 0.1 }}
             >
               <MediaFile
                 className="relative flex w-full shrink-0 grow-0 cursor-zoom-in select-none object-cover"
