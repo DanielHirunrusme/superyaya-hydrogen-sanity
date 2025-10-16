@@ -60,6 +60,10 @@ export default function ProductCard({
   return (
     <Link to={`/products/${storefrontProduct.handle}`} className="group relative">
       <Typography type="body" size="sm">
+        {/** Prefer eager loading for early cards to improve perceived speed */}
+        {/** Treat first 6 cards as priority; tweak as needed */}
+        {/** Using fetchPriority hints modern browsers to schedule earlier */}
+        
         <div
 
           className={clsx(
@@ -80,7 +84,9 @@ export default function ProductCard({
                 data={firstVariant.image}
                 crop="center"
                 sizes="(min-width: 768px) 25vw, 100vw"
-                loading="lazy"
+                loading={index < 6 ? 'eager' : 'lazy'}
+                // @ts-expect-error Hydrogen Image forwards props to underlying <img>
+                fetchPriority={index < 6 ? 'high' : 'auto'}
                 onLoad={onImageLoad} // Call when loaded
               />
             )}
@@ -95,7 +101,7 @@ export default function ProductCard({
                 crop="center"
                 sizes="(min-width: 768px) 25vw, 100vw"
                 onLoad={onImageLoad} // Call when loaded
-                loading={index < 4 ? 'eager' : 'lazy'}
+                loading="lazy"
               />
             )}
 
