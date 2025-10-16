@@ -169,7 +169,7 @@ export default function OrderRoute() {
                             <dt className="sr-only">Price</dt>
                             <dd className="truncate sm:hidden">
                               <div className="mt-4">
-                                <Money data={lineItem.variant!.price!} />
+                                <Money data={lineItem.variant!.price!} withoutTrailingZeros />
                               </div>
                             </dd>
                             <dt className="sr-only">Quantity</dt>
@@ -182,13 +182,13 @@ export default function OrderRoute() {
                         </div>
                       </td>
                       <td className="hidden px-3 py-4 text-right align-top sm:table-cell sm:align-middle">
-                        <Money data={lineItem.variant!.price!} />
+                        <Money data={lineItem.variant!.price!} withoutTrailingZeros />
                       </td>
                       <td className="hidden px-3 py-4 text-right align-top sm:table-cell sm:align-middle">
                         {lineItem.quantity}
                       </td>
                       <td className="px-3 py-4 text-right align-top sm:table-cell sm:align-middle">
-                        <Money data={lineItem.discountedTotalPrice!} />
+                        <Money data={lineItem.discountedTotalPrice!} withoutTrailingZeros />
                       </td>
                     </tr>
                   ))}
@@ -214,7 +214,7 @@ export default function OrderRoute() {
                         {discountPercentage ? (
                           <span className="">-{discountPercentage}% off</span>
                         ) : (
-                          discountValue && <Money data={discountValue!} />
+                          discountValue && <Money data={discountValue!} withoutTrailingZeros />
                         )}
                       </td>
                     </tr>
@@ -234,7 +234,7 @@ export default function OrderRoute() {
                       <p>Subtotal</p>
                     </th>
                     <td className="pl-3 pr-4 pt-6 text-right md:pr-3">
-                      <Money data={order.subtotalPrice!} />
+                      <Money data={order.subtotalPrice!} withoutTrailingZeros />
                     </td>
                   </tr>
                   <tr>
@@ -252,7 +252,7 @@ export default function OrderRoute() {
                       <p>Tax</p>
                     </th>
                     <td className="pl-3 pr-4 pt-4 text-right md:pr-3">
-                      <Money data={order.totalTax!} />
+                      <Money data={order.totalTax!} withoutTrailingZeros />
                     </td>
                   </tr>
                   <tr>
@@ -267,7 +267,7 @@ export default function OrderRoute() {
                       <p>Total</p>
                     </th>
                     <td className="pl-3 pr-4 pt-4 text-right  md:pr-3">
-                      <Money data={order.totalPrice!} />
+                      <Money data={order.totalPrice!} withoutTrailingZeros />
                     </td>
                   </tr>
                 </tfoot>

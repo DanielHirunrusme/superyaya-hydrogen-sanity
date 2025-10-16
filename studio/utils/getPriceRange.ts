@@ -9,7 +9,9 @@ const formatNumber = (val: number) => {
   return new Intl.NumberFormat('en', {
     currency: DEFAULT_CURRENCY_CODE,
     style: 'currency',
-  }).format(val)
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  }).format(val).replace(/\.00$/, '')
 }
 
 export const getPriceRange = (price: PriceObject) => {

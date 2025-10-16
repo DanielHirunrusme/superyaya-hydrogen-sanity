@@ -1,6 +1,6 @@
 'use client';
-import {useCallback, useEffect } from 'react';
-import {useLocation } from '@remix-run/react';
+import {useCallback, useEffect} from 'react';
+import {useLocation, useMatches} from '@remix-run/react';
 import CollectionGroup from '~/components/global/collectionGroup/CollectionGroup';
 import {Link} from '~/components/Link';
 import type {SanityMenuLink} from '~/lib/sanity';
@@ -20,7 +20,7 @@ type Props = {
   logoVisible: boolean;
 };
 
-const hasSubLinks = (link, location) => {
+const hasSubLinks = (link: any, location: any) => {
   let match = false;
 
   if (link.links?.length) {
@@ -29,7 +29,7 @@ const hasSubLinks = (link, location) => {
         match = true;
       }
       if (childLink.links?.length) {
-        childLink.links.forEach((childChildLink) => {
+        childLink.links.forEach((childChildLink: any) => {
           if (
             childChildLink.slug &&
             location.pathname.includes(childChildLink.slug)
@@ -80,13 +80,17 @@ export default function Navigation({
   assistance,
 }: Props) {
   const location = useLocation();
+  const [root] = useMatches();
+  const homePath = (root as any)?.data?.selectedLocale?.pathPrefix || '/';
+  const normalizePath = (p: string) => {
+    if (!p) return '/';
+    const noTrailing = p.replace(/\/+$/, '');
+    return noTrailing === '' ? '/' : noTrailing;
+  };
+  const isHome = normalizePath(location.pathname) === normalizePath(homePath);
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
-  const {
-    navVisible,
-    setNavVisible,
-  
-   } = useTheme();
+  const {navVisible, setNavVisible} = useTheme();
 
   const renderLinks = useCallback(() => {
     if (menuLinks?.length === 0) return null;
@@ -117,31 +121,11 @@ export default function Navigation({
             }
 
             const isActive =
+              // Mark Boutique active on homepage when it has /boutique/all child
+              (isHome && link.links?.some((s: any) => s.slug === '/boutique/all')) ||
               location.pathname.split('/')[1] == link.slug ||
               hasSubLinks(link, location);
-            // let hasChildActive = false;
-            // let hasChildChildActive = false;
 
-            // if (link.links?.length) {
-            //   link.links.forEach((childLink) => {
-            //     if (
-            //       childLink.slug &&
-            //       location.pathname.includes(childLink.slug)
-            //     ) {
-            //       hasChildActive = true;
-            //     }
-            //     if (childLink.links?.length) {
-            //       childLink.links.forEach((childChildLink) => {
-            //         if (
-            //           childChildLink.slug &&
-            //           location.pathname.includes(childChildLink.slug)
-            //         ) {
-            //           hasChildChildActive = true;
-            //         }
-            //       });
-            //     }
-            //   });
-            // }
 
             return (
               <li className="flex items-center opacity-0" key={link._key}>
@@ -173,7 +157,8 @@ export default function Navigation({
           let hasChildActive = false;
 
           link.links.map((subLink) => {
-            if (location.pathname.includes(subLink.slug)) {
+            console.log('subLink', subLink.slug, location.pathname);
+            if (location.pathname.includes(subLink.slug) || (isHome && subLink.slug === '/boutique/all')) {
               hasChildActive = true;
             }
           });
@@ -183,7 +168,10 @@ export default function Navigation({
       return null;
     });
 
-    if (hasChildren === 0) {
+ 
+
+ 
+    if (hasChildren !== -1) {
       return (
         <>
           {menuLinks?.map((link) => {
@@ -210,7 +198,11 @@ export default function Navigation({
                 let hasChildActive = false;
 
                 link.links.map((subLink) => {
-                  if (location.pathname.includes(subLink.slug)) {
+                  console.log('subLink', subLink.slug, location.pathname); 
+                  if (
+                    (subLink.slug && location.pathname.includes(subLink.slug)) ||
+                    (isHome && subLink.slug === '/boutique/all')
+                  ) {
                     hasChildActive = true;
                   }
                 });
@@ -226,10 +218,13 @@ export default function Navigation({
                   >
                     {link.links.map((subLink) => {
                       let hasChildChildActive = false;
-                      const isActive = location.pathname.includes(subLink.slug);
+                      // On homepage, open Boutique submenu and set "All" active
+                      const isActive =
+                        (subLink.slug && location.pathname.includes(subLink.slug)) ||
+                        (isHome && subLink.slug === '/boutique/all');
                       if (subLink.links?.length) {
                         subLink.links.map((subSubLink) => {
-                          if (location.pathname.includes(subSubLink.slug)) {
+                          if (subSubLink.slug && location.pathname.includes(subSubLink.slug)) {
                             hasChildChildActive = true;
                           }
                         });
@@ -246,7 +241,7 @@ export default function Navigation({
                               (hasChildChildActive || isActive) &&
                                 'linkTextNavigationActive',
                             )}
-                            to={subLink.slug}
+                            to={subLink.slug || ''}
                           >
                             {subLink.title}
                           </Link>
@@ -277,12 +272,12 @@ export default function Navigation({
           let hasChildActive = false;
           let hasChildChildActive = false;
           link.links.map((subLink) => {
-            if (location.pathname.includes(subLink.slug)) {
+            if (subLink.slug && location.pathname.includes(subLink.slug)) {
               hasChildActive = true;
 
               if (subLink.links?.length) {
                 subLink.links.map((subSubLink) => {
-                  if (location.pathname.includes(subSubLink.slug)) {
+                  if (subSubLink.slug && location.pathname.includes(subSubLink.slug)) {
                     hasChildChildActive = true;
                   }
                 });
@@ -295,7 +290,7 @@ export default function Navigation({
       return null;
     });
 
-    if (hasSubSubLinks === 0) {
+    if (hasSubSubLinks !== -1) {
       return (
         <>
           {menuLinks?.map((link) => {
@@ -325,7 +320,7 @@ export default function Navigation({
                 return link.links.map((subLink) => {
                   if (
                     subLink.links?.length &&
-                    location.pathname.includes(subLink.slug)
+                    (subLink.slug && location.pathname.includes(subLink.slug))
                   ) {
                     return (
                       <motion.ul
@@ -345,7 +340,7 @@ export default function Navigation({
                             >
                               <Link
                                 className="linkTextNavigation"
-                                to={subSubLink.slug}
+                                to={subSubLink.slug || ''}
                               >
                                 {subSubLink.title}
                               </Link>
@@ -369,7 +364,8 @@ export default function Navigation({
   }, [menuLinks, location]);
 
   const renderAssistanceLinks = useCallback(() => {
-    if (assistance.links.some((e) => e.slug === location.pathname)) {
+    const assistanceLinks = (assistance as any)?.links || [];
+    if (assistanceLinks.some((e: any) => e.slug === location.pathname)) {
       return (
         <motion.ul
           // key={`link-${link._key}`}
@@ -378,12 +374,12 @@ export default function Navigation({
           animate={navVisible ? 'visible' : 'hidden'}
           initial={!navVisible ? 'hidden' : 'visible'}
         >
-          {assistance.links.map((subLink) => {
+          {assistanceLinks.map((subLink: any) => {
             let hasChildChildActive = false;
             const isActive = location.pathname.includes(subLink.slug);
             if (subLink.links?.length) {
-              subLink.links.map((subSubLink) => {
-                if (location.pathname.includes(subSubLink.slug)) {
+              subLink.links.map((subSubLink: any) => {
+                if (subSubLink.slug && location.pathname.includes(subSubLink.slug)) {
                   hasChildChildActive = true;
                 }
               });
@@ -400,7 +396,7 @@ export default function Navigation({
                     (hasChildChildActive || isActive) &&
                       'linkTextNavigationActive',
                   )}
-                  to={subLink.slug}
+                  to={subLink.slug || ''}
                 >
                   {subLink.title}
                 </Link>
@@ -417,7 +413,7 @@ export default function Navigation({
 
   useEffect(() => {
     const showNav = async () => {
-      const sequence = [
+      const sequence: any = [
         [
           'nav ul li',
           {opacity: 1},
@@ -434,7 +430,7 @@ export default function Navigation({
         showNav();
       }
     }
-  }, [isInView, logoVisible, location, navVisible]);
+  }, [isInView, logoVisible, location, navVisible, animate, setNavVisible]);
 
   return (
     <nav

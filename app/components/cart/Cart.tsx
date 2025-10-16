@@ -171,7 +171,7 @@ function LineItem({lineItem}: {lineItem: CartLine | ComponentizableCartLine}) {
           {updating ? (
             <SpinnerIcon width={24} height={24} />
           ) : (
-            <Money data={lineItem.cost.totalAmount} />
+            <Money data={lineItem.cost.totalAmount} withoutTrailingZeros />
           )}
         </span>
       </div>
@@ -269,7 +269,7 @@ export function CartSummary({cost}: {cost: CartCost}) {
           <span role="rowheader">Subtotal</span>
           <span role="cell" className=" md:w-[5.5em]">
             {cost?.subtotalAmount?.amount ? (
-              <Money data={cost?.subtotalAmount} />
+              <Money data={cost?.subtotalAmount} withoutTrailingZeros />
             ) : (
               '-'
             )}

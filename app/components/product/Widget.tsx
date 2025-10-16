@@ -32,10 +32,10 @@ function ProductPrices({
     <div>
       {selectedVariant.compareAtPrice && (
         <span className="mr-3  line-through decoration-red">
-          <Money data={selectedVariant.compareAtPrice} />
+          <Money data={selectedVariant.compareAtPrice} withoutTrailingZeros />
         </span>
       )}
-      {selectedVariant.price && <Money data={selectedVariant.price} />}
+      {selectedVariant.price && <Money data={selectedVariant.price} withoutTrailingZeros />}
     </div>
   );
 }

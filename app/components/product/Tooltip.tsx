@@ -97,10 +97,11 @@ export default function ProductTooltip({
               <Money
                 data={selectedVariant.compareAtPrice}
                 className="mr-2.5 line-through decoration-red"
+                withoutTrailingZeros
               />
             </span>
           )}
-          {selectedVariant.price && <Money data={selectedVariant.price} />}
+          {selectedVariant.price && <Money data={selectedVariant.price} withoutTrailingZeros />}
         </div>
       </div>
 

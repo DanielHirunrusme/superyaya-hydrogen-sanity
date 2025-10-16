@@ -17,7 +17,7 @@ export default function CollectionBreadcrumb(props) {
   const layout = root.data?.layout;
   const {menuLinks} = layout || {};
 
-  const {collection} = props;
+  const {collection, pathnameOverride} = props;
 
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
@@ -61,7 +61,7 @@ export default function CollectionBreadcrumb(props) {
             <ul
               key={`link-${link._key}`}
               className={
-                location.pathname.includes(link.slug) || hasChildActive
+                (pathnameOverride || location.pathname).includes(link.slug) || hasChildActive
                   ? 'flex flex-col'
                   : 'hidden'
               }
@@ -70,7 +70,7 @@ export default function CollectionBreadcrumb(props) {
                 let hasChildChildActive = false;
                 if (subLink.links?.length) {
                   subLink.links.map((subSubLink) => {
-                    if (location.pathname.includes(subSubLink.slug)) {
+                    if ((pathnameOverride || location.pathname).includes(subSubLink.slug)) {
                       hasChildChildActive = true;
                     }
                   });
@@ -105,7 +105,7 @@ export default function CollectionBreadcrumb(props) {
 
       return null;
     });
-  }, [menuLinks, location]);
+  }, [menuLinks, location, pathnameOverride]);
 
   const renderSubSubLinks = useCallback(() => {
     return menuLinks?.map((link) => {
@@ -138,7 +138,7 @@ export default function CollectionBreadcrumb(props) {
                 <ul
                   key={`sub-${subLink._key}`}
                   className={
-                    location.pathname.includes(subLink.slug)
+                    (pathnameOverride || location.pathname).includes(subLink.slug)
                       ? 'flex flex-col'
                       : 'hidden'
                   }
@@ -168,7 +168,7 @@ export default function CollectionBreadcrumb(props) {
 
       return null;
     });
-  }, [menuLinks, location]);
+  }, [menuLinks, location, pathnameOverride]);
 
   const openMenu = () => {
     setOpen(true);

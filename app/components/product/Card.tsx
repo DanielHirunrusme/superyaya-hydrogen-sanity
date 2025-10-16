@@ -155,10 +155,11 @@ export default function ProductCard({
                     <Money
                       data={firstVariant.compareAtPrice}
                       className="mr-2.5 line-through decoration-red"
+                      withoutTrailingZeros
                     />
                   </span>
                 )}
-                {firstVariant.price && <Money data={firstVariant.price} />}
+                {firstVariant.price && <Money data={firstVariant.price} withoutTrailingZeros />}
               </div>
             </div>
 

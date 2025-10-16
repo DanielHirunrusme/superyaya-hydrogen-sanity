@@ -110,10 +110,11 @@ export default function ProductPill({
                 <Money
                   data={compareAtPrice}
                   className="mr-2.5 line-through decoration-red"
+                  withoutTrailingZeros
                 />
               </span>
             )}
-            {price && <Money data={price} />}
+            {price && <Money data={price} withoutTrailingZeros />}
           </div>
         </div>
       </div>

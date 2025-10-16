@@ -24,6 +24,7 @@ export default function MobileNavigation({menuLinks}: Props) {
 
   const location = useLocation();
   const isCartPage = /(^|\/)cart(\/?$|\?)/.test(location.pathname);
+  const isHome = location.pathname === '/' || location.pathname.split('/')[1] === '';
 
   const renderLinks = useCallback(() => {
     return (
@@ -58,7 +59,7 @@ export default function MobileNavigation({menuLinks}: Props) {
               link.links.forEach((childLink) => {
                 if (
                   childLink.slug &&
-                  location.pathname.includes(childLink.slug)
+                  (location.pathname.includes(childLink.slug) || (isHome && childLink.slug?.includes('/boutique')))
                 ) {
                   hasChildActive = true;
                 }
@@ -142,7 +143,8 @@ export default function MobileNavigation({menuLinks}: Props) {
             <ul
               key={`link-${link._key}`}
               className={
-                location.pathname.includes(link.slug) || hasChildActive
+                // Open Boutique submenu on homepage
+                location.pathname.includes(link.slug) || hasChildActive || (isHome && link.slug === 'boutique')
                   ? 'flex flex-col'
                   : 'hidden'
               }
@@ -164,7 +166,7 @@ export default function MobileNavigation({menuLinks}: Props) {
                     <Link
                       className={clsx(
                         'linkTextNavigation',
-                        hasChildChildActive && 'linkTextNavigationActive',
+                        (hasChildChildActive || (isHome && link.slug === 'boutique' && subLink.slug?.endsWith('/all'))) && 'linkTextNavigationActive',
                       )}
                       to={subLink.slug}
                       onClick={() => setOpen(false)}
