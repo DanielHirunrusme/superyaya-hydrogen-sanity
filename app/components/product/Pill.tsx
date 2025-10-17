@@ -58,6 +58,7 @@ export default function ProductPill({
             className={clsx(
               'relative h-full w-[110px] overflow-hidden rounded-sm bg-lightGray duration-500 ease-out',
               'group-hover:rounded-md',
+              !availableForSale && 'mix-blend-luminosity',
             )}
           >
             {image && (

@@ -50,6 +50,7 @@ export default function ProductTooltip({
           imageAspectClassName,
           'overflow-hiddenbg-lightGray relative flex items-center justify-center object-cover transition-[border-radius] duration-500 ease-out',
           'hover:rounded-xl',
+          !selectedVariant?.availableForSale && 'mix-blend-luminosity',
         ])}
       >
         <Link

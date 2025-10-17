@@ -13,7 +13,7 @@ import type { ProductWithNodes } from '~/types/shopify';
 import clsx from 'clsx';
 import { stagger, useAnimate } from 'framer-motion';
 import { useLocation } from '@remix-run/react';
-import {motion} from 'framer-motion'
+import {motion} from 'framer-motion';
 
 /**
  * A client component that defines a media gallery for hosting images, 3D models, and videos of products
@@ -81,18 +81,18 @@ export default function ProductGallery({
     }
   }, [pendingImages, nextIndex]);
 
+  useEffect(() => {
+    return () => {
+      setLoadedImages(new Set());
+    };
+  }, []);
+
   if (!media?.length) return null;
 
   const onMediaClick = (index: number) => {
     setZoom(true);
     setSelectedIndex(index);
   };
-
-  useEffect(()=>{
-    return() => {
-      setLoadedImages(new Set())
-    }
-  }, [])
 
   return (
     <>
@@ -157,7 +157,7 @@ export default function ProductGallery({
               key={med.id}
               className={clsx(
                 'aspect-[1556/1944] ',
-              
+                selectedVariant && !selectedVariant.availableForSale && 'mix-blend-luminosity',
               )}
               initial={{ opacity: index === 0 ? 1 : 0 }}
               animate={{ opacity: index === 0 ? 1 : (loadedImages.has(index) ? 1 : 0) }}

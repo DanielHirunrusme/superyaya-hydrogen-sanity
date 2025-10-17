@@ -13,11 +13,10 @@ import {
 } from '~/lib/utils';
 import type { ProductWithNodes } from '~/types/shopify';
 import { Typography } from '../global/Typography';
-import type {SanityModule} from '~/lib/sanity';
 
 type Props = {
   imageAspectClassName?: string;
-  storefrontProduct: (SanityModule | ProductWithNodes);
+  storefrontProduct: ProductWithNodes;
   variantGid?: string;
   index?: number;
   onImageLoad?: () => void;  // New prop to signal when an image has loaded
@@ -69,6 +68,7 @@ export default function ProductCard({
           className={clsx(
             PRODUCT_IMAGE_RATIO,
             'relative flex items-center justify-center overflow-hidden bg-lightGray object-cover  duration-500 ease-out',
+            !firstVariant.availableForSale && 'mix-blend-luminosity',
           )}
         >
           {/* Hover image */}
@@ -85,7 +85,6 @@ export default function ProductCard({
                 crop="center"
                 sizes="(min-width: 768px) 25vw, 100vw"
                 loading={index < 6 ? 'eager' : 'lazy'}
-                // @ts-expect-error Hydrogen Image forwards props to underlying <img>
                 fetchPriority={index < 6 ? 'high' : 'auto'}
                 onLoad={onImageLoad} // Call when loaded
               />
@@ -93,8 +92,9 @@ export default function ProductCard({
 
 
             {/* Second image */}
-            {/* @ts-ignore */}
-            {storefrontProduct.media?.nodes?.[1]?.image && (
+            {storefrontProduct.media?.nodes?.[1] && 
+             'image' in storefrontProduct.media.nodes[1] && 
+             storefrontProduct.media.nodes[1].image && (
               <Image
                 className="absolute  h-full w-full transform bg-cover bg-center object-cover object-center ease-in-out"
                 data={storefrontProduct.media.nodes[1].image}
