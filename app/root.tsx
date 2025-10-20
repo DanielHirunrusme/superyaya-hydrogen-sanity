@@ -19,7 +19,7 @@ import type { Collection, Shop } from '@shopify/hydrogen/storefront-api-types';
 import {
   defer,
   type LinksFunction,
-  type LoaderArgs,
+  type LoaderFunctionArgs,
 } from '@shopify/remix-oxygen';
 import { getPreview, PreviewProvider } from 'hydrogen-sanity';
 
@@ -41,9 +41,22 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const seo: SeoHandleFunction<typeof loader> = ({ data }) => ({
   title: data?.layout?.seo?.title,
-  titleTemplate: `%s${data?.layout?.seo?.title ? ` · ${data?.layout?.seo?.title}` : ''
-    }`,
+  titleTemplate: `%s${data?.layout?.seo?.title ? ` · ${data?.layout?.seo?.title}` : ''}`,
   description: data?.layout?.seo?.description,
+  image: data?.layout?.seo?.image ? {
+    url: data.layout.seo.image.url,
+    width: data.layout.seo.image.width,
+    height: data.layout.seo.image.height,
+    altText: data.layout.seo.image.altText,
+  } : {
+    url: '/images/syy-og.jpg',
+    width: 1200,
+    height: 630,
+    altText: 'Super Yaya - Fashion and Lifestyle',
+  },
+  twitter: {
+    cardType: 'summary_large_image',
+  },
 });
 
 export const handle = {
@@ -87,7 +100,7 @@ export const links: LinksFunction = () => {
   ];
 };
 
-export async function loader({ context }: LoaderArgs) {
+export async function loader({ context }: LoaderFunctionArgs) {
   const { cart } = context;
 
   const cache = context.storefront.CacheCustom({
@@ -132,8 +145,9 @@ export async function loader({ context }: LoaderArgs) {
 }
 
 function App() {
-  const { preview, ...data } = useLoaderData<typeof loader>();
-  const locale = data.selectedLocale ?? DEFAULT_LOCALE;
+  const data = useLoaderData<typeof loader>();
+  const { preview, ...restData } = data;
+  const locale = restData.selectedLocale ?? DEFAULT_LOCALE;
   const hasUserConsent = true;
   const nonce = useNonce();
   const { theme, navVisible } = useTheme();
@@ -162,6 +176,15 @@ function App() {
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="Super Yaya" />
         <meta name="mobile-web-app-capable" content="yes" />
+        
+        {/* Open Graph Meta Tags */}
+        <meta property="og:site_name" content="Super Yaya" />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content={locale.language} />
+        <meta name="twitter:site" content="@superyaya" />
+        <meta name="twitter:creator" content="@superyaya" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:domain" content="superyaya.com" />
         
         <Seo />
         <Meta />
