@@ -75,6 +75,15 @@ export const links: LinksFunction = () => {
       href: 'https://fonts.googleapis.com',
       crossOrigin: 'anonymous',
     },
+    // Favicon and App Icons - Using data URL as fallback
+    { rel: 'icon', type: 'image/png', href: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAHhlWElmTU0AKgAAAAgABAEaAAUAAAABAAAAPgEbAAUAAAABAAAARgEoAAMAAAABAAIAAIdpAAQAAAABAAAATgAAAAAAAAEsAAAAAQAAASwAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAACCgAwAEAAAAAQAAACAAAAAA+eom7wAAAAlwSFlzAAAuIwAALiMBeKU/dgAABIZJREFUWAnFV2tPlEcUfpYuQbn57qIsrF2KwF4IF9dQASU00lRDCzaoSGOaAPZK+geq/WhRLlqxxqShjWliSGOT0iY1UinYxEINUEEKoh9glw9AI7bcDJdy2T2dGbuve3nXNuw2zJc9c86ZM885c+aZd1XEBjZwhGzg3mLrDQegDrQCTqcTy8vLT7IJCUFYWJhPyNXVVaytrSFEyc57IJDx4P4Dyt+7l17Ky6N9+fl0b3DQI9zM9AyVHHydcrJepLcqKomB8bAHfAQpxhSUHDqM4eFh3B8aQuuNGx4VaGm5js7ODiwsLqLieCXUaq+ie8AJYHK2vp7it8VSmsVCQ/eGRKTR0VGyZmSQKSmZbv9yWzE6FLXrULIzpsrycoqRJCorLSVe+sryCtJGb6EvL1/2GzFoAPgOdrudrOkZlKDfTvsLXiZ9rI7ePHbM59zd0aj4xOPQ/pmMjIzg154ejI+Nw+l0QKPRwGQ2IzIyEmb2GxUdrbQMTVeu4KMTJ4VNYmu++bZZrFN05kp3NFxeWVmhM9XVZNyRRDGsfIZ4vciIl1IXs1XIfb293svkOe/yVw8coG0aLVWfOiXr/QleLQl819yM8+c+QVJyMs7U1iJz5052f1UYGBjAV01N7D47YLZY/CbEu1ySJFY1J3S6OL9+LoMPgK6uLrHYarWitOyoyw8pRiMOHzmCxYUFhIeHy3pvweFwYG7uMdQqFaam/vQ2+8x9AJhMJqhYxu1tbShl99tsMbNMdIiP18OSmoqMzAyfIO6K2dlZ/D4xwY7WCduIzd2kKPs04QLL8GxdHa59fw2TDx9iaWkJTpbVc6y00azx9hUU4FzDeWi1WsWAnHZ7uruxyIhHr9cjLT1d0c+l9AHgMkxNTWHUbscEy2Z8bAz9d/vx861bmJ6exumaGrxX9b7LNbBf7+682dZOjE691WL+QVUVSZFRdPrjakX7epQePcAbiFEqfuvvx9E3ylBUXAxDQoJoykF2C3q6e7Bp8ybk7tkjZz0zM4PeO3fES6dWhyI7ezfz2SzbGSjBJ49ZY0ZERiAnN1f4ujvIwB2MTutrahl/Z9JWSUMxWyR6Pi6OtuviBKWaU1Lo4oULxIDKa+w2O2WmpQmO4G/BT+03ZRsX7DabeAs0UdF0nFEzp2z3odgDfzx6hH5WBZvNhrnZOYSGhsJgMGB3TjYSExNl8C6BERPeffsd1i/jKCk5hM8+bxTXkNtPfngCXzQ24rWiIly8dAmSRnIte/LrjiYQubOjQ2TKq/X11asi1A/XW8QLWfjKfvE4KcX3oWIlp/+q+7ShgWK1MZSdlUU/trZSXk4u7TAkEOsRvyGCCoBxhvj64a9gUsILoi/qa+v8bs4NQQXAA97t66NUo4k1bzwVFRbS/Pw8V/sdAX+SeXYUYN21C+mMrjmDFhUfREREhLeLxzzoAER0xS8Mj33lSdAB8MwnJyf50QoKl3fyIwQdwF8MAP8eMLJXlZGBn22fqhWJ6Kl5fRL/o8I/SELZC6pmJPas8b8AeNaG3ragH4H3Bv8233AAfwOPNNdG489rAgAAAABJRU5ErkJggg==' },
+    // Apple Touch Icons
+    { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+    // Android Chrome Icons
+    { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/android-chrome-192x192.png' },
+    { rel: 'icon', type: 'image/png', sizes: '512x512', href: '/android-chrome-512x512.png' },
+    // Web App Manifest
+    { rel: 'manifest', href: '/site.webmanifest' },
   ];
 };
 
@@ -142,6 +151,18 @@ function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        
+        {/* Theme Color for mobile browsers */}
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
+        
+        {/* Additional PWA meta tags */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Super Yaya" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        
         <Seo />
         <Meta />
         <Links />
@@ -275,6 +296,13 @@ export function ErrorBoundary({ error }: { error: Error }) {
         <title>{title}</title>
         <Meta />
         <Links />
+        {/* Favicon */}
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/webmanifest" />
       </head>
       <body>
         <Layout
