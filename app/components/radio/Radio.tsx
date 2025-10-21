@@ -122,7 +122,7 @@ export default function Radio({ open, setOpen, setIsPlaying }) {
             {/* Frame 2 */}
             <div ref={frame2Ref} className={initialClasses}>
               <ul className="frame2Ul my-auto flex h-screen w-full flex-1 flex-col items-center justify-evenly text-center md:h-auto  md:flex-row">
-                {root?.data?.layout?.radioEpisode?.date && <li className="date opacity-0">{format(new Date(root.data.layout.radioEpisode.date), "dd.mm.yyyy")}</li>}
+                {root?.data?.layout?.radioEpisode?.date && <li className="date opacity-0">{format(new Date(root.data.layout.radioEpisode.date), "MM.yyyy")}</li>}
                 <li className="brand opacity-0">Radio Yaya</li>
                 <li className="episode opacity-0">{root?.data?.layout?.radioEpisode?.title}</li>
               </ul>
