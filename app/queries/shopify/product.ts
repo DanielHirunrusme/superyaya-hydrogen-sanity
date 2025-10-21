@@ -211,6 +211,10 @@ export const PRODUCT_FIELDS = `
         }
       }
     }
+    year: metafield(key: "year", namespace: "custom") {
+      id
+      value
+    }
   }
 `;
 

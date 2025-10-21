@@ -97,18 +97,21 @@ export async function loader({context, params}: LoaderArgs) {
 }
 
 export type IndexItem = {
+  id: number;
   _type: string;
-  no: number;
   title: string;
   description: any;
   category: string;
   kind: string;
   year: string;
+  _id: string;
+  slug: string;
+  modules?: any;
+  productWithVariant?: any;
 };
 
-export default function IndexPage() {
-  const {page, colors, gids} = useLoaderData<typeof loader>();
-  const [data, setData] = useState([]);
+function IndexTable({page, colors, resolvedGids}: {page: any, colors: any, resolvedGids: any[]}) {
+  const [data, setData] = useState<IndexItem[]>([]);
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const columns = useMemo<ColumnDef<IndexItem>[]>(
@@ -158,7 +161,15 @@ export default function IndexPage() {
   });
 
   useEffect(() => {
-    if (page) {
+    if (page && resolvedGids) {
+      // Create a lookup map of Shopify products by ID
+      const shopifyProductsMap = new Map();
+      resolvedGids.forEach((product: any) => {
+        if (product.id) {
+          shopifyProductsMap.set(product.id, product);
+        }
+      });
+
       // Combine all arrays into one flat array
       const allItems = [
         ...page.products,
@@ -170,6 +181,10 @@ export default function IndexPage() {
       
       const d = allItems.map((item: any, index: number) => {
         if (item._type === 'productWithVariant') {
+          // Find matching Shopify product by GID
+          const shopifyProduct = shopifyProductsMap.get(item.gid);
+          const year = shopifyProduct?.year?.value || item.year;
+          
           return {
             id: index,
             category: item.category,
@@ -178,7 +193,7 @@ export default function IndexPage() {
             modules: item.modules,
             slug: item.slug,
             title: item.title,
-            year: item.year,
+            year: year,
             _id: item._id,
             productWithVariant: item.productWithVariant,
             _type: item._type,
@@ -200,7 +215,7 @@ export default function IndexPage() {
       });
       setData(d);
     }
-  }, [page]);
+  }, [page, resolvedGids]);
 
   const getHoverColor = (item: any) => {
     switch (item.original.kind) {
@@ -225,196 +240,184 @@ export default function IndexPage() {
   };
 
   return (
-    <SanityPreview data={page} query={COMBINED_INDEX_QUERY}>
-      {(page) => {
-        return (
-          <Suspense>
-            <Await resolve={gids}>
-              <Container asChild type="index">
-                <StaggerIndexList className="mx-auto flex w-full flex-col">
-                  <ul
-                    className={clsx(
-                      'flex w-full flex-1 flex-col justify-between text-left',
-                    )}
-                  >
-                    <li className="hidden grid-cols-3 opacity-0 md:grid md:grid-cols-12">
-                      {table.getHeaderGroups().map((headerGroup) => (
-                        <React.Fragment key={headerGroup.id}>
-                          {headerGroup.headers.map((header, index) => {
-                            return (
-                              <div
-                                key={header.id}
-                                className={clsx(
-                                  COLUMN_SIZES[index],
-                                  'border-b',
-                                )}
-                              >
-                                <Typography type="index">
-                                  {header.isPlaceholder ? null : (
-                                    <button
-                                      type="button"
-                                      {...{
-                                        className: header.column.getCanSort()
-                                          ? 'cursor-pointer select-none flex gap-1 items-center h-[1.2em]'
-                                          : '',
-                                        onClick:
-                                          header.column.getToggleSortingHandler(),
-                                      }}
-                                    >
-                                      {flexRender(
-                                        header.column.columnDef.header,
-                                        header.getContext(),
-                                      )}
-                                      {{
-                                        asc: <ArrowUpIcon />,
-                                        desc: <ArrowDownIcon />,
-                                      }[
-                                        header.column.getIsSorted() as string
-                                      ] ?? null}
-                                    </button>
-                                  )}
-                                </Typography>
-                              </div>
-                            );
-                          })}
-                        </React.Fragment>
-                      ))}
-                    </li>
-                    <>
-                      {table
-                        .getRowModel()
-                        .rows.slice(0, 10000)
-                        .map((row) => {
-                          console.log(row)
-                          return (
-                            <Disclosure key={row.id}>
-                              {({open}) => (
-                                <li
-                                  className={clsx(
-                                    'flex-1 overflow-hidden border-b border-black opacity-0 2xl:border-b',
-                                  )}
-                                  key={row.id}
-                                  style={{
-                                    color: getRowColor(row),
-                                  }}
-                                >
-                                  <Disclosure.Button
-                                    className={clsx(
-                                      'flex w-full flex-1 grid-cols-3 justify-between overflow-hidden text-left text-black hover:text-inherit active:text-inherit md:grid md:grid-cols-12',
+    <Container asChild type="index">
+      <StaggerIndexList className="mx-auto flex w-full flex-col">
+        <ul
+          className={clsx(
+            'flex w-full flex-1 flex-col justify-between text-left',
+          )}
+        >
+          <li className="hidden grid-cols-3 opacity-0 md:grid md:grid-cols-12">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <React.Fragment key={headerGroup.id}>
+                {headerGroup.headers.map((header, index) => {
+                  return (
+                    <div
+                      key={header.id}
+                      className={clsx(
+                        COLUMN_SIZES[index],
+                        'border-b',
+                      )}
+                    >
+                      <Typography type="index" size="md">
+                        {header.isPlaceholder ? null : (
+                          <button
+                            type="button"
+                            {...{
+                              className: header.column.getCanSort()
+                                ? 'cursor-pointer select-none flex gap-1 items-center h-[1.2em]'
+                                : '',
+                              onClick:
+                                header.column.getToggleSortingHandler(),
+                            }}
+                          >
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                            {{
+                              asc: <ArrowUpIcon />,
+                              desc: <ArrowDownIcon />,
+                            }[
+                              header.column.getIsSorted() as string
+                            ] ?? null}
+                          </button>
+                        )}
+                      </Typography>
+                    </div>
+                  );
+                })}
+              </React.Fragment>
+            ))}
+          </li>
+          <>
+            {table
+              .getRowModel()
+              .rows.slice(0, 10000)
+              .map((row) => {
+                return (
+                  <Disclosure key={row.id}>
+                    {({open}) => (
+                      <li
+                        className={clsx(
+                          'flex-1 overflow-hidden border-b border-black opacity-0 2xl:border-b',
+                        )}
+                        key={row.id}
+                        style={{
+                          color: getRowColor(row),
+                        }}
+                      >
+                        <Disclosure.Button
+                          className={clsx(
+                            'flex w-full flex-1 grid-cols-3 justify-between overflow-hidden text-left text-black hover:text-inherit active:text-inherit md:grid md:grid-cols-12',
 
-                                      open && 'hover:text-black',
+                            open && 'hover:text-black',
+                          )}
+                        >
+                          {row
+                            .getVisibleCells()
+                            .map((cell, index) => {
+                              const year =
+                                row.original.year?.split('-')[0];
+                              return (
+                                <div
+                                  className={COLUMN_SIZES[index]}
+                                  key={cell.id}
+                                >
+                                  <Typography type="index" size="md">
+                                    {flexRender(
+                                      cell.column.columnDef.cell,
+                                      cell.getContext(),
                                     )}
-                                  >
-                                    {row
-                                      .getVisibleCells()
-                                      .map((cell, index) => {
-                                        const year =
-                                          row.original.year?.split('-')[0];
-                                        return (
-                                          <div
-                                            className={COLUMN_SIZES[index]}
-                                            key={cell.id}
-                                          >
-                                            <Typography type="index">
-                                              {flexRender(
-                                                cell.column.columnDef.cell,
-                                                cell.getContext(),
-                                              )}
-                                            </Typography>
-                                            <>
-                                              {index == 1 && (
-                                                <div className="md:hidden">
-                                                  {row.original.kind && (
-                                                    <Typography type="index">
-                                                      Type: {row.original.kind}
-                                                    </Typography>
-                                                  )}
-                                                  {row.original.category && (
-                                                    <Typography type="index">
-                                                      Category:{' '}
-                                                      {row.original.category}
-                                                    </Typography>
-                                                  )}
-                                             
-                                                  {row.original.year && (
-                                                    <Typography type="index">
-                                                      Year: {year}
-                                                    </Typography>
-                                                  )}
-                                                </div>
-                                              )}
-                                            </>
-                                          </div>
-                                        );
-                                      })}
-                                  </Disclosure.Button>
-                                  <Disclosure.Panel>
-                                    <div
-                                      className={clsx(
-                                        'flex w-full flex-1 grid-cols-12 justify-between text-left md:grid',
-                                        'font-index',
-                                      )}
-                                    >
-                                      <div
-                                        className={clsx(
-                                          COLUMN_SIZES[0],
-                                          'hidden md:block',
-                                        )}
-                                      ></div>
-                                      {/* Description */}
-                                      <div
-                                        className={clsx(
-                                          COLUMN_SIZES[1],
-                                          'text-black',
-                                        )}
-                                      >
-                                        {row.original._type ==
-                                        'productWithVariant' ? (
-                                          <Typography type="index">
-                                            <div
-                                              className="normal-case text-black"
-                                              dangerouslySetInnerHTML={{
-                                                __html:
-                                                  row.original.description,
-                                              }}
-                                            />
+                                  </Typography>
+                                  <>
+                                    {index == 1 && (
+                                      <div className="md:hidden">
+                                        {row.original.kind && (
+                                          <Typography type="index" size="md">
+                                            Type: {row.original.kind}
                                           </Typography>
-                                        ) : (
-                                          <Typography type="index">
-                                            <PortableText
-                                              blocks={row.original.description}
-                                            />
+                                        )}
+                                        {row.original.category && (
+                                          <Typography type="index" size="md">
+                                            Category:{' '}
+                                            {row.original.category}
+                                          </Typography>
+                                        )}
+                                     
+                                        {row.original.year && (
+                                          <Typography type="index" size="md">
+                                            Year: {year}
                                           </Typography>
                                         )}
                                       </div>
-                                      {/* Spacers */}
-                                      <div className={COLUMN_SIZES[2]}> </div>
-                                      <div className={COLUMN_SIZES[3]}></div>
-                                      <div className={COLUMN_SIZES[4]}></div>
-                                    </div>
-                                    {/* Images */}
-                                    {/* <div className={clsx(COLUMN_SIZES[0], "hidden md:block")}> </div> */}
-                                    <div className="mb-4 mt-2 md:grid md:grid-cols-12">
-                                      <div className="col-span-1 hidden md:block" />
-                                      <div data-row={row.original._type} className="md:col-span-11">
-                                        <IndexImages type={row.original._type} description={row.original.description} item={row.original} title={row.original.title} />
-                                      </div>
-                                    </div>
-                                  </Disclosure.Panel>
-                                </li>
+                                    )}
+                                  </>
+                                </div>
+                              );
+                            })}
+                        </Disclosure.Button>
+                        <Disclosure.Panel>
+                          <div
+                            className={clsx(
+                              'flex w-full flex-1 grid-cols-12 justify-between text-left md:grid',
+                              'font-index',
+                            )}
+                          >
+                            <div
+                              className={clsx(
+                                COLUMN_SIZES[0],
+                                'hidden md:block',
                               )}
-                            </Disclosure>
-                          );
-                        })}
-                    </>
-                  </ul>
-                </StaggerIndexList>
-              </Container>
-            </Await>
-          </Suspense>
-        );
-      }}
-    </SanityPreview>
+                            ></div>
+                            {/* Description */}
+                            <div
+                              className={clsx(
+                                COLUMN_SIZES[1],
+                                'text-black',
+                              )}
+                            >
+                              {row.original._type ==
+                              'productWithVariant' ? (
+                                <Typography type="index" size="md">
+                                  <div
+                                    className="normal-case text-black"
+                                    dangerouslySetInnerHTML={{
+                                      __html:
+                                        row.original.description,
+                                    }}
+                                  />
+                                </Typography>
+                              ) : (
+                                <Typography type="index" size="md">
+                                  <PortableText
+                                    blocks={row.original.description}
+                                  />
+                                </Typography>
+                              )}
+                            </div>
+                            {/* Spacers */}
+                            <div className={COLUMN_SIZES[2]}> </div>
+                            <div className={COLUMN_SIZES[3]}></div>
+                            <div className={COLUMN_SIZES[4]}></div>
+                          </div>
+                          {/* Images */}
+                          <div className="mb-4 mt-2 md:grid md:grid-cols-12">
+                            <div className="col-span-1 hidden md:block" />
+                            <div data-row={row.original._type} className="md:col-span-11">
+                              <IndexImages type={row.original._type} description={row.original.description} item={row.original} title={row.original.title} />
+                            </div>
+                          </div>
+                        </Disclosure.Panel>
+                      </li>
+                    )}
+                  </Disclosure>
+                );
+              })}
+          </>
+        </ul>
+      </StaggerIndexList>
+    </Container>
   );
 }
 
@@ -438,4 +441,24 @@ function IndexImages({item, title, type, description}: {item: any; title?: strin
         />
       );
   }
+}
+
+export default function IndexPage() {
+  const {page, colors, gids} = useLoaderData<typeof loader>();
+  
+  return (
+    <SanityPreview data={page} query={COMBINED_INDEX_QUERY}>
+      {(page) => {
+        return (
+          <Suspense>
+            <Await resolve={gids}>
+              {(resolvedGids) => (
+                <IndexTable page={page} colors={colors} resolvedGids={resolvedGids} />
+              )}
+            </Await>
+          </Suspense>
+        );
+      }}
+    </SanityPreview>
+  );
 }
