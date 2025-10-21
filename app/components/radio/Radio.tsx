@@ -3,9 +3,6 @@ import Button from '../elements/Button';
 import { useRef, useState } from 'react';
 import { stagger, useAnimate } from 'framer-motion';
 import { Typography } from '../global/Typography';
-// import clsx from 'clsx';
-// import {CAT_SIZE} from '~/lib/constants';
-// import RadioCat2 from './RadioCat2';
 import { useMatches } from '@remix-run/react';
 import { format } from "date-fns"
 
