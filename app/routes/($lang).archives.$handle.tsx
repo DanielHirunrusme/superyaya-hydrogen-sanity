@@ -3,8 +3,6 @@ import type {SeoHandleFunction} from '@shopify/hydrogen';
 import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
 import {Suspense} from 'react';
 import invariant from 'tiny-invariant';
-
-import PortableText from '~/components/portableText/PortableText';
 import type {SanityPage} from '~/lib/sanity';
 import {ColorTheme} from '~/lib/theme';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
