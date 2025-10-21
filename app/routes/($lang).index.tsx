@@ -263,6 +263,7 @@ export default function IndexPage() {
                         .getRowModel()
                         .rows.slice(0, 10000)
                         .map((row) => {
+                          console.log(row)
                           return (
                             <Disclosure key={row.id}>
                               {({open}) => (
@@ -312,6 +313,7 @@ export default function IndexPage() {
                                                       {row.original.category}
                                                     </Typography>
                                                   )}
+                                             
                                                   {row.original.year && (
                                                     <Typography type="index">
                                                       Year: {year}
