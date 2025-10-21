@@ -14,6 +14,7 @@ import type { SanityCollectionPage } from '~/lib/sanity';
 import { ColorTheme } from '~/lib/theme';
 import { fetchGids, notFound, validateLocale } from '~/lib/utils';
 import { COLLECTION_PAGE_QUERY } from '~/queries/sanity/collection';
+import { LAYOUT_QUERY } from '~/queries/sanity/layout';
 import { COLLECTION_QUERY } from '~/queries/shopify/collection';
 import { isWithinDateRange } from '~/lib/utils';
 import { useAnimate } from 'framer-motion';
@@ -23,9 +24,18 @@ import CollectionBreadcrumb from '~/components/collection/CollectionBreadcrumb';
 import { Link } from '~/components/Link';
 
 const seo: SeoHandleFunction<typeof loader> = ({ data }) => ({
-  title: data?.page?.seo?.title ?? data?.collection?.title,
-  description: data?.page?.seo?.description ?? data?.collection?.description,
-  media: data?.page?.seo?.image ?? data?.collection?.image,
+  title: 
+    data?.page?.seo?.title ?? 
+    data?.layout?.seo?.title ?? 
+    data?.collection?.title,
+  description: 
+    data?.page?.seo?.description ?? 
+    data?.layout?.seo?.description ?? 
+    data?.collection?.description,
+  media: 
+    data?.page?.seo?.image ?? 
+    data?.layout?.seo?.image ?? 
+    data?.collection?.image,
 });
 
 export const handle = {
@@ -62,12 +72,16 @@ export async function loader({ params, context, request }: LoaderArgs) {
     staleWhileRevalidate: 60,
   });
 
-  const [page, { collection }] = await Promise.all([
+  const [page, layout, { collection }] = await Promise.all([
     context.sanity.query<SanityCollectionPage>({
       query: COLLECTION_PAGE_QUERY,
       params: {
         slug: params.handle,
       },
+      cache,
+    }),
+    context.sanity.query({
+      query: LAYOUT_QUERY,
       cache,
     }),
     context.storefront.query<{ collection: any }>(COLLECTION_QUERY, {
@@ -91,6 +105,7 @@ export async function loader({ params, context, request }: LoaderArgs) {
 
   return defer({
     page,
+    layout,
     collection,
     gids,
     sortKey,

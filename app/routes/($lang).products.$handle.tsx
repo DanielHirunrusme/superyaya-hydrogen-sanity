@@ -25,6 +25,7 @@ import type {SanityProductPage} from '~/lib/sanity';
 import {ColorTheme} from '~/lib/theme';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
 import {PRODUCT_PAGE_GID_QUERY, PRODUCT_PAGE_QUERY, SIZE_GUIDE_QUERY} from '~/queries/sanity/product';
+import {LAYOUT_QUERY} from '~/queries/sanity/layout';
 import {
   PRODUCT_QUERY,
   RECOMMENDED_PRODUCTS_QUERY,
@@ -41,11 +42,16 @@ const seo: SeoHandleFunction = ({data}) => {
   return {
     title:
       data?.page?.seo?.title ??
+      data?.layout?.seo?.title ??
       data?.product?.seo?.title ??
       data?.product?.title,
-    media: data?.page?.seo?.image ?? media?.image,
+    media: 
+      data?.page?.seo?.image ?? 
+      data?.layout?.seo?.image ?? 
+      media?.image,
     description:
       data?.page?.seo?.description ??
+      data?.layout?.seo?.description ??
       data?.product?.seo?.description ??
       data?.product?.description,
     jsonLd: {
@@ -75,12 +81,16 @@ export async function loader({params, context, request}: LoaderArgs) {
     staleWhileRevalidate: 60,
   });
 
-  const [page, {product}, sizeGuide] = await Promise.all([
+  const [page, layout, {product}, sizeGuide] = await Promise.all([
     context.sanity.query<SanityProductPage>({
       query: PRODUCT_PAGE_QUERY,
       params: {
         slug: params.handle,
       },
+      cache,
+    }),
+    context.sanity.query({
+      query: LAYOUT_QUERY,
       cache,
     }),
     context.storefront.query<{
@@ -177,6 +187,7 @@ export async function loader({params, context, request}: LoaderArgs) {
 
   return defer({
     page,
+    layout,
     product,
     sizeGuide,
     variants,

@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import type {SanityHomePage} from '~/lib/sanity';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
 import {INDEX_QUERY, INDEX_COLOR_QUERY} from '~/queries/sanity/index';
+import {LAYOUT_QUERY} from '~/queries/sanity/layout';
 import {format} from 'date-fns';
 import {Disclosure} from '@headlessui/react';
 import ProductModule from '~/components/modules/Product';
@@ -29,10 +30,15 @@ import {Container} from '~/components/global/Container';
 import {Typography} from '~/components/global/Typography';
 
 const seo: SeoHandleFunction = ({data}) => ({
-  title: data?.page?.seo?.title || 'SUPER YAYA',
+  title: 
+    data?.page?.seo?.title ?? 
+    data?.layout?.seo?.title ?? 
+    'SUPER YAYA',
   description:
-    data?.page?.seo?.description ||
+    data?.page?.seo?.description ??
+    data?.layout?.seo?.description ??
     'A custom storefront powered by Hydrogen and Sanity',
+  media: data?.page?.seo?.image ?? data?.layout?.seo?.image,
 });
 
 export const handle = {
@@ -56,15 +62,20 @@ export async function loader({context, params}: LoaderArgs) {
     staleWhileRevalidate: 60,
   });
 
-  const page = await context.sanity.query<SanityHomePage>({
-    query: INDEX_QUERY,
-    cache,
-  });
-
-  const colors = await context.sanity.query<SanityHomePage>({
-    query: INDEX_COLOR_QUERY,
-    cache,
-  });
+  const [page, layout, colors] = await Promise.all([
+    context.sanity.query<SanityHomePage>({
+      query: INDEX_QUERY,
+      cache,
+    }),
+    context.sanity.query({
+      query: LAYOUT_QUERY,
+      cache,
+    }),
+    context.sanity.query<SanityHomePage>({
+      query: INDEX_COLOR_QUERY,
+      cache,
+    }),
+  ]);
 
   if (!page) {
     throw notFound();
@@ -75,6 +86,7 @@ export async function loader({context, params}: LoaderArgs) {
 
   return defer({
     page,
+    layout,
     colors,
     gids,
     analytics: {

@@ -146,7 +146,7 @@ export async function loader({ context }: LoaderFunctionArgs) {
 
 function App() {
   const data = useLoaderData<typeof loader>();
-  const { preview, ...restData } = data;
+  const { preview, layout, ...restData } = data;
   const locale = restData.selectedLocale ?? DEFAULT_LOCALE;
   const hasUserConsent = true;
   const nonce = useNonce();
@@ -266,7 +266,7 @@ function App() {
         <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" async></script>
       </head>
       <body>
-        <PreviewProvider previewConfig={preview} fallback={<PreviewLoading />}>
+        <PreviewProvider previewConfig={preview as any} fallback={<PreviewLoading />}>
           <IntroWrapper>
             <Layout key={`${locale.language}-${locale.country}`}>
               <Outlet />
@@ -301,7 +301,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
     selectedLocale: locale = DEFAULT_LOCALE,
     layout = null,
     notFoundCollection = {},
-  } = root.data || {};
+  } = (root.data as any) || {};
   const { notFoundPage } = layout || {};
 
   let title = 'Error';

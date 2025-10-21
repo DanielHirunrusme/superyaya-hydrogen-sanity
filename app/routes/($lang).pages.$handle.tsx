@@ -1,6 +1,6 @@
-import {Await, useLoaderData} from '@remix-run/react';
+import {Await, useLoaderData, useMatches} from '@remix-run/react';
 import type {SeoHandleFunction} from '@shopify/hydrogen';
-import {defer, type LoaderArgs} from '@shopify/remix-oxygen';
+import {defer, type LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import clsx from 'clsx';
 import {Suspense, useState, useEffect} from 'react';
 import invariant from 'tiny-invariant';
@@ -11,29 +11,29 @@ import type {SanityPage} from '~/lib/sanity';
 import {ColorTheme} from '~/lib/theme';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
 import {PAGE_QUERY} from '~/queries/sanity/page';
+import {LAYOUT_QUERY} from '~/queries/sanity/layout';
 import {SanityLink} from '~/lib/sanity';
 import {Link} from '~/components/Link';
 
-import {useMatches} from '@remix-run/react';
 import {Container} from '~/components/global/Container';
 import {Typography} from '~/components/global/Typography';
 import StaggerIndexList from '~/components/framer/StaggerIndexList';
 
 import SanityImage from '~/components/media/SanityImage';
 import {motion, useAnimate} from 'framer-motion';
-import { useTheme } from '~/components/context/ThemeProvider';
+import {useTheme} from '~/components/context/ThemeProvider';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
-  title: data?.page?.seo?.title,
-  description: data?.page?.seo?.description,
-  media: data?.page?.seo?.image,
+  title: data?.page?.seo?.title ?? data?.layout?.seo?.title,
+  description: data?.page?.seo?.description ?? data?.layout?.seo?.description,
+  media: data?.page?.seo?.image ?? data?.layout?.seo?.image,
 });
 
 export const handle = {
   seo,
 };
 
-export async function loader({params, context}: LoaderArgs) {
+export async function loader({params, context}: LoaderFunctionArgs) {
   validateLocale({context, params});
 
   const {handle} = params;
@@ -45,13 +45,19 @@ export async function loader({params, context}: LoaderArgs) {
     staleWhileRevalidate: 60,
   });
 
-  const page = await context.sanity.query<SanityPage>({
-    query: PAGE_QUERY,
-    params: {
-      slug: handle,
-    },
-    cache,
-  });
+  const [page, layout] = await Promise.all([
+    context.sanity.query<SanityPage>({
+      query: PAGE_QUERY,
+      params: {
+        slug: handle,
+      },
+      cache,
+    }),
+    context.sanity.query<any>({
+      query: LAYOUT_QUERY,
+      cache,
+    }),
+  ]);
 
   if (!page) {
     throw notFound();
@@ -60,15 +66,16 @@ export async function loader({params, context}: LoaderArgs) {
   // Resolve any references to products on the Storefront API
   const gids = fetchGids({page, context});
 
-  return defer({page, gids});
+  return defer({page, layout, gids});
 }
 
 export default function Page() {
   const [root] = useMatches();
 
-  const layout = root.data?.layout;
-  const {assistance} = layout || {};
-  const {page, gids} = useLoaderData<typeof loader>();
+  console.log('Root Debug - Root:', root);
+  const rootLayout = (root.data as any)?.layout;
+  const {assistance} = rootLayout || {};
+  const {page, layout, gids} = useLoaderData<typeof loader>();
   const [menuVisible, setMenuVisible] = useState(false);
   const {navVisible} = useTheme();
 
@@ -112,41 +119,39 @@ export default function Page() {
 
   if (page.slug?.current.includes('studio')) {
     return (
- 
-        <ColorTheme value={page.colorTheme}>
-          <Suspense>
-            <Await resolve={gids}>
-              {/* Page hero */}
-              {/* <PageHero fallbackTitle={page.title} hero={page.hero} /> */}
-              <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center">
-                <Container type="pageDescription" asChild>
-                  <div
-                    className={clsx(
-                      'mx-auto grid w-full grid-cols-10 gap-[2.56vw] md:block',
-                    )}
-                  >
-                    <div className="col-span-8 col-start-2">
-                      <Typography type="rte">
-                        {page.displayAssistanceMenu && assistance && (
-                          <StaggerIndexList target="ol li">
-                            <ol className="rte mb-6 flex list-inside list-alpha flex-col !uppercase">
-                              {renderLinks}
-                            </ol>
-                          </StaggerIndexList>
-                        )}
-                        {/* Body */}
-                        {page.body && (
-                          <PortableText blocks={page.body} centered />
-                        )}
-                      </Typography>
-                    </div>
+      <ColorTheme value={page.colorTheme}>
+        <Suspense>
+          <Await resolve={gids}>
+            {/* Page hero */}
+            {/* <PageHero fallbackTitle={page.title} hero={page.hero} /> */}
+            <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center">
+              <Container type="pageDescription" asChild>
+                <div
+                  className={clsx(
+                    'mx-auto grid w-full grid-cols-10 gap-[2.56vw] md:block',
+                  )}
+                >
+                  <div className="col-span-8 col-start-2">
+                    <Typography type="rte" size="md">
+                      {page.displayAssistanceMenu && assistance && (
+                        <StaggerIndexList target="ol li">
+                          <ol className="rte mb-6 flex list-inside list-alpha flex-col !uppercase">
+                            {renderLinks}
+                          </ol>
+                        </StaggerIndexList>
+                      )}
+                      {/* Body */}
+                      {page.body && (
+                        <PortableText blocks={page.body} centered />
+                      )}
+                    </Typography>
                   </div>
-                </Container>
-              </div>
-            </Await>
-          </Suspense>
-        </ColorTheme>
- 
+                </div>
+              </Container>
+            </div>
+          </Await>
+        </Suspense>
+      </ColorTheme>
     );
   } else {
     return (
@@ -156,21 +161,19 @@ export default function Page() {
             {/* Page hero */}
             {/* <PageHero fallbackTitle={page.title} hero={page.hero} /> */}
             <Container type="assistance" asChild>
-              <div className={clsx('mx-auto w-full pb-24 !uppercase page-rte ')}>
-                
-                  {/* {page.displayAssistanceMenu && assistance && (
-                    <StaggerIndexList target="ol li" onComplete={onComplete}>
-                      <ol className="rte mb-6 flex list-inside list-alpha flex-col !uppercase">
-                        {renderLinks}
-                      </ol>
-                    </StaggerIndexList>
-                  )} */}
+              <div className={clsx('page-rte mx-auto w-full pb-24 !uppercase')}>
+                {/* {page.displayAssistanceMenu && assistance && (
+                  <StaggerIndexList target="ol li" onComplete={onComplete}>
+                    <ol className="rte mb-6 flex list-inside list-alpha flex-col !uppercase">
+                      {renderLinks}
+                    </ol>
+                  </StaggerIndexList>
+                )} */}
 
-                  {/* Body */}
-                  {page.body && navVisible && (
-                    <PortableText blocks={page.body} centered />
-                  )}
-                
+                {/* Body */}
+                {page.body && navVisible && (
+                  <PortableText blocks={page.body} centered />
+                )}
               </div>
             </Container>
           </Await>
@@ -185,7 +188,7 @@ function Cardwrapper(props: any) {
   const {children} = props;
 
   const [root] = useMatches();
-  const {sanityDataset, sanityProjectID} = root.data;
+  const {sanityDataset, sanityProjectID} = root.data as any;
   const [targetWidth, setTargetWidth] = useState<number>(0);
   const [introDone, setIntroDone] = useState<boolean>(false);
   const [cardVisible, setCardVisible] = useState<boolean>(true);
@@ -193,8 +196,8 @@ function Cardwrapper(props: any) {
   useEffect(() => {
     const getTargetWidth = () => {
       const wh = window.innerHeight;
-      const aspectRatio =
-        root.data?.layout?.introImage?.metadata?.dimensions?.aspectRatio;
+      const aspectRatio = (root.data as any)?.layout?.introImage?.metadata
+        ?.dimensions?.aspectRatio;
       const w = wh * aspectRatio;
       return w;
     };
@@ -209,8 +212,8 @@ function Cardwrapper(props: any) {
           animate={{transform: `translate(-50%, 400%) rotate(90deg)`}}
           transition={{delay: 2.25, duration: 2, ease: 'easeIn'}}
           style={{
-            aspectRatio:
-              root.data.layout?.introImage?.metadata?.dimensions?.aspectRatio,
+            aspectRatio: (root.data as any)?.layout?.introImage?.metadata
+              ?.dimensions?.aspectRatio,
           }}
           className="absolute left-1/2 top-1/2  z-10 w-[112vw]  -translate-x-1/2 -translate-y-1/2 rotate-90 transform md:w-[33.33vw] md:rotate-0 xl:w-[27.546vw] 2xl:w-[27.265vw]"
         >
@@ -221,7 +224,7 @@ function Cardwrapper(props: any) {
             objectFit="contain"
             projectId={sanityProjectID}
             sizes="50vw, 100vw"
-            src={root.data?.layout?.introImage?._id}
+            src={(root.data as any)?.layout?.introImage?._id}
           />
         </motion.div>
 

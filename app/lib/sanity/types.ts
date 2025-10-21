@@ -279,6 +279,10 @@ export type SanityPage = {
   hero?: SanityHeroPage;
   seo: SanitySeo;
   title: string;
+  slug?: {
+    current: string;
+  };
+  displayAssistanceMenu?: boolean;
 };
 
 export type SanityProductHotspot = {

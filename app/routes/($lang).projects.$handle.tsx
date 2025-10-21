@@ -9,6 +9,7 @@ import type {SanityPage} from '~/lib/sanity';
 import {ColorTheme} from '~/lib/theme';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
 import {PROJECT_PAGE_QUERY} from '~/queries/sanity/project';
+import {LAYOUT_QUERY} from '~/queries/sanity/layout';
 import ProjectSlideshow from '~/components/project/ProjectSlideshow';
 
 // import ModuleGrid from '~/components/modules/ModuleGrid';
@@ -20,9 +21,9 @@ import clsx from 'clsx';
 // import {useTheme} from '~/components/context/ThemeProvider';
 
 const seo: SeoHandleFunction<typeof loader> = ({data}) => ({
-  title: data?.page?.seo?.title,
-  description: data?.page?.seo?.description,
-  media: data?.page?.seo?.image,
+  title: data?.page?.seo?.title ?? data?.layout?.seo?.title,
+  description: data?.page?.seo?.description ?? data?.layout?.seo?.description,
+  media: data?.page?.seo?.image ?? data?.layout?.seo?.image,
 });
 
 export const handle = {
@@ -41,13 +42,19 @@ export async function loader({params, context}: LoaderArgs) {
     staleWhileRevalidate: 60,
   });
 
-  const page = await context.sanity.query<SanityPage>({
-    query: PROJECT_PAGE_QUERY,
-    params: {
-      slug: handle,
-    },
-    cache,
-  });
+  const [page, layout] = await Promise.all([
+    context.sanity.query<SanityPage>({
+      query: PROJECT_PAGE_QUERY,
+      params: {
+        slug: handle,
+      },
+      cache,
+    }),
+    context.sanity.query({
+      query: LAYOUT_QUERY,
+      cache,
+    }),
+  ]);
 
   if (!page) {
     throw notFound();
@@ -56,7 +63,7 @@ export async function loader({params, context}: LoaderArgs) {
   // Resolve any references to products on the Storefront API
   const gids = fetchGids({page, context});
 
-  return defer({page, gids});
+  return defer({page, layout, gids});
 }
 
 export default function Page() {

@@ -157,7 +157,7 @@ export default function Navigation({
           let hasChildActive = false;
 
           link.links.map((subLink) => {
-            console.log('subLink', subLink.slug, location.pathname);
+ 
             if (location.pathname.includes(subLink.slug) || (isHome && subLink.slug === '/boutique/all')) {
               hasChildActive = true;
             }
@@ -198,7 +198,7 @@ export default function Navigation({
                 let hasChildActive = false;
 
                 link.links.map((subLink) => {
-                  console.log('subLink', subLink.slug, location.pathname); 
+      
                   if (
                     (subLink.slug && location.pathname.includes(subLink.slug)) ||
                     (isHome && subLink.slug === '/boutique/all')
@@ -408,7 +408,7 @@ export default function Navigation({
       /* vendors contains the element we're looking for */
     }
 
-    // console.log('match?', match);
+ 
   }, [assistance, location]);
 
   useEffect(() => {

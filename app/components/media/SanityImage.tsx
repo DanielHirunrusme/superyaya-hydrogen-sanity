@@ -79,6 +79,7 @@ export default function SanityImage(props) {
     sizes,
     src,
     width,
+    alt,
     ...rest
   } = props;
 
@@ -140,6 +141,7 @@ export default function SanityImage(props) {
     <img
       {...rest}
       decoding="async"
+      alt={alt}
       // src={blurDataURL}
       sizes={srcSetSizes}
       src={urlDefault}
