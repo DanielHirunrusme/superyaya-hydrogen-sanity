@@ -21,9 +21,14 @@ export interface SocialSharingData {
 /**
  * Get the default social sharing image
  */
-export function getDefaultSocialImage(siteUrl: string): SocialSharingImage {
+export function getDefaultSocialImage(siteUrl?: string): SocialSharingImage {
+  // Use Shopify CDN URL as the default, fallback to site URL if provided
+  const imageUrl = siteUrl 
+    ? `${siteUrl}/images/syy-og.jpg`
+    : 'https://cdn.shopify.com/s/files/1/0831/2474/8591/files/syy-og.jpg?v=1761003520';
+    
   return {
-    url: `${siteUrl}/images/syy-og.jpg`,
+    url: imageUrl,
     width: 1200,
     height: 630,
     altText: 'Super Yaya - Fashion and Lifestyle',

@@ -37,27 +37,27 @@ import type { I18nLocale } from '~/types/shopify';
 import IntroWrapper from './components/global/IntroWrapper';
 import { ThemeProvider, useTheme } from './components/context/ThemeProvider';
 import clsx from 'clsx';
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import { getDefaultSocialImage } from '~/lib/socialSharing';
 
-const seo: SeoHandleFunction<typeof loader> = ({ data }) => ({
-  title: data?.layout?.seo?.title,
-  titleTemplate: `%s${data?.layout?.seo?.title ? ` · ${data?.layout?.seo?.title}` : ''}`,
-  description: data?.layout?.seo?.description,
-  image: data?.layout?.seo?.image ? {
-    url: data.layout.seo.image.url,
-    width: data.layout.seo.image.width,
-    height: data.layout.seo.image.height,
-    altText: data.layout.seo.image.altText,
-  } : {
-    url: '/images/syy-og.jpg',
-    width: 1200,
-    height: 630,
-    altText: 'Super Yaya - Fashion and Lifestyle',
-  },
-  twitter: {
-    cardType: 'summary_large_image',
-  },
-});
+const seo: SeoHandleFunction<typeof loader> = ({ data }) => {
+  // Use the default social sharing image utility
+  const defaultImage = getDefaultSocialImage();
+
+  return {
+    title: data?.layout?.seo?.title,
+    titleTemplate: `%s${data?.layout?.seo?.title ? ` · ${data?.layout?.seo?.title}` : ''}`,
+    description: data?.layout?.seo?.description,
+    image: data?.layout?.seo?.image ? {
+      url: data.layout.seo.image.url,
+      width: data.layout.seo.image.width,
+      height: data.layout.seo.image.height,
+      altText: data.layout.seo.image.altText,
+    } : defaultImage,
+    twitter: {
+      cardType: 'summary_large_image',
+    },
+  };
+};
 
 export const handle = {
   seo,
@@ -298,12 +298,10 @@ export function ErrorBoundary({ error }: { error: Error }) {
   const isRouteError = isRouteErrorResponse(routeError);
 
   const {
-    selectedLocale: locale,
-    layout,
-    notFoundCollection,
-  } = root.data
-      ? root.data
-      : { selectedLocale: DEFAULT_LOCALE, layout: null, notFoundCollection: {} };
+    selectedLocale: locale = DEFAULT_LOCALE,
+    layout = null,
+    notFoundCollection = {},
+  } = root.data || {};
   const { notFoundPage } = layout || {};
 
   let title = 'Error';

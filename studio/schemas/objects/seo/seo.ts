@@ -25,6 +25,12 @@ export default defineField({
       validation: (Rule) =>
         Rule.max(150).warning('Longer descriptions may be truncated by search engines'),
     }),
+    // Image
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+    }),
   ],
   validation: (Rule) => Rule.required(),
 })
