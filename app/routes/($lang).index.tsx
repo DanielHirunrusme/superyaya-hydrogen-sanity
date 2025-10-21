@@ -8,7 +8,8 @@ import clsx from 'clsx';
 // import {GRID_GAP} from '~/lib/constants';
 import type {SanityHomePage} from '~/lib/sanity';
 import {fetchGids, notFound, validateLocale} from '~/lib/utils';
-import {INDEX_QUERY, INDEX_COLOR_QUERY} from '~/queries/sanity/index';
+import {COMBINED_INDEX_QUERY} from '~/queries/sanity/combined-index';
+import {INDEX_COLOR_QUERY} from '~/queries/sanity/index';
 import {LAYOUT_QUERY} from '~/queries/sanity/layout';
 import {format} from 'date-fns';
 import {Disclosure} from '@headlessui/react';
@@ -64,7 +65,7 @@ export async function loader({context, params}: LoaderArgs) {
 
   const [page, layout, colors] = await Promise.all([
     context.sanity.query<SanityHomePage>({
-      query: INDEX_QUERY,
+      query: COMBINED_INDEX_QUERY,
       cache,
     }),
     context.sanity.query({
@@ -158,7 +159,16 @@ export default function IndexPage() {
 
   useEffect(() => {
     if (page) {
-      const d = page?.map((item: any, index: number) => {
+      // Combine all arrays into one flat array
+      const allItems = [
+        ...page.products,
+        ...page.seasons,
+        ...page.collaborations,
+        ...page.projects,
+        ...page.archives,
+      ];
+      
+      const d = allItems.map((item: any, index: number) => {
         if (item._type === 'productWithVariant') {
           return {
             id: index,
@@ -215,7 +225,7 @@ export default function IndexPage() {
   };
 
   return (
-    <SanityPreview data={page} query={INDEX_QUERY}>
+    <SanityPreview data={page} query={COMBINED_INDEX_QUERY}>
       {(page) => {
         return (
           <Suspense>
