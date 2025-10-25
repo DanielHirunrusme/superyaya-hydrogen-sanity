@@ -37,7 +37,7 @@ export default function Header() {
         id="Header"
         className={clsx(
           'z-50 flex  w-full flex-col items-center justify-center text-center',
-          assistance.links.some((e) => e.slug === location?.pathname) ? 'relative md:absolute pb-mobile md:pb-0' : 'absolute',
+          assistance?.links?.some((e) => e.slug === location?.pathname) ? 'relative md:absolute pb-mobile md:pb-0' : 'absolute',
           NAV_GAP_Y,
           HEADER_TOP,
         )}

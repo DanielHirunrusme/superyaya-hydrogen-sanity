@@ -91,7 +91,7 @@ export default function HeaderActions(props: Props) {
         <li className="opacity-0">
           <Link
             to="/pages/faq"
-            className={clsx('linkTextNavigation hidden md:inline', assistance.links.some((e) => e.slug === location.pathname) && 'linkTextNavigationActive')}
+            className={clsx('linkTextNavigation hidden md:inline', assistance?.links?.some((e) => e.slug === location.pathname) && 'linkTextNavigationActive')}
           >
             <Typography type="body" size="sm">
               Assistance
