@@ -162,7 +162,7 @@ function App() {
         `theme-${theme}`,
       )}
     >
-      <head>
+      <head suppressHydrationWarning>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         
@@ -250,20 +250,35 @@ function App() {
           type="font/woff"
           crossOrigin="anonymous"
         />
-        <script type="text/javascript">
-          {`
-            var _iub = _iub || [];
-            _iub.csConfiguration = {
-              "siteId": 3926637,
-              "cookiePolicyId": 33461147,
-              "lang": "en",
-              "storage": {"useSiteId": true}
-            };
-          `}
-        </script>
-        <script type="text/javascript" src="https://cs.iubenda.com/autoblocking/3926637.js"></script>
-        <script type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
-        <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" async></script>
+        {/* <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var _iub = _iub || [];
+                _iub.csConfiguration = {
+                  "siteId": 3926637,
+                  "cookiePolicyId": 33461147,
+                  "lang": "en",
+                  "storage": {"useSiteId": true}
+                };
+              })();
+            `,
+          }}
+        />
+        <script
+          type="text/javascript"
+          src="https://cs.iubenda.com/autoblocking/3926637.js"
+        />
+        <script
+          type="text/javascript"
+          src="//cdn.iubenda.com/cs/gpp/stub.js"
+        />
+        <script
+          type="text/javascript"
+          src="//cdn.iubenda.com/cs/iubenda_cs.js"
+          async
+        /> */}
       </head>
       <body>
         <PreviewProvider previewConfig={preview as any} fallback={<PreviewLoading />}>

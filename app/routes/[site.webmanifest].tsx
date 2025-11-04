@@ -1,6 +1,6 @@
-import type { LoaderFunction } from '@remix-run/node';
+import type {LoaderArgs} from '@shopify/remix-oxygen';
 
-export const loader: LoaderFunction = () => {
+export async function loader({request}: LoaderArgs) {
   const manifest = {
     name: 'Super Yaya',
     short_name: 'Super Yaya',
@@ -10,29 +10,29 @@ export const loader: LoaderFunction = () => {
         src: '/android-chrome-192x192.png',
         sizes: '192x192',
         type: 'image/png',
-        purpose: 'any maskable'
+        purpose: 'any maskable',
       },
       {
         src: '/android-chrome-512x512.png',
         sizes: '512x512',
         type: 'image/png',
-        purpose: 'any maskable'
+        purpose: 'any maskable',
       },
       {
         src: '/favicon-16x16.png',
         sizes: '16x16',
-        type: 'image/png'
+        type: 'image/png',
       },
       {
         src: '/favicon-32x32.png',
         sizes: '32x32',
-        type: 'image/png'
+        type: 'image/png',
       },
       {
         src: '/apple-touch-icon.png',
         sizes: '180x180',
-        type: 'image/png'
-      }
+        type: 'image/png',
+      },
     ],
     theme_color: '#ffffff',
     background_color: '#ffffff',
@@ -42,7 +42,7 @@ export const loader: LoaderFunction = () => {
     orientation: 'portrait-primary',
     categories: ['fashion', 'shopping', 'lifestyle'],
     lang: 'en',
-    dir: 'ltr'
+    dir: 'ltr',
   };
 
   return new Response(JSON.stringify(manifest), {
@@ -52,4 +52,5 @@ export const loader: LoaderFunction = () => {
       'Cache-Control': 'public, max-age=31536000, immutable',
     },
   });
-};
+}
+

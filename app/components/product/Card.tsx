@@ -85,7 +85,7 @@ export default function ProductCard({
                 crop="center"
                 sizes="(min-width: 768px) 25vw, 100vw"
                 loading={index < 6 ? 'eager' : 'lazy'}
-                fetchPriority={index < 6 ? 'high' : 'auto'}
+                fetchpriority={index < 6 ? 'high' : 'auto'}
                 onLoad={onImageLoad} // Call when loaded
               />
             )}
