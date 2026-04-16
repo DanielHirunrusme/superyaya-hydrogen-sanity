@@ -9,7 +9,7 @@ type Props = {
 export default function Newsletter(props: Props) {
   const url =
     props.url ||
-    'https://super-yaya.us17.list-manage.com/subscribe/post?u=01e5abf41e3fbcb402dc71410&amp;id=db256d07f4&amp;f_id=00315ce0f0';
+    'https://super-yaya.us10.list-manage.com/subscribe/post?u=c981ccd93fdea8e390a1a6496&amp;id=d47311f66d&amp;f_id=008b4ce4f0';
   // The useFormFields is not necessary. You can use your own form component.
 
   // The url looks like the url below:
