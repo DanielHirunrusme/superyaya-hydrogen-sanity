@@ -29,7 +29,7 @@
     "@shopify/cli-hydrogen": "^7.0.0",
     "@shopify/hydrogen": "^2023.10.2",
     "@shopify/oxygen-workers-types": "^3.17.3",
-    "@shopify/remix-oxygen": "^2.0.1",
+    "@shopify/remix-oxygen": "2.0.12",
     "@tanstack/react-table": "^8.10.7",
     "@thebeyondgroup/shopify-rich-text-renderer": "^1.0.0",
     "@tippyjs/react": "^4.2.6",
