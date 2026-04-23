@@ -97,6 +97,10 @@ export const PRODUCT_FIELDS = `
       id
       value
     }
+    hide_product_form: metafield(key: "hide_product_form", namespace: "descriptors") {
+      id
+      value
+    }
     swatch: metafield(key: "swatch", namespace: "descriptors") {
       id
       reference {

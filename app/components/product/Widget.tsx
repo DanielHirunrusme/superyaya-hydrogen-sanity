@@ -17,6 +17,10 @@ type Props = {
   setSizeChartVisible: (visible: boolean) => void;
 };
 
+type ProductFormVisibilityMetafield = {
+  value?: string | null;
+};
+
 function ProductPrices({
   storefrontProduct,
   selectedVariant,
@@ -65,6 +69,13 @@ export default function ProductWidget({
   setSizeChartVisible,
 }: Props) {
   const availableForSale = selectedVariant?.availableForSale;
+  const hideProductFormMetafield = (
+    storefrontProduct as Product & {
+      hide_product_form?: ProductFormVisibilityMetafield | null;
+    }
+  ).hide_product_form;
+  const hideProductForm =
+    hideProductFormMetafield?.value?.trim().toLowerCase() === 'true';
 
   if (!selectedVariant) {
     return null;
@@ -107,13 +118,15 @@ export default function ProductWidget({
       )}
 
       {/* Product options */}
-      <ProductForm
-        product={storefrontProduct}
-        variants={storefrontVariants}
-        selectedVariant={selectedVariant}
-        analytics={analytics}
-        customProductOptions={sanityProduct.customProductOptions}
-      />
+      {!hideProductForm && (
+        <ProductForm
+          product={storefrontProduct}
+          variants={storefrontVariants}
+          selectedVariant={selectedVariant}
+          analytics={analytics}
+          customProductOptions={sanityProduct.customProductOptions}
+        />
+      )}
 
       <div className="mt-mobile md:mt-tablet xl:mt-laptop 2xl:mt-desktop">
 
