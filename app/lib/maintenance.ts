@@ -15,6 +15,8 @@
  * layout code run while the site is offline.
  */
 
+import {ENGRAVERS_GOTHIC_WOFF2_DATA_URI} from '~/lib/maintenance-font';
+
 const BYPASS_QUERY_PARAM = 'preview';
 const BYPASS_COOKIE_NAME = 'maintenance_bypass';
 /** How long an owner's bypass cookie stays valid (24 hours). */
@@ -184,9 +186,15 @@ function toHex(buffer: ArrayBuffer): string {
 /* -------------------------------------------------------------------------- */
 
 /**
- * Fully self-contained: inline CSS and no scripts, so it renders even if the
- * asset CDN is unavailable. The favicon is served by Oxygen's static asset
- * layer, which sits in front of this worker.
+ * Fully self-contained: inline CSS, inline font and no scripts, so it renders
+ * even if the asset CDN is unavailable. The favicon is served by Oxygen's
+ * static asset layer, which sits in front of this worker.
+ *
+ * Typography mirrors the navigation menu, which inherits the site `body`
+ * styles from `app/styles/tailwind.css` / `tailwind.config.js`:
+ * `font-sans` (Engravers' Gothic), weight 500, uppercase, 0.14em tracking and
+ * the viewport-relative `body*` sizes per Tailwind breakpoint. A single size
+ * is used for every line of text.
  */
 const MAINTENANCE_PAGE_HTML = `<!DOCTYPE html>
 <html lang="en">
@@ -197,6 +205,15 @@ const MAINTENANCE_PAGE_HTML = `<!DOCTYPE html>
     <title>We'll be back soon</title>
     <link rel="icon" href="/favicon.ico" />
     <style>
+      @font-face {
+        font-family: 'EngraversGothic';
+        src: url('${ENGRAVERS_GOTHIC_WOFF2_DATA_URI}') format('woff2'),
+          url('https://cdn.shopify.com/s/files/1/0831/2474/8591/files/EngraversGothicBT-Regular.woff?v=1697635125') format('woff');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+        unicode-range: U+0000-00FF, U+0100-017F, U+0300-036F;
+      }
       *, *::before, *::after { box-sizing: border-box; }
       html, body { height: 100%; margin: 0; }
       body {
@@ -205,36 +222,29 @@ const MAINTENANCE_PAGE_HTML = `<!DOCTYPE html>
         justify-content: center;
         padding: 2rem 1.5rem;
         background: #ffffff;
-        color: #111111;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        text-align: center;
-      }
-      main { max-width: 32rem; }
-      h1 {
-        margin: 0 0 1rem;
-        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        color: #000000;
+        font-family: EngraversGothic, "Helvetica Neue", Arial, sans-serif;
         font-weight: 500;
-        letter-spacing: -0.01em;
-        line-height: 1.15;
+        font-size: 3.846vw;
+        line-height: 1.2;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        text-align: center;
+        -webkit-font-smoothing: antialiased;
       }
-      p {
+      @media (min-width: 768px) { body { font-size: 1.005vw; line-height: 1.5; } }
+      @media (min-width: 1024px) { body { font-size: 1vw; line-height: 1.5; } }
+      @media (min-width: 1280px) { body { font-size: 0.9259vw; line-height: 1.25; } }
+      @media (min-width: 1536px) { body { font-size: 0.859375vw; line-height: 1.227; } }
+      main { max-width: 36em; }
+      h1, p {
         margin: 0;
-        font-size: 1rem;
-        line-height: 1.6;
-        color: #555555;
+        font-size: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+        letter-spacing: inherit;
       }
-      hr {
-        width: 2.5rem;
-        margin: 2rem auto 0;
-        border: 0;
-        border-top: 1px solid #dddddd;
-      }
-      @media (prefers-color-scheme: dark) {
-        body { background: #111111; color: #f5f5f5; }
-        p { color: #a3a3a3; }
-        hr { border-top-color: #333333; }
-      }
+      h1 + p { margin-top: 1.5em; }
     </style>
   </head>
   <body>
@@ -244,7 +254,6 @@ const MAINTENANCE_PAGE_HTML = `<!DOCTYPE html>
         Our store is temporarily offline for maintenance.
         Thank you for your patience &mdash; please check back shortly.
       </p>
-      <hr />
     </main>
   </body>
 </html>
