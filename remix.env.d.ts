@@ -28,6 +28,10 @@ declare global {
     SANITY_API_VERSION: string;
     SANITY_API_TOKEN: string;
     SANITY_PREVIEW_SECRET: string;
+    /** Set to "true" to serve the maintenance page (HTTP 503) on every route. */
+    MAINTENANCE_MODE?: string;
+    /** Optional. Visiting `?preview=<token>` bypasses maintenance mode via a signed cookie. */
+    MAINTENANCE_BYPASS_TOKEN?: string;
   }
 }
 
