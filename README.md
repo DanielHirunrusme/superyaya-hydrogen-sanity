@@ -220,6 +220,43 @@ We've set up basic [Shopify Analytics][shopify-analytics] on this demo. The `has
 
 For information on running production builds and deployment, see the [Hydrogen documentation][hydrogen-framework].
 
+# Maintenance mode
+
+The storefront can be taken offline temporarily without a code change. It is controlled by environment variables that are read in `server.ts` (see `app/lib/maintenance.ts`) before any route loaders, layout or API clients run.
+
+| Variable                   | Value                                | Effect                                                                                                                                         |
+| -------------------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `MAINTENANCE_MODE`         | `true` (also accepts `1` / `on`)     | Every request to every route (including deep links) returns a self-contained "We'll be back soon" page with **HTTP 503** and a `Retry-After` header. Anything else (unset, empty, `false`) leaves the site running normally. |
+| `MAINTENANCE_BYPASS_TOKEN` | A long random secret (optional)      | While maintenance mode is on, visiting any URL with `?preview=<token>` sets a signed, `HttpOnly` cookie (valid 24 hours) and redirects to the same URL without the token, so you can browse the real site. Leave unset to disable bypassing. |
+
+Search engines treat a 503 with `Retry-After` as a temporary outage, so rankings are not affected by a short maintenance window.
+
+## Turning it on (Shopify admin, Hydrogen channel)
+
+1. In Shopify admin go to **Sales channels → Hydrogen → _your storefront_ → Storefront settings → Environments and variables**.
+2. Under **Environment variables**, add (or edit) `MAINTENANCE_MODE` with the value `true` for the **Production** environment (and/or Preview/Custom environments as needed).
+3. Optionally add `MAINTENANCE_BYPASS_TOKEN` with a long random value (for example the output of `openssl rand -hex 32`) and mark it as **Secret**.
+4. Save, then **redeploy** so Oxygen picks up the new values. Environment variable changes only take effect on a new deployment. Either:
+   - push any commit (the GitHub workflow in `.github/workflows` deploys on every push), or
+   - re-run the latest **Deploy to Oxygen** workflow from the GitHub **Actions** tab, or
+   - deploy from your machine with `npx shopify hydrogen deploy`.
+5. Verify: open the site in a private window — you should see the maintenance page and the response status should be `503`. If you set a bypass token, open `https://your-store.com/?preview=<token>` once; the real site loads for you afterwards (in that browser) for 24 hours.
+
+## Turning it off
+
+Set `MAINTENANCE_MODE` to `false` (or delete the variable) in the same screen and redeploy as above. No other change is required.
+
+> Rotating `MAINTENANCE_BYPASS_TOKEN` or `SESSION_SECRET` immediately invalidates every previously issued bypass cookie.
+
+## Testing locally
+
+Add `MAINTENANCE_MODE="true"` (and optionally `MAINTENANCE_BYPASS_TOKEN`) to your local `.env`, run `npm run dev`, and request any page:
+
+```bash
+curl -i http://localhost:3000/            # HTTP/1.1 503 + Retry-After
+curl -i "http://localhost:3000/?preview=<token>"   # 302 + Set-Cookie: maintenance_bypass=…
+```
+
 # License
 
 This repository is published under the [MIT][license] license.

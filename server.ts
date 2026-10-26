@@ -16,6 +16,7 @@ import {
 } from '@shopify/remix-oxygen';
 import {createSanityClient, PreviewSession} from 'hydrogen-sanity';
 
+import {handleMaintenanceMode} from '~/lib/maintenance';
 import {getLocaleFromRequest} from '~/lib/utils';
 
 /**
@@ -28,6 +29,15 @@ export default {
     executionContext: ExecutionContext,
   ): Promise<Response> {
     try {
+      /**
+       * Maintenance mode (MAINTENANCE_MODE="true") short-circuits every request
+       * before any clients or route loaders run. See `app/lib/maintenance.ts`.
+       */
+      const maintenanceResponse = await handleMaintenanceMode(request, env);
+      if (maintenanceResponse) {
+        return maintenanceResponse;
+      }
+
       /**
        * Open a cache instance in the worker and a custom session instance.
        */
